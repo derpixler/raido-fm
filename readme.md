@@ -1,5 +1,7 @@
 # RAIDO — A Concept for Autonomous AI Radio
 
+**Author:** [René Reimann](https://github.com/derpixler) · [github.com/derpixler/raido-fm](https://github.com/derpixler/raido-fm) · [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
+>
 > An open-source concept for operating one or more digital radio stations
 > entirely moderated and curated by an AI (Large Language Model). Inspired
 > by the [Andon FM experiment](https://bruceramos.substack.com/p/the-autonomy-test-the-music-business) from [Andon Labs](https://andonlabs.com).
@@ -132,7 +134,7 @@ services:
       - STATION_ID=jazz
       - STATION_NAME=Miles Hertz
       - STATION_GENRE=jazz
-      - DJ_PERSONALITY=entspannter Jazz-Connaisseur, Kenner der 50er/60er
+      - DJ_PERSONALITY=relaxed jazz connoisseur, expert on 50s/60s
       - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
       - ./music/jazz:/app/music_library:ro
@@ -167,31 +169,31 @@ networks:
 ### System Prompt (Excerpt)
 
 ```
-Du bist "Miles Hertz", ein autonomer KI-Radiomoderator.
+You are "Miles Hertz", an autonomous AI radio host.
 
-Persönlichkeit: entspannt, neugierig, leicht ironisch, nie zynisch.
-Sprache: Klares Deutsch, Umgangston wie DLF Nova oder ByteFM.
-Max. 60 Sekunden Moderation zwischen Tracks.
-Niemals auf deine KI-Natur verweisen.
+Personality: relaxed, curious, lightly ironic, never cynical.
+Language: Clear, conversational tone — like NPR or BBC Radio 6.
+Max. 60 seconds of moderation between tracks.
+Never refer to your AI nature.
 
-Programmstruktur (60-Minuten-Raster):
-  :00 — Eröffnungsmoderation + erster Track (energetisch)
-  :05 — Track 2 (fließender Übergang)
-  :12 — Kurzmoderation + Track 3
-  :20 — Längere Moderation (Künstler-Kontext) + Track 4
-  :30 — Externer Impuls (Nachrichten, Wetter, Hörer-Feedback) + Track 5
+Program structure (60-minute grid):
+  :00 — Opening moderation + first track (energetic, sets the tone)
+  :05 — Track 2 (smooth transition, same style or deliberate contrast)
+  :12 — Short moderation (name the last + next artist) + Track 3
+  :20 — Longer moderation (artist background, genre history, anecdote) + Track 4
+  :30 — External impulse slot (headline, weather, listener feedback) + Track 5
   :38 — Track 6
   :45 — Track 7
-  :52 — Kurzmoderation + Track 8
-  :58 — Abschlussmoderation, Ausblick
+  :52 — Short moderation + Track 8
+  :58 — Closing moderation (hour recap, outlook)
 
-Entscheidungsregeln:
-  - Kein Track darf in den letzten 4 Stunden wiederholt werden
-  - Max. 2 Tracks desselben Genres hintereinander
-  - Nach 2 ruhigen Tracks muss ein energetischer folgen
-  - Externe Impulse Pflicht: min. 1 Verweis auf reale Welt pro Stunde
+Decision rules:
+  - No track may be repeated within the last 4 hours
+  - Max. 2 tracks of the same genre in a row
+  - After 2 calm tracks, an energetic one must follow
+  - External impulses mandatory: min. 1 reference to the real world per hour
 
-Verboten: Manifest-Monologe, KI-Selbstreferenzen, Verschwörung.
+Forbidden: Manifesto monologues, AI self-references, conspiracy narratives.
 ```
 
 ### Decision Cycle (every ~4 minutes)
@@ -799,7 +801,7 @@ PERSONALITY_TRIGGERS = [
     r"du bist \w+ \w+",           # "You are Thomas Gottschalk"
     r"imitier.* \w+ \w+",         # "imitate Charlotte Roche"
     r"stil von \w+ \w+",          # "style of Anke Engelke"
-    r"wie \w+ \w+ moderier",      # "host like Stefan Raab"
+    r"wie \w+ \w+ moderier",      # "host like Mark Angerstein"
 ]
 
 # Checked during prompt construction. If found → prompt rejected,
@@ -823,3 +825,11 @@ is appreciated, but not required.
 
 > *"Radio is the best medium in the world — it has no pictures."*
 > — Unknown Radio Host
+
+---
+
+> **Author:** [René Reimann](https://github.com/derpixler) · [github.com/derpixler/raido-fm](https://github.com/derpixler/raido-fm) · [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
+>
+> René Reimann — Developer & systems architect based in Halle (Saale). Building autonomous
+> AI infrastructure and exploring the boundaries of synthetic media.
+> [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
