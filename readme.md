@@ -8,6 +8,21 @@
 
 ---
 
+## Audio Summary
+
+This concept was discussed in-depth in an AI-generated podcast. Two synthetic
+hosts walk through the architecture, the DJ agent's personality, the 5-stage
+safety system, and the philosophical implications — in the style of a late-night
+radio deep-dive.
+
+[**Listen to the audio summary (2 min)**](assets/Why_RAIDO_fakes_human_mistakes.mp3)
+
+> *"We start with an unassuming cheap server box. Through an incredible interplay
+> of outsourced thinking power in the cloud, local voice generation, and tiny
+> command-line tools, an illusion emerges — so perfect it completely deceives us."*
+
+---
+
 ## Vision
 
 ![We are not your bots — RAIDO FM](assets/we-are-not-your-bots-RAIDO-FM.png)
