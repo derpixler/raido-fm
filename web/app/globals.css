@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-surface: #0a0a0a;
+  --color-border: #1a1a1a;
+  --color-primary: #8b5cf6;
+  --color-primary-glow: #a78bfa;
+  --color-foreground: #ffffff;
+  --color-muted: #a1a1aa;
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:
+    var(--font-mono-jb), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+    color: #fff;
+  }
+
+  /* Dezenter, ruhiger Scrollbar-Stil */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 9999px;
+    border: 2px solid var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a2a2a;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Hintergrund-Atmosphäre: dezenter violetter Glow + feines Raster */
+.bg-atmosphere::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60rem 40rem at 80% -10%,
+      color-mix(in oklab, var(--color-primary) 18%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50rem 40rem at 0% 100%,
+      color-mix(in oklab, var(--color-primary) 10%, transparent),
+      transparent 70%
+    );
+}
+
+.bg-grid::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(
+    70% 60% at 50% 30%,
+    #000 0%,
+    transparent 90%
+  );
+  opacity: 0.35;
+}
+
+/* ---- Syntax Highlighting (highlight.js Tokens, violetter Akzent) ---- */
+.hljs {
+  background: transparent;
+  color: #e4e4e7;
+  font-family: var(--font-mono);
+}
+.hljs-comment,
+.hljs-quote {
+  color: #6b7280;
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-meta .hljs-keyword {
+  color: #a78bfa;
+}
+.hljs-string,
+.hljs-attr,
+.hljs-template-tag {
+  color: #c4b5fd;
+}
+.hljs-number,
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #d8b4fe;
+}
+.hljs-title,
+.hljs-function .hljs-title,
+.hljs-section,
+.hljs-name {
+  color: #f5d0fe;
+}
+.hljs-attribute,
+.hljs-variable,
+.hljs-symbol,
+.hljs-bullet {
+  color: #fbcfe8;
+}
+.hljs-tag {
+  color: #9ca3af;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 600;
+}

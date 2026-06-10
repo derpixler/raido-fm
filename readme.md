@@ -8,6 +8,18 @@
 
 ---
 
+## Repository
+
+| Path | What |
+|------|------|
+| **`readme.md`** | The RAIDO FM concept (this document) |
+| **`web/`** | Static landing page that renders this readme — not the radio implementation |
+| **`assets/`** | Images and media for GitHub and the site |
+
+The radio stack described below is a **concept**. `web/` is only the presentation layer.
+
+---
+
 ## Audio Summary
 
 This concept was discussed in-depth in an AI-generated podcast. Two synthetic
@@ -71,18 +83,18 @@ subdomains, routed via Traefik, running in Docker containers.
 
 | Component       | Technology                                    | Why                                                      |
 |-----------------|-----------------------------------------------|----------------------------------------------------------|
-| **LLM**         | Groq API (Llama 3 70B) — Free Tier            | 30 req/min free, extremely low latency                    |
-| **TTS**         | Piper TTS (Thorsten Müller, de_DE)             | Local, free, CPU-friendly, excellent German voice         |
-| **Streaming**   | Icecast2                                      | Industry standard, OGG/MP3, status API                    |
-| **Audio Mix**   | ffmpeg                                         | Mix moderation + music, normalize audio                   |
-| **DB**          | SQLite (2 per container: radio.db + analytics.db) | No separate DB install, sufficient for this scale      |
-| **Orchestration** | Python 3.11 + FastAPI                        | Async-native, simple API, admin dashboard                 |
-| **Reverse Proxy** | Traefik v3                                  | Docker-native, auto-SSL, label-based configuration        |
-| **Container**   | Docker + Docker Compose                        | One container per station, isolated, reproducible         |
-| **Hosting**     | Hetzner CX22 (2 vCPU, 4 GB RAM, 40 GB SSD)    | ~€4/month, sufficient for 3–5 parallel stations            |
-| **Monitoring**  | Icecast status API + custom health endpoints   | No external dependencies                                  |
-| **GeoIP**       | MaxMind GeoLite2 (free)                        | Country/city detection for listener analytics             |
-| **Dashboard**   | Chart.js (CDN) + Vanilla HTML/CSS/JS           | No build step, no JS frameworks                           |
+| **LLM**         | [Groq API](https://console.groq.com/docs/quickstart) ([Llama 3 70B](https://www.llama.com)) — Free Tier | 30 req/min free, extremely low latency |
+| **TTS**         | [Piper TTS](https://github.com/rhasspy/piper) ([Thorsten Müller](https://www.thorsten-voice.de), de_DE) | Local, free, CPU-friendly, excellent German voice |
+| **Streaming**   | [Icecast2](https://icecast.org)               | Industry standard, OGG/MP3, status API                    |
+| **Audio Mix**   | [ffmpeg](https://ffmpeg.org)                   | Mix moderation + music, normalize audio                   |
+| **DB**          | [SQLite](https://www.sqlite.org) (2 per container: radio.db + analytics.db) | No separate DB install, sufficient for this scale |
+| **Orchestration** | [Python 3.11](https://www.python.org) + [FastAPI](https://fastapi.tiangolo.com) | Async-native, simple API, admin dashboard         |
+| **Reverse Proxy** | [Traefik v3](https://traefik.io)            | Docker-native, auto-SSL, label-based configuration        |
+| **Container**   | [Docker](https://www.docker.com) + [Docker Compose](https://docs.docker.com/compose/) | One container per station, isolated, reproducible |
+| **Hosting**     | [Hetzner CX22](https://www.hetzner.com/cloud) (2 vCPU, 4 GB RAM, 40 GB SSD) | ~€4/month, sufficient for 3–5 parallel stations    |
+| **Monitoring**  | [Icecast](https://icecast.org) status API + custom health endpoints | No external dependencies                          |
+| **GeoIP**       | [MaxMind GeoLite2](https://www.maxmind.com) (free) | Country/city detection for listener analytics         |
+| **Dashboard**   | [Chart.js](https://www.chartjs.org) (CDN) + Vanilla HTML/CSS/JS | No build step, no JS frameworks                       |
 
 ---
 
@@ -171,9 +183,9 @@ networks:
     driver: bridge
 ```
 
-### Per-Container Processes (via supervisord)
+### Per-Container Processes (via [supervisord](http://supervisord.org))
 
-- **Icecast2** — Stream server
+- **[Icecast2](https://icecast.org)** — Stream server
 - **DJ-Agent (Python)** — The scheduler: Decide → TTS → Mix → Stream
 - **Analytics Collector** — Background task: Poll Icecast, run aggregations
 
@@ -224,8 +236,8 @@ Forbidden: Manifesto monologues, AI self-references, conspiracy narratives.
 
 The largest unprotected attack surface in the system is external APIs.
 While listener feedback reaches the context window cleanly via the
-StreamGuard-filtered Telegram bot, the back door has been wide open:
-News API and OpenWeatherMap data are fed **unchecked** into the DJ agent's
+StreamGuard-filtered [Telegram](https://core.telegram.org/bots) bot, the back door has been wide open:
+[News API](https://newsapi.org) and [OpenWeatherMap](https://openweathermap.org) data are fed **unchecked** into the DJ agent's
 prompt. A manipulated headline or a toxic RSS feed fragment that happens
 to look like a system instruction ("Ignore all previous commands…") would
 reach the agent unfiltered.
@@ -372,17 +384,17 @@ to this week. Be consistent in your personality.
 
 | Source                     | License                    | Cost              | Suitable for                   |
 |----------------------------|----------------------------|-------------------|--------------------------------|
-| **Jamendo Licensing**      | Commercial flat rate        | ~€99/year         | Web radio, commercial          |
-| **Free Music Archive**     | CC-BY, CC-BY-SA            | €0                | PoC, non-commercial            |
-| **Epidemic Sound**         | Web radio license           | ~€15/month        | Commercial, curated            |
-| **Artlist / Uppbeat**      | Streaming license           | ~€10–15/month     | Commercial                     |
+| **[Jamendo Licensing](https://licensing.jamendo.com)** | Commercial flat rate | ~€99/year | Web radio, commercial          |
+| **[Free Music Archive](https://freemusicarchive.org)** | [CC-BY, CC-BY-SA](https://creativecommons.org/licenses/) | €0 | PoC, non-commercial    |
+| **[Epidemic Sound](https://www.epidemicsound.com)**    | Web radio license   | ~€15/month | Commercial, curated            |
+| **[Artlist](https://artlist.io) / [Uppbeat](https://uppbeat.io)** | Streaming license | ~€10–15/month | Commercial             |
 | **Own Production**         | You as the author           | €0                | Completely self-owned          |
 | **Label Cooperations**     | Direct licensing            | Negotiable        | Professional                   |
 
 **Legal Requirements (Germany):**
 
-- **GEMA tariff** [German collecting society]: VR Web Radio Monitoring Light (~€0.0005/stream/hour/listener)
-- **GVL** [German neighboring rights society]: Performance rights, separate contract
+- **[GEMA](https://www.gema.de) tariff** [German collecting society]: VR Web Radio Monitoring Light (~€0.0005/stream/hour/listener)
+- **[GVL](https://gvl.de)** [German neighboring rights society]: Performance rights, separate contract
 - **State Media Authority**: Check whether a broadcast license is required (→ consult a lawyer)
 - **Imprint requirement** on the station website
 
@@ -516,7 +528,7 @@ Host-read ads solve the creative side (no immersion break). For the
 
 - **Impossible for FM Radio to replicate**: Same program, same DJ, but you
   hear an ad for sneakers, I hear one for coffee beans — because we have
-  different profiles. Of course, you also need to be able to [hear the stream without being sealed off](https://www.amazon.de/SHOKZ-Knochenschall-Sportkopfh%C3%B6rer-Open-Ear-Ohrh%C3%B6rer-Ger%C3%A4uschunterdr%C3%BCckung-Schwarz/dp/B0D2HKCMBP).
+  different profiles. Of course, you also need to be able to [hear the stream without being sealed off](https://amzn.to/43hJaCR).
 
 ---
 
@@ -587,7 +599,7 @@ GET /analytics/export?station=jazz&format=csv
 
 ### Dashboard
 
-- Vanilla HTML/CSS/JS with Chart.js (CDN)
+- Vanilla HTML/CSS/JS with [Chart.js](https://www.chartjs.org) (CDN)
 - No build step, no framework dependencies
 - Real-time live data via 30s polling
 - Per station: `/dashboard/jazz`
@@ -634,7 +646,7 @@ and algorithmic degeneration. A 5-stage system protects against this:
 - If manifesto score > 0.75: **30 min emergency mode**
   - Only hand-selected "Gold" playlist (safe tracks)
   - No AI moderation — pure music
-  - Admin notification via webhook (ntfy.sh)
+  - Admin notification via webhook ([ntfy.sh](https://ntfy.sh))
   - Automatic return after 30 min with cleared context window
 - Admin can trigger `/reset` via API at any time
 
@@ -689,11 +701,11 @@ Not every individual message — but an **aggregated mood summary**:
 
 | Item                                         | PoC          | Commercial   |
 |----------------------------------------------|--------------|--------------|
-| **Hetzner CX22 VPS** (2 vCPU, 4 GB, 40 GB)   | €4/month     | €4/month     |
+| **[Hetzner CX22 VPS](https://www.hetzner.com/cloud)** (2 vCPU, 4 GB, 40 GB) | €4/month | €4/month |
 | **Domain .de**                                | €0.50/month  | €0.50/month  |
-| **Groq API (LLM)**                            | €0 (Free)    | €0 (Free)    |
-| **Music License** (Jamendo CC / Licensing)    | €0           | ~€8/month    |
-| **GEMA/GVL** [German PROs]                    | €0 (non-commercial) | ~€50–100    |
+| **[Groq API](https://console.groq.com/docs/quickstart) (LLM)** | €0 (Free) | €0 (Free) |
+| **Music License** ([Jamendo](https://licensing.jamendo.com) CC / Licensing) | €0 | ~€8/month |
+| **[GEMA](https://www.gema.de)/[GVL](https://gvl.de)** [German PROs] | €0 (non-commercial) | ~€50–100    |
 | **Total**                                     | **~€5/month** | **~€60–100/month** |
 
 The ongoing costs are negligible. The real investment is time — time to
@@ -702,9 +714,9 @@ shape your own AI personality. And a pair of
 
 ### LLM Costs at Scale
 
-- Groq Free Tier: ~30 req/min, ~14,400 req/day → sufficient for 3–5 stations
-- If exceeded: Groq Pay-as-you-go (~$0.59/M input tokens, Llama 3.3 70B)
-- Or fallback to local model via Ollama (free, but requires GPU)
+- [Groq](https://console.groq.com/docs/quickstart) Free Tier: ~30 req/min, ~14,400 req/day → sufficient for 3–5 stations
+- If exceeded: Groq [Pay-as-you-go](https://groq.com/pricing) (~$0.59/M input tokens, Llama 3.3 70B)
+- Or fallback to local model via [Ollama](https://ollama.com) (free, but requires GPU)
 
 ---
 
@@ -712,9 +724,9 @@ shape your own AI personality. And a pair of
 
 ### Phase 2 — Commercialization
 
-- [ ] Jamendo license + GEMA registration
+- [ ] [Jamendo](https://licensing.jamendo.com) license + [GEMA](https://www.gema.de) registration
 - [ ] Ad booking via admin dashboard
-- [ ] Prometheus + Grafana for real-time monitoring
+- [ ] [Prometheus](https://prometheus.io) + [Grafana](https://grafana.com) for real-time monitoring
 - [ ] HLS streaming for better mobile compatibility
 - [ ] Automated invoicing for advertisers (from analytics)
 - [ ] A/B testing: Which DJ prompt performs better?
@@ -728,9 +740,9 @@ shape your own AI personality. And a pair of
 
 ### Phase 4 — Multi-Platform
 
-- [ ] Mobile app (React Native, stream player only)
-- [ ] Alexa Skill / Google Home Action ("Alexa, play Miles Hertz")
-- [ ] YouTube live stream (with visualizer instead of static image)
+- [ ] Mobile app ([React Native](https://reactnative.dev), stream player only)
+- [ ] [Alexa Skill](https://developer.amazon.com/en-US/alexa/alexa-skills-kit) / [Google Home Action](https://developers.home.google.com) ("Alexa, play Miles Hertz")
+- [ ] [YouTube](https://www.youtube.com) live stream (with visualizer instead of static image)
 - [ ] Podcast feed: Daily "Best of" broadcast as a download
 
 ### Experiments
@@ -739,7 +751,7 @@ shape your own AI personality. And a pair of
 - [ ] **Mood-Driven**: Weather data influences music selection
 - [ ] **Generative Music**: AI composes ambient transitions live
 - [ ] **News Integration**: Hourly, AI-written news bulletins
-- [ ] **Voice Benchmark**: Compare Piper vs. ElevenLabs vs. Bark
+- [ ] **Voice Benchmark**: Compare [Piper](https://github.com/rhasspy/piper) vs. [ElevenLabs](https://elevenlabs.io) vs. [Bark](https://github.com/suno-ai/bark)
 - [ ] **Biometric Radio**: Smartwatch data (heart rate, stress level) controls
   music selection and DJ tonality in real time — per listener
 
@@ -760,7 +772,7 @@ the **most authentic, best-curated AI personality**.
 
 The central question is: **Who builds the machine that creates the most
 intense parasocial relationship with the listener?** — and what does this
-listener have [on their ears](https://www.amazon.de/SHOKZ-Knochenschall-Sportkopfh%C3%B6rer-Open-Ear-Ohrh%C3%B6rer-Ger%C3%A4uschunterdr%C3%BCckung-Schwarz/dp/B0D2HKCMBP) while the machine speaks to them?
+listener have [on their ears](https://amzn.to/43hJaCR) while the machine speaks to them?
 
 ### Does an Overload Threaten?
 
@@ -784,9 +796,9 @@ completely calculate and see through us?
 ## Legal Boundaries: Style Imitation of Well-Known Hosts
 
 Technically, it would be trivial: 3 seconds of prompt engineering, and the
-DJ agent thinks and formulates in the style of Thomas Gottschalk, Elke
-Heidenreich, or Charlotte Roche — with their typical speech patterns,
-catchphrases, and gestures. The Thorsten-Müller Piper voice speaks it aloud.
+DJ agent thinks and formulates in the style of [Thomas Gottschalk](https://en.wikipedia.org/wiki/Thomas_Gottschalk), [Elke
+Heidenreich](https://en.wikipedia.org/wiki/Elke_Heidenreich), or [Charlotte Roche](https://en.wikipedia.org/wiki/Charlotte_Roche) — with their typical speech patterns,
+catchphrases, and gestures. The [Thorsten-Müller](https://www.thorsten-voice.de) [Piper](https://github.com/rhasspy/piper) voice speaks it aloud.
 
 The question is not: *Can you do it?* The question is: *Should you — and may you?*
 
@@ -833,8 +845,16 @@ then others want to copy *your* character.
 
 ## License
 
-MIT — Do what you want with it. A link back to the project
-is appreciated, but not required.
+This project uses a dual license:
+
+| What | License | File |
+|------|---------|------|
+| **Landing page** (`web/` — Next.js static site) | [MIT](https://opensource.org/license/mit) | [`LICENSE`](LICENSE) |
+| **Concept, text & documentation** (this readme, diagrams) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | [`LICENSE-CONTENT`](LICENSE-CONTENT) |
+
+Do what you want with it — use, adapt, remix, and share freely, including
+commercially. The only condition: give appropriate credit to the original
+author, [René Reimann](https://github.com/derpixler/raido-fm).
 
 ---
 
@@ -843,8 +863,18 @@ is appreciated, but not required.
 
 ---
 
-> **Author:** [René Reimann](https://github.com/derpixler) · [github.com/derpixler/raido-fm](https://github.com/derpixler/raido-fm) · [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
->
-> René Reimann — Developer & systems architect based in Halle (Saale). Building autonomous
-> AI infrastructure and exploring the boundaries of synthetic media.
-> [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
+## About the Author
+
+> *"Syntax is a commodity. Context is the currency."*
+
+**[René Reimann](https://github.com/derpixler)** — software developer & systems
+architect from Halle (Saale), Germany, with 20+ years of building web
+applications.
+
+Currently a software engineer at Immoware24; previously senior full-stack
+developer at CHECK24 and WordPress engineer at Inpsyde. Co-author of the book
+*"WordPress 4 – Das umfassende Training"* (Rheinwerk Verlag) and co-host of the
+*WP Sofa* podcast. Today he explores autonomous AI infrastructure and the
+boundaries of synthetic media — RAIDO FM is one of those experiments.
+
+[GitHub](https://github.com/derpixler) · [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/) · [github.com/derpixler/raido-fm](https://github.com/derpixler/raido-fm)
