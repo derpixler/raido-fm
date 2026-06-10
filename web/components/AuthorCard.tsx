@@ -14,8 +14,7 @@ const REPO_URL = "https://github.com/derpixler/raido-fm";
 /** Highlight-Stationen aus dem Werdegang — kompakt als „Pills". */
 const HIGHLIGHTS = [
   "20+ years building for the web",
-  "Software Engineer · Immoware24",
-  "Ex-CHECK24 · Ex-Inpsyde",
+  "Worked for Immoware24 · CHECK24 · Inpsyde",
   "Co-author · WordPress book (Rheinwerk)",
   "Co-host · WP Sofa podcast",
 ];
