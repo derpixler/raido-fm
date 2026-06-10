@@ -1,31 +1,19 @@
-# RAIDO — A Concept for Autonomous AI Radio
+# RAIDO — A Manifest for Autonomous AI Radio
 
 **Author:** [René Reimann](https://github.com/derpixler) · [github.com/derpixler/raido-fm](https://github.com/derpixler/raido-fm) · [LinkedIn](https://www.linkedin.com/in/rene-reimann-18b50a127/)
 >
-> An open-source concept for operating one or more digital radio stations
+> An open-source manifest for operating one or more digital radio stations
 > entirely moderated and curated by an AI (Large Language Model). Inspired
 > by the [Andon FM experiment](https://bruceramos.substack.com/p/the-autonomy-test-the-music-business) from [Andon Labs](https://andonlabs.com).
 
 ---
 
-## Repository
-
-| Path | What |
-|------|------|
-| **`readme.md`** | The RAIDO FM concept (this document) |
-| **`web/`** | Static landing page that renders this readme — not the radio implementation |
-| **`assets/`** | Images and media for GitHub and the site |
-
-The radio stack described below is a **concept**. `web/` is only the presentation layer.
-
----
-
 ## Audio Summary
 
-This concept was discussed in-depth in an AI-generated podcast. Two synthetic
-hosts walk through the architecture, the DJ agent's personality, the 5-stage
-safety system, and the philosophical implications — in the style of a late-night
-radio deep-dive.
+An AI-generated audio summary of this manifest: the architecture, the DJ
+agent's personality, the 5-stage safety system, and the philosophical
+implications — condensed into one listen. Fittingly, the voice itself is
+synthetic.
 
 [**▶ Listen to the audio summary (player)**](index.html) · [(direct download)](https://github.com/derpixler/raido-fm/raw/main/assets/Why_RAIDO_fakes_human_mistakes.mp3)
 
@@ -788,7 +776,7 @@ calculation, will we end up appreciating the stuttering, flawed, imperfect
 *human* at the microphone all the more — precisely because they can never
 completely calculate and see through us?
 
-> The RAIDO concept does not attempt to answer this question. It describes
+> The RAIDO manifest does not attempt to answer this question. It describes
 > an architecture that makes it possible to investigate it empirically.
 
 ---
@@ -850,7 +838,7 @@ This project uses a dual license:
 | What | License | File |
 |------|---------|------|
 | **Landing page** (`web/` — Next.js static site) | [MIT](https://opensource.org/license/mit) | [`LICENSE`](LICENSE) |
-| **Concept, text & documentation** (this readme, diagrams) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | [`LICENSE-CONTENT`](LICENSE-CONTENT) |
+| **Manifest, text & documentation** (this readme, diagrams) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | [`LICENSE-CONTENT`](LICENSE-CONTENT) |
 
 Do what you want with it — use, adapt, remix, and share freely, including
 commercially. The only condition: give appropriate credit to the original

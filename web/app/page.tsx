@@ -6,7 +6,7 @@ const GITHUB_URL = "https://github.com/derpixler/raido-fm";
 const SITE_URL = "https://raido.fm";
 const OG_IMAGE = `${SITE_URL}/og.png`;
 const DESCRIPTION =
-  "An open-source concept for autonomous AI radio. An LLM moderates, curates, and broadcasts 24/7 — multiple stations, each with its own personality, for ~€5/month.";
+  "An open-source manifest for autonomous AI radio. An LLM moderates, curates, and broadcasts 24/7 — multiple stations, each with its own personality, for ~€5/month.";
 
 export default function Page() {
   const markdown = loadReadmeMarkdown();
@@ -67,7 +67,7 @@ export default function Page() {
       {
         "@type": "TechArticle",
         "@id": `${SITE_URL}/#article`,
-        headline: "RAIDO — A Concept for Autonomous AI Radio",
+        headline: "RAIDO — A Manifest for Autonomous AI Radio",
         name: "RAIDO FM",
         description: DESCRIPTION,
         inLanguage: "en",
@@ -86,7 +86,7 @@ export default function Page() {
         applicationCategory: "WebApplication",
         applicationSubCategory: "Landing Page",
         description:
-          "Static landing page presenting the RAIDO FM concept document.",
+          "Static landing page presenting the RAIDO FM manifest document.",
         url: SITE_URL,
         image: OG_IMAGE,
         author: { "@id": `${SITE_URL}/#author` },

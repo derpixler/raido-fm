@@ -70,11 +70,11 @@ export function LandingClient({ markdown }: { markdown: string }) {
             className="mt-8"
             itemScope
             itemType="https://schema.org/TechArticle"
-            aria-label="RAIDO — A Concept for Autonomous AI Radio"
+            aria-label="RAIDO — A Manifest for Autonomous AI Radio"
           >
             <meta
               itemProp="headline"
-              content="RAIDO — A Concept for Autonomous AI Radio"
+              content="RAIDO — A Manifest for Autonomous AI Radio"
             />
             <meta itemProp="author" content="René Reimann" />
             <meta itemProp="inLanguage" content="en" />

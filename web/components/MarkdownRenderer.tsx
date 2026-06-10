@@ -134,6 +134,20 @@ const components: Components = {
       .find((c) => c.startsWith("language-"))
       ?.replace("language-", "");
     const rawCode = nodeToText(codeNode).replace(/\n$/, "");
+    // ASCII-Diagramme (Box-Zeichen) sind Grafiken, kein Code: ohne Sprach-Label,
+    // Copy-Button und (fälschlich auto-erkanntes) Syntax-Highlighting rendern.
+    if (/[┌┐└┘├┤┬┴│▲▼◀▶]/.test(rawCode)) {
+      return (
+        <figure className="my-6 overflow-x-auto rounded-xl border border-border bg-[#0A0A0A] p-4">
+          <pre
+            aria-label="Diagram"
+            className="whitespace-pre font-mono text-sm leading-relaxed text-[#e4e4e7]"
+          >
+            {rawCode}
+          </pre>
+        </figure>
+      );
+    }
     return (
       <CodeBlock rawCode={rawCode} language={language}>
         {children}

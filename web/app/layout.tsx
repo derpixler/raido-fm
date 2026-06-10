@@ -16,9 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const SITE_URL = "https://raido.fm";
-const TITLE = "RAIDO FM — A Concept for Autonomous AI Radio";
+const TITLE = "RAIDO FM — A Manifest for Autonomous AI Radio";
 const DESCRIPTION =
-  "An open-source concept for autonomous AI radio. An LLM moderates, curates, and broadcasts 24/7 — multiple stations, each with its own personality, for ~€5/month.";
+  "An open-source manifest for autonomous AI radio. An LLM moderates, curates, and broadcasts 24/7 — multiple stations, each with its own personality, for ~€5/month.";
 const OG_IMAGE = {
   url: "/og.png",
   width: 1200,

@@ -69,7 +69,7 @@ export function Hero() {
               variants={fadeUp}
               className="mt-5 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
-              A Concept for Autonomous AI Radio
+              A Manifest for Autonomous AI Radio
             </motion.h1>
 
             <motion.p
@@ -79,7 +79,7 @@ export function Hero() {
               variants={fadeUp}
               className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-white sm:text-xl"
             >
-              An open-source concept for operating one or more digital radio
+              An open-source manifest for operating one or more digital radio
               stations entirely moderated and curated by an AI (Large Language
               Model). Inspired by the{" "}
               <a
@@ -109,11 +109,10 @@ export function Hero() {
               variants={fadeUp}
               className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-white/80"
             >
-              This concept was discussed in-depth in an AI-generated podcast.
-              Two synthetic hosts walk through the architecture, the DJ
-              agent&apos;s personality, the 5-stage safety system, and the
-              philosophical implications — in the style of a late-night radio
-              deep-dive.
+              An AI-generated audio summary of this manifest: the
+              architecture, the DJ agent&apos;s personality, the 5-stage
+              safety system, and the philosophical implications — condensed
+              into one listen. Fittingly, the voice itself is synthetic.
             </motion.p>
 
             <motion.div
@@ -178,7 +177,7 @@ export function Hero() {
             <AudioPlayer
               src={asset("/Why_RAIDO_fakes_human_mistakes.mp3")}
               title="Why RAIDO fakes human mistakes"
-              subtitle="Audio Summary · AI-generated podcast"
+              subtitle="Audio Summary · AI-generated"
               className="max-w-none"
             />
           </motion.div>

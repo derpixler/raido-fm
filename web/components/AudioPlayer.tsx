@@ -23,7 +23,7 @@ function formatTime(seconds: number): string {
 export function AudioPlayer({
   src,
   title = "Audio Summary",
-  subtitle = "AI-generated podcast",
+  subtitle = "AI-generated audio",
   className,
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
