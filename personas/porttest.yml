@@ -1,0 +1,15 @@
+dj:
+  max_moderation_chars: 800
+  name: X
+  personality: x
+  tone: x
+station:
+  claim: test
+  genre: test
+  id: porttest
+  language: de
+  name: auto
+  subgenres:
+  - x
+  timezone: Europe/Berlin
+tracks_file: tracks_porttest.json

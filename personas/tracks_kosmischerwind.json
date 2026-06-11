@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Klaus Schulze",
+    "title": "Totem",
+    "genre": "berlin school",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 2,
+    "artist": "Tangerine Dream",
+    "title": "Phaedra",
+    "genre": "berlin school",
+    "duration": 540,
+    "energy": 0.5
+  },
+  {
+    "id": 3,
+    "artist": "Jean-Michel Jarre",
+    "title": "Oxygene, Pt. 1",
+    "genre": "berlin school",
+    "duration": 480,
+    "energy": 0.7
+  },
+  {
+    "id": 4,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Pt. 2",
+    "genre": "drone",
+    "duration": 660,
+    "energy": 0.2
+  },
+  {
+    "id": 5,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "space ambient",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 6,
+    "artist": "Pulp Fusion",
+    "title": "Solaris",
+    "genre": "kosmische musik",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 7,
+    "artist": "Ashra",
+    "title": "Sunrain",
+    "genre": "kosmische musik",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 8,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "drone",
+    "duration": 180,
+    "energy": 0.1
+  },
+  {
+    "id": 9,
+    "artist": "Michael Stearns",
+    "title": "Chronos",
+    "genre": "space ambient",
+    "duration": 540,
+    "energy": 0.4
+  },
+  {
+    "id": 10,
+    "artist": "Cluster",
+    "title": "Sowiesoso",
+    "genre": "kosmische musik",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Tim Hecker",
+    "title": "Virgins",
+    "genre": "drone",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 12,
+    "artist": "Edgar Froese",
+    "title": "Epsilon in Malaysian Pale",
+    "genre": "berlin school",
+    "duration": 600,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "Manuel Göttsching",
+    "title": "E2-E4",
+    "genre": "kosmische musik",
+    "duration": 720,
+    "energy": 0.7
+  },
+  {
+    "id": 14,
+    "artist": "William Basinski",
+    "title": "dlp 1.1",
+    "genre": "drone",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Vangelis",
+    "title": "Alpha",
+    "genre": "space ambient",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 16,
+    "artist": "Conrad Schnitzler",
+    "title": "Zug",
+    "genre": "kosmische musik",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 17,
+    "artist": "Steve Roach",
+    "title": "Structures from Silence",
+    "genre": "space ambient",
+    "duration": 600,
+    "energy": 0.3
+  },
+  {
+    "id": 18,
+    "artist": "Eliane Radigue",
+    "title": "Trilogie de la Mort, Pt. 1",
+    "genre": "drone",
+    "duration": 660,
+    "energy": 0.1
+  },
+  {
+    "id": 19,
+    "artist": "Harmonia",
+    "title": "Deluxe (Immer Wieder)",
+    "genre": "kosmische musik",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 20,
+    "artist": "Biosphere",
+    "title": "Substrata",
+    "genre": "space ambient",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 21,
+    "artist": "Wendy Carlos",
+    "title": "Timesteps",
+    "genre": "berlin school",
+    "duration": 420,
+    "energy": 0.7
+  },
+  {
+    "id": 22,
+    "artist": "Fennesz",
+    "title": "Endless Summer",
+    "genre": "drone",
+    "duration": 540,
+    "energy": 0.4
+  },
+  {
+    "id": 23,
+    "artist": "Popol Vuh",
+    "title": "Brüder des Schattens - Söhne des Lichts",
+    "genre": "kosmische musik",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 24,
+    "artist": "Jon Hassell",
+    "title": "Vernal Equinox",
+    "genre": "space ambient",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 25,
+    "artist": "Lustmord",
+    "title": "Dark Matter",
+    "genre": "drone",
+    "duration": 600,
+    "energy": 0.2
+  },
+  {
+    "id": 26,
+    "artist": "Günter Schickert",
+    "title": "Apricot Glazed",
+    "genre": "kosmische musik",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 27,
+    "artist": "Pauline Oliveros",
+    "title": "Bye Bye Butterfly",
+    "genre": "drone",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 28,
+    "artist": "Michele Mercure",
+    "title": "Eye of the Storm",
+    "genre": "space ambient",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 29,
+    "artist": "Autechre",
+    "title": "Altibzz",
+    "genre": "drone",
+    "duration": 180,
+    "energy": 0.1
+  },
+  {
+    "id": 30,
+    "artist": "A Winged Victory for the Sullen",
+    "title": "Atomos VII",
+    "genre": "space ambient",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 31,
+    "artist": "Eno Moebius Roedelius",
+    "title": "Broken Head",
+    "genre": "kosmische musik",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 32,
+    "artist": "Thomas Köner",
+    "title": "Daikan",
+    "genre": "drone",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 33,
+    "artist": "Laraaji",
+    "title": "All Possibilities",
+    "genre": "space ambient",
+    "duration": 600,
+    "energy": 0.4
+  },
+  {
+    "id": 34,
+    "artist": "Kraftwerk",
+    "title": "Kometenmelodie 1",
+    "genre": "kosmische musik",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "Harold Budd",
+    "title": "The Pearl",
+    "genre": "space ambient",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 36,
+    "artist": "Rafael Toral",
+    "title": "Wave Field",
+    "genre": "drone",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 37,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "An Intention",
+    "genre": "kosmische musik",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 38,
+    "artist": "John Luther Adams",
+    "title": "Become Ocean",
+    "genre": "drone",
+    "duration": 720,
+    "energy": 0.3
+  },
+  {
+    "id": 39,
+    "artist": "Suzanne Ciani",
+    "title": "L'Oiseau Bleu",
+    "genre": "berlin school",
+    "duration": 240,
+    "energy": 0.4
+  },
+  {
+    "id": 40,
+    "artist": "Loscil",
+    "title": "Stases",
+    "genre": "space ambient",
+    "duration": 360,
+    "energy": 0.2
+  }
+]

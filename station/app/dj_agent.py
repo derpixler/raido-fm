@@ -42,6 +42,10 @@ def _load_tracks() -> list[dict]:
     p = get_persona()
     filename = p.get("tracks_file", "tracks.json")
     path = Path(__file__).parent / filename
+    if not path.exists():
+        path = Path("/app/personas") / filename
+    if not path.exists():
+        path = Path(__file__).parent / "tracks.json"
     with open(path) as f:
         _tracks = json.load(f)
     return _tracks

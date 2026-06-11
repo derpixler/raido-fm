@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Jaga Jazzist",
+    "title": "Day",
+    "genre": "Nu-Jazz",
+    "duration": 420,
+    "energy": 0.7
+  },
+  {
+    "id": 2,
+    "artist": "Thievery Corporation",
+    "title": "Lebanese Blonde",
+    "genre": "Downtempo",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 3,
+    "artist": "Nujabes",
+    "title": "Aruarian Dance",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 287,
+    "energy": 0.4
+  },
+  {
+    "id": 4,
+    "artist": "4hero",
+    "title": "Hold It Down",
+    "genre": "Broken Beat",
+    "duration": 380,
+    "energy": 0.8
+  },
+  {
+    "id": 5,
+    "artist": "Bent",
+    "title": "Magic Love",
+    "genre": "Balearic House",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Bonobo",
+    "title": "Kerala",
+    "genre": "Downtempo",
+    "duration": 288,
+    "energy": 0.6
+  },
+  {
+    "id": 7,
+    "artist": "The Cinematic Orchestra",
+    "title": "To Build a Home",
+    "genre": "Nu-Jazz",
+    "duration": 400,
+    "energy": 0.3
+  },
+  {
+    "id": 8,
+    "artist": "DJ Shadow",
+    "title": "Midnight in a Perfect World",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 9,
+    "artist": "Flying Lotus",
+    "title": "Tea Leaf Dancers",
+    "genre": "Broken Beat",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 10,
+    "artist": "Nightmares on Wax",
+    "title": "Les Nuits",
+    "genre": "Balearic House",
+    "duration": 350,
+    "energy": 0.5
+  },
+  {
+    "id": 11,
+    "artist": "Portico Quartet",
+    "title": "Knee-Deep in the North Sea",
+    "genre": "Nu-Jazz",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 12,
+    "artist": "Massive Attack",
+    "title": "Teardrop",
+    "genre": "Downtempo",
+    "duration": 310,
+    "energy": 0.4
+  },
+  {
+    "id": 13,
+    "artist": "J Dilla",
+    "title": "Workinonit",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 180,
+    "energy": 0.7
+  },
+  {
+    "id": 14,
+    "artist": "Dego",
+    "title": "So Good",
+    "genre": "Broken Beat",
+    "duration": 340,
+    "energy": 0.8
+  },
+  {
+    "id": 15,
+    "artist": "Afterlife",
+    "title": "Dub in Ya Mind",
+    "genre": "Balearic House",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 16,
+    "artist": "Avishai Cohen",
+    "title": "Gently Disturbed",
+    "genre": "Nu-Jazz",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 17,
+    "artist": "Boards of Canada",
+    "title": "Roygbiv",
+    "genre": "Downtempo",
+    "duration": 150,
+    "energy": 0.3
+  },
+  {
+    "id": 18,
+    "artist": "Madlib",
+    "title": "Stepping Into Tomorrow",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 19,
+    "artist": "Bugz in the Attic",
+    "title": "Booty La La",
+    "genre": "Broken Beat",
+    "duration": 350,
+    "energy": 0.9
+  },
+  {
+    "id": 20,
+    "artist": "A Man Called Adam",
+    "title": "Estelle",
+    "genre": "Balearic House",
+    "duration": 400,
+    "energy": 0.6
+  },
+  {
+    "id": 21,
+    "artist": "Esbjörn Svensson Trio",
+    "title": "From Gagarin's Point of View",
+    "genre": "Nu-Jazz",
+    "duration": 450,
+    "energy": 0.7
+  },
+  {
+    "id": 22,
+    "artist": "Tosca",
+    "title": "Fuck Dub",
+    "genre": "Downtempo",
+    "duration": 320,
+    "energy": 0.4
+  },
+  {
+    "id": 23,
+    "artist": "MF DOOM",
+    "title": "Rhinestone Cowboy",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 240,
+    "energy": 0.7
+  },
+  {
+    "id": 24,
+    "artist": "Caro",
+    "title": "Lost",
+    "genre": "Broken Beat",
+    "duration": 280,
+    "energy": 0.6
+  },
+  {
+    "id": 25,
+    "artist": "Chris Coco",
+    "title": "The Beach",
+    "genre": "Balearic House",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 26,
+    "artist": "Koop",
+    "title": "Waltz for Koop",
+    "genre": "Nu-Jazz",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 27,
+    "artist": "Air",
+    "title": "La Femme d'Argent",
+    "genre": "Downtempo",
+    "duration": 400,
+    "energy": 0.4
+  },
+  {
+    "id": 28,
+    "artist": "Lone",
+    "title": "Blue Moon Tree",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 29,
+    "artist": "Mark de Clive-Lowe",
+    "title": "Take the Space Trane",
+    "genre": "Broken Beat",
+    "duration": 360,
+    "energy": 0.8
+  },
+  {
+    "id": 30,
+    "artist": "Café del Mar",
+    "title": "Aria",
+    "genre": "Balearic House",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 31,
+    "artist": "GoGo Penguin",
+    "title": "Murmuration",
+    "genre": "Nu-Jazz",
+    "duration": 320,
+    "energy": 0.6
+  },
+  {
+    "id": 32,
+    "artist": "Zero 7",
+    "title": "In the Waiting Line",
+    "genre": "Downtempo",
+    "duration": 290,
+    "energy": 0.4
+  },
+  {
+    "id": 33,
+    "artist": "Oddisee",
+    "title": "You Belong Here",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 270,
+    "energy": 0.6
+  },
+  {
+    "id": 34,
+    "artist": "Kaidi Tatham",
+    "title": "It's a Love Thing",
+    "genre": "Broken Beat",
+    "duration": 310,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "Röyksopp",
+    "title": "Eple",
+    "genre": "Balearic House",
+    "duration": 350,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "Christian Scott aTunde Adjuah",
+    "title": "Isadora",
+    "genre": "Nu-Jazz",
+    "duration": 460,
+    "energy": 0.7
+  },
+  {
+    "id": 37,
+    "artist": "Kruder & Dorfmeister",
+    "title": "High Noon",
+    "genre": "Downtempo",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 38,
+    "artist": "Tom Misch",
+    "title": "Movie",
+    "genre": "Lo-fi Hip Hop",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 39,
+    "artist": "IG Culture",
+    "title": "Free Your Mind",
+    "genre": "Broken Beat",
+    "duration": 290,
+    "energy": 0.8
+  },
+  {
+    "id": 40,
+    "artist": "Balearic Ensemble",
+    "title": "Sunset Over Ibiza",
+    "genre": "Balearic House",
+    "duration": 380,
+    "energy": 0.4
+  }
+]

@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Mogwai",
+    "title": "Mogwai Fear Satan",
+    "genre": "postrock",
+    "duration": 648,
+    "energy": 0.7
+  },
+  {
+    "id": 2,
+    "artist": "Low",
+    "title": "Lullaby",
+    "genre": "slowcore",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 3,
+    "artist": "Chris Watson",
+    "title": "Vatnajökull",
+    "genre": "field_recording",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 4,
+    "artist": "Nick Drake",
+    "title": "Pink Moon",
+    "genre": "ambient_folk",
+    "duration": 140,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "Blumfeld",
+    "title": "Tausend Träume",
+    "genre": "lo-fi_deutsch",
+    "duration": 270,
+    "energy": 0.5
+  },
+  {
+    "id": 6,
+    "artist": "Sigur Rós",
+    "title": "Svefn-g-englar",
+    "genre": "postrock",
+    "duration": 400,
+    "energy": 0.6
+  },
+  {
+    "id": 7,
+    "artist": "Red House Painters",
+    "title": "Katy Song",
+    "genre": "slowcore",
+    "duration": 390,
+    "energy": 0.4
+  },
+  {
+    "id": 8,
+    "artist": "Jana Winderen",
+    "title": "The Listening Room",
+    "genre": "field_recording",
+    "duration": 300,
+    "energy": 0.1
+  },
+  {
+    "id": 9,
+    "artist": "Vashti Bunyan",
+    "title": "Diamond Day",
+    "genre": "ambient_folk",
+    "duration": 160,
+    "energy": 0.5
+  },
+  {
+    "id": 10,
+    "artist": "Tocotronic",
+    "title": "Die Unendlichkeit",
+    "genre": "lo-fi_deutsch",
+    "duration": 310,
+    "energy": 0.6
+  },
+  {
+    "id": 11,
+    "artist": "Explosions in the Sky",
+    "title": "First Breath After Coma",
+    "genre": "postrock",
+    "duration": 540,
+    "energy": 0.8
+  },
+  {
+    "id": 12,
+    "artist": "Duster",
+    "title": "Inside Out",
+    "genre": "slowcore",
+    "duration": 200,
+    "energy": 0.3
+  },
+  {
+    "id": 13,
+    "artist": "Toshiya Tsunoda",
+    "title": "O Chō No",
+    "genre": "field_recording",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 14,
+    "artist": "Sibylle Baier",
+    "title": "The End",
+    "genre": "ambient_folk",
+    "duration": 180,
+    "energy": 0.3
+  },
+  {
+    "id": 15,
+    "artist": "Die Sterne",
+    "title": "Wir sind hier",
+    "genre": "lo-fi_deutsch",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 16,
+    "artist": "Godspeed You! Black Emperor",
+    "title": "Storm",
+    "genre": "postrock",
+    "duration": 660,
+    "energy": 0.9
+  },
+  {
+    "id": 17,
+    "artist": "Codeine",
+    "title": "Barely Real",
+    "genre": "slowcore",
+    "duration": 280,
+    "energy": 0.3
+  },
+  {
+    "id": 18,
+    "artist": "Hildegard Westerkamp",
+    "title": "Beneath the Forest Floor",
+    "genre": "field_recording",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 19,
+    "artist": "Karen Dalton",
+    "title": "Something on Your Mind",
+    "genre": "ambient_folk",
+    "duration": 210,
+    "energy": 0.4
+  },
+  {
+    "id": 20,
+    "artist": "Frittenbude",
+    "title": "Luft",
+    "genre": "lo-fi_deutsch",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 21,
+    "artist": "This Will Destroy You",
+    "title": "The Mighty Rio Grande",
+    "genre": "postrock",
+    "duration": 480,
+    "energy": 0.7
+  },
+  {
+    "id": 22,
+    "artist": "Bedhead",
+    "title": "The Rest of the Day",
+    "genre": "slowcore",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 23,
+    "artist": "Bernie Krause",
+    "title": "Dawn in the Amazon",
+    "genre": "field_recording",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 24,
+    "artist": "Linda Perhacs",
+    "title": "Parallelograms",
+    "genre": "ambient_folk",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 25,
+    "artist": "Kettcar",
+    "title": "Landungsbrücken raus",
+    "genre": "lo-fi_deutsch",
+    "duration": 250,
+    "energy": 0.6
+  },
+  {
+    "id": 26,
+    "artist": "Slint",
+    "title": "Good Morning, Captain",
+    "genre": "postrock",
+    "duration": 420,
+    "energy": 0.8
+  },
+  {
+    "id": 27,
+    "artist": "Carissa's Wierd",
+    "title": "So You Wanna Be a Superhero",
+    "genre": "slowcore",
+    "duration": 320,
+    "energy": 0.3
+  },
+  {
+    "id": 28,
+    "artist": "Francisco López",
+    "title": "Untitled #105",
+    "genre": "field_recording",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 29,
+    "artist": "Joni Mitchell",
+    "title": "California",
+    "genre": "ambient_folk",
+    "duration": 200,
+    "energy": 0.6
+  },
+  {
+    "id": 30,
+    "artist": "Element of Crime",
+    "title": "Am Ende denk ich immer an dich",
+    "genre": "lo-fi_deutsch",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 31,
+    "artist": "65daysofstatic",
+    "title": "Radio Protector",
+    "genre": "postrock",
+    "duration": 340,
+    "energy": 0.7
+  },
+  {
+    "id": 32,
+    "artist": "American Football",
+    "title": "Never Meant",
+    "genre": "slowcore",
+    "duration": 260,
+    "energy": 0.5
+  },
+  {
+    "id": 33,
+    "artist": "Annea Lockwood",
+    "title": "A Sound Map of the Danube",
+    "genre": "field_recording",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 34,
+    "artist": "Joanna Newsom",
+    "title": "Sawdust & Diamonds",
+    "genre": "ambient_folk",
+    "duration": 540,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "Die Toten Hosen",
+    "title": "Alles wird gut",
+    "genre": "lo-fi_deutsch",
+    "duration": 220,
+    "energy": 0.8
+  },
+  {
+    "id": 36,
+    "artist": "Do Make Say Think",
+    "title": "Bound to Be That Way",
+    "genre": "postrock",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 37,
+    "artist": "Ida",
+    "title": "What Can I Do",
+    "genre": "slowcore",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 38,
+    "artist": "Chris Watson",
+    "title": "El Divisadero",
+    "genre": "field_recording",
+    "duration": 480,
+    "energy": 0.1
+  },
+  {
+    "id": 39,
+    "artist": "Fleet Foxes",
+    "title": "White Winter Hymnal",
+    "genre": "ambient_folk",
+    "duration": 160,
+    "energy": 0.6
+  },
+  {
+    "id": 40,
+    "artist": "Wir sind Helden",
+    "title": "Gekommen um zu bleiben",
+    "genre": "lo-fi_deutsch",
+    "duration": 240,
+    "energy": 0.7
+  }
+]

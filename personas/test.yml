@@ -1,0 +1,12 @@
+dj:
+  max_moderation_chars: 800
+  name: Test
+  personality: test
+  tone: test
+station:
+  genre: test
+  id: test
+  name: auto
+  subgenres:
+  - test
+tracks_file: tracks_test.json

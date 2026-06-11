@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "The Beatles",
+    "title": "Come Together",
+    "genre": "test",
+    "duration": 259,
+    "energy": 0.8
+  },
+  {
+    "id": 2,
+    "artist": "Led Zeppelin",
+    "title": "Stairway to Heaven",
+    "genre": "test",
+    "duration": 482,
+    "energy": 0.6
+  },
+  {
+    "id": 3,
+    "artist": "Miles Davis",
+    "title": "So What",
+    "genre": "test",
+    "duration": 564,
+    "energy": 0.4
+  },
+  {
+    "id": 4,
+    "artist": "Daft Punk",
+    "title": "One More Time",
+    "genre": "test",
+    "duration": 320,
+    "energy": 0.9
+  },
+  {
+    "id": 5,
+    "artist": "Nina Simone",
+    "title": "Feeling Good",
+    "genre": "test",
+    "duration": 178,
+    "energy": 0.5
+  },
+  {
+    "id": 6,
+    "artist": "Radiohead",
+    "title": "Creep",
+    "genre": "test",
+    "duration": 237,
+    "energy": 0.6
+  },
+  {
+    "id": 7,
+    "artist": "John Coltrane",
+    "title": "Giant Steps",
+    "genre": "test",
+    "duration": 287,
+    "energy": 0.7
+  },
+  {
+    "id": 8,
+    "artist": "Fleetwood Mac",
+    "title": "Dreams",
+    "genre": "test",
+    "duration": 258,
+    "energy": 0.5
+  },
+  {
+    "id": 9,
+    "artist": "Kendrick Lamar",
+    "title": "HUMBLE.",
+    "genre": "test",
+    "duration": 177,
+    "energy": 0.8
+  },
+  {
+    "id": 10,
+    "artist": "Ella Fitzgerald",
+    "title": "Summertime",
+    "genre": "test",
+    "duration": 285,
+    "energy": 0.3
+  },
+  {
+    "id": 11,
+    "artist": "The Rolling Stones",
+    "title": "Paint It Black",
+    "genre": "test",
+    "duration": 226,
+    "energy": 0.7
+  },
+  {
+    "id": 12,
+    "artist": "Bob Marley & The Wailers",
+    "title": "No Woman, No Cry",
+    "genre": "test",
+    "duration": 256,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "Billie Eilish",
+    "title": "bad guy",
+    "genre": "test",
+    "duration": 194,
+    "energy": 0.7
+  },
+  {
+    "id": 14,
+    "artist": "Pink Floyd",
+    "title": "Wish You Were Here",
+    "genre": "test",
+    "duration": 334,
+    "energy": 0.4
+  },
+  {
+    "id": 15,
+    "artist": "Aretha Franklin",
+    "title": "Respect",
+    "genre": "test",
+    "duration": 147,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Tame Impala",
+    "title": "The Less I Know the Better",
+    "genre": "test",
+    "duration": 216,
+    "energy": 0.6
+  },
+  {
+    "id": 17,
+    "artist": "David Bowie",
+    "title": "Space Oddity",
+    "genre": "test",
+    "duration": 316,
+    "energy": 0.5
+  },
+  {
+    "id": 18,
+    "artist": "Ludovico Einaudi",
+    "title": "Nuvole Bianche",
+    "genre": "test",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 19,
+    "artist": "The Weeknd",
+    "title": "Blinding Lights",
+    "genre": "test",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 20,
+    "artist": "Beethoven",
+    "title": "Moonlight Sonata (1st Movement)",
+    "genre": "test",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 21,
+    "artist": "Nirvana",
+    "title": "Smells Like Teen Spirit",
+    "genre": "test",
+    "duration": 301,
+    "energy": 0.9
+  },
+  {
+    "id": 22,
+    "artist": "Adele",
+    "title": "Someone Like You",
+    "genre": "test",
+    "duration": 285,
+    "energy": 0.3
+  },
+  {
+    "id": 23,
+    "artist": "Stevie Wonder",
+    "title": "Superstition",
+    "genre": "test",
+    "duration": 245,
+    "energy": 0.8
+  },
+  {
+    "id": 24,
+    "artist": "Aphex Twin",
+    "title": "Avril 14th",
+    "genre": "test",
+    "duration": 126,
+    "energy": 0.1
+  },
+  {
+    "id": 25,
+    "artist": "Queen",
+    "title": "Bohemian Rhapsody",
+    "genre": "test",
+    "duration": 355,
+    "energy": 0.7
+  },
+  {
+    "id": 26,
+    "artist": "Hans Zimmer",
+    "title": "Time",
+    "genre": "test",
+    "duration": 275,
+    "energy": 0.6
+  },
+  {
+    "id": 27,
+    "artist": "OutKast",
+    "title": "Hey Ya!",
+    "genre": "test",
+    "duration": 235,
+    "energy": 0.9
+  },
+  {
+    "id": 28,
+    "artist": "Joni Mitchell",
+    "title": "A Case of You",
+    "genre": "test",
+    "duration": 252,
+    "energy": 0.2
+  },
+  {
+    "id": 29,
+    "artist": "Metallica",
+    "title": "Enter Sandman",
+    "genre": "test",
+    "duration": 331,
+    "energy": 0.9
+  },
+  {
+    "id": 30,
+    "artist": "Enya",
+    "title": "Orinoco Flow",
+    "genre": "test",
+    "duration": 245,
+    "energy": 0.4
+  },
+  {
+    "id": 31,
+    "artist": "Mozart",
+    "title": "Eine Kleine Nachtmusik (Allegro)",
+    "genre": "test",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 32,
+    "artist": "Lauryn Hill",
+    "title": "Doo Wop (That Thing)",
+    "genre": "test",
+    "duration": 320,
+    "energy": 0.8
+  },
+  {
+    "id": 33,
+    "artist": "Sigur Rós",
+    "title": "Hoppípolla",
+    "genre": "test",
+    "duration": 264,
+    "energy": 0.5
+  },
+  {
+    "id": 34,
+    "artist": "Marvin Gaye",
+    "title": "What's Going On",
+    "genre": "test",
+    "duration": 233,
+    "energy": 0.4
+  },
+  {
+    "id": 35,
+    "artist": "Daft Punk",
+    "title": "Digital Love",
+    "genre": "test",
+    "duration": 301,
+    "energy": 0.7
+  },
+  {
+    "id": 36,
+    "artist": "Erik Satie",
+    "title": "Gymnopédie No.1",
+    "genre": "test",
+    "duration": 180,
+    "energy": 0.0
+  },
+  {
+    "id": 37,
+    "artist": "Beyoncé",
+    "title": "Crazy in Love",
+    "genre": "test",
+    "duration": 236,
+    "energy": 0.9
+  },
+  {
+    "id": 38,
+    "artist": "Bon Iver",
+    "title": "Holocene",
+    "genre": "test",
+    "duration": 336,
+    "energy": 0.3
+  },
+  {
+    "id": 39,
+    "artist": "The Clash",
+    "title": "London Calling",
+    "genre": "test",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 40,
+    "artist": "Yo-Yo Ma",
+    "title": "Bach: Cello Suite No.1 Prelude",
+    "genre": "test",
+    "duration": 150,
+    "energy": 0.1
+  }
+]

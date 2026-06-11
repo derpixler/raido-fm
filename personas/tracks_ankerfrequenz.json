@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Deep Listening",
+    "duration": 504,
+    "energy": 0.3
+  },
+  {
+    "id": 2,
+    "artist": "Harold Budd",
+    "title": "The Pearl",
+    "genre": "Maritime Ambient",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 3,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Part 2",
+    "genre": "Deep Listening",
+    "duration": 480,
+    "energy": 0.1
+  },
+  {
+    "id": 4,
+    "artist": "William Basinski",
+    "title": "Melancholia II",
+    "genre": "Maritime Ambient",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 5,
+    "artist": "Four Tet",
+    "title": "She Moves She",
+    "genre": "Retro-Futurismus",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "The Caretaker",
+    "title": "All You Are Going to Want to Do Is Get Back There",
+    "genre": "Deep Listening",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 7,
+    "artist": "Biosphere",
+    "title": "Novelty Waves",
+    "genre": "Maritime Ambient",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 8,
+    "artist": "A Winged Victory for the Sullen",
+    "title": "We Played Some Open Chords and Rejoiced",
+    "genre": "Deep Listening",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 9,
+    "artist": "Fennesz",
+    "title": "Caecilia",
+    "genre": "Field Recordings",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 10,
+    "artist": "Jan Jelinek",
+    "title": "Do Dekor",
+    "genre": "Retro-Futurismus",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "When I Try, I'm Full",
+    "genre": "Retro-Futurismus",
+    "duration": 480,
+    "energy": 0.5
+  },
+  {
+    "id": 12,
+    "artist": "Max Richter",
+    "title": "On the Nature of Daylight",
+    "genre": "Deep Listening",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 13,
+    "artist": "Hauschka",
+    "title": "Familiar Things",
+    "genre": "Maritime Ambient",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 14,
+    "artist": "Tim Hecker",
+    "title": "Haunt Me",
+    "genre": "Field Recordings",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 15,
+    "artist": "Jon Hopkins",
+    "title": "Immunity",
+    "genre": "Retro-Futurismus",
+    "duration": 600,
+    "energy": 0.7
+  },
+  {
+    "id": 16,
+    "artist": "Nils Frahm",
+    "title": "Says",
+    "genre": "Deep Listening",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 17,
+    "artist": "Chris Watson",
+    "title": "Vatnajokull",
+    "genre": "Field Recordings",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 18,
+    "artist": "Lustmord",
+    "title": "Prime Element",
+    "genre": "Field Recordings",
+    "duration": 720,
+    "energy": 0.2
+  },
+  {
+    "id": 19,
+    "artist": "Boards of Canada",
+    "title": "Olson",
+    "genre": "Retro-Futurismus",
+    "duration": 180,
+    "energy": 0.5
+  },
+  {
+    "id": 20,
+    "artist": "Hiroshi Yoshimura",
+    "title": "Green",
+    "genre": "Maritime Ambient",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 21,
+    "artist": "Julianna Barwick",
+    "title": "The Magic Place",
+    "genre": "Deep Listening",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 22,
+    "artist": "Loscil",
+    "title": "Dub for Cascadia",
+    "genre": "Maritime Ambient",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 23,
+    "artist": "Pauline Oliveros",
+    "title": "Deep Listening (Excerpt)",
+    "genre": "Deep Listening",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 24,
+    "artist": "Kyle Bobby Dunn",
+    "title": "A Young Person's Guide to Kyle Bobby Dunn",
+    "genre": "Maritime Ambient",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 25,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "Hafen-Chanson",
+    "duration": 150,
+    "energy": 0.3
+  },
+  {
+    "id": 26,
+    "artist": "Jana Winderen",
+    "title": "Listening Through the Dead Zones",
+    "genre": "Field Recordings",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 27,
+    "artist": "Alva Noto",
+    "title": "Uni Sub",
+    "genre": "Retro-Futurismus",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 28,
+    "artist": "Sarah Davachi",
+    "title": "Canyon Walls",
+    "genre": "Deep Listening",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 29,
+    "artist": "Ryuichi Sakamoto",
+    "title": "Merry Christmas Mr. Lawrence",
+    "genre": "Hafen-Chanson",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "Moby",
+    "title": "Porcelain",
+    "genre": "Maritime Ambient",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 31,
+    "artist": "Aphex Twin",
+    "title": "Stone in Focus",
+    "genre": "Retro-Futurismus",
+    "duration": 600,
+    "energy": 0.3
+  },
+  {
+    "id": 32,
+    "artist": "Tangerine Dream",
+    "title": "Love on a Real Train",
+    "genre": "Retro-Futurismus",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 33,
+    "artist": "M83",
+    "title": "Lower Your Eyelids to Die with the Sun",
+    "genre": "Hafen-Chanson",
+    "duration": 600,
+    "energy": 0.4
+  },
+  {
+    "id": 34,
+    "artist": "Catherine Christer Hennix",
+    "title": "The Electric Harpsichord",
+    "genre": "Deep Listening",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 35,
+    "artist": "Oneohtrix Point Never",
+    "title": "Replica",
+    "genre": "Retro-Futurismus",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "The KLF",
+    "title": "3AM Eternal (Ambient Mix)",
+    "genre": "Hafen-Chanson",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 37,
+    "artist": "Erik Satie",
+    "title": "Gymnopédie No.1 (Arr. for Strings)",
+    "genre": "Hafen-Chanson",
+    "duration": 180,
+    "energy": 0.2
+  },
+  {
+    "id": 38,
+    "artist": "Popol Vuh",
+    "title": "We Know About the Need",
+    "genre": "Maritime Ambient",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 39,
+    "artist": "Cluster",
+    "title": "Sowiesoso",
+    "genre": "Retro-Futurismus",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 40,
+    "artist": "David Sylvian",
+    "title": "Orpheus",
+    "genre": "Hafen-Chanson",
+    "duration": 360,
+    "energy": 0.3
+  }
+]

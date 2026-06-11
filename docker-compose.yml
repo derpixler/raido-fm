@@ -1,0 +1,41 @@
+services:
+  hub:
+    build: ./hub
+    ports:
+      - "${HUB_PORT:-80}:${HUB_PORT:-80}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./hub/data:/app/data
+      - ./personas:/app/personas
+    env_file:
+      - .env
+    environment:
+      - HUB_PORT=${HUB_PORT:-80}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-raido-admin}
+      - STATION_IMAGE=raido-station:latest
+      - MAX_INPUT_CHARS=${MAX_INPUT_CHARS:-500}
+      - PERSONAS_HOST_PATH=${PWD}/personas
+    depends_on:
+      - station-default
+
+  station-default:
+    build: ./station
+    image: raido-station:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./station/data:/app/data
+      - ./personas:/app/personas:ro
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+      - PERSONA_PATH=/app/personas/default.yml
+      - TIME_SCALE=${TIME_SCALE:-60}
+      - MAX_INPUT_CHARS=${MAX_INPUT_CHARS:-500}
+    labels:
+      - "raido.role=station"
+      - "raido.station.id=default"
+      - "raido.station.slug=default"
+      - "raido.station.port=8080"
+      - "raido.station.protected=true"

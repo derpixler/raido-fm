@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Miles Davis",
+    "title": "So What",
+    "genre": "Jazz",
+    "duration": 561,
+    "energy": 0.4
+  },
+  {
+    "id": 2,
+    "artist": "John Coltrane",
+    "title": "A Love Supreme Pt. 1",
+    "genre": "Jazz",
+    "duration": 480,
+    "energy": 0.6
+  },
+  {
+    "id": 3,
+    "artist": "Billie Holiday",
+    "title": "Strange Fruit",
+    "genre": "Jazz",
+    "duration": 205,
+    "energy": 0.2
+  },
+  {
+    "id": 4,
+    "artist": "Duke Ellington",
+    "title": "Take the A Train",
+    "genre": "Jazz",
+    "duration": 185,
+    "energy": 0.7
+  },
+  {
+    "id": 5,
+    "artist": "Charlie Parker",
+    "title": "Yardbird Suite",
+    "genre": "Jazz",
+    "duration": 178,
+    "energy": 0.8
+  },
+  {
+    "id": 6,
+    "artist": "Thelonious Monk",
+    "title": "Round Midnight",
+    "genre": "Jazz",
+    "duration": 337,
+    "energy": 0.3
+  },
+  {
+    "id": 7,
+    "artist": "Louis Armstrong",
+    "title": "What a Wonderful World",
+    "genre": "Jazz",
+    "duration": 140,
+    "energy": 0.2
+  },
+  {
+    "id": 8,
+    "artist": "Herbie Hancock",
+    "title": "Chameleon",
+    "genre": "Funk",
+    "duration": 600,
+    "energy": 0.7
+  },
+  {
+    "id": 9,
+    "artist": "James Brown",
+    "title": "Get Up (I Feel Like Being a) Sex Machine",
+    "genre": "Funk",
+    "duration": 318,
+    "energy": 0.9
+  },
+  {
+    "id": 10,
+    "artist": "Sly and the Family Stone",
+    "title": "Family Affair",
+    "genre": "Funk",
+    "duration": 235,
+    "energy": 0.6
+  },
+  {
+    "id": 11,
+    "artist": "Parliament",
+    "title": "Flash Light",
+    "genre": "Funk",
+    "duration": 286,
+    "energy": 0.8
+  },
+  {
+    "id": 12,
+    "artist": "Earth, Wind & Fire",
+    "title": "September",
+    "genre": "Funk",
+    "duration": 215,
+    "energy": 0.9
+  },
+  {
+    "id": 13,
+    "artist": "Stevie Wonder",
+    "title": "Superstition",
+    "genre": "Funk",
+    "duration": 245,
+    "energy": 0.8
+  },
+  {
+    "id": 14,
+    "artist": "Curtis Mayfield",
+    "title": "Move On Up",
+    "genre": "Soul",
+    "duration": 345,
+    "energy": 0.7
+  },
+  {
+    "id": 15,
+    "artist": "Aretha Franklin",
+    "title": "Respect",
+    "genre": "Soul",
+    "duration": 147,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Otis Redding",
+    "title": "(Sittin' On) The Dock of the Bay",
+    "genre": "Soul",
+    "duration": 163,
+    "energy": 0.3
+  },
+  {
+    "id": 17,
+    "artist": "Marvin Gaye",
+    "title": "What's Going On",
+    "genre": "Soul",
+    "duration": 233,
+    "energy": 0.5
+  },
+  {
+    "id": 18,
+    "artist": "Sam Cooke",
+    "title": "A Change Is Gonna Come",
+    "genre": "Soul",
+    "duration": 206,
+    "energy": 0.4
+  },
+  {
+    "id": 19,
+    "artist": "Ray Charles",
+    "title": "Georgia on My Mind",
+    "genre": "Soul",
+    "duration": 217,
+    "energy": 0.3
+  },
+  {
+    "id": 20,
+    "artist": "Al Green",
+    "title": "Let's Stay Together",
+    "genre": "Soul",
+    "duration": 199,
+    "energy": 0.5
+  },
+  {
+    "id": 21,
+    "artist": "Bob Marley & The Wailers",
+    "title": "No Woman, No Cry",
+    "genre": "Reggae",
+    "duration": 248,
+    "energy": 0.4
+  },
+  {
+    "id": 22,
+    "artist": "Peter Tosh",
+    "title": "Legalize It",
+    "genre": "Reggae",
+    "duration": 288,
+    "energy": 0.5
+  },
+  {
+    "id": 23,
+    "artist": "Jimmy Cliff",
+    "title": "The Harder They Come",
+    "genre": "Reggae",
+    "duration": 248,
+    "energy": 0.6
+  },
+  {
+    "id": 24,
+    "artist": "Toots and the Maytals",
+    "title": "Pressure Drop",
+    "genre": "Reggae",
+    "duration": 188,
+    "energy": 0.7
+  },
+  {
+    "id": 25,
+    "artist": "Lee Scratch Perry",
+    "title": "Roast Fish & Cornbread",
+    "genre": "Reggae",
+    "duration": 282,
+    "energy": 0.5
+  },
+  {
+    "id": 26,
+    "artist": "Burning Spear",
+    "title": "Marcus Garvey",
+    "genre": "Reggae",
+    "duration": 246,
+    "energy": 0.6
+  },
+  {
+    "id": 27,
+    "artist": "The Beatles",
+    "title": "Come Together",
+    "genre": "Rock",
+    "duration": 259,
+    "energy": 0.7
+  },
+  {
+    "id": 28,
+    "artist": "Led Zeppelin",
+    "title": "Stairway to Heaven",
+    "genre": "Rock",
+    "duration": 482,
+    "energy": 0.6
+  },
+  {
+    "id": 29,
+    "artist": "Pink Floyd",
+    "title": "Comfortably Numb",
+    "genre": "Rock",
+    "duration": 383,
+    "energy": 0.5
+  },
+  {
+    "id": 30,
+    "artist": "Nirvana",
+    "title": "Smells Like Teen Spirit",
+    "genre": "Rock",
+    "duration": 301,
+    "energy": 0.9
+  },
+  {
+    "id": 31,
+    "artist": "Queen",
+    "title": "Bohemian Rhapsody",
+    "genre": "Rock",
+    "duration": 354,
+    "energy": 0.7
+  },
+  {
+    "id": 32,
+    "artist": "The Rolling Stones",
+    "title": "Paint It Black",
+    "genre": "Rock",
+    "duration": 228,
+    "energy": 0.8
+  },
+  {
+    "id": 33,
+    "artist": "Daft Punk",
+    "title": "Around the World",
+    "genre": "Electronic",
+    "duration": 427,
+    "energy": 0.8
+  },
+  {
+    "id": 34,
+    "artist": "Kraftwerk",
+    "title": "The Model",
+    "genre": "Electronic",
+    "duration": 222,
+    "energy": 0.5
+  },
+  {
+    "id": 35,
+    "artist": "Aphex Twin",
+    "title": "Windowlicker",
+    "genre": "Electronic",
+    "duration": 425,
+    "energy": 0.7
+  },
+  {
+    "id": 36,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Electronic",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 37,
+    "artist": "Jean-Michel Jarre",
+    "title": "Oxygene Pt. 4",
+    "genre": "Electronic",
+    "duration": 284,
+    "energy": 0.6
+  },
+  {
+    "id": 38,
+    "artist": "Boards of Canada",
+    "title": "Roygbiv",
+    "genre": "Electronic",
+    "duration": 135,
+    "energy": 0.3
+  },
+  {
+    "id": 39,
+    "artist": "Johnny Cash",
+    "title": "Folsom Prison Blues",
+    "genre": "Country",
+    "duration": 167,
+    "energy": 0.5
+  },
+  {
+    "id": 40,
+    "artist": "Dolly Parton",
+    "title": "Jolene",
+    "genre": "Country",
+    "duration": 166,
+    "energy": 0.4
+  }
+]

@@ -1,0 +1,17 @@
+dj:
+  max_moderation_chars: 600
+  name: Orion Wellenreiter
+  personality: schwebender Klangforscher, spricht in ruhigen Metaphern ueber das Universum
+  tone: getragen, bedaechtig, als kaeme jede Botschaft aus dem All
+station:
+  claim: Frequenzen aus dem All
+  genre: space ambient
+  id: kosmischerwind
+  language: de
+  name: auto
+  subgenres:
+  - drone
+  - kosmische musik
+  - berlin school
+  timezone: Europe/Berlin
+tracks_file: tracks_kosmischerwind.json

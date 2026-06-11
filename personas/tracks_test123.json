@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Arcade Fire",
+    "title": "Wake Up",
+    "genre": "indie",
+    "duration": 355,
+    "energy": 0.8
+  },
+  {
+    "id": 2,
+    "artist": "Vampire Weekend",
+    "title": "A-Punk",
+    "genre": "indie",
+    "duration": 175,
+    "energy": 0.9
+  },
+  {
+    "id": 3,
+    "artist": "Tame Impala",
+    "title": "The Less I Know the Better",
+    "genre": "indie",
+    "duration": 216,
+    "energy": 0.7
+  },
+  {
+    "id": 4,
+    "artist": "Phoebe Bridgers",
+    "title": "Motion Sickness",
+    "genre": "indie",
+    "duration": 209,
+    "energy": 0.5
+  },
+  {
+    "id": 5,
+    "artist": "The Strokes",
+    "title": "Reptilia",
+    "genre": "indie",
+    "duration": 220,
+    "energy": 0.9
+  },
+  {
+    "id": 6,
+    "artist": "Alvvays",
+    "title": "Dreams Tonite",
+    "genre": "indie",
+    "duration": 256,
+    "energy": 0.6
+  },
+  {
+    "id": 7,
+    "artist": "Mac DeMarco",
+    "title": "Chamber of Reflection",
+    "genre": "indie",
+    "duration": 204,
+    "energy": 0.3
+  },
+  {
+    "id": 8,
+    "artist": "Beach House",
+    "title": "Space Song",
+    "genre": "indie",
+    "duration": 320,
+    "energy": 0.4
+  },
+  {
+    "id": 9,
+    "artist": "Arctic Monkeys",
+    "title": "Do I Wanna Know?",
+    "genre": "indie",
+    "duration": 273,
+    "energy": 0.8
+  },
+  {
+    "id": 10,
+    "artist": "Sufjan Stevens",
+    "title": "Mystery of Love",
+    "genre": "indie",
+    "duration": 288,
+    "energy": 0.2
+  },
+  {
+    "id": 11,
+    "artist": "Mitski",
+    "title": "Washing Machine Heart",
+    "genre": "indie",
+    "duration": 151,
+    "energy": 0.7
+  },
+  {
+    "id": 12,
+    "artist": "King Gizzard & the Lizard Wizard",
+    "title": "Rattlesnake",
+    "genre": "indie",
+    "duration": 427,
+    "energy": 0.9
+  },
+  {
+    "id": 13,
+    "artist": "Car Seat Headrest",
+    "title": "Something Soon",
+    "genre": "indie",
+    "duration": 299,
+    "energy": 0.8
+  },
+  {
+    "id": 14,
+    "artist": "Clairo",
+    "title": "Bags",
+    "genre": "indie",
+    "duration": 261,
+    "energy": 0.5
+  },
+  {
+    "id": 15,
+    "artist": "The War on Drugs",
+    "title": "Red Eyes",
+    "genre": "indie",
+    "duration": 300,
+    "energy": 0.7
+  },
+  {
+    "id": 16,
+    "artist": "Fleet Foxes",
+    "title": "Mykonos",
+    "genre": "indie",
+    "duration": 270,
+    "energy": 0.4
+  },
+  {
+    "id": 17,
+    "artist": "MGMT",
+    "title": "Electric Feel",
+    "genre": "indie",
+    "duration": 230,
+    "energy": 0.8
+  },
+  {
+    "id": 18,
+    "artist": "Japanese Breakfast",
+    "title": "Paprika",
+    "genre": "indie",
+    "duration": 201,
+    "energy": 0.7
+  },
+  {
+    "id": 19,
+    "artist": "The National",
+    "title": "Bloodbuzz Ohio",
+    "genre": "indie",
+    "duration": 296,
+    "energy": 0.6
+  },
+  {
+    "id": 20,
+    "artist": "Soccer Mommy",
+    "title": "circle the drain",
+    "genre": "indie",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 21,
+    "artist": "Modest Mouse",
+    "title": "Float On",
+    "genre": "indie",
+    "duration": 208,
+    "energy": 0.8
+  },
+  {
+    "id": 22,
+    "artist": "Big Thief",
+    "title": "Not",
+    "genre": "indie",
+    "duration": 420,
+    "energy": 0.9
+  },
+  {
+    "id": 23,
+    "artist": "Boygenius",
+    "title": "Not Strong Enough",
+    "genre": "indie",
+    "duration": 234,
+    "energy": 0.6
+  },
+  {
+    "id": 24,
+    "artist": "Unknown Mortal Orchestra",
+    "title": "Multi-Love",
+    "genre": "indie",
+    "duration": 315,
+    "energy": 0.7
+  },
+  {
+    "id": 25,
+    "artist": "Snail Mail",
+    "title": "Pristine",
+    "genre": "indie",
+    "duration": 243,
+    "energy": 0.6
+  },
+  {
+    "id": 26,
+    "artist": "Grizzly Bear",
+    "title": "Two Weeks",
+    "genre": "indie",
+    "duration": 273,
+    "energy": 0.5
+  },
+  {
+    "id": 27,
+    "artist": "The Shins",
+    "title": "New Slang",
+    "genre": "indie",
+    "duration": 231,
+    "energy": 0.4
+  },
+  {
+    "id": 28,
+    "artist": "St. Vincent",
+    "title": "Los Ageless",
+    "genre": "indie",
+    "duration": 221,
+    "energy": 0.8
+  },
+  {
+    "id": 29,
+    "artist": "Pixies",
+    "title": "Where Is My Mind?",
+    "genre": "indie",
+    "duration": 233,
+    "energy": 0.7
+  },
+  {
+    "id": 30,
+    "artist": "Weyes Blood",
+    "title": "Andromeda",
+    "genre": "indie",
+    "duration": 315,
+    "energy": 0.4
+  },
+  {
+    "id": 31,
+    "artist": "The Smiths",
+    "title": "There Is a Light That Never Goes Out",
+    "genre": "indie",
+    "duration": 244,
+    "energy": 0.5
+  },
+  {
+    "id": 32,
+    "artist": "Angel Olsen",
+    "title": "Shut Up Kiss Me",
+    "genre": "indie",
+    "duration": 182,
+    "energy": 0.8
+  },
+  {
+    "id": 33,
+    "artist": "Neutral Milk Hotel",
+    "title": "In the Aeroplane Over the Sea",
+    "genre": "indie",
+    "duration": 202,
+    "energy": 0.6
+  },
+  {
+    "id": 34,
+    "artist": "Courtney Barnett",
+    "title": "Avant Gardener",
+    "genre": "indie",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 35,
+    "artist": "Yo La Tengo",
+    "title": "Autumn Sweater",
+    "genre": "indie",
+    "duration": 326,
+    "energy": 0.4
+  },
+  {
+    "id": 36,
+    "artist": "Radiohead",
+    "title": "Karma Police",
+    "genre": "indie",
+    "duration": 264,
+    "energy": 0.5
+  },
+  {
+    "id": 37,
+    "artist": "The Killers",
+    "title": "Mr. Brightside",
+    "genre": "indie",
+    "duration": 222,
+    "energy": 0.9
+  },
+  {
+    "id": 38,
+    "artist": "Slowdive",
+    "title": "Alison",
+    "genre": "indie",
+    "duration": 322,
+    "energy": 0.3
+  },
+  {
+    "id": 39,
+    "artist": "LCD Soundsystem",
+    "title": "Dance Yrself Clean",
+    "genre": "indie",
+    "duration": 533,
+    "energy": 0.9
+  },
+  {
+    "id": 40,
+    "artist": "Bon Iver",
+    "title": "Skinny Love",
+    "genre": "indie",
+    "duration": 211,
+    "energy": 0.3
+  }
+]

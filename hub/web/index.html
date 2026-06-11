@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAIDO FM — Hub</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 0;
+}
+header {
+  padding: 20px 32px;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header h1 { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: 2px; }
+header .sub { font-size: 11px; color: #555; margin-left: auto; }
+header .sub a { color: #6366f1; text-decoration: none; }
+.container { max-width: 960px; margin: 0 auto; padding: 32px; }
+.hero { text-align: center; padding: 48px 0 32px; }
+.hero h2 { font-size: 24px; color: #fff; letter-spacing: 3px; margin-bottom: 8px; }
+.hero p { font-size: 13px; color: #666; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+.section { margin-bottom: 40px; }
+.section-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+  color: #555; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #1a1a1a;
+}
+.stations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.station-card {
+  background: #111; border: 1px solid #222; border-radius: 8px; padding: 16px;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.station-card:hover { border-color: #444; }
+.station-card .sc-name { font-size: 14px; color: #fff; font-weight: 500; margin-bottom: 4px; }
+.station-card .sc-genre { font-size: 11px; color: #6366f1; margin-bottom: 8px; }
+.station-card .sc-dj { font-size: 11px; color: #888; }
+.station-card .sc-status { font-size: 10px; margin-top: 8px; }
+.station-card .sc-status.live { color: #4ade80; }
+.station-card .sc-status.idle { color: #666; }
+.station-card .sc-listeners { font-size: 10px; color: #555; }
+.new-card {
+  background: #0d0d0d; border: 1px dashed #333; border-radius: 8px; padding: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+}
+.new-card .nc-title { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+.btn {
+  background: #6366f1; color: #fff; border: none; border-radius: 6px;
+  padding: 8px 16px; font-family: inherit; font-size: 12px; cursor: pointer;
+}
+.btn:hover { background: #4f46e5; }
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #333;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn:disabled { background: #1a1a1a; color: #444; cursor: not-allowed; opacity: 0.5; }
+.btn:disabled:hover { background: #1a1a1a; }
+.btn.secondary { background: #222; color: #999; }
+.btn.secondary:hover { background: #333; color: #fff; }
+.btn.secondary:disabled { background: #111; color: #333; }
+.btn.secondary:disabled:hover { background: #111; }
+.btn.danger { background: #991b1b; }
+.btn.danger:hover { background: #b91c1c; }
+.overview-grid {
+  display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 12px; color: #888;
+}
+.overview-grid .ov-val { color: #fff; font-weight: 500; }
+.personas-list { font-size: 12px; color: #888; }
+.personas-list .pl-item { padding: 6px 0; border-bottom: 1px solid #111; display: flex; gap: 12px; align-items: center; }
+.personas-list .pl-name { color: #bbb; font-weight: 500; }
+.personas-list .pl-genre { color: #6366f1; font-size: 11px; }
+.personas-list .pl-date { color: #444; font-size: 10px; margin-left: auto; }
+#modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  z-index: 1000; align-items: center; justify-content: center; padding: 24px;
+}
+#modal-overlay.open { display: flex; }
+#modal {
+  background: #111; border: 1px solid #222; border-radius: 12px;
+  max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative;
+}
+#modal h3 { font-size: 14px; color: #fff; margin-bottom: 12px; }
+#modal .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+#modal .form-grid.wide { grid-template-columns: 1fr; }
+#modal label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+#modal input, #modal textarea, #modal select {
+  width: 100%; background: #0a0a0a; color: #bbb; border: 1px solid #222;
+  border-radius: 4px; padding: 6px 8px; font-family: inherit; font-size: 12px;
+}
+#modal textarea { min-height: 50px; resize: vertical; }
+#modal input:disabled, #modal textarea:disabled, #modal select:disabled {
+  opacity: 0.4; cursor: not-allowed; pointer-events: none;
+}
+#modal .quirks-list { display: flex; flex-direction: column; gap: 4px; }
+#modal .quirk-row { display: flex; gap: 4px; }
+#modal .quirk-row input { flex: 1; }
+#modal .modal-actions { display: flex; gap: 8px; margin-top: 12px; }
+#modal-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: #555; font-size: 18px; cursor: pointer; }
+.admin-bar {
+  margin-top: 32px; padding-top: 16px; border-top: 1px solid #1a1a1a;
+  font-size: 11px; color: #444;
+}
+.admin-bar input {
+  background: #111; border: 1px solid #222; border-radius: 4px;
+  padding: 4px 8px; color: #888; font-family: inherit; font-size: 11px; width: 200px;
+}
+.hidden { display: none; }
+.loading { color: #555; font-size: 12px; font-style: italic; }
+.ads-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ads-table th { text-align:left; color:#555; font-weight:500; padding:4px 8px; border-bottom:1px solid #1a1a1a; font-size:10px; text-transform:uppercase; letter-spacing:0.5px; }
+.ads-table td { padding:4px 8px; border-bottom:1px solid #0d0d0d; color:#888; cursor:pointer; }
+.ads-table tr:hover td { background:#111; }
+.ads-table .ad-sponsor { color:#fbbf24; font-weight:500; }
+.ads-table .ad-station { color:#6366f1; }
+.ads-table .ad-time { color:#555; font-size:11px; }
+#ad-detail-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:1500; align-items:center; justify-content:center; padding:24px; }
+#ad-detail-overlay.open { display:flex; }
+#ad-detail { background:#111; border:1px solid #222; border-radius:12px; max-width:500px; width:100%; padding:28px; position:relative; }
+#ad-detail h3 { color:#fbbf24; font-size:16px; margin-bottom:4px; }
+#ad-detail .ad-product { color:#888; font-size:13px; margin-bottom:12px; }
+#ad-detail .ad-key { color:#bbb; font-size:14px; line-height:1.5; margin-bottom:16px; font-style:italic; }
+#ad-detail .ad-station-link { color:#6366f1; font-size:11px; }
+#ad-detail .ad-nav { display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:12px; border-top:1px solid #1a1a1a; }
+#ad-detail .ad-nav button { background:#222; color:#999; border:none; border-radius:4px; padding:4px 12px; font-family:inherit; font-size:11px; cursor:pointer; }
+#ad-detail .ad-nav button:hover { background:#333; color:#fff; }
+#ad-detail .ad-nav button:disabled { opacity:0.3; cursor:default; }
+#ad-detail .ad-nav .ad-pos { color:#444; font-size:10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>RAIDO FM</h1>
+  <span class="sub">
+    <a href="https://derpixler.github.io/raido-fm/" target="_blank">Open-Source · Autonomous AI Radio</a>
+  </span>
+</header>
+
+<div class="container">
+  <div class="hero">
+    <h2>AUTONOMOUS AI RADIO</h2>
+    <p>Mehrere Stationen. Jede mit eigener KI-Persoenlichkeit. Kein Script. Kein Mensch im Loop. 24/7.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Laufende Stationen</div>
+    <div class="stations-grid" id="stations-grid">
+      <div class="loading">Lade Stationen...</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tech Overview</div>
+    <div class="overview-grid" id="overview">
+      <div>Stationen: <span class="ov-val" id="ov-stations">-</span></div>
+      <div>Personas: <span class="ov-val" id="ov-personas">-</span></div>
+      <div>Hoerer: <span class="ov-val" id="ov-listeners">-</span></div>
+      <div>Tracks gespielt: <span class="ov-val" id="ov-tracks">-</span></div>
+      <div>LLM Calls: <span class="ov-val" id="ov-llm">-</span></div>
+      <div>Tokens: <span class="ov-val" id="ov-tokens">-</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Generierte Personas</div>
+    <div class="personas-list" id="personas-list">
+      <div class="loading">Lade...</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Recente Ads <span id="admin-drop-ad" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropAd()">drop random ad</button></span></div>
+    <table class="ads-table" id="ads-list">
+      <tr><th>Sponsor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>
+    </table>
+  </div>
+
+  <div class="section" id="injection-sections">
+    <div class="loading">Lade...</div>
+  </div>
+
+  <div class="admin-bar">
+    Admin: <input type="password" id="admin-token" placeholder="Token eingeben" onchange="setAdmin(this.value)">
+    <span id="admin-status"></span>
+  </div>
+</div>
+
+<div id="prefs-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#111;border:1px solid #222;border-radius:12px;padding:28px;max-width:360px;width:100%;">
+    <h3 style="font-size:14px;color:#fff;margin-bottom:16px;">Neue Station — Prefs</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Genre / Stil</label><input id="pref-genre" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. krautrock, city pop, ambient dub"></div>
+      <div><label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Sprache</label><select id="pref-lang" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"><option value="de">Deutsch</option><option value="en">English</option></select></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
+      <button class="btn secondary" onclick="closePrefs()">Abbrechen</button>
+      <button class="btn" onclick="startRandom()">Los</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-overlay">
+  <div id="modal">
+    <button id="modal-close" onclick="closeModal()">&times;</button>
+    <h3 id="modal-title">Neue Station</h3>
+    <div class="form-grid">
+      <div><label>Station-ID</label><input id="f-id" placeholder="meine-station"></div>
+      <div><label>Claim</label><input id="f-claim" placeholder="Max. 6 Worte"></div>
+      <div><label>Genre</label><input id="f-genre" placeholder="z.B. space ambient"></div>
+      <div><label>Subgenres (Komma)</label><input id="f-subgenres" placeholder="drone, berlin school"></div>
+      <div><label>Zielgruppe</label><input id="f-audience" placeholder="Nachteulen, 30+"></div>
+    </div>
+    <div style="margin-top:12px;"><label>Kurzbeschreibung</label><textarea id="f-desc" rows="2" placeholder="2-3 Saetze Positionierung"></textarea></div>
+    <div style="border-top:1px solid #1a1a1a;margin:14px 0 10px;padding-top:12px;">
+      <label style="color:#6366f1;">DJ</label>
+    </div>
+    <div class="form-grid">
+      <div><label>DJ-Name</label><input id="f-dj-name" placeholder="Kuenstlername"></div>
+      <div><label>Real Name</label><input id="f-dj-real" placeholder="Buergerlicher Name"></div>
+      <div><label>Alter</label><input id="f-dj-age" placeholder="42" type="number"></div>
+      <div><label>Herkunft</label><input id="f-dj-origin" placeholder="Berlin"></div>
+      <div><label>Familie</label><input id="f-dj-family" placeholder="ledig, 2 Katzen"></div>
+      <div><label>Hobbies</label><input id="f-dj-hobbies" placeholder="Vinyl, Modellbau"></div>
+      <div><label>DJ seit</label><input id="f-dj-since" placeholder="2010" type="number"></div>
+      <div><label>Max. Moderation (Zeichen)</label><input id="f-dj-maxmod" value="800" type="number"></div>
+    </div>
+    <div style="margin-top:8px;"><label>Persoenlichkeit</label><input id="f-dj-personality" placeholder="2-3 Saetze Charakter"></div>
+    <div style="margin-top:8px;"><label>Ton / Tonalitaet</label><input id="f-dj-tone" placeholder="z.B. warm, energetisch"></div>
+    <div style="margin-top:8px;"><label>Vita</label><textarea id="f-dj-vita" rows="2" placeholder="3-5 Saetze Lebenslauf"></textarea></div>
+    <div style="margin-top:8px;"><label>Avatar Prompt (Englisch)</label><textarea id="f-dj-avatar" rows="2" placeholder="Portrait of a ..."></textarea></div>
+    <div style="margin-top:10px;">
+      <label>Quirks</label>
+      <div class="quirks-list" id="quirks-list">
+        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 1"></div>
+        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 2"></div>
+        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 3"></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+      <a href="#" onclick="openHelp();return false;" style="color:#6366f1;font-size:11px;text-decoration:none;">Hilfe zur Station-Erstellung</a>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" id="btn-start" onclick="startStation()" disabled>go live</button>
+      <button class="btn secondary" id="btn-regen" onclick="regenerate()">Neu wuerfeln</button>
+    </div>
+    <div id="modal-status" style="margin-top:8px;font-size:11px;color:#888;"></div>
+  </div>
+</div>
+
+<div id="help-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:700px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #1a1a1a;">
+      <span style="font-size:14px;color:#fff;font-weight:500;">Station erstellen — Hilfe</span>
+      <button onclick="closeHelp()" style="background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
+    </div>
+    <iframe id="help-frame" src="" style="flex:1;border:none;background:#0a0a0a;min-height:500px;"></iframe>
+  </div>
+</div>
+
+<div id="ad-detail-overlay">
+  <div id="ad-detail">
+    <button onclick="closeAdDetail()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
+    <h3 id="ad-detail-sponsor"></h3>
+    <div class="ad-product" id="ad-detail-product"></div>
+    <div class="ad-key" id="ad-detail-key"></div>
+    <div class="ad-station-link" id="ad-detail-station"></div>
+    <div class="ad-nav">
+      <button id="ad-prev" onclick="navAd(-1)">← vorherige</button>
+      <span class="ad-pos" id="ad-pos"></span>
+      <button id="ad-next" onclick="navAd(1)">naechste →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let _adminToken = localStorage.getItem('raido_admin') || '';
+let _limits = { max_stations: 5, max_personas: 20 };
+let _currentTracks = null;
+let _parsedPersona = null;
+let _busy = false;
+
+function setBusy(busy) {
+  _busy = busy;
+  document.getElementById('btn-start').disabled = busy || !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
+  document.getElementById('btn-regen').disabled = busy;
+  document.querySelectorAll('#modal input, #modal textarea, #modal select').forEach(el => { el.disabled = busy; });
+  document.getElementById('modal-close').style.display = busy ? 'none' : '';
+}
+
+function el(id) { return document.getElementById(id); }
+function fv(id) { return (el(id)?.value || '').trim(); }
+
+function populateForm(p) {
+  const s = p.station || {};
+  const d = p.dj || {};
+  const b = d.bio || {};
+  el('f-id').value = s.id || '';
+  el('f-claim').value = s.claim || '';
+  el('f-genre').value = s.genre || '';
+  el('f-subgenres').value = (s.subgenres || []).join(', ');
+  el('f-audience').value = s.target_audience || '';
+  el('f-desc').value = (s.description || '').trim();
+  el('f-dj-name').value = d.name || '';
+  el('f-dj-real').value = b.real_name || '';
+  el('f-dj-age').value = b.age || '';
+  el('f-dj-origin').value = b.origin || '';
+  el('f-dj-family').value = b.family || '';
+  el('f-dj-hobbies').value = b.hobbies || '';
+  el('f-dj-since').value = b.since_year || '';
+  el('f-dj-maxmod').value = d.max_moderation_chars || 800;
+  el('f-dj-personality').value = (d.personality || '').trim();
+  el('f-dj-tone').value = d.tone || '';
+  el('f-dj-vita').value = (b.vita || '').trim();
+  el('f-dj-avatar').value = (b.avatar_prompt || '').trim();
+  const quirks = d.quirks || [];
+  document.querySelectorAll('.f-quirk').forEach((inp, i) => { inp.value = quirks[i] || ''; });
+  _parsedPersona = p;
+  el('btn-start').disabled = false;
+}
+
+function clearForm() {
+  el('f-id').value = '';
+  el('f-claim').value = '';
+  el('f-genre').value = '';
+  el('f-subgenres').value = '';
+  el('f-audience').value = '';
+  el('f-desc').value = '';
+  el('f-dj-name').value = '';
+  el('f-dj-real').value = '';
+  el('f-dj-age').value = '';
+  el('f-dj-origin').value = '';
+  el('f-dj-family').value = '';
+  el('f-dj-hobbies').value = '';
+  el('f-dj-since').value = '';
+  el('f-dj-maxmod').value = '800';
+  el('f-dj-personality').value = '';
+  el('f-dj-tone').value = '';
+  el('f-dj-vita').value = '';
+  el('f-dj-avatar').value = '';
+  document.querySelectorAll('.f-quirk').forEach(inp => { inp.value = ''; });
+  _parsedPersona = buildObjectFromForm();
+  el('btn-start').disabled = !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
+}
+
+function buildObjectFromForm() {
+  const quirks = [];
+  document.querySelectorAll('.f-quirk').forEach(inp => { if (inp.value.trim()) quirks.push(inp.value.trim()); });
+  return {
+    station: {
+      id: fv('f-id'), name: 'auto', claim: fv('f-claim'),
+      description: fv('f-desc').replace(/\n/g, ' >\n    '), lang_definition: fv('f-desc'),
+      genre: fv('f-genre'), subgenres: fv('f-subgenres').split(',').map(s => s.trim()).filter(Boolean),
+      target_audience: fv('f-audience'), timezone: 'Europe/Berlin', language: 'de',
+    },
+    dj: {
+      name: fv('f-dj-name'),
+      personality: fv('f-dj-personality'), tone: fv('f-dj-tone'),
+      max_moderation_chars: parseInt(fv('f-dj-maxmod')) || 800,
+      bio: {
+        real_name: fv('f-dj-real'), age: fv('f-dj-age') ? parseInt(fv('f-dj-age')) : undefined,
+        origin: fv('f-dj-origin'), family: fv('f-dj-family'), hobbies: fv('f-dj-hobbies'),
+        since_year: fv('f-dj-since') ? parseInt(fv('f-dj-since')) : undefined,
+        vita: fv('f-dj-vita'), avatar_prompt: fv('f-dj-avatar'),
+      },
+      quirks: quirks.length ? quirks : ['-'],
+      forbidden_topics: ['politics', 'religion'],
+    },
+    program_grid: { impulse_slot_minute: 30 },
+    rules: { no_repeat_hours: 4, max_same_genre_in_a_row: 2 },
+  };
+}
+
+function buildYamlFromForm() {
+  return 'station:\n  id: ' + fv('f-id') + '\n  name: auto\n  claim: "' + fv('f-claim') + '"\n  description: >\n    ' + fv('f-desc').replace(/\n/g, '\n    ') + '\n  genre: ' + fv('f-genre') + '\n  subgenres: [' + fv('f-subgenres') + ']\n  target_audience: "' + fv('f-audience') + '"\n  timezone: Europe/Berlin\n  language: de\n\ndj:\n  name: "' + fv('f-dj-name') + '"\n  personality: "' + fv('f-dj-personality') + '"\n  tone: "' + fv('f-dj-tone') + '"\n  max_moderation_chars: ' + fv('f-dj-maxmod') + '\n  bio:\n    real_name: "' + fv('f-dj-real') + '"\n    age: ' + (fv('f-dj-age') || '0') + '\n    origin: "' + fv('f-dj-origin') + '"\n    family: "' + fv('f-dj-family') + '"\n    hobbies: "' + fv('f-dj-hobbies') + '"\n    since_year: ' + (fv('f-dj-since') || '0') + '\n    vita: >\n      ' + fv('f-dj-vita').replace(/\n/g, '\n      ') + '\n    avatar_prompt: >\n      ' + fv('f-dj-avatar').replace(/\n/g, '\n      ') + '\n  quirks:';
+}
+
+function parseYamlToForm(yamlStr) {
+  try {
+    const lines = yamlStr.split('\n');
+    const s = {}, d = {}, b = {}, quirks = [];
+    let section = '';
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (/^\s{2}id:/.test(line)) s.id = line.split(':')[1].trim();
+      if (/^\s{2}claim:/.test(line)) s.claim = line.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{2}genre:/.test(line)) s.genre = line.split(':')[1].trim();
+      if (/^\s{2}subgenres:/.test(line)) {
+        const raw = line.split(':')[1].trim();
+        s.subgenres = raw.replace(/[\[\]]/g, '').split(',').map(x => x.trim()).filter(Boolean);
+      }
+      if (/^\s{2}target_audience:/.test(line)) s.target_audience = line.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{2}description:/.test(line)) { i++; let desc = ''; while (i < lines.length && /^\s{4}/.test(lines[i])) { desc += lines[i].trim() + ' '; i++; } i--; s.description = desc.trim(); }
+      if (/^\s{4}name:/.test(line)) d.name = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{4}personality:/.test(line)) d.personality = line.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{4}tone:/.test(line)) d.tone = line.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{4}max_moderation_chars:/.test(line)) d.max_moderation_chars = parseInt(line.split(':')[1]);
+      if (/^\s{6}real_name:/.test(line)) b.real_name = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}age:/.test(line)) b.age = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}origin:/.test(line)) b.origin = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}family:/.test(line)) b.family = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}hobbies:/.test(line)) b.hobbies = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}since_year:/.test(line)) b.since_year = line.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{6}vita:/.test(line)) { i++; let v = ''; while (i < lines.length && /^\s{8}/.test(lines[i])) { v += lines[i].trim() + ' '; i++; } i--; b.vita = v.trim(); }
+      if (/^\s{6}avatar_prompt:/.test(line)) { i++; let a = ''; while (i < lines.length && /^\s{8}/.test(lines[i])) { a += lines[i].trim() + ' '; i++; } i--; b.avatar_prompt = a.trim(); }
+      if (/^\s{4}-/.test(line)) { const q = line.split(/-\s*/)[1].replace(/"/g, ''); if (q) quirks.push(q); }
+    }
+    return { station: s, dj: { ...d, bio: b, quirks } };
+  } catch (e) { return null; }
+}
+
+async function newRandom() {
+  if (_limits.stations_running >= _limits.max_stations) {
+    alert('Max. ' + _limits.max_stations + ' laufende Stationen erreicht. Bitte erst eine Station stoppen.');
+    return;
+  }
+  if (_limits.personas_count >= _limits.max_personas) {
+    alert('Max. ' + _limits.max_personas + ' Personas gespeichert. Bitte erst eine Persona loeschen.');
+    return;
+  }
+  document.getElementById('prefs-overlay').style.display = 'flex';
+  document.getElementById('pref-genre').focus();
+}
+
+function closePrefs() {
+  document.getElementById('prefs-overlay').style.display = 'none';
+}
+
+async function startRandom() {
+  closePrefs();
+  const genre = el('pref-genre')?.value?.trim() || '';
+  const lang = el('pref-lang')?.value || 'de';
+
+  openModal('Neue Station (Random)');
+  clearForm();
+  el('modal-status').innerHTML = '<span class="spinner"></span> LLM generiert Persona + Tracks...';
+  setBusy(true);
+
+  try {
+    const body = {};
+    if (genre) body.genre_hint = genre;
+    body.language = lang;
+    const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      el('modal-status').innerHTML = '✗ ' + (data.error || 'Fehler');
+      setBusy(false);
+      return;
+    }
+    _currentTracks = data.tracks_json;
+    const p = data.parsed || parseYamlToForm(data.persona_yaml) || {};
+    populateForm(p || {});
+    el('modal-status').innerHTML = '✓ Persona + ' + (data.tracks_json ? '40 Tracks' : 'Tracks') + ' generiert.';
+  } catch (e) {
+    el('modal-status').innerHTML = '✗ ' + e.message;
+  }
+  setBusy(false);
+}
+
+function newCustom() {
+  openModal('Neue Station (Custom)');
+  clearForm();
+  _currentTracks = null;
+  el('btn-regen').style.display = 'none';
+  el('modal-status').innerHTML = '';
+  setBusy(false);
+}
+
+async function regenerate() {
+  if (_busy) return;
+  if (_limits.personas_count >= _limits.max_personas) {
+    el('modal-status').innerHTML = '✗ Max. ' + _limits.max_personas + ' Personas erreicht';
+    return;
+  }
+  setBusy(true);
+  el('modal-status').innerHTML = '<span class="spinner"></span> Neu generieren...';
+  _currentTracks = null;
+
+  try {
+    const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}' });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      el('modal-status').innerHTML = '✗ ' + (data.error || 'Fehler');
+      setBusy(false);
+      return;
+    }
+    _currentTracks = data.tracks_json;
+    const p = data.parsed || parseYamlToForm(data.persona_yaml) || {};
+    populateForm(p || {});
+    el('modal-status').innerHTML = '✓ Neue Persona generiert.';
+  } catch (e) {
+    el('modal-status').innerHTML = '✗ ' + e.message;
+  }
+  setBusy(false);
+}
+
+async function startStation() {
+  if (_busy || !_parsedPersona) return;
+  setBusy(true);
+  el('modal-status').innerHTML = '<span class="spinner"></span> Station wird erstellt + gestartet...';
+
+  try {
+    const obj = buildObjectFromForm();
+    const yaml = 'station:\n' +
+      '  id: ' + (obj.station.id || 'unknown') + '\n' +
+      '  name: auto\n' +
+      '  claim: "' + (obj.station.claim || '') + '"\n' +
+      '  description: >\n    ' + (obj.station.description || 'Station').replace(/\n/g, '\n    ') + '\n' +
+      '  genre: ' + (obj.station.genre || 'unknown') + '\n' +
+      '  subgenres: [' + (obj.station.subgenres || []).join(', ') + ']\n' +
+      '  target_audience: "' + (obj.station.target_audience || '') + '"\n' +
+      '  timezone: Europe/Berlin\n' +
+      '  language: de\n\n' +
+      'dj:\n' +
+      '  name: "' + (obj.dj.name || 'DJ') + '"\n' +
+      '  personality: "' + (obj.dj.personality || '') + '"\n' +
+      '  tone: "' + (obj.dj.tone || '') + '"\n' +
+      '  max_moderation_chars: ' + (obj.dj.max_moderation_chars || 800) + '\n' +
+      '  bio:\n' +
+      '    real_name: "' + (obj.dj.bio.real_name || '') + '"\n' +
+      '    age: ' + (obj.dj.bio.age || 0) + '\n' +
+      '    origin: "' + (obj.dj.bio.origin || '') + '"\n' +
+      '    family: "' + (obj.dj.bio.family || '') + '"\n' +
+      '    hobbies: "' + (obj.dj.bio.hobbies || '') + '"\n' +
+      '    since_year: ' + (obj.dj.bio.since_year || 0) + '\n' +
+      '    vita: >\n      ' + (obj.dj.bio.vita || 'Station.').replace(/\n/g, '\n      ') + '\n' +
+      '    avatar_prompt: >\n      ' + (obj.dj.bio.avatar_prompt || 'Radio DJ portrait.').replace(/\n/g, '\n      ') + '\n' +
+      '  quirks:\n' +
+      (obj.dj.quirks || ['-']).map(q => '    - "' + q + '"').join('\n') + '\n' +
+      '  forbidden_topics: ["politics", "religion"]\n\n' +
+      'program_grid:\n  impulse_slot_minute: 30\n\n' +
+      'rules:\n  no_repeat_hours: 4\n  max_same_genre_in_a_row: 2';
+
+    const body = { persona_yaml: yaml };
+    if (_currentTracks) body.tracks_json = _currentTracks;
+
+    const res = await fetch('/stations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      let msg = 'HTTP ' + res.status;
+      try { const e = await res.json(); msg = e.error || e.detail || msg; } catch (_) {}
+      el('modal-status').innerHTML = '✗ ' + msg;
+      setBusy(false);
+      return;
+    }
+    const data = await res.json();
+    el('modal-status').innerHTML = '✓ Station "' + data.slug + '" laeuft auf Port ' + data.port;
+    _busy = false;
+    setTimeout(() => { closeModal(); loadStations(); loadOverview(); loadPersonas(); }, 2000);
+  } catch (e) {
+    el('modal-status').innerHTML = '✗ ' + e.message;
+    setBusy(false);
+  }
+}
+
+function openModal(title) {
+  el('modal-title').textContent = title;
+  el('btn-regen').style.display = '';
+  el('modal-overlay').classList.add('open');
+}
+
+function closeHelp() {
+  document.getElementById('help-overlay').style.display = 'none';
+  document.getElementById('help-frame').src = '';
+}
+function openHelp() {
+  document.getElementById('help-frame').src = '/help';
+  document.getElementById('help-overlay').style.display = 'flex';
+}
+document.getElementById('help-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeHelp();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelp(); });
+
+function closeModal() {
+  if (_busy) {
+    if (!confirm('Generierung laeuft — wirklich abbrechen?')) return;
+  }
+  el('modal-overlay').classList.remove('open');
+  _currentTracks = null;
+  _parsedPersona = null;
+  _busy = false;
+}
+
+['f-id','f-genre','f-dj-name'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', () => {
+    if (!_busy) el('btn-start').disabled = !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
+  });
+});
+
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function fmtRemaining(idleSince) {
+  if (!idleSince) return '';
+  const idle = new Date(idleSince + (idleSince.includes('+') ? '' : 'Z'));
+  const now = new Date();
+  const elapsed = Math.max(0, (now - idle) / 1000);
+  const remaining = Math.max(0, 2700 - elapsed);
+  if (remaining <= 0) return '<span style="color:#ef4444;">Auto-Stop: wird gestoppt</span>';
+  const h = Math.floor(remaining / 3600);
+  const m = Math.floor((remaining % 3600) / 60);
+  return '<span style="color:#888;">Auto-Stop in ' + (h > 0 ? h + 'h ' : '') + m + 'm</span>';
+}
+
+async function loadStations() {
+  try {
+    const res = await fetch('/stations');
+    const stations = await res.json();
+    const grid = document.getElementById('stations-grid');
+    grid.innerHTML = '';
+
+    stations.forEach(s => {
+      const status = s.station_status || {};
+      const stName = (status.station || {}).name || s.slug;
+      const genre = (status.station || {}).genre || '?';
+      const djName = (status.dj || {}).name || '?';
+      const listeners = s.subscribers || 0;
+      const isLive = listeners > 0;
+
+      const card = document.createElement('div');
+      card.className = 'station-card';
+      card.onclick = () => window.open('http://localhost:' + s.port + '/', '_blank');
+      card.innerHTML = `
+        <div class="sc-name">${stName}</div>
+        <div class="sc-genre">${genre}</div>
+        <div class="sc-dj">DJ ${djName}</div>
+        <div class="sc-listeners">${listeners} Hoerer</div>
+        <div class="sc-status ${isLive ? 'live' : 'idle'}">${isLive ? '● LIVE' : '○ IDLE'} ${!isLive ? fmtRemaining(s.idle_since) : ''}</div>
+        ${!s.protected && _adminToken ? '<button class="btn danger" style="margin-top:8px;font-size:10px;padding:4px 8px;" onclick="event.stopPropagation();stopStation(\'' + s.station_id + '\', this)">Stop</button>' : ''}
+      `;
+      grid.appendChild(card);
+    });
+
+    const stationFull = _limits.stations_running >= _limits.max_stations;
+    const personaFull = _limits.personas_count >= _limits.max_personas;
+    const limitMsg = stationFull ? 'Max. Stationen erreicht' : personaFull ? 'Max. Personas erreicht' : '+ Neue Station';
+
+    const newCard = document.createElement('div');
+    newCard.className = 'new-card';
+    newCard.innerHTML = `
+      <div class="nc-title">${limitMsg}</div>
+      <button class="btn" onclick="newRandom()" ${(stationFull || personaFull) ? 'disabled' : ''}>Random</button>
+      <button class="btn secondary" onclick="newCustom()" ${stationFull ? 'disabled' : ''}>Custom</button>
+    `;
+    grid.appendChild(newCard);
+  } catch (e) {
+    document.getElementById('stations-grid').innerHTML = '<div class="loading">Fehler beim Laden</div>';
+  }
+}
+
+async function loadOverview() {
+  try {
+    const res = await fetch('/overview');
+    const d = await res.json();
+    document.getElementById('ov-stations').textContent = d.stations_running + '/' + (d.max_stations || '?');
+    document.getElementById('ov-listeners').textContent = d.total_listeners;
+    document.getElementById('ov-tracks').textContent = d.total_tracks_played;
+    document.getElementById('ov-llm').textContent = d.total_llm_calls;
+    document.getElementById('ov-tokens').textContent = (d.total_tokens_in + d.total_tokens_out).toLocaleString();
+    document.getElementById('ov-personas').textContent = (d.personas_count || 0) + '/' + (d.max_personas || '?');
+    _limits = { max_stations: d.max_stations || 5, max_personas: d.max_personas || 20, stations_running: d.stations_running || 0, personas_count: d.personas_count || 0 };
+  } catch (e) {}
+}
+
+async function loadPersonas() {
+  try {
+    const res = await fetch('/personas');
+    const personas = await res.json();
+    const list = document.getElementById('personas-list');
+    if (!personas.length) { list.innerHTML = '<div style="color:#444;">Noch keine generiert</div>'; return; }
+    list.innerHTML = '';
+    personas.slice(0, 10).forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'pl-item';
+      let buttons = `<button class="btn secondary" style="font-size:10px;padding:2px 10px;" onclick="event.stopPropagation();startFromPersona(${p.id}, this)">▶</button>`;
+      if (_adminToken) {
+        buttons += `<button class="btn danger" style="font-size:10px;padding:2px 8px;margin-left:4px;" onclick="event.stopPropagation();deletePersona(${p.id}, this)">×</button>`;
+      }
+      div.innerHTML = `<span class="pl-name">${p.slug}</span><span class="pl-genre">${p.station_id}</span><span class="pl-date">${p.created_at.substring(0, 10)}</span>${buttons}`;
+      list.appendChild(div);
+    });
+  } catch (e) {}
+}
+
+async function stopStation(stationId, btn) {
+  if (!confirm('Station "' + stationId + '" wirklich stoppen?')) return;
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>'; }
+  try {
+    const res = await fetch('/stations/' + stationId, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + _adminToken },
+    });
+    if (res.ok) {
+      if (btn) btn.innerHTML = '✓ gestoppt';
+      setTimeout(loadStations, 1000);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert('Stop fehlgeschlagen: ' + (data.detail || data.error || 'Unbekannter Fehler'));
+      if (btn) { btn.disabled = false; btn.textContent = 'Stop'; }
+    }
+  } catch (e) {
+    alert('Netzwerk-Fehler: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Stop'; }
+  }
+}
+
+async function startFromPersona(personaId, btn) {
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>'; }
+  try {
+    const res = await fetch('/stations/from-persona/' + personaId, { method: 'POST' });
+    if (!res.ok) {
+      let msg = 'HTTP ' + res.status;
+      try { const e = await res.json(); msg = e.error || e.detail || msg; } catch (_) {}
+      alert('Start fehlgeschlagen: ' + msg);
+      if (btn) { btn.disabled = false; btn.textContent = '▶'; }
+      return;
+    }
+    const data = await res.json();
+    if (btn) btn.innerHTML = '✓';
+    setTimeout(() => { loadStations(); loadOverview(); }, 1000);
+  } catch (e) {
+    alert('Fehler: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = '▶'; }
+  }
+}
+
+async function deletePersona(personaId, btn) {
+  if (!confirm('Persona #' + personaId + ' wirklich loeschen?')) return;
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  try {
+    const res = await fetch('/personas/' + personaId, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + _adminToken },
+    });
+    if (res.ok) {
+      loadPersonas();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert('Loeschen fehlgeschlagen: ' + (data.detail || data.error || 'Fehler'));
+      if (btn) { btn.disabled = false; btn.textContent = '×'; }
+    }
+  } catch (e) {
+    alert('Fehler: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = '×'; }
+  }
+}
+
+function setAdmin(token) {
+  _adminToken = token;
+  localStorage.setItem('raido_admin', token);
+  document.getElementById('admin-status').textContent = token ? '✓' : '';
+  document.querySelectorAll('[id^="admin-drop-"]').forEach(el => el.classList.toggle('hidden', !token));
+  loadStations();
+}
+
+async function dropContent(category, btn) {
+  if (!_adminToken) return;
+  const endpoints = {ad:'/admin/drop-ad',news:'/admin/drop-news',weather:'/admin/drop-weather',listener_comment:'/admin/drop-comment',music_request:'/admin/drop-request'};
+  const ep = endpoints[category];
+  if (!ep) return;
+  if (btn) { btn.disabled = true; btn.textContent = '...'; }
+  try {
+    const res = await fetch(ep, { method: 'POST', headers: { 'Authorization': 'Bearer ' + _adminToken } });
+    if (res.ok) {
+      loadAds();
+      loadInjections();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(data.detail || data.error || 'Fehler');
+    }
+  } catch (e) { alert(e.message); }
+  if (btn) { btn.disabled = false; btn.textContent = 'drop random ' + category.replace('_',' '); }
+}
+
+async function dropAd() { dropContent('ad', document.querySelector('#admin-drop-ad button')); }
+
+async function loadInjections() {
+  try {
+    const res = await fetch('/injections');
+    const data = await res.json() || [];
+    const cats = { news: 'News', weather: 'Wetter', listener_comment: 'Kommentare', music_request: 'Musikwünsche' };
+    const container = document.getElementById('injection-sections');
+    container.innerHTML = '';
+
+    Object.entries(cats).forEach(([key, title]) => {
+      const items = data.filter(i => i.category === key).slice(0, 10);
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.innerHTML = `
+          <div class="section-title" style="display:flex;align-items:center;gap:8px;">
+            ${title} <span id="admin-drop-${key}" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','kommentar').replace('music_request','musikwunsch')}</button></span>
+          </div>
+        <table class="ads-table">
+          <tr><th>Station</th><th>Inhalt</th><th>Zeit</th></tr>
+          ${items.length ? items.map(i => `<tr><td class="ad-station">${i.station_slug}</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${i.content||''}</td><td class="ad-time">${(i.injected_at||'').substring(11,19)}</td></tr>`).join('') : '<tr><td colspan="3" style="color:#444;">Keine Eintraege</td></tr>'}
+        </table>
+      `;
+      container.appendChild(section);
+    });
+
+    if (_adminToken) document.querySelectorAll('[id^="admin-drop-"]').forEach(el => el.classList.remove('hidden'));
+  } catch (e) {}
+}
+
+let _adsData = [];
+let _adIndex = null;
+
+async function loadAds() {
+  try {
+    const res = await fetch('/ads');
+    _adsData = await res.json();
+    const list = document.getElementById('ads-list');
+    list.innerHTML = '<tr><th>Sponsor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>';
+    if (!_adsData || !_adsData.length) { list.innerHTML += '<tr><td colspan="4" style="color:#444;">Keine Ads</td></tr>'; return; }
+    _adsData.slice(0, 20).forEach((a, i) => {
+      const tr = document.createElement('tr');
+      tr.onclick = () => showAdDetail(i);
+      tr.innerHTML = `<td class="ad-sponsor">${a.sponsor}</td><td>${(a.product||'').substring(0,50)}</td><td class="ad-station">${a.station_slug}</td><td class="ad-time">${(a.injected_at||'').substring(11, 19)}</td>`;
+      list.appendChild(tr);
+    });
+  } catch (e) {}
+}
+
+function showAdDetail(index) {
+  _adIndex = index;
+  const a = _adsData[index];
+  if (!a) return;
+  document.getElementById('ad-detail-sponsor').textContent = a.sponsor;
+  document.getElementById('ad-detail-product').textContent = a.product;
+  document.getElementById('ad-detail-key').textContent = '„' + a.key_message + '“';
+  document.getElementById('ad-detail-station').innerHTML = 'Station: <span style="color:#6366f1;">' + a.station_slug + '</span>';
+  document.getElementById('ad-detail-overlay').classList.add('open');
+  updateAdNav();
+}
+
+function closeAdDetail() {
+  document.getElementById('ad-detail-overlay').classList.remove('open');
+  _adIndex = null;
+}
+
+function navAd(dir) {
+  if (_adIndex === null) return;
+  const newIdx = _adIndex + dir;
+  if (newIdx >= 0 && newIdx < _adsData.length) showAdDetail(newIdx);
+}
+
+function updateAdNav() {
+  document.getElementById('ad-prev').disabled = _adIndex <= 0;
+  document.getElementById('ad-next').disabled = _adIndex >= _adsData.length - 1;
+  document.getElementById('ad-pos').textContent = (_adIndex + 1) + ' / ' + _adsData.length;
+}
+
+document.getElementById('ad-detail-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeAdDetail();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAdDetail();
+  if (e.key === 'ArrowLeft' && document.getElementById('ad-detail-overlay').classList.contains('open')) navAd(-1);
+  if (e.key === 'ArrowRight' && document.getElementById('ad-detail-overlay').classList.contains('open')) navAd(1);
+});
+
+document.getElementById('admin-token').value = _adminToken;
+if (_adminToken) {
+  document.getElementById('admin-status').textContent = '✓';
+}
+
+loadStations();
+loadOverview();
+loadPersonas();
+loadAds();
+loadInjections();
+setInterval(() => { loadStations(); loadOverview(); loadAds(); loadInjections(); }, 30000);
+</script>
+</body>
+</html>

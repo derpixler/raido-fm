@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Ambient",
+    "duration": 435,
+    "energy": 0.3
+  },
+  {
+    "id": 2,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Part 1",
+    "genre": "Drone",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 3,
+    "artist": "William Basinski",
+    "title": "dlp 1.1",
+    "genre": "Drone",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 4,
+    "artist": "Chris Watson",
+    "title": "Vatnajökull",
+    "genre": "Acoustic Field Recordings",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "Jana Winderen",
+    "title": "The Noisiest Guys on the Planet",
+    "genre": "Acoustic Field Recordings",
+    "duration": 480,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Hiroshi Yoshimura",
+    "title": "Time After Time",
+    "genre": "Ambient",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 7,
+    "artist": "Eliane Radigue",
+    "title": "Trilogie de la Mort: Part 1",
+    "genre": "Drone",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 8,
+    "artist": "Laurie Anderson",
+    "title": "O Superman",
+    "genre": "Poetic Spoken Word",
+    "duration": 510,
+    "energy": 0.7
+  },
+  {
+    "id": 9,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "Arcs",
+    "genre": "Minimalism",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 10,
+    "artist": "Nico Muhly",
+    "title": "Mothertongue: Pt. 1",
+    "genre": "Minimalism",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Loscil",
+    "title": "Clampex",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 390,
+    "energy": 0.2
+  },
+  {
+    "id": 12,
+    "artist": "Tim Hecker",
+    "title": "A Sea of Bush",
+    "genre": "Drone",
+    "duration": 480,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "Richard Skelton",
+    "title": "Landings",
+    "genre": "Acoustic Field Recordings",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 14,
+    "artist": "Pauline Oliveros",
+    "title": "Bye Bye Butterfly",
+    "genre": "Drone",
+    "duration": 520,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Meredith Monk",
+    "title": "Gotham Lullaby",
+    "genre": "Poetic Spoken Word",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 16,
+    "artist": "Oneohtrix Point Never",
+    "title": "Zebra",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 210,
+    "energy": 0.6
+  },
+  {
+    "id": 17,
+    "artist": "Fennesz",
+    "title": "Caecilia",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 330,
+    "energy": 0.5
+  },
+  {
+    "id": 18,
+    "artist": "Sarah Davachi",
+    "title": "August Harp",
+    "genre": "Minimalism",
+    "duration": 450,
+    "energy": 0.1
+  },
+  {
+    "id": 19,
+    "artist": "Hildur Guðnadóttir",
+    "title": "Bridge of Death",
+    "genre": "Acoustic Field Recordings",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 20,
+    "artist": "Aphex Twin",
+    "title": "Rhubarb",
+    "genre": "Ambient",
+    "duration": 428,
+    "energy": 0.2
+  },
+  {
+    "id": 21,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 180,
+    "energy": 0.4
+  },
+  {
+    "id": 22,
+    "artist": "Phew",
+    "title": "One",
+    "genre": "Poetic Spoken Word",
+    "duration": 240,
+    "energy": 0.7
+  },
+  {
+    "id": 23,
+    "artist": "Steve Reich",
+    "title": "Music for 18 Musicians (Pulses)",
+    "genre": "Minimalism",
+    "duration": 600,
+    "energy": 0.6
+  },
+  {
+    "id": 24,
+    "artist": "Alva Noto",
+    "title": "Uni Sub",
+    "genre": "Drone",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 25,
+    "artist": "Tujiko Noriko",
+    "title": "White Midnight",
+    "genre": "Poetic Spoken Word",
+    "duration": 270,
+    "energy": 0.5
+  },
+  {
+    "id": 26,
+    "artist": "Jan Bang",
+    "title": "Written in Reverse",
+    "genre": "Acoustic Field Recordings",
+    "duration": 380,
+    "energy": 0.3
+  },
+  {
+    "id": 27,
+    "artist": "Biosphere",
+    "title": "Poaceae",
+    "genre": "Ambient",
+    "duration": 410,
+    "energy": 0.2
+  },
+  {
+    "id": 28,
+    "artist": "Kyle Bobby Dunn",
+    "title": "And the Tide Will Suck Us Down",
+    "genre": "Drone",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 29,
+    "artist": "Annea Lockwood",
+    "title": "A Sound Map of the Danube: Vienna",
+    "genre": "Acoustic Field Recordings",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "Philip Glass",
+    "title": "Metamorphosis I",
+    "genre": "Minimalism",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 31,
+    "artist": "Ryuichi Sakamoto",
+    "title": "Energy Flow",
+    "genre": "Ambient",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 32,
+    "artist": "Terre Thaemlitz",
+    "title": "A-B-C",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 440,
+    "energy": 0.6
+  },
+  {
+    "id": 33,
+    "artist": "Katherine Duncanson",
+    "title": "The River",
+    "genre": "Poetic Spoken Word",
+    "duration": 220,
+    "energy": 0.4
+  },
+  {
+    "id": 34,
+    "artist": "Labradford",
+    "title": "Tenth",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 320,
+    "energy": 0.3
+  },
+  {
+    "id": 35,
+    "artist": "Mika Vainio",
+    "title": "Kuvio",
+    "genre": "Drone",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "Jóhann Jóhannsson",
+    "title": "The Sun's Gone Dim and the Sky's Turned Black",
+    "genre": "Minimalism",
+    "duration": 390,
+    "energy": 0.4
+  },
+  {
+    "id": 37,
+    "artist": "Yui Onodera",
+    "title": "The First Morning",
+    "genre": "Acoustic Field Recordings",
+    "duration": 350,
+    "energy": 0.2
+  },
+  {
+    "id": 38,
+    "artist": "Coil",
+    "title": "The Ape of Naples",
+    "genre": "Poetic Spoken Word",
+    "duration": 510,
+    "energy": 0.6
+  },
+  {
+    "id": 39,
+    "artist": "A Winged Victory for the Sullen",
+    "title": "A Symphony Pathetique",
+    "genre": "Ambient",
+    "duration": 410,
+    "energy": 0.3
+  },
+  {
+    "id": 40,
+    "artist": "Sofie Birch",
+    "title": "Plastic Cloud",
+    "genre": "Lo-Fi Soundscapes",
+    "duration": 260,
+    "energy": 0.4
+  }
+]

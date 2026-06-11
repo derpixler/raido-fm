@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Beach House",
+    "title": "Space Song",
+    "genre": "Dream Pop",
+    "duration": 320,
+    "energy": 0.6
+  },
+  {
+    "id": 2,
+    "artist": "Mazzy Star",
+    "title": "Fade Into You",
+    "genre": "Dream Pop",
+    "duration": 284,
+    "energy": 0.3
+  },
+  {
+    "id": 3,
+    "artist": "Cocteau Twins",
+    "title": "Cherry-Coloured Funk",
+    "genre": "Dream Pop",
+    "duration": 192,
+    "energy": 0.5
+  },
+  {
+    "id": 4,
+    "artist": "Slowdive",
+    "title": "Alison",
+    "genre": "Shoegaze",
+    "duration": 210,
+    "energy": 0.7
+  },
+  {
+    "id": 5,
+    "artist": "My Bloody Valentine",
+    "title": "Sometimes",
+    "genre": "Shoegaze",
+    "duration": 319,
+    "energy": 0.8
+  },
+  {
+    "id": 6,
+    "artist": "Alvvays",
+    "title": "Dreams Tonite",
+    "genre": "Dream Pop",
+    "duration": 238,
+    "energy": 0.5
+  },
+  {
+    "id": 7,
+    "artist": "Cigarettes After Sex",
+    "title": "K.",
+    "genre": "Dream Pop",
+    "duration": 286,
+    "energy": 0.2
+  },
+  {
+    "id": 8,
+    "artist": "Low",
+    "title": "Lullaby",
+    "genre": "Slowcore",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 9,
+    "artist": "Red House Painters",
+    "title": "Katy Song",
+    "genre": "Slowcore",
+    "duration": 520,
+    "energy": 0.2
+  },
+  {
+    "id": 10,
+    "artist": "Duster",
+    "title": "Inside Out",
+    "genre": "Slowcore",
+    "duration": 210,
+    "energy": 0.1
+  },
+  {
+    "id": 11,
+    "artist": "Juana Molina",
+    "title": "Eras",
+    "genre": "Folktrónica",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 12,
+    "artist": "Fleet Foxes",
+    "title": "Mykonos",
+    "genre": "Ambient Folk",
+    "duration": 275,
+    "energy": 0.4
+  },
+  {
+    "id": 13,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "Ambient Folk",
+    "duration": 180,
+    "energy": 0.0
+  },
+  {
+    "id": 14,
+    "artist": "Ride",
+    "title": "Vapour Trail",
+    "genre": "Shoegaze",
+    "duration": 276,
+    "energy": 0.9
+  },
+  {
+    "id": 15,
+    "artist": "Lush",
+    "title": "Sweetness and Light",
+    "genre": "Shoegaze",
+    "duration": 278,
+    "energy": 0.6
+  },
+  {
+    "id": 16,
+    "artist": "The Radio Dept.",
+    "title": "Heaven's on Fire",
+    "genre": "Dream Pop",
+    "duration": 206,
+    "energy": 0.5
+  },
+  {
+    "id": 17,
+    "artist": "Washed Out",
+    "title": "Feel It All Around",
+    "genre": "Dream Pop",
+    "duration": 209,
+    "energy": 0.4
+  },
+  {
+    "id": 18,
+    "artist": "Galaxie 500",
+    "title": "Tugboat",
+    "genre": "Slowcore",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 19,
+    "artist": "Codeine",
+    "title": "Realize",
+    "genre": "Slowcore",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 20,
+    "artist": "Mount Eerie",
+    "title": "The Place I Live",
+    "genre": "Slowcore",
+    "duration": 360,
+    "energy": 0.1
+  },
+  {
+    "id": 21,
+    "artist": "Helado Negro",
+    "title": "Running",
+    "genre": "Folktrónica",
+    "duration": 250,
+    "energy": 0.5
+  },
+  {
+    "id": 22,
+    "artist": "Ana Roxanne",
+    "title": "Immortal",
+    "genre": "Ambient Folk",
+    "duration": 300,
+    "energy": 0.1
+  },
+  {
+    "id": 23,
+    "artist": "Loma",
+    "title": "I Fix My Gaze on You",
+    "genre": "Ambient Folk",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 24,
+    "artist": "Chapterhouse",
+    "title": "Pearl",
+    "genre": "Shoegaze",
+    "duration": 330,
+    "energy": 0.7
+  },
+  {
+    "id": 25,
+    "artist": "Pale Saints",
+    "title": "Kinky Love",
+    "genre": "Shoegaze",
+    "duration": 280,
+    "energy": 0.6
+  },
+  {
+    "id": 26,
+    "artist": "Men I Trust",
+    "title": "Show Me How",
+    "genre": "Dream Pop",
+    "duration": 222,
+    "energy": 0.3
+  },
+  {
+    "id": 27,
+    "artist": "Japanese Breakfast",
+    "title": "Boyish",
+    "genre": "Dream Pop",
+    "duration": 212,
+    "energy": 0.4
+  },
+  {
+    "id": 28,
+    "artist": "Bedhead",
+    "title": "The Rest of the Day",
+    "genre": "Slowcore",
+    "duration": 410,
+    "energy": 0.2
+  },
+  {
+    "id": 29,
+    "artist": "Ida",
+    "title": "The Queen of the Night",
+    "genre": "Slowcore",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 30,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "To Follow and Lead",
+    "genre": "Folktrónica",
+    "duration": 310,
+    "energy": 0.5
+  },
+  {
+    "id": 31,
+    "artist": "Emilíana Torrini",
+    "title": "Jungle Drum",
+    "genre": "Folktrónica",
+    "duration": 190,
+    "energy": 0.6
+  },
+  {
+    "id": 32,
+    "artist": "Julianna Barwick",
+    "title": "Pacing",
+    "genre": "Ambient Folk",
+    "duration": 340,
+    "energy": 0.1
+  },
+  {
+    "id": 33,
+    "artist": "Múm",
+    "title": "Green Grass of Tunnel",
+    "genre": "Ambient Folk",
+    "duration": 260,
+    "energy": 0.3
+  },
+  {
+    "id": 34,
+    "artist": "The Jesus and Mary Chain",
+    "title": "Just Like Honey",
+    "genre": "Shoegaze",
+    "duration": 183,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "Swervedriver",
+    "title": "Son of Mustang Ford",
+    "genre": "Shoegaze",
+    "duration": 260,
+    "energy": 0.8
+  },
+  {
+    "id": 36,
+    "artist": "Chromatics",
+    "title": "Tick of the Clock",
+    "genre": "Dream Pop",
+    "duration": 284,
+    "energy": 0.4
+  },
+  {
+    "id": 37,
+    "artist": "Mojave 3",
+    "title": "Prayer for the Paranoid",
+    "genre": "Dream Pop",
+    "duration": 270,
+    "energy": 0.3
+  },
+  {
+    "id": 38,
+    "artist": "Carissa's Wierd",
+    "title": "So You Wanna Be a Superhero",
+    "genre": "Slowcore",
+    "duration": 330,
+    "energy": 0.2
+  },
+  {
+    "id": 39,
+    "artist": "Foie Gras",
+    "title": "Somewhere Else",
+    "genre": "Slowcore",
+    "duration": 240,
+    "energy": 0.1
+  },
+  {
+    "id": 40,
+    "artist": "Tirzah",
+    "title": "Devotion",
+    "genre": "Folktrónica",
+    "duration": 200,
+    "energy": 0.3
+  }
+]

@@ -1,0 +1,15 @@
+dj:
+  max_moderation_chars: 800
+  name: TestDJ
+  personality: chill
+  tone: relaxed
+station:
+  claim: test
+  genre: test
+  id: test123
+  language: de
+  name: auto
+  subgenres:
+  - indie
+  timezone: Europe/Berlin
+tracks_file: tracks_test123.json

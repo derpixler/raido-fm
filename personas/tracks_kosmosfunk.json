@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Giorgio Moroder",
+    "title": "Chase",
+    "genre": "Space-Disco",
+    "duration": 506,
+    "energy": 0.85
+  },
+  {
+    "id": 2,
+    "artist": "Kavinsky",
+    "title": "Nightcall",
+    "genre": "Synthwave",
+    "duration": 288,
+    "energy": 0.7
+  },
+  {
+    "id": 3,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Ambient",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 4,
+    "artist": "Can",
+    "title": "Vitamin C",
+    "genre": "Krautrock",
+    "duration": 212,
+    "energy": 0.8
+  },
+  {
+    "id": 5,
+    "artist": "Aphex Twin",
+    "title": "Xtal",
+    "genre": "IDM",
+    "duration": 354,
+    "energy": 0.3
+  },
+  {
+    "id": 6,
+    "artist": "Cerrone",
+    "title": "Supernature",
+    "genre": "Space-Disco",
+    "duration": 480,
+    "energy": 0.9
+  },
+  {
+    "id": 7,
+    "artist": "Carpenter Brut",
+    "title": "Turbo Killer",
+    "genre": "Synthwave",
+    "duration": 300,
+    "energy": 0.95
+  },
+  {
+    "id": 8,
+    "artist": "Harold Budd",
+    "title": "The Pavilion of Dreams",
+    "genre": "Ambient",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 9,
+    "artist": "Neu!",
+    "title": "Hallogallo",
+    "genre": "Krautrock",
+    "duration": 700,
+    "energy": 0.75
+  },
+  {
+    "id": 10,
+    "artist": "Boards of Canada",
+    "title": "Roygbiv",
+    "genre": "IDM",
+    "duration": 130,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Donna Summer",
+    "title": "I Feel Love",
+    "genre": "Space-Disco",
+    "duration": 348,
+    "energy": 0.9
+  },
+  {
+    "id": 12,
+    "artist": "Mitch Murder",
+    "title": "Breeze",
+    "genre": "Synthwave",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 13,
+    "artist": "Steve Roach",
+    "title": "Structures from Silence",
+    "genre": "Ambient",
+    "duration": 600,
+    "energy": 0.15
+  },
+  {
+    "id": 14,
+    "artist": "Kraftwerk",
+    "title": "Autobahn",
+    "genre": "Krautrock",
+    "duration": 665,
+    "energy": 0.7
+  },
+  {
+    "id": 15,
+    "artist": "Autechre",
+    "title": "Basscadet",
+    "genre": "IDM",
+    "duration": 180,
+    "energy": 0.65
+  },
+  {
+    "id": 16,
+    "artist": "Space",
+    "title": "Magic Fly",
+    "genre": "Space-Disco",
+    "duration": 280,
+    "energy": 0.8
+  },
+  {
+    "id": 17,
+    "artist": "The Midnight",
+    "title": "Sunset",
+    "genre": "Synthwave",
+    "duration": 300,
+    "energy": 0.55
+  },
+  {
+    "id": 18,
+    "artist": "Enya",
+    "title": "Orinoco Flow",
+    "genre": "Ambient",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 19,
+    "artist": "Faust",
+    "title": "It's a Rainy Day, Sunshine Girl",
+    "genre": "Krautrock",
+    "duration": 384,
+    "energy": 0.6
+  },
+  {
+    "id": 20,
+    "artist": "Squarepusher",
+    "title": "Come on My Selector",
+    "genre": "IDM",
+    "duration": 300,
+    "energy": 0.85
+  },
+  {
+    "id": 21,
+    "artist": "Patrick Cowley",
+    "title": "Menergy",
+    "genre": "Space-Disco",
+    "duration": 420,
+    "energy": 0.95
+  },
+  {
+    "id": 22,
+    "artist": "Lazerhawk",
+    "title": "Redline",
+    "genre": "Synthwave",
+    "duration": 360,
+    "energy": 0.9
+  },
+  {
+    "id": 23,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Pt. 2",
+    "genre": "Ambient",
+    "duration": 540,
+    "energy": 0.05
+  },
+  {
+    "id": 24,
+    "artist": "Cluster",
+    "title": "Sowiesoso",
+    "genre": "Krautrock",
+    "duration": 360,
+    "energy": 0.35
+  },
+  {
+    "id": 25,
+    "artist": "µ-Ziq",
+    "title": "Hasty Boom Alert",
+    "genre": "IDM",
+    "duration": 280,
+    "energy": 0.7
+  },
+  {
+    "id": 26,
+    "artist": "Daft Punk",
+    "title": "Veridis Quo",
+    "genre": "Space-Disco",
+    "duration": 340,
+    "energy": 0.5
+  },
+  {
+    "id": 27,
+    "artist": "Perturbator",
+    "title": "She Is Young, She Is Beautiful, She Is Next",
+    "genre": "Synthwave",
+    "duration": 270,
+    "energy": 0.85
+  },
+  {
+    "id": 28,
+    "artist": "William Basinski",
+    "title": "Melancholia II",
+    "genre": "Ambient",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 29,
+    "artist": "Amon Düül II",
+    "title": "Archangel Thunderbird",
+    "genre": "Krautrock",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 30,
+    "artist": "Orbital",
+    "title": "Halcyon and On and On",
+    "genre": "IDM",
+    "duration": 550,
+    "energy": 0.6
+  },
+  {
+    "id": 31,
+    "artist": "Sylvester",
+    "title": "You Make Me Feel (Mighty Real)",
+    "genre": "Space-Disco",
+    "duration": 360,
+    "energy": 0.9
+  },
+  {
+    "id": 32,
+    "artist": "Gunship",
+    "title": "Tech Noir",
+    "genre": "Synthwave",
+    "duration": 280,
+    "energy": 0.75
+  },
+  {
+    "id": 33,
+    "artist": "Max Richter",
+    "title": "On the Nature of Daylight",
+    "genre": "Ambient",
+    "duration": 360,
+    "energy": 0.15
+  },
+  {
+    "id": 34,
+    "artist": "Tangerine Dream",
+    "title": "Phaedra",
+    "genre": "Krautrock",
+    "duration": 600,
+    "energy": 0.5
+  },
+  {
+    "id": 35,
+    "artist": "Plaid",
+    "title": "Eyen",
+    "genre": "IDM",
+    "duration": 320,
+    "energy": 0.45
+  },
+  {
+    "id": 36,
+    "artist": "Alessandro Alessandroni",
+    "title": "Indian's Call",
+    "genre": "Space-Disco",
+    "duration": 240,
+    "energy": 0.65
+  },
+  {
+    "id": 37,
+    "artist": "Power Glove",
+    "title": "Motorcycle Cop",
+    "genre": "Synthwave",
+    "duration": 310,
+    "energy": 0.8
+  },
+  {
+    "id": 38,
+    "artist": "Moby",
+    "title": "Porcelain",
+    "genre": "Ambient",
+    "duration": 240,
+    "energy": 0.25
+  },
+  {
+    "id": 39,
+    "artist": "Ash Ra Tempel",
+    "title": "Amboss",
+    "genre": "Krautrock",
+    "duration": 720,
+    "energy": 0.65
+  },
+  {
+    "id": 40,
+    "artist": "Flying Lotus",
+    "title": "Zodiac Shit",
+    "genre": "IDM",
+    "duration": 210,
+    "energy": 0.8
+  }
+]

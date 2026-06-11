@@ -20,6 +20,8 @@ from .persona import get_persona, load_persona
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
+MAX_INPUT_CHARS = int(os.getenv("MAX_INPUT_CHARS", "500"))
+
 _db_conn = None
 _broadcast_queue: asyncio.Queue | None = None
 _subscribers: list[asyncio.Queue] = []
@@ -202,6 +204,18 @@ async def inject(req: InjectRequest):
         return JSONResponse(
             status_code=400,
             content={"error": f"Invalid category. Must be one of: {', '.join(valid_categories)}"},
+        )
+
+    input_len = len(req.text or "")
+    if input_len > MAX_INPUT_CHARS:
+        return JSONResponse(
+            status_code=413,
+            content={
+                "error": "input_too_long",
+                "max_chars": MAX_INPUT_CHARS,
+                "actual_chars": input_len,
+                "message": f"Max. {MAX_INPUT_CHARS} Zeichen erlaubt.",
+            },
         )
 
     raw_json = None

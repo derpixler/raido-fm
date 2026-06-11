@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Drone",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 2,
+    "artist": "Hiroshi Yoshimura",
+    "title": "Green",
+    "genre": "Ambient",
+    "duration": 360,
+    "energy": 0.1
+  },
+  {
+    "id": 3,
+    "artist": "Biosphere",
+    "title": "Substrata",
+    "genre": "Drone",
+    "duration": 600,
+    "energy": 0.3
+  },
+  {
+    "id": 4,
+    "artist": "Chihei Hatakeyama",
+    "title": "The Sleep of the Birds",
+    "genre": "Field Recording",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 5,
+    "artist": "Jon Hopkins",
+    "title": "Abandon Window",
+    "genre": "Slow Techno",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 6,
+    "artist": "Nils Frahm",
+    "title": "Says",
+    "genre": "Organic House",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 7,
+    "artist": "Loscil",
+    "title": "First Narrows",
+    "genre": "Drone",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 8,
+    "artist": "Hauschka",
+    "title": "Frogs",
+    "genre": "Field Recording",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 9,
+    "artist": "Carbon Based Lifeforms",
+    "title": "Interloper",
+    "genre": "Ambient",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 10,
+    "artist": "Steve Roach",
+    "title": "Structures from Silence",
+    "genre": "Drone",
+    "duration": 660,
+    "energy": 0.2
+  },
+  {
+    "id": 11,
+    "artist": "Lusine",
+    "title": "Two Dots",
+    "genre": "Slow Techno",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 12,
+    "artist": "Four Tet",
+    "title": "Angel Echoes",
+    "genre": "Organic House",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "William Basinski",
+    "title": "Melancholia II",
+    "genre": "Drone",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 14,
+    "artist": "Chris Watson",
+    "title": "El Tren Fantasma",
+    "genre": "Field Recording",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "To Feel Your Best",
+    "genre": "Nature Electronica",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 16,
+    "artist": "Max Richter",
+    "title": "On the Nature of Daylight",
+    "genre": "Ambient",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 17,
+    "artist": "A Winged Victory for the Sullen",
+    "title": "Steep Hills of Vicodin Tears",
+    "genre": "Drone",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 18,
+    "artist": "Tycho",
+    "title": "A Walk",
+    "genre": "Slow Techno",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 19,
+    "artist": "Bibio",
+    "title": "À tout à l'heure",
+    "genre": "Organic House",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 20,
+    "artist": "Jana Winderen",
+    "title": "The Listeners",
+    "genre": "Field Recording",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 21,
+    "artist": "Eluvium",
+    "title": "The Motion Makes Me Last",
+    "genre": "Ambient",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 22,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Pt. 2",
+    "genre": "Drone",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 23,
+    "artist": "Mary Lattimore",
+    "title": "It Feels Like Floating",
+    "genre": "Nature Electronica",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 24,
+    "artist": "Kiasmos",
+    "title": "Burnt",
+    "genre": "Slow Techno",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 25,
+    "artist": "Floating Points",
+    "title": "Nespole",
+    "genre": "Organic House",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 26,
+    "artist": "Lorenzo Senni",
+    "title": "XAllegroX",
+    "genre": "Drone",
+    "duration": 240,
+    "energy": 0.4
+  },
+  {
+    "id": 27,
+    "artist": "Irreversible Entanglements",
+    "title": "Roots",
+    "genre": "Field Recording",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 28,
+    "artist": "Aphex Twin",
+    "title": "#3",
+    "genre": "Ambient",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 29,
+    "artist": "Mountains",
+    "title": "Choral",
+    "genre": "Nature Electronica",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "DJ Koze",
+    "title": "Pick Up",
+    "genre": "Slow Techno",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 31,
+    "artist": "Stephan Bodzin",
+    "title": "Pendulum",
+    "genre": "Organic House",
+    "duration": 540,
+    "energy": 0.6
+  },
+  {
+    "id": 32,
+    "artist": "Pauline Oliveros",
+    "title": "The Well / The Dead",
+    "genre": "Drone",
+    "duration": 660,
+    "energy": 0.1
+  },
+  {
+    "id": 33,
+    "artist": "Hildegard von Bingen",
+    "title": "O vis aeternitatis",
+    "genre": "Ambient",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 34,
+    "artist": "Ryuichi Sakamoto",
+    "title": "solari",
+    "genre": "Nature Electronica",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 35,
+    "artist": "Daniel Avery",
+    "title": "Slow Fade",
+    "genre": "Slow Techno",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "Maribou State",
+    "title": "Wallflower",
+    "genre": "Organic House",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 37,
+    "artist": "Jóhann Jóhannsson",
+    "title": "The Sun's Gone Dim and the Sky's Turned Black",
+    "genre": "Ambient",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 38,
+    "artist": "Alessandro Cortini",
+    "title": "Scuro Chiaro",
+    "genre": "Drone",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 39,
+    "artist": "Sofie Birch",
+    "title": "Pulsar",
+    "genre": "Field Recording",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 40,
+    "artist": "Beatrice Dillon",
+    "title": "Werk",
+    "genre": "Slow Techno",
+    "duration": 300,
+    "energy": 0.6
+  }
+]

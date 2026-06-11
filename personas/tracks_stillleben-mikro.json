@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Nusrat Fateh Ali Khan",
+    "title": "Allah Hoo (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 480,
+    "energy": 0.7
+  },
+  {
+    "id": 2,
+    "artist": "Ravi Shankar",
+    "title": "Raga Jog (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 600,
+    "energy": 0.5
+  },
+  {
+    "id": 3,
+    "artist": "Cesária Évora",
+    "title": "Sodade (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 270,
+    "energy": 0.3
+  },
+  {
+    "id": 4,
+    "artist": "Ali Farka Touré",
+    "title": "Ai Du (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 5,
+    "artist": "Youssou N'Dour",
+    "title": "Immigrés (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 360,
+    "energy": 0.8
+  },
+  {
+    "id": 6,
+    "artist": "Milton Nascimento",
+    "title": "Coração de Estudante (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 7,
+    "artist": "Bollywood Strings",
+    "title": "Mausam (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 8,
+    "artist": "Hildegard von Bingen",
+    "title": "O vis aeternitatis (Remastered)",
+    "genre": "World Music Remastered",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 9,
+    "artist": "Max Richter",
+    "title": "On the Nature of Daylight",
+    "genre": "Electronica-classical",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 10,
+    "artist": "Ólafur Arnalds",
+    "title": "Near Light",
+    "genre": "Electronica-classical",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Nils Frahm",
+    "title": "Says",
+    "genre": "Electronica-classical",
+    "duration": 480,
+    "energy": 0.6
+  },
+  {
+    "id": 12,
+    "artist": "Jon Hopkins",
+    "title": "Immunity",
+    "genre": "Electronica-classical",
+    "duration": 600,
+    "energy": 0.8
+  },
+  {
+    "id": 13,
+    "artist": "Ryuichi Sakamoto",
+    "title": "Merry Christmas Mr. Lawrence",
+    "genre": "Electronica-classical",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 14,
+    "artist": "Aphex Twin",
+    "title": "Avril 14th",
+    "genre": "Electronica-classical",
+    "duration": 120,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Fennesz",
+    "title": "Rivers of Sand",
+    "genre": "Electronica-classical",
+    "duration": 540,
+    "energy": 0.7
+  },
+  {
+    "id": 16,
+    "artist": "Oneohtrix Point Never",
+    "title": "Replica",
+    "genre": "Electronica-classical",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 17,
+    "artist": "Chris Watson",
+    "title": "El Tren Fantasma",
+    "genre": "Field Recordings",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 18,
+    "artist": "Jana Winderen",
+    "title": "The Listening Room",
+    "genre": "Field Recordings",
+    "duration": 720,
+    "energy": 0.2
+  },
+  {
+    "id": 19,
+    "artist": "Francisco López",
+    "title": "Untitled #104",
+    "genre": "Field Recordings",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 20,
+    "artist": "Bernie Krause",
+    "title": "Dawn Chorus",
+    "genre": "Field Recordings",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 21,
+    "artist": "Toshiya Tsunoda",
+    "title": "O Kokos Tis Anixis",
+    "genre": "Field Recordings",
+    "duration": 300,
+    "energy": 0.1
+  },
+  {
+    "id": 22,
+    "artist": "Hildegard Westerkamp",
+    "title": "Beneath the Forest Floor",
+    "genre": "Field Recordings",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 23,
+    "artist": "Jana Winderen",
+    "title": "The Noisiest Guys on the Planet",
+    "genre": "Field Recordings",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 24,
+    "artist": "Chris Watson",
+    "title": "Outside the Circle of Fire",
+    "genre": "Field Recordings",
+    "duration": 660,
+    "energy": 0.3
+  },
+  {
+    "id": 25,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Part 2",
+    "genre": "Drone & Ambient",
+    "duration": 600,
+    "energy": 0.2
+  },
+  {
+    "id": 26,
+    "artist": "William Basinski",
+    "title": "dlp 1.1",
+    "genre": "Drone & Ambient",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 27,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Drone & Ambient",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 28,
+    "artist": "Tim Hecker",
+    "title": "Virgins",
+    "genre": "Drone & Ambient",
+    "duration": 480,
+    "energy": 0.6
+  },
+  {
+    "id": 29,
+    "artist": "Eliane Radigue",
+    "title": "Trilogie de la Mort, Part 1",
+    "genre": "Drone & Ambient",
+    "duration": 660,
+    "energy": 0.2
+  },
+  {
+    "id": 30,
+    "artist": "Lustmord",
+    "title": "Dark Matter",
+    "genre": "Drone & Ambient",
+    "duration": 540,
+    "energy": 0.7
+  },
+  {
+    "id": 31,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "Drone & Ambient",
+    "duration": 240,
+    "energy": 0.4
+  },
+  {
+    "id": 32,
+    "artist": "Pauline Oliveros",
+    "title": "Deep Listening",
+    "genre": "Drone & Ambient",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 33,
+    "artist": "Joanna Newsom",
+    "title": "Emily",
+    "genre": "Avantgarde Folk",
+    "duration": 600,
+    "energy": 0.5
+  },
+  {
+    "id": 34,
+    "artist": "Sufjan Stevens",
+    "title": "Casimir Pulaski Day",
+    "genre": "Avantgarde Folk",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 35,
+    "artist": "Devendra Banhart",
+    "title": "Celebration",
+    "genre": "Avantgarde Folk",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 36,
+    "artist": "Vashti Bunyan",
+    "title": "Diamond Day",
+    "genre": "Avantgarde Folk",
+    "duration": 180,
+    "energy": 0.4
+  },
+  {
+    "id": 37,
+    "artist": "Animal Collective",
+    "title": "My Girls",
+    "genre": "Avantgarde Folk",
+    "duration": 360,
+    "energy": 0.8
+  },
+  {
+    "id": 38,
+    "artist": "Cate Le Bon",
+    "title": "Daylight Matters",
+    "genre": "Avantgarde Folk",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 39,
+    "artist": "Bill Callahan",
+    "title": "Drover",
+    "genre": "Avantgarde Folk",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 40,
+    "artist": "Laurie Anderson",
+    "title": "O Superman",
+    "genre": "Avantgarde Folk",
+    "duration": 480,
+    "energy": 0.6
+  }
+]

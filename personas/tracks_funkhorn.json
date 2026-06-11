@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Funkadelic",
+    "title": "Maggot Brain",
+    "genre": "Psychedelic Funk",
+    "duration": 622,
+    "energy": 0.7
+  },
+  {
+    "id": 2,
+    "artist": "Herbie Hancock",
+    "title": "Chameleon",
+    "genre": "Jazz Fusion",
+    "duration": 476,
+    "energy": 0.8
+  },
+  {
+    "id": 3,
+    "artist": "Can",
+    "title": "Halleluwah",
+    "genre": "Krautrock",
+    "duration": 532,
+    "energy": 0.9
+  },
+  {
+    "id": 4,
+    "artist": "The J.B.'s",
+    "title": "The Grunt",
+    "genre": "Deep Funk",
+    "duration": 195,
+    "energy": 1.0
+  },
+  {
+    "id": 5,
+    "artist": "Alan Hawkshaw",
+    "title": "Beat Me 'Til I'm Blue",
+    "genre": "Library Music",
+    "duration": 180,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Sly and the Family Stone",
+    "title": "Thank You (Falettinme Be Mice Elf Agin)",
+    "genre": "Psychedelic Funk",
+    "duration": 283,
+    "energy": 0.9
+  },
+  {
+    "id": 7,
+    "artist": "Weather Report",
+    "title": "Birdland",
+    "genre": "Jazz Fusion",
+    "duration": 335,
+    "energy": 0.7
+  },
+  {
+    "id": 8,
+    "artist": "Amon Düül II",
+    "title": "Yeti",
+    "genre": "Krautrock",
+    "duration": 262,
+    "energy": 0.5
+  },
+  {
+    "id": 9,
+    "artist": "James Brown",
+    "title": "Get Up (I Feel Like Being a) Sex Machine",
+    "genre": "Deep Funk",
+    "duration": 304,
+    "energy": 1.0
+  },
+  {
+    "id": 10,
+    "artist": "Keith Mansfield",
+    "title": "Funky Fanfare",
+    "genre": "Library Music",
+    "duration": 170,
+    "energy": 0.8
+  },
+  {
+    "id": 11,
+    "artist": "The Temptations",
+    "title": "Papa Was a Rollin' Stone",
+    "genre": "Psychedelic Funk",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 12,
+    "artist": "Return to Forever",
+    "title": "Spain",
+    "genre": "Jazz Fusion",
+    "duration": 420,
+    "energy": 0.7
+  },
+  {
+    "id": 13,
+    "artist": "Faust",
+    "title": "It's a Rainy Day, Sunshine Girl",
+    "genre": "Krautrock",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 14,
+    "artist": "The Meters",
+    "title": "Cissy Strut",
+    "genre": "Deep Funk",
+    "duration": 205,
+    "energy": 0.8
+  },
+  {
+    "id": 15,
+    "artist": "Johnny Pearson",
+    "title": "Heavy Heavy",
+    "genre": "Library Music",
+    "duration": 145,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Shuggie Otis",
+    "title": "Strawberry Letter 23",
+    "genre": "Psychedelic Funk",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 17,
+    "artist": "Mahavishnu Orchestra",
+    "title": "Meeting of the Spirits",
+    "genre": "Jazz Fusion",
+    "duration": 395,
+    "energy": 0.9
+  },
+  {
+    "id": 18,
+    "artist": "NEU!",
+    "title": "Hallogallo",
+    "genre": "Krautrock",
+    "duration": 666,
+    "energy": 0.6
+  },
+  {
+    "id": 19,
+    "artist": "Lyn Collins",
+    "title": "Think (About It)",
+    "genre": "Deep Funk",
+    "duration": 172,
+    "energy": 1.0
+  },
+  {
+    "id": 20,
+    "artist": "David Axelrod",
+    "title": "The Edge",
+    "genre": "Library Music",
+    "duration": 260,
+    "energy": 0.5
+  },
+  {
+    "id": 21,
+    "artist": "Parliament",
+    "title": "Flash Light",
+    "genre": "Psychedelic Funk",
+    "duration": 283,
+    "energy": 0.9
+  },
+  {
+    "id": 22,
+    "artist": "Chick Corea",
+    "title": "500 Miles High",
+    "genre": "Jazz Fusion",
+    "duration": 360,
+    "energy": 0.6
+  },
+  {
+    "id": 23,
+    "artist": "Cluster",
+    "title": "Sowiesoso",
+    "genre": "Krautrock",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 24,
+    "artist": "Betty Davis",
+    "title": "Anti Love Song",
+    "genre": "Deep Funk",
+    "duration": 210,
+    "energy": 0.8
+  },
+  {
+    "id": 25,
+    "artist": "Brian Bennett",
+    "title": "Solstice",
+    "genre": "Library Music",
+    "duration": 200,
+    "energy": 0.4
+  },
+  {
+    "id": 26,
+    "artist": "Eddie Hazel",
+    "title": "California Dreamin'",
+    "genre": "Psychedelic Funk",
+    "duration": 430,
+    "energy": 0.7
+  },
+  {
+    "id": 27,
+    "artist": "Pat Metheny Group",
+    "title": "Phase Dance",
+    "genre": "Jazz Fusion",
+    "duration": 380,
+    "energy": 0.5
+  },
+  {
+    "id": 28,
+    "artist": "Kraftwerk",
+    "title": "Autobahn",
+    "genre": "Krautrock",
+    "duration": 540,
+    "energy": 0.6
+  },
+  {
+    "id": 29,
+    "artist": "The Dap-Kings",
+    "title": "Get Down",
+    "genre": "Deep Funk",
+    "duration": 210,
+    "energy": 0.9
+  },
+  {
+    "id": 30,
+    "artist": "John Cameron",
+    "title": "Half Forgotten Daydreams",
+    "genre": "Library Music",
+    "duration": 195,
+    "energy": 0.3
+  },
+  {
+    "id": 31,
+    "artist": "Isaac Hayes",
+    "title": "Theme from Shaft",
+    "genre": "Psychedelic Funk",
+    "duration": 285,
+    "energy": 0.8
+  },
+  {
+    "id": 32,
+    "artist": "Billy Cobham",
+    "title": "Stratus",
+    "genre": "Jazz Fusion",
+    "duration": 510,
+    "energy": 0.8
+  },
+  {
+    "id": 33,
+    "artist": "Guru Guru",
+    "title": "Der Elektrolurch",
+    "genre": "Krautrock",
+    "duration": 300,
+    "energy": 0.7
+  },
+  {
+    "id": 34,
+    "artist": "Sugar Pie DeSanto",
+    "title": "Soulful Dress",
+    "genre": "Deep Funk",
+    "duration": 150,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "Alan Parker",
+    "title": "The Big Beat",
+    "genre": "Library Music",
+    "duration": 160,
+    "energy": 0.8
+  },
+  {
+    "id": 36,
+    "artist": "Bootsy Collins",
+    "title": "I'd Rather Be with You",
+    "genre": "Psychedelic Funk",
+    "duration": 320,
+    "energy": 0.6
+  },
+  {
+    "id": 37,
+    "artist": "John McLaughlin",
+    "title": "Birds of Fire",
+    "genre": "Jazz Fusion",
+    "duration": 360,
+    "energy": 0.9
+  },
+  {
+    "id": 38,
+    "artist": "Ash Ra Tempel",
+    "title": "Amboss",
+    "genre": "Krautrock",
+    "duration": 720,
+    "energy": 0.4
+  },
+  {
+    "id": 39,
+    "artist": "The Isley Brothers",
+    "title": "It's Your Thing",
+    "genre": "Deep Funk",
+    "duration": 185,
+    "energy": 0.9
+  },
+  {
+    "id": 40,
+    "artist": "Neil Richardson",
+    "title": "The Riviera Affair",
+    "genre": "Library Music",
+    "duration": 175,
+    "energy": 0.5
+  }
+]

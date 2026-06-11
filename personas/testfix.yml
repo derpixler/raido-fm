@@ -1,0 +1,15 @@
+dj:
+  max_moderation_chars: 800
+  name: Testy
+  personality: chill
+  tone: relaxed
+station:
+  claim: test
+  genre: indie
+  id: testfix
+  language: de
+  name: auto
+  subgenres:
+  - indie rock
+  timezone: Europe/Berlin
+tracks_file: tracks_testfix.json

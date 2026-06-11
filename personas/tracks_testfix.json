@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Arctic Monkeys",
+    "title": "Do I Wanna Know?",
+    "genre": "indie rock",
+    "duration": 272,
+    "energy": 0.7
+  },
+  {
+    "id": 2,
+    "artist": "Tame Impala",
+    "title": "The Less I Know the Better",
+    "genre": "indie rock",
+    "duration": 268,
+    "energy": 0.8
+  },
+  {
+    "id": 3,
+    "artist": "Vampire Weekend",
+    "title": "A-Punk",
+    "genre": "indie rock",
+    "duration": 156,
+    "energy": 0.9
+  },
+  {
+    "id": 4,
+    "artist": "Mac DeMarco",
+    "title": "Chamber of Reflection",
+    "genre": "indie rock",
+    "duration": 250,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "The Strokes",
+    "title": "Reptilia",
+    "genre": "indie rock",
+    "duration": 219,
+    "energy": 0.85
+  },
+  {
+    "id": 6,
+    "artist": "Phoenix",
+    "title": "1901",
+    "genre": "indie rock",
+    "duration": 193,
+    "energy": 0.8
+  },
+  {
+    "id": 7,
+    "artist": "Alvvays",
+    "title": "Dreams Tonite",
+    "genre": "indie rock",
+    "duration": 213,
+    "energy": 0.6
+  },
+  {
+    "id": 8,
+    "artist": "Car Seat Headrest",
+    "title": "Drunk Drivers/Killer Whales",
+    "genre": "indie rock",
+    "duration": 375,
+    "energy": 0.7
+  },
+  {
+    "id": 9,
+    "artist": "The War on Drugs",
+    "title": "Red Eyes",
+    "genre": "indie rock",
+    "duration": 279,
+    "energy": 0.75
+  },
+  {
+    "id": 10,
+    "artist": "Fleet Foxes",
+    "title": "Mykonos",
+    "genre": "indie rock",
+    "duration": 275,
+    "energy": 0.5
+  },
+  {
+    "id": 11,
+    "artist": "Modest Mouse",
+    "title": "Float On",
+    "genre": "indie rock",
+    "duration": 208,
+    "energy": 0.75
+  },
+  {
+    "id": 12,
+    "artist": "The National",
+    "title": "Bloodbuzz Ohio",
+    "genre": "indie rock",
+    "duration": 276,
+    "energy": 0.65
+  },
+  {
+    "id": 13,
+    "artist": "Spoon",
+    "title": "The Underdog",
+    "genre": "indie rock",
+    "duration": 223,
+    "energy": 0.8
+  },
+  {
+    "id": 14,
+    "artist": "Interpol",
+    "title": "Evil",
+    "genre": "indie rock",
+    "duration": 216,
+    "energy": 0.7
+  },
+  {
+    "id": 15,
+    "artist": "Beach House",
+    "title": "Space Song",
+    "genre": "indie rock",
+    "duration": 323,
+    "energy": 0.5
+  },
+  {
+    "id": 16,
+    "artist": "The Shins",
+    "title": "New Slang",
+    "genre": "indie rock",
+    "duration": 201,
+    "energy": 0.35
+  },
+  {
+    "id": 17,
+    "artist": "Arcade Fire",
+    "title": "Wake Up",
+    "genre": "indie rock",
+    "duration": 356,
+    "energy": 0.85
+  },
+  {
+    "id": 18,
+    "artist": "Kings of Leon",
+    "title": "Sex on Fire",
+    "genre": "indie rock",
+    "duration": 203,
+    "energy": 0.9
+  },
+  {
+    "id": 19,
+    "artist": "MGMT",
+    "title": "Electric Feel",
+    "genre": "indie rock",
+    "duration": 229,
+    "energy": 0.8
+  },
+  {
+    "id": 20,
+    "artist": "The xx",
+    "title": "Intro",
+    "genre": "indie rock",
+    "duration": 127,
+    "energy": 0.2
+  },
+  {
+    "id": 21,
+    "artist": "Cage the Elephant",
+    "title": "Cigarette Daydreams",
+    "genre": "indie rock",
+    "duration": 217,
+    "energy": 0.55
+  },
+  {
+    "id": 22,
+    "artist": "Foals",
+    "title": "Spanish Sahara",
+    "genre": "indie rock",
+    "duration": 413,
+    "energy": 0.45
+  },
+  {
+    "id": 23,
+    "artist": "The Black Keys",
+    "title": "Lonely Boy",
+    "genre": "indie rock",
+    "duration": 194,
+    "energy": 0.9
+  },
+  {
+    "id": 24,
+    "artist": "Yeah Yeah Yeahs",
+    "title": "Maps",
+    "genre": "indie rock",
+    "duration": 228,
+    "energy": 0.6
+  },
+  {
+    "id": 25,
+    "artist": "Wilco",
+    "title": "Jesus, Etc.",
+    "genre": "indie rock",
+    "duration": 233,
+    "energy": 0.4
+  },
+  {
+    "id": 26,
+    "artist": "Two Door Cinema Club",
+    "title": "What You Know",
+    "genre": "indie rock",
+    "duration": 199,
+    "energy": 0.85
+  },
+  {
+    "id": 27,
+    "artist": "The Kooks",
+    "title": "Naive",
+    "genre": "indie rock",
+    "duration": 203,
+    "energy": 0.7
+  },
+  {
+    "id": 28,
+    "artist": "Glass Animals",
+    "title": "Gooey",
+    "genre": "indie rock",
+    "duration": 291,
+    "energy": 0.55
+  },
+  {
+    "id": 29,
+    "artist": "Grizzly Bear",
+    "title": "Two Weeks",
+    "genre": "indie rock",
+    "duration": 243,
+    "energy": 0.6
+  },
+  {
+    "id": 30,
+    "artist": "Death Cab for Cutie",
+    "title": "I Will Follow You into the Dark",
+    "genre": "indie rock",
+    "duration": 189,
+    "energy": 0.15
+  },
+  {
+    "id": 31,
+    "artist": "Weezer",
+    "title": "Island in the Sun",
+    "genre": "indie rock",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 32,
+    "artist": "The Neighbourhood",
+    "title": "Sweater Weather",
+    "genre": "indie rock",
+    "duration": 241,
+    "energy": 0.6
+  },
+  {
+    "id": 33,
+    "artist": "M83",
+    "title": "Midnight City",
+    "genre": "indie rock",
+    "duration": 244,
+    "energy": 0.85
+  },
+  {
+    "id": 34,
+    "artist": "Bon Iver",
+    "title": "Skinny Love",
+    "genre": "indie rock",
+    "duration": 239,
+    "energy": 0.3
+  },
+  {
+    "id": 35,
+    "artist": "Band of Horses",
+    "title": "The Funeral",
+    "genre": "indie rock",
+    "duration": 317,
+    "energy": 0.6
+  },
+  {
+    "id": 36,
+    "artist": "Local Natives",
+    "title": "Sun Hands",
+    "genre": "indie rock",
+    "duration": 288,
+    "energy": 0.8
+  },
+  {
+    "id": 37,
+    "artist": "Pavement",
+    "title": "Cut Your Hair",
+    "genre": "indie rock",
+    "duration": 195,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Built to Spill",
+    "title": "Carry the Zero",
+    "genre": "indie rock",
+    "duration": 300,
+    "energy": 0.65
+  },
+  {
+    "id": 39,
+    "artist": "Dinosaur Jr.",
+    "title": "Feel the Pain",
+    "genre": "indie rock",
+    "duration": 254,
+    "energy": 0.8
+  },
+  {
+    "id": 40,
+    "artist": "Yo La Tengo",
+    "title": "Autumn Sweater",
+    "genre": "indie rock",
+    "duration": 322,
+    "energy": 0.5
+  }
+]
