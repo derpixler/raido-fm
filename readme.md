@@ -15,7 +15,7 @@ agent's personality, the 5-stage safety system, and the philosophical
 implications — condensed into one listen. Fittingly, the voice itself is
 synthetic.
 
-[**▶ Listen to the audio summary (player)**](index.html) · [(direct download)](https://github.com/derpixler/raido-fm/raw/main/assets/Why_RAIDO_fakes_human_mistakes.mp3)
+[**▶ Listen to the audio summary (player)**](https://derpixler.github.io/raido-fm/) · [(direct download)](https://github.com/derpixler/raido-fm/raw/main/assets/Why_RAIDO_fakes_human_mistakes.mp3)
 
 > *"We start with an unassuming cheap server box. Through an incredible interplay
 > of outsourced thinking power in the cloud, local voice generation, and tiny

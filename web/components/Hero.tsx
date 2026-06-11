@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Radio } from "lucide-react";
+import { Presentation, Radio } from "lucide-react";
+import Link from "next/link";
 
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { AudioWave } from "@/components/AudioWave";
@@ -133,6 +134,13 @@ export function Hero() {
                 <GithubIcon className="size-4" />
                 View on GitHub
               </a>
+              <Link
+                href="/slides"
+                className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+              >
+                <Presentation className="size-4" />
+                Slides
+              </Link>
             </motion.div>
 
             <motion.dl

@@ -1,0 +1,170 @@
+/* RAIDO-Theme für Reveal.js — Farben/Fonts analog zu globals.css */
+
+.reveal-viewport {
+  background: #050505;
+}
+
+.reveal {
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  font-size: 34px;
+  font-weight: 400;
+  color: #e4e4e7;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-transform: none;
+  line-height: 1.15;
+  margin-bottom: 0.6em;
+}
+
+.reveal h1 {
+  font-size: 2.2em;
+}
+
+.reveal h2 {
+  font-size: 1.5em;
+}
+
+.reveal h3 {
+  font-size: 1.1em;
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.5;
+}
+
+.reveal a {
+  color: #a78bfa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.reveal a:hover {
+  color: #c4b5fd;
+}
+
+.reveal strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.reveal code {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 0.85em;
+  color: #c4b5fd;
+}
+
+.reveal pre {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  font-size: 0.5em;
+}
+
+.reveal pre code {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  padding: 1.2em 1.4em;
+  line-height: 1.55;
+  color: #e4e4e7;
+  max-height: 520px;
+}
+
+.reveal blockquote {
+  width: 100%;
+  margin: 0.6em 0;
+  padding: 0.4em 0 0.4em 0.9em;
+  background: transparent;
+  border-left: 3px solid rgba(139, 92, 246, 0.6);
+  font-style: italic;
+  color: #a1a1aa;
+  box-shadow: none;
+}
+
+.reveal table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.72em;
+}
+
+.reveal table th {
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0.45em 0.9em;
+}
+
+.reveal table td {
+  color: #a1a1aa;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 0.45em 0.9em;
+}
+
+/* Kicker-Zeile über Folien-Titeln */
+.reveal .kicker {
+  display: block;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.42em;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  margin-bottom: 1.2em;
+}
+
+/* Pills für die Kernschleife (Auto-Animate) */
+.reveal .loop-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 0.9em;
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  border-radius: 14px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+
+.reveal .loop-arrow {
+  color: #a78bfa;
+  font-size: 0.9em;
+}
+
+/* Reveal-Chrome: Controls, Progress, Folien-Nummer */
+.reveal .controls {
+  color: #8b5cf6;
+}
+
+.reveal .progress {
+  height: 4px;
+  color: #8b5cf6;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.reveal .slide-number {
+  background: transparent;
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  color: #52525b;
+}
+
+/* Fragments: sanfteres Erscheinen */
+.reveal .fragment {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}

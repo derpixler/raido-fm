@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAIDO Station</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  header .status {
+    font-size: 12px;
+    color: #666;
+  }
+  header .status.live {
+    color: #4ade80;
+  }
+  header .status.live::before {
+    content: '●';
+    margin-right: 4px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  #stream {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px 16px 0;
+    position: relative;
+  }
+  .event {
+    display: grid;
+    grid-template-columns: 52px 20px 1fr;
+    min-height: 32px;
+  }
+  .ev-time {
+    font-size: 10px;
+    color: #444;
+    text-align: right;
+    padding-top: 9px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    user-select: none;
+  }
+  .ev-dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ev-line {
+    width: 1px;
+    flex: 1;
+    background: #1a1a1a;
+    min-height: 4px;
+  }
+  .ev-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #333;
+    flex-shrink: 0;
+  }
+  .event.moderation .ev-dot { background: #6366f1; }
+  .event.now_playing .ev-dot { background: #4ade80; }
+  .event.ad .ev-dot { background: #fbbf24; }
+  .event.system .ev-dot { background: #444; width: 6px; height: 6px; }
+  .ev-body {
+    padding: 4px 12px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 800px;
+  }
+  .event.moderation .ev-body {
+    background: #1a1a2e;
+    border-left: 3px solid #6366f1;
+  }
+  .event.now_playing .ev-body {
+    background: #1a2e1a;
+    border-left: 3px solid #4ade80;
+    font-weight: 500;
+  }
+  .event.ad .ev-body {
+    background: #2e2a1a;
+    border-left: 3px solid #fbbf24;
+  }
+  .event.system .ev-body {
+    background: transparent;
+    color: #555;
+    font-size: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .ev-body .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    opacity: 0.6;
+  }
+  .event.moderation .label { color: #6366f1; }
+  .event.now_playing .label { color: #4ade80; }
+  .event.ad .label { color: #fbbf24; }
+  .event.system .label { color: #555; }
+  .now-playing-bar {
+    padding: 10px 24px;
+    background: #111;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    font-size: 12px;
+    color: #4ade80;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+  }
+  .now-playing-bar .np-label {
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+  }
+  .now-playing-bar .np-duration {
+    margin-left: auto;
+    color: #555;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .np-progress {
+    width: 100%;
+    height: 2px;
+    background: #1a1a1a;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .np-progress-fill {
+    height: 100%;
+    background: #4ade80;
+    width: 0%;
+  }
+  .now-playing-bar.is-moderation { color: #6366f1; }
+  .now-playing-bar.is-moderation .np-label { color: #4a4a8a; }
+  .now-playing-bar.is-moderation .np-progress-fill { background: #6366f1; }
+  #input-area {
+    padding: 16px 24px;
+    border-top: 1px solid #222;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  #input-area select {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  #input-area select:focus { border-color: #6366f1; outline: none; }
+  #input-area input[type="text"] {
+    flex: 1;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  #input-area input:focus { border-color: #6366f1; outline: none; }
+  #input-area button {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  #input-area button:hover { background: #4f46e5; }
+  #input-area button:disabled { background: #333; cursor: not-allowed; }
+  .ad-fields {
+    display: none;
+    gap: 8px;
+    padding: 8px 24px 0;
+  }
+  .ad-fields.visible { display: flex; }
+  .ad-fields input {
+    flex: 1;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  .ad-fields input:focus { border-color: #fbbf24; outline: none; }
+  #stats-bar {
+    padding: 8px 24px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    font-size: 11px;
+    color: #555;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+  }
+  #stats-bar .stat {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background 0.15s;
+  }
+  #stats-bar .stat:hover { background: #1a1a1a; }
+  #stats-bar .stat.active { background: #1a1a2e; }
+  #stats-bar .stat .val {
+    color: #888;
+    font-weight: 500;
+  }
+  #stats-bar .stat .lbl {
+    color: #444;
+  }
+  #stats-bar .sep {
+    color: #222;
+  }
+  #stats-detail {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #111;
+    border-bottom: 1px solid #222;
+    padding: 12px 24px;
+    font-size: 11px;
+    color: #888;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  #stats-detail.open { display: block; }
+  #stats-detail table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #stats-detail th {
+    text-align: left;
+    color: #555;
+    font-weight: 500;
+    padding: 3px 8px 3px 0;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  #stats-detail td {
+    padding: 3px 8px 3px 0;
+    border-bottom: 1px solid #0d0d0d;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #stats-detail .detail-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  .mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+  }
+  .mode-toggle .mode-label { color: #444; }
+  .mode-toggle .mode-label.active { color: #4ade80; font-weight: 600; }
+  .mode-toggle .mode-switch {
+    width: 32px;
+    height: 16px;
+    background: #222;
+    border-radius: 8px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .mode-toggle .mode-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #666;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .mode-toggle.realtime .mode-switch { background: #1a2e1a; }
+  .mode-toggle.realtime .mode-switch::after { transform: translateX(16px); background: #4ade80; }
+  #info-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #444;
+    background: transparent;
+    color: #888;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  #info-btn:hover { border-color: #6366f1; color: #6366f1; }
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #modal-overlay.open { display: flex; }
+  #modal {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 32px;
+  }
+  #modal h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  #modal .modal-claim {
+    font-size: 12px;
+    color: #6366f1;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  #modal .modal-section {
+    margin-bottom: 16px;
+  }
+  #modal .modal-section h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  #modal .modal-section p,
+  #modal .modal-section li {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #bbb;
+  }
+  #modal .modal-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  #modal .modal-section li::before {
+    content: '—';
+    color: #444;
+    margin-right: 8px;
+  }
+  #modal .modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 12px;
+    color: #666;
+  }
+  #modal .modal-meta span { color: #999; }
+  #modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  #modal-close:hover { color: #fff; }
+</style>
+</head>
+<body>
+<header>
+  <h1>RAIDO FM</h1>
+  <span id="connection-status" class="status">●</span>
+  <span id="station-info" class="status" style="cursor:pointer;" onclick="openDjModal()">Verbinde…</span>
+  <div class="mode-toggle" id="mode-toggle" onclick="toggleMode()">
+    <span class="mode-label active" id="ml-demo">DEMO</span>
+    <div class="mode-switch"></div>
+    <span class="mode-label" id="ml-realtime">REALTIME</span>
+  </div>
+  <button onclick="openManifest()" style="margin-left:auto;background:none;border:none;color:#444;font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:0.5px;">Open-Source · Autonomous AI Radio</button>
+  <button id="info-btn" onclick="openModal()">i</button>
+</header>
+
+<div id="stats-bar">
+  <span class="stat" data-cat="tracks"><span class="lbl">Tracks</span> <span class="val" id="s-tracks">-/-</span></span>
+  <span class="stat" data-cat="moderations"><span class="lbl">Mod</span> <span class="val" id="s-mod">0</span></span>
+  <span class="stat" data-cat="ads"><span class="lbl">Ads</span> <span class="val" id="s-ads">0</span></span>
+  <span class="stat" data-cat="guard"><span class="lbl">Guard</span> <span class="val" id="s-guard">0</span></span>
+  <span class="sep">|</span>
+  <span class="stat" data-cat="llm"><span class="lbl">LLM</span> <span class="val" id="s-llm-calls">0</span></span>
+  <span class="stat" data-cat="llm"><span class="lbl">Tok in</span> <span class="val" id="s-tok-in">0</span></span>
+  <span class="stat" data-cat="llm"><span class="lbl">out</span> <span class="val" id="s-tok-out">0</span></span>
+  <span class="stat" data-cat="llm"><span class="lbl">Latenz</span> <span class="val" id="s-latency">-</span></span>
+  <span class="sep">|</span>
+  <span class="stat" data-cat="stimuli"><span class="lbl">Stimuli</span> <span class="val" id="s-stimuli">0</span></span>
+  <span class="stat" data-cat="flagged"><span class="lbl">Flagged</span> <span class="val" id="s-flagged">0</span></span>
+  <span class="stat" data-cat="listeners"><span class="lbl">Listener</span> <span class="val" id="s-listeners">0</span></span>
+  <span class="stat" data-cat="uptime"><span class="lbl">Uptime</span> <span class="val" id="s-uptime">-</span></span>
+  <div id="stats-detail"></div>
+</div>
+
+<div id="stream"></div>
+
+<div class="now-playing-bar">
+  <span class="np-label">Now Playing</span>
+  <span id="now-playing">—</span>
+  <span class="np-duration" id="np-duration"></span>
+  <div class="np-progress"><div class="np-progress-fill" id="np-progress"></div></div>
+</div>
+
+<div class="ad-fields" id="ad-fields">
+  <input type="text" id="ad-sponsor" placeholder="Sponsor">
+  <input type="text" id="ad-product" placeholder="Produkt">
+  <input type="text" id="ad-key-message" placeholder="Key Message">
+</div>
+
+<div id="input-area">
+  <select id="category">
+    <option value="listener_comment">Kommentar</option>
+    <option value="music_request">Musikwunsch</option>
+    <option value="news">News</option>
+    <option value="weather">Wetter</option>
+    <option value="ad">Werbung (JSON)</option>
+  </select>
+  <input type="text" id="message" placeholder="Nachricht eingeben…" autocomplete="off">
+  <button id="send-btn" onclick="send()">Senden</button>
+</div>
+
+<div id="modal-overlay">
+  <div id="modal" style="position:relative;">
+    <button id="modal-close" onclick="closeModal()">&times;</button>
+    <h2 id="modal-name"></h2>
+    <div class="modal-claim" id="modal-claim"></div>
+    <div class="modal-section">
+      <h3>Definition</h3>
+      <p id="modal-definition"></p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-meta">
+        <div>Genre: <span id="modal-genre"></span></div>
+        <div>Zielgruppe: <span id="modal-audience"></span></div>
+        <div><span id="modal-lang"></span></div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <h3>DJ: <span id="modal-dj-name"></span></h3>
+      <p id="modal-dj-personality"></p>
+      <p style="margin-top:6px;color:#666;font-size:12px;">Ton: <span id="modal-dj-tone" style="color:#999;"></span></p>
+    </div>
+    <div class="modal-section">
+      <h3>Quirks</h3>
+      <ul id="modal-dj-quirks"></ul>
+    </div>
+    <div class="modal-section" style="margin-top:20px;padding-top:16px;border-top:1px solid #222;">
+      <h3>Technik</h3>
+      <div class="modal-meta" style="flex-direction:column;gap:6px;">
+        <div>Persona: <span id="modal-cfg-persona"></span></div>
+        <div>Tracks: <span id="modal-cfg-tracks"></span></div>
+        <div>Regeln: <span id="modal-cfg-rules"></span></div>
+        <div>Max. Moderation: <span id="modal-cfg-maxmod"></span></div>
+        <div>TIME_SCALE: <span id="modal-cfg-timescale"></span></div>
+        <div>DB: <span id="modal-cfg-db"></span></div>
+        <div>LLM (DJ): <span id="modal-cfg-llm-dj"></span></div>
+        <div>LLM (Filter): <span id="modal-cfg-llm-filter"></span></div>
+        <div>LLM (Fallback): <span id="modal-cfg-llm-fallback"></span></div>
+        <div>Port: <span id="modal-cfg-port"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="manifest-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:32px;position:relative;">
+    <button onclick="closeManifest()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
+    <h2 style="font-size:18px;color:#fff;margin-bottom:4px;">RAIDO FM</h2>
+    <p style="font-size:12px;color:#6366f1;font-style:italic;margin-bottom:20px;">A Manifest for Autonomous AI Radio</p>
+    <div style="font-size:13px;line-height:1.7;color:#bbb;margin-bottom:16px;">
+      An open-source manifest for operating one or more digital radio stations entirely moderated and curated by an AI (Large Language Model). No script, no human in the loop — the LLM autonomously decides on playlists, writes moderation copy, reacts to listener feedback, and runs the station 24/7.
+    </div>
+    <div style="display:flex;gap:24px;margin-bottom:20px;font-size:12px;color:#888;">
+      <div><span style="color:#4ade80;font-weight:600;">24/7</span> Live</div>
+      <div><span style="color:#4ade80;font-weight:600;">~5 EUR</span> /Monat</div>
+      <div><span style="color:#4ade80;font-weight:600;">Unbegrenzt</span> Stationen</div>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:16px;">
+      <div style="color:#555;text-transform:uppercase;letter-spacing:1px;font-size:10px;margin-bottom:8px;">Architektur</div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:4px;">
+        <li style="color:#bbb;">DJ-Agent — autonome KI-Persoenlichkeit mit 60-Minuten-Programm-Grid</li>
+        <li style="color:#bbb;">StreamGuard — 5-stufiges Sicherheitssystem gegen KI-Degeneration</li>
+        <li style="color:#bbb;">Generative Host-Read Ads — keine MP3-Spots, KI-geschriebene Werbung</li>
+        <li style="color:#bbb;">Quarantine-DB — Schutz vor Prompt-Injection bei externen Daten</li>
+        <li style="color:#bbb;">Multi-Station — beliebig viele Sender parallel, je eigene Persoenlichkeit</li>
+        <li style="color:#bbb;">Persistent Personality — Mood-State, Self-Notes, Recurring Quirks</li>
+      </ul>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:20px;">
+      <div style="color:#555;text-transform:uppercase;letter-spacing:1px;font-size:10px;margin-bottom:8px;">Tech Stack</div>
+      <span style="color:#666;">Groq/Llama 3 · Piper TTS · Icecast2 · ffmpeg · SQLite · FastAPI · Docker · Traefik</span>
+    </div>
+    <div style="border-top:1px solid #222;padding-top:16px;display:flex;gap:16px;align-items:center;">
+      <a href="https://derpixler.github.io/raido-fm/" target="_blank" style="color:#6366f1;font-size:13px;text-decoration:none;font-weight:500;">Manifest lesen</a>
+      <a href="https://github.com/derpixler/raido-fm" target="_blank" style="color:#666;font-size:12px;text-decoration:none;">GitHub</a>
+      <span style="color:#333;font-size:11px;margin-left:auto;">by Rene Reimann</span>
+    </div>
+  </div>
+</div>
+
+<div id="dj-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:520px;width:100%;max-height:80vh;overflow-y:auto;padding:32px;position:relative;">
+    <button onclick="closeDjModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <div id="dj-avatar" style="width:64px;height:64px;border-radius:50%;background:#1a1a2e;display:flex;align-items:center;justify-content:center;font-size:22px;color:#6366f1;font-weight:600;flex-shrink:0;"></div>
+      <div>
+        <h2 id="dj-modal-name" style="font-size:18px;color:#fff;margin-bottom:2px;"></h2>
+        <p id="dj-modal-since" style="font-size:11px;color:#666;"></p>
+      </div>
+    </div>
+    <div id="dj-modal-vita" style="font-size:13px;line-height:1.6;color:#bbb;margin-bottom:16px;"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;color:#888;margin-bottom:16px;">
+      <div>Alter: <span id="dj-modal-age" style="color:#bbb;"></span></div>
+      <div>Herkunft: <span id="dj-modal-origin" style="color:#bbb;"></span></div>
+      <div>Familie: <span id="dj-modal-family" style="color:#bbb;"></span></div>
+      <div>Hobbies: <span id="dj-modal-hobbies" style="color:#bbb;"></span></div>
+    </div>
+    <div style="border-top:1px solid #222;padding-top:12px;margin-bottom:12px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:6px;">Persoenlichkeit</div>
+      <p id="dj-modal-personality" style="font-size:12px;color:#999;line-height:1.5;"></p>
+      <p style="margin-top:6px;font-size:11px;color:#666;">Ton: <span id="dj-modal-tone" style="color:#888;"></span></p>
+    </div>
+    <div style="border-top:1px solid #222;padding-top:12px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:6px;">Quirks</div>
+      <ul id="dj-modal-quirks" style="list-style:none;padding:0;font-size:12px;color:#999;"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+const streamEl = document.getElementById('stream');
+const nowPlayingEl = document.getElementById('now-playing');
+const stationInfoEl = document.getElementById('station-info');
+const connStatusEl = document.getElementById('connection-status');
+const categoryEl = document.getElementById('category');
+const messageEl = document.getElementById('message');
+const sendBtn = document.getElementById('send-btn');
+const adFieldsEl = document.getElementById('ad-fields');
+
+categoryEl.addEventListener('change', () => {
+  adFieldsEl.classList.toggle('visible', categoryEl.value === 'ad');
+});
+
+function connect() {
+  const es = new EventSource('/stream');
+  es.onopen = () => {
+    connStatusEl.className = 'status live';
+    connStatusEl.textContent = 'LIVE';
+  };
+  es.onmessage = (e) => {
+    try {
+      const data = JSON.parse(e.data);
+      handleEvent(data);
+    } catch (err) {}
+  };
+  es.onerror = () => {
+    connStatusEl.className = 'status';
+    connStatusEl.textContent = 'Reconnecting…';
+    es.close();
+    setTimeout(connect, 3000);
+  };
+}
+
+function formatNum(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+  return String(n);
+}
+
+function formatUptime(s) {
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  if (h > 0) return h + 'h ' + String(m).padStart(2, '0') + 'm';
+  return m + 'm ' + String(sec).padStart(2, '0') + 's';
+}
+
+function updateStats(d) {
+  document.getElementById('s-tracks').textContent = d.tracks.played + '/' + d.tracks.library;
+  document.getElementById('s-mod').textContent = d.broadcast.moderations;
+  document.getElementById('s-ads').textContent = d.broadcast.ads;
+  document.getElementById('s-guard').textContent = d.broadcast.guard_blocks;
+  document.getElementById('s-llm-calls').textContent = d.llm.calls;
+  document.getElementById('s-tok-in').textContent = formatNum(d.llm.tokens_in);
+  document.getElementById('s-tok-out').textContent = formatNum(d.llm.tokens_out);
+  document.getElementById('s-stimuli').textContent = d.stimuli.total;
+  document.getElementById('s-flagged').textContent = d.stimuli.flagged;
+  document.getElementById('s-listeners').textContent = d.subscribers;
+  document.getElementById('s-uptime').textContent = formatUptime(d.uptime_s);
+
+  const roles = d.llm.by_role || {};
+  const latencies = Object.values(roles).filter(r => r.calls > 0).map(r => r.avg_latency_ms);
+  const avgLat = latencies.length ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length) : 0;
+  document.getElementById('s-latency').textContent = avgLat ? avgLat + 'ms' : '-';
+}
+
+let _activeStatCat = null;
+const statsDetail = document.getElementById('stats-detail');
+
+document.getElementById('stats-bar').addEventListener('click', async (e) => {
+  const stat = e.target.closest('.stat');
+  if (!stat) { closeDetail(); return; }
+  const cat = stat.dataset.cat;
+  if (!cat) return;
+
+  if (_activeStatCat === cat) { closeDetail(); return; }
+
+  document.querySelectorAll('#stats-bar .stat').forEach(s => s.classList.remove('active'));
+  stat.classList.add('active');
+  _activeStatCat = cat;
+  statsDetail.innerHTML = '<div class="detail-title">Lade...</div>';
+  statsDetail.classList.add('open');
+
+  try {
+    const res = await fetch('/stats/detail/' + cat);
+    const data = await res.json();
+    statsDetail.innerHTML = renderDetail(cat, data);
+  } catch (err) {
+    statsDetail.innerHTML = '<div class="detail-title">Fehler</div>';
+  }
+});
+
+function closeDetail() {
+  _activeStatCat = null;
+  statsDetail.classList.remove('open');
+  document.querySelectorAll('#stats-bar .stat').forEach(s => s.classList.remove('active'));
+}
+
+document.addEventListener('click', (e) => {
+  if (_activeStatCat && !e.target.closest('#stats-bar')) closeDetail();
+});
+
+function fmtTime(iso) {
+  if (!iso) return '-';
+  let s = iso;
+  if (!s.endsWith('Z') && !s.includes('+')) s += 'Z';
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return iso.substring(11, 19) || '-';
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0');
+}
+
+function renderDetail(cat, data) {
+  if (!data || (Array.isArray(data) && data.length === 0)) return '<div class="detail-title">Keine Daten</div>';
+
+  if (cat === 'tracks') {
+    let h = '<div class="detail-title">Zuletzt gespielt</div><table><tr><th>Zeit</th><th>Artist</th><th>Title</th><th>Genre</th><th>Phase</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.played_at) + '</td><td>' + r.artist + '</td><td>' + r.title + '</td><td>' + r.genre + '</td><td>' + (r.phase||'') + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'moderations') {
+    let h = '<div class="detail-title">Letzte Moderationen</div><table><tr><th>Zeit</th><th>Phase</th><th>Text</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + (r.phase||'') + '</td><td>' + r.text + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'ads') {
+    let h = '<div class="detail-title">Gesendete Ads</div><table><tr><th>Zeit</th><th>Sponsor</th><th>Text</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + r.sponsor + '</td><td>' + r.text + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'guard') {
+    let h = '<div class="detail-title">StreamGuard Blocks</div><table><tr><th>Zeit</th><th>Grund</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + r.reason + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'llm') {
+    let h = '<div class="detail-title">LLM Usage nach Rolle</div><table><tr><th>Rolle</th><th>Modell</th><th>Calls</th><th>Tokens in</th><th>Tokens out</th><th>Avg Latenz</th><th>Errors</th></tr>';
+    Object.entries(data).forEach(([role, v]) => {
+      h += '<tr><td>' + role + '</td><td>' + (v.model||'-') + '</td><td>' + v.calls + '</td><td>' + formatNum(v.prompt_tokens) + '</td><td>' + formatNum(v.completion_tokens) + '</td><td>' + Math.round(v.avg_latency_ms||0) + 'ms</td><td>' + (v.errors||0) + '</td></tr>';
+    });
+    return h + '</table>';
+  }
+
+  if (cat === 'stimuli') {
+    let h = '<div class="detail-title">Letzte Stimuli</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Text</th><th>Flagged</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.sanitized_text||'-').substring(0,80) + '</td><td>' + (r.was_flagged ? 'Ja' : '-') + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'flagged') {
+    let h = '<div class="detail-title">Geflaggte Eingaben</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Eingabe</th><th>Grund</th></tr>';
+    data.forEach(r => { h += '<tr><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.raw_text||'').substring(0,60) + '</td><td>' + (r.flag_reason||'-') + '</td></tr>'; });
+    return h + '</table>';
+  }
+
+  if (cat === 'listeners') return '<div class="detail-title">Aktive SSE-Verbindungen: ' + document.getElementById('s-listeners').textContent + '</div>';
+  if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Sendestunden: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
+
+  return '<div class="detail-title">' + JSON.stringify(data).substring(0,200) + '</div>';
+}
+
+function nowTime() {
+  const d = new Date();
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+
+function handleEvent(data) {
+  if (data.type === 'stats') { updateStats(data); return; }
+
+  const el = document.createElement('div');
+  el.className = 'event ' + data.type;
+
+  const time = document.createElement('span');
+  time.className = 'ev-time';
+  time.textContent = nowTime();
+
+  const dotCol = document.createElement('div');
+  dotCol.className = 'ev-dot-col';
+  const lineTop = document.createElement('div');
+  lineTop.className = 'ev-line';
+  const dot = document.createElement('div');
+  dot.className = 'ev-dot';
+  const lineBot = document.createElement('div');
+  lineBot.className = 'ev-line';
+  dotCol.appendChild(lineTop);
+  dotCol.appendChild(dot);
+  dotCol.appendChild(lineBot);
+
+  const body = document.createElement('div');
+  body.className = 'ev-body';
+
+  const label = document.createElement('div');
+  label.className = 'label';
+  const content = document.createElement('div');
+
+  switch (data.type) {
+    case 'moderation':
+      label.textContent = 'Moderation' + (data.phase ? ' · ' + data.phase : '');
+      content.textContent = data.text;
+      document.querySelector('.now-playing-bar').classList.add('is-moderation');
+      document.querySelector('.np-label').textContent = 'Moderation';
+      nowPlayingEl.textContent = data.phase || 'DJ spricht...';
+      if (data.sim_duration) {
+        startProgress(data.sim_duration, data.duration || data.sim_duration);
+      }
+      break;
+    case 'now_playing':
+      label.textContent = 'Now Playing';
+      content.textContent = data.artist + ' — ' + data.title + ' (' + data.genre + ', ' + formatDuration(data.duration) + ')';
+      document.querySelector('.now-playing-bar').classList.remove('is-moderation');
+      document.querySelector('.np-label').textContent = 'Now Playing';
+      nowPlayingEl.textContent = data.artist + ' — ' + data.title;
+      startProgress(data.sim_duration || data.duration, data.duration);
+      break;
+    case 'ad':
+      label.textContent = '[AD]' + (data.sponsor ? ' · ' + data.sponsor : '');
+      content.textContent = data.text;
+      break;
+    case 'system':
+      label.textContent = 'System';
+      content.textContent = data.text;
+      break;
+    default:
+      label.textContent = data.type;
+      content.textContent = JSON.stringify(data);
+  }
+
+  body.appendChild(label);
+  body.appendChild(content);
+  el.appendChild(time);
+  el.appendChild(dotCol);
+  el.appendChild(body);
+  streamEl.appendChild(el);
+  streamEl.scrollTop = streamEl.scrollHeight;
+}
+
+function formatDuration(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+let _progressRAF = null;
+let _progressStart = 0;
+let _progressDuration = 0;
+let _trackTotalSeconds = 0;
+
+function startProgress(simSeconds, totalSeconds) {
+  const bar = document.getElementById('np-progress');
+  const durEl = document.getElementById('np-duration');
+  if (_progressRAF) cancelAnimationFrame(_progressRAF);
+  bar.style.width = '0%';
+  _progressStart = performance.now();
+  _progressDuration = simSeconds * 1000;
+  _trackTotalSeconds = totalSeconds || simSeconds;
+
+  function tick() {
+    const elapsed = performance.now() - _progressStart;
+    const pct = Math.min(elapsed / _progressDuration, 1);
+    bar.style.width = (pct * 100) + '%';
+    const remaining = Math.max(Math.ceil(_trackTotalSeconds * (1 - pct)), 0);
+    durEl.textContent = formatDuration(remaining);
+    if (pct < 1) _progressRAF = requestAnimationFrame(tick);
+    else _progressRAF = null;
+  }
+  _progressRAF = requestAnimationFrame(tick);
+}
+
+async function send() {
+  const category = categoryEl.value;
+  const text = messageEl.value.trim();
+  if (!text && category !== 'ad') return;
+
+  sendBtn.disabled = true;
+  const body = { category, text };
+
+  if (category === 'ad') {
+    body.sponsor = document.getElementById('ad-sponsor').value;
+    body.product = document.getElementById('ad-product').value;
+    body.key_message = document.getElementById('ad-key-message').value;
+    if (!body.text) body.text = body.key_message;
+  }
+
+  try {
+    const res = await fetch('/inject', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const result = await res.json();
+    if (result.was_flagged) {
+      handleEvent({
+        type: 'system',
+        text: '⚠ Eingabe geflaggt: ' + (result.flag_reason || 'Unbekannt'),
+      });
+    }
+  } catch (err) {
+    handleEvent({ type: 'system', text: 'Fehler beim Senden: ' + err.message });
+  }
+
+  messageEl.value = '';
+  sendBtn.disabled = false;
+  messageEl.focus();
+}
+
+messageEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+});
+
+let _statusData = null;
+
+fetch('/status').then(r => r.json()).then(data => {
+  _statusData = data;
+  const sName = data.station.name && data.station.name !== 'auto' ? data.station.name : data.station.id;
+  stationInfoEl.textContent = sName + ' · DJ ' + data.dj.name;
+}).catch(() => {});
+
+function openModal() {
+  if (!_statusData) return;
+  const d = _statusData;
+  const s = d.station;
+  const dj = d.dj;
+  const name = s.name && s.name !== 'auto' ? s.name : s.id;
+
+  document.getElementById('modal-name').textContent = name;
+  document.getElementById('modal-claim').textContent = s.claim || '';
+  document.getElementById('modal-definition').textContent = s.lang_definition || s.description || '';
+  document.getElementById('modal-genre').textContent = s.genre + (s.subgenres.length ? ' (' + s.subgenres.join(', ') + ')' : '');
+  document.getElementById('modal-audience').textContent = s.target_audience || '';
+  document.getElementById('modal-lang').textContent = s.language + ' / ' + s.timezone;
+  document.getElementById('modal-dj-name').textContent = dj.name;
+  document.getElementById('modal-dj-personality').textContent = dj.personality || '';
+  document.getElementById('modal-dj-tone').textContent = dj.tone || '';
+
+  const quirksList = document.getElementById('modal-dj-quirks');
+  quirksList.innerHTML = '';
+  (dj.quirks || []).forEach(q => {
+    const li = document.createElement('li');
+    li.textContent = q;
+    quirksList.appendChild(li);
+  });
+
+  const cfg = d.config || {};
+  const rules = cfg.rules || {};
+  document.getElementById('modal-cfg-persona').textContent = cfg.persona_path || '-';
+  document.getElementById('modal-cfg-tracks').textContent = (cfg.tracks_file || '-') + ' (' + (cfg.tracks_count || '?') + ' Tracks)';
+  document.getElementById('modal-cfg-rules').textContent = 'No-Repeat ' + (rules.no_repeat_hours || 4) + 'h, max ' + (rules.max_same_genre_in_a_row || 2) + 'x Genre';
+  document.getElementById('modal-cfg-maxmod').textContent = (dj.max_moderation_chars || 800) + ' Zeichen';
+  document.getElementById('modal-cfg-timescale').textContent = (cfg.time_scale || '60') + 'x';
+  document.getElementById('modal-cfg-db').textContent = cfg.db_path || '-';
+  document.getElementById('modal-cfg-llm-dj').textContent = (cfg.llm_dj || {}).model + ' @ ' + (cfg.llm_dj || {}).base_url;
+  document.getElementById('modal-cfg-llm-filter').textContent = (cfg.llm_filter || {}).model + ' @ ' + (cfg.llm_filter || {}).base_url;
+  const fb = cfg.llm_fallback || {};
+  document.getElementById('modal-cfg-llm-fallback').textContent = fb.model && fb.base_url ? fb.model + ' @ ' + fb.base_url : '(keiner)';
+  document.getElementById('modal-cfg-port').textContent = cfg.port || '-';
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+let _currentMode = 'demo';
+
+async function toggleMode() {
+  const newMode = _currentMode === 'demo' ? 'realtime' : 'demo';
+  try {
+    const res = await fetch('/mode/' + newMode, { method: 'POST' });
+    const data = await res.json();
+    _currentMode = data.mode;
+    updateModeUI();
+  } catch (err) {}
+}
+
+function updateModeUI() {
+  const toggle = document.getElementById('mode-toggle');
+  toggle.classList.toggle('realtime', _currentMode === 'realtime');
+  document.getElementById('ml-demo').classList.toggle('active', _currentMode === 'demo');
+  document.getElementById('ml-realtime').classList.toggle('active', _currentMode === 'realtime');
+}
+
+fetch('/mode').then(r => r.json()).then(d => { _currentMode = d.mode; updateModeUI(); }).catch(() => {});
+
+function openManifest() {
+  document.getElementById('manifest-overlay').style.display = 'flex';
+}
+function closeManifest() {
+  document.getElementById('manifest-overlay').style.display = 'none';
+}
+document.getElementById('manifest-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeManifest();
+});
+
+function openDjModal() {
+  if (!_statusData) return;
+  const dj = _statusData.dj;
+  const bio = dj.bio || {};
+
+  const initials = (dj.name || '?').split(' ').map(w => w[0]).join('').substring(0, 2);
+  document.getElementById('dj-avatar').textContent = initials;
+  document.getElementById('dj-modal-name').textContent = dj.name + (bio.real_name && bio.real_name !== 'unbekannt' ? '  (' + bio.real_name + ')' : '');
+  document.getElementById('dj-modal-since').textContent = bio.since_year ? 'DJ seit ' + bio.since_year : '';
+  document.getElementById('dj-modal-vita').textContent = bio.vita || dj.personality || '';
+  document.getElementById('dj-modal-age').textContent = bio.age || '-';
+  document.getElementById('dj-modal-origin').textContent = bio.origin || '-';
+  document.getElementById('dj-modal-family').textContent = bio.family || '-';
+  document.getElementById('dj-modal-hobbies').textContent = bio.hobbies || '-';
+  document.getElementById('dj-modal-personality').textContent = dj.personality || '';
+  document.getElementById('dj-modal-tone').textContent = dj.tone || '';
+
+  const quirksList = document.getElementById('dj-modal-quirks');
+  quirksList.innerHTML = '';
+  (dj.quirks || []).forEach(q => {
+    const li = document.createElement('li');
+    li.style.cssText = 'padding:2px 0;';
+    li.textContent = '— ' + q;
+    quirksList.appendChild(li);
+  });
+
+  document.getElementById('dj-overlay').style.display = 'flex';
+}
+function closeDjModal() {
+  document.getElementById('dj-overlay').style.display = 'none';
+}
+document.getElementById('dj-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeDjModal();
+});
+
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeModal(); closeManifest(); closeDjModal(); }
+});
+
+connect();
+</script>
+</body>
+</html>
