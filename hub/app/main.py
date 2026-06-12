@@ -329,6 +329,7 @@ async def start_from_persona(persona_id: int, request: Request):
 
 class GenerateRequest(BaseModel):
     genre_hint: str | None = None
+    dj_hint: str | None = None
     language: str = "de"
 
 
@@ -340,7 +341,7 @@ async def generate_persona(req: GenerateRequest = None):
 
     hint = req.genre_hint if req else None
     lang = req.language if req else "de"
-    result = await persona_generator.generate_persona(hint, lang)
+    result = await persona_generator.generate_persona(hint, lang, dj_hint=req.dj_hint if req else None)
     if "error" in result:
         return JSONResponse(result, status_code=500)
 
@@ -353,6 +354,36 @@ async def generate_persona(req: GenerateRequest = None):
     tracks = await persona_generator.generate_tracks(genre, subgenres)
 
     result["tracks_json"] = tracks
+    return result
+
+
+class StationSectionRequest(BaseModel):
+    genre_hint: str | None = None
+    language: str = "de"
+
+
+@app.post("/generate-persona/station")
+async def generate_station_section(req: StationSectionRequest = None):
+    hint = req.genre_hint if req else None
+    lang = req.language if req else "de"
+    result = await persona_generator.generate_station_section(hint, lang)
+    if "error" in result:
+        return JSONResponse(result, status_code=500)
+    return result
+
+
+class DjSectionRequest(BaseModel):
+    traits_hint: str | None = None
+    station_context: str | None = None
+
+
+@app.post("/generate-persona/dj")
+async def generate_dj_section(req: DjSectionRequest = None):
+    hint = req.traits_hint if req else None
+    ctx = req.station_context if req else None
+    result = await persona_generator.generate_dj_section(hint, ctx)
+    if "error" in result:
+        return JSONResponse(result, status_code=500)
     return result
 
 

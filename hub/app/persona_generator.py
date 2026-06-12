@@ -98,10 +98,12 @@ REGELN:
 Antworte NUR mit dem JSON-Array. Kein Markdown, keine Erklaerung."""
 
 
-async def generate_persona(genre_hint: str | None = None, language: str = "de") -> dict:
+async def generate_persona(genre_hint: str | None = None, language: str = "de", dj_hint: str | None = None) -> dict:
     prompt = PERSONA_PROMPT
     if genre_hint:
         prompt += f'\n\nGenre-Hinweis vom User: "{genre_hint}" — nutze das als Inspiration, aber sei kreativ.'
+    if dj_hint:
+        prompt += f'\n\nDJ-Hinweis vom User: "{dj_hint}" — nutze das als Inspiration fuer den DJ-Charakter, aber sei kreativ.'
     if language != "de":
         prompt += f'\n\nSPRACHE: Die gesamte Persona muss in Sprache "{language}" sein — Station, DJ-Name, Bio, Quirks, alles.'
     prompt += '\n\nWICHTIG: Die Station-Sprache (language) muss "' + language + '" sein.'
@@ -158,6 +160,154 @@ async def generate_tracks(genre: str, subgenres: list[str]) -> str | None:
         pass
 
     return clean
+
+
+STATION_SECTION_PROMPT = """Du bist ein kreativer Radio-Stations-Architekt. Generiere NUR den station:-Block einer Persona-YAML.
+
+REGELN:
+- Ungewoehnliches Genre oder unerwartete Genre-Kombination
+- Deutscher Sender, deutsche Sendesprache
+- Claim: max 6 Worte, praegnant
+- 3-5 Subgenres die zusammenpassen
+- station.id: nur lowercase, keine sonderzeichen, max 15 zeichen
+
+{station_hint}
+
+STRENG VERBOTEN:
+- KEINE echten Radiosender referenzieren
+
+Antworte NUR mit gueltigem YAML fuer den station:-Block. Keine Erklaerung, kein Markdown.
+
+Folge diesem Schema:
+{station_schema}"""
+
+
+DJ_SECTION_PROMPT = """Du bist ein kreativer Radio-Charakter-Designer. Generiere NUR den dj:-Block einer Persona-YAML.
+
+{dj_hint}
+
+STATION-KONTEXT (bleibt unveraendert):
+{station_context}
+
+REGELN:
+- Origineller DJ-Charakter mit Tiefe (keine Klischees)
+- Der DJ muss sich wie eine echte Person anfuehlen (Bio, Hobbies, Familie)
+- 3-4 kreative Quirks (wiederkehrende Eigenheiten)
+- avatar_prompt auf Englisch (fuer Bildgenerierung)
+
+STRENG VERBOTEN:
+- KEINE echten Personen als DJ-Vorbild
+- KEINE Catchphrases oder Persoenlichkeitsmerkmale echter Moderatoren
+- DJ muss eine 100% fiktive, eigenstaendig erfundene Figur sein
+
+Antworte NUR mit gueltigem YAML fuer den dj:-Block. Keine Erklaerung, kein Markdown.
+
+Folge diesem Schema:
+{dj_schema}"""
+
+
+_STATION_SCHEMA_YAML = """station:
+  id: <kurze-id>
+  name: auto
+  claim: "<max 6 worte>"
+  description: >
+    <2-3 saetze positionierung>
+  lang_definition: >
+    <5-8 saetze ausfuehrliche beschreibung>
+  genre: <hauptgenre>
+  subgenres: [<3-5 subgenres>]
+  target_audience: "<zielgruppe>"
+  timezone: Europe/Berlin
+  language: de"""
+
+
+_DJ_SCHEMA_YAML = """dj:
+  name: "<dj-kuenstlername>"
+  personality: "<2-3 saetze charakter>"
+  tone: "<tonalitaet, vergleich>"
+  max_moderation_chars: 800
+  bio:
+    real_name: "<buergerlicher name>"
+    age: <zahl>
+    origin: "<stadt/region>"
+    family: "<familienstand, details>"
+    hobbies: "<3-4 hobbies>"
+    since_year: <jahr>
+    vita: >
+      <3-5 saetze lebenslauf>
+    avatar_prompt: >
+      <englischer prompt fuer portrait-generierung>
+  quirks:
+    - "<quirk 1>"
+    - "<quirk 2>"
+    - "<quirk 3>"
+  forbidden_topics: ["politics", "religion"]"""
+
+
+async def generate_station_section(genre_hint: str | None = None, language: str = "de") -> dict:
+    hint = ""
+    if genre_hint:
+        hint = f'Genre-Hinweis vom User: "{genre_hint}" — nutze das als Inspiration, aber sei kreativ.'
+    if language != "de":
+        hint += f'\n\nSPRACHE: Die Station muss in Sprache "{language}" sein.'
+    hint += '\n\nWICHTIG: Die Station-Sprache (language) muss "' + language + '" sein.'
+
+    prompt = STATION_SECTION_PROMPT.format(station_hint=hint, station_schema=_STATION_SCHEMA_YAML)
+
+    messages = [
+        {"role": "system", "content": "Du bist ein kreativer Radio-Stations-Architekt."},
+        {"role": "user", "content": prompt},
+    ]
+
+    result = await llm.chat("filter", messages, temperature=1.0, max_tokens=800)
+    if not result:
+        return {"error": "LLM call failed"}
+
+    clean = result.strip()
+    clean = re.sub(r"^```ya?ml\s*", "", clean)
+    clean = re.sub(r"\s*```$", "", clean)
+    clean = re.sub(r",\s*\]", "]", clean)
+
+    try:
+        parsed = yaml.safe_load(clean)
+        if not parsed or "station" not in parsed:
+            return {"error": "Invalid station YAML structure", "raw": clean}
+        station_id = parsed["station"].get("id", "generated")
+        return {"persona_yaml": clean, "parsed": parsed, "station_id": station_id}
+    except yaml.YAMLError as e:
+        return {"error": f"YAML parse error: {e}", "raw": clean}
+
+
+async def generate_dj_section(traits_hint: str | None = None, station_context: str | None = None) -> dict:
+    hint = ""
+    if traits_hint:
+        hint = f'DJ-Eigenschaften vom User: "{traits_hint}" — nutze das als Inspiration, aber sei kreativ.'
+
+    ctx = station_context or "kein station-kontext verfuegbar"
+
+    prompt = DJ_SECTION_PROMPT.format(dj_hint=hint, station_context=ctx, dj_schema=_DJ_SCHEMA_YAML)
+
+    messages = [
+        {"role": "system", "content": "Du bist ein kreativer Radio-Charakter-Designer."},
+        {"role": "user", "content": prompt},
+    ]
+
+    result = await llm.chat("filter", messages, temperature=1.1, max_tokens=1000)
+    if not result:
+        return {"error": "LLM call failed"}
+
+    clean = result.strip()
+    clean = re.sub(r"^```ya?ml\s*", "", clean)
+    clean = re.sub(r"\s*```$", "", clean)
+    clean = re.sub(r",\s*\]", "]", clean)
+
+    try:
+        parsed = yaml.safe_load(clean)
+        if not parsed or "dj" not in parsed:
+            return {"error": "Invalid DJ YAML structure", "raw": clean}
+        return {"persona_yaml": clean, "parsed": parsed}
+    except yaml.YAMLError as e:
+        return {"error": f"YAML parse error: {e}", "raw": clean}
 
 
 def extract_slug(persona_yaml: str) -> str:

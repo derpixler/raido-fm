@@ -255,15 +255,28 @@ header .sub a { color: #6366f1; text-decoration: none; }
 </div>
 
 <div id="prefs-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:24px;">
-  <div style="background:#111;border:1px solid #222;border-radius:12px;padding:28px;max-width:360px;width:100%;">
-    <h3 style="font-size:14px;color:#fff;margin-bottom:16px;">Neue Station — Prefs</h3>
+  <div style="background:#111;border:1px solid #222;border-radius:12px;padding:28px;max-width:400px;width:100%;">
+    <h3 style="font-size:14px;color:#fff;margin-bottom:16px;">New Station</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <div><label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Genre / Stil</label><input id="pref-genre" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. krautrock, city pop, ambient dub"></div>
-      <div><label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Sprache</label><select id="pref-lang" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"><option value="de">Deutsch</option><option value="en">English</option></select></div>
+      <div>
+        <label style="font-size:10px;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">Station — Genre / Style</label>
+        <input id="pref-genre" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. krautrock, city pop, ambient dub">
+      </div>
+      <div>
+        <label style="font-size:10px;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;">DJ — Personality / Traits</label>
+        <input id="pref-dj" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. verschrobener Jazz-Liebhaber, Tech-Nerd mit Herz">
+      </div>
+      <div>
+        <label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Language</label>
+        <select id="pref-lang" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+        </select>
+      </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
-      <button class="btn secondary" onclick="closePrefs()">Abbrechen</button>
-      <button class="btn" onclick="startRandom()">Los</button>
+      <button class="btn secondary" onclick="closePrefs()">Cancel</button>
+      <button class="btn" onclick="startRandom()">Generate</button>
     </div>
   </div>
 </div>
@@ -281,16 +294,28 @@ header .sub a { color: #6366f1; text-decoration: none; }
 <div id="modal-overlay">
   <div id="modal">
     <button id="modal-close" onclick="closeModal()">&times;</button>
-    <h3 id="modal-title">Neue Station</h3>
-    <div id="modal-preview" style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:10px;padding:20px;margin-bottom:12px;min-height:120px;">
-      <div style="color:#888;">Generiere...</div>
+    <h3 id="modal-title">New Station</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:10px;padding:16px;min-height:120px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:10px;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">Station</span>
+          <button class="btn secondary" id="btn-regen-station" onclick="regenerateStation()" style="font-size:10px;padding:2px 8px;" disabled>shuffle</button>
+        </div>
+        <div id="preview-station" style="color:#888;">—</div>
+      </div>
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:10px;padding:16px;min-height:120px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:10px;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;">DJ</span>
+          <button class="btn secondary" id="btn-regen-dj" onclick="regenerateDj()" style="font-size:10px;padding:2px 8px;" disabled>shuffle</button>
+        </div>
+        <div id="preview-dj" style="color:#888;">—</div>
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn" id="btn-start" onclick="startStation()" disabled>go live</button>
-      <button class="btn secondary" id="btn-regen" onclick="regenerate()">shuffle again</button>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-      <a href="#" onclick="openHelp();return false;" style="color:#6366f1;font-size:11px;text-decoration:none;">Hilfe zur Station-Erstellung</a>
+      <a href="#" onclick="openHelp();return false;" style="color:#6366f1;font-size:11px;text-decoration:none;">Help — Station Creation</a>
     </div>
     <div id="modal-status" style="margin-top:8px;font-size:11px;color:#888;"></div>
   </div>
@@ -397,152 +422,50 @@ header .sub a { color: #6366f1; text-decoration: none; }
 let _adminToken = localStorage.getItem('raido_admin') || '';
 let _limits = { max_stations: 5, max_personas: 20 };
 let _currentTracks = null;
-let _parsedPersona = null;
+let _parsedStation = null;
+let _parsedDj = null;
 let _busy = false;
 let _stationNames = {};
+let _lastGenreHint = '';
+let _lastDjHint = '';
 
 function setBusy(busy) {
   _busy = busy;
-  document.getElementById('btn-start').disabled = busy || !_parsedPersona;
-  document.getElementById('btn-regen').disabled = busy;
+  document.getElementById('btn-start').disabled = busy || !(_parsedStation && _parsedDj);
+  document.getElementById('btn-regen-station').disabled = busy || !_parsedStation;
+  document.getElementById('btn-regen-dj').disabled = busy || !_parsedDj;
 }
 
-function renderPreview(p) {
-  const s = p.station || {};
-  const d = p.dj || {};
+function renderStationPreview(p) {
+  const s = p.station || p.parsed?.station || {};
+  document.getElementById('preview-station').innerHTML = `
+    <div style="font-size:16px;color:#fff;font-weight:600;">${s.id || '?'}</div>
+    <div style="font-size:11px;color:#6366f1;margin-top:2px;">${s.genre || '?'} — ${(s.subgenres||[]).slice(0,3).join(', ')}</div>
+    ${s.claim ? '<div style="font-size:11px;color:#888;font-style:italic;margin-top:4px;">' + s.claim + '</div>' : ''}
+    <div style="font-size:10px;color:#555;margin-top:4px;">${(s.target_audience||'').substring(0,80)}</div>
+    <div style="font-size:10px;color:#555;margin-top:2px;">${(s.description||'').substring(0,120)}</div>
+  `;
+  _parsedStation = s;
+  updateStartButton();
+}
+
+function renderDjPreview(p) {
+  const d = p.dj || p.parsed?.dj || {};
   const b = d.bio || {};
   const quirks = (d.quirks || []).slice(0, 3);
-  document.getElementById('modal-preview').innerHTML = `
-    <div style="font-size:18px;color:#fff;font-weight:600;">${s.id || '?'}</div>
-    <div style="font-size:12px;color:#6366f1;">${s.genre || '?'} — ${(s.subgenres||[]).slice(0,3).join(', ')}</div>
-    <div style="font-size:16px;color:#bbb;margin:8px 0;">DJ ${d.name || '?'}</div>
-    ${s.claim ? '<div style="font-size:12px;color:#888;font-style:italic;">' + s.claim + '</div>' : ''}
-    <div style="font-size:11px;color:#555;margin-top:4px;">${b.real_name || ''}${b.real_name && b.age ? ', ' + b.age : (b.age || '')}${b.origin ? ' · ' + b.origin : ''}</div>
+  document.getElementById('preview-dj').innerHTML = `
+    <div style="font-size:16px;color:#fff;font-weight:600;">DJ ${d.name || '?'}</div>
+    <div style="font-size:11px;color:#bbb;margin-top:2px;">${d.tone || ''}</div>
+    <div style="font-size:10px;color:#555;margin-top:4px;">${b.real_name || ''}${b.age ? ', ' + b.age : ''}${b.origin ? ' · ' + b.origin : ''}</div>
     <div style="font-size:10px;color:#555;margin-top:2px;">${(d.personality||'').substring(0,100)}</div>
     ${quirks.length ? '<div style="font-size:10px;color:#666;margin-top:4px;">' + quirks.map(q => '"' + q + '"').join(' · ') + '</div>' : ''}
   `;
-  _parsedPersona = p;
-  document.getElementById('btn-start').disabled = false;
+  _parsedDj = d;
+  updateStartButton();
 }
 
-function populateForm(p) {
-  const s = p.station || {};
-  const d = p.dj || {};
-  const b = d.bio || {};
-  el('f-id').value = s.id || '';
-  el('f-claim').value = s.claim || '';
-  el('f-genre').value = s.genre || '';
-  el('f-subgenres').value = (s.subgenres || []).join(', ');
-  el('f-audience').value = s.target_audience || '';
-  el('f-desc').value = (s.description || '').trim();
-  el('f-dj-name').value = d.name || '';
-  el('f-dj-real').value = b.real_name || '';
-  el('f-dj-age').value = b.age || '';
-  el('f-dj-origin').value = b.origin || '';
-  el('f-dj-family').value = b.family || '';
-  el('f-dj-hobbies').value = b.hobbies || '';
-  el('f-dj-since').value = b.since_year || '';
-  el('f-dj-maxmod').value = d.max_moderation_chars || 800;
-  el('f-dj-personality').value = (d.personality || '').trim();
-  el('f-dj-tone').value = d.tone || '';
-  el('f-dj-vita').value = (b.vita || '').trim();
-  el('f-dj-avatar').value = (b.avatar_prompt || '').trim();
-  const quirks = d.quirks || [];
-  document.querySelectorAll('.f-quirk').forEach((inp, i) => { inp.value = quirks[i] || ''; });
-  // Make all fields read-only (generated content, not editable)
-  document.querySelectorAll('#modal input, #modal textarea').forEach(el => { el.readOnly = true; });
-  _parsedPersona = p;
-  el('btn-start').disabled = false;
-}
-
-function clearForm() {
-  el('f-id').value = '';
-  el('f-claim').value = '';
-  el('f-genre').value = '';
-  el('f-subgenres').value = '';
-  el('f-audience').value = '';
-  el('f-desc').value = '';
-  el('f-dj-name').value = '';
-  el('f-dj-real').value = '';
-  el('f-dj-age').value = '';
-  el('f-dj-origin').value = '';
-  el('f-dj-family').value = '';
-  el('f-dj-hobbies').value = '';
-  el('f-dj-since').value = '';
-  el('f-dj-maxmod').value = '800';
-  el('f-dj-personality').value = '';
-  el('f-dj-tone').value = '';
-  el('f-dj-vita').value = '';
-  el('f-dj-avatar').value = '';
-  document.querySelectorAll('.f-quirk').forEach(inp => { inp.value = ''; });
-  _parsedPersona = buildObjectFromForm();
-  el('btn-start').disabled = !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
-}
-
-function buildObjectFromForm() {
-  const quirks = [];
-  document.querySelectorAll('.f-quirk').forEach(inp => { if (inp.value.trim()) quirks.push(inp.value.trim()); });
-  return {
-    station: {
-      id: fv('f-id'), name: 'auto', claim: fv('f-claim'),
-      description: fv('f-desc').replace(/\n/g, ' >\n    '), lang_definition: fv('f-desc'),
-      genre: fv('f-genre'), subgenres: fv('f-subgenres').split(',').map(s => s.trim()).filter(Boolean),
-      target_audience: fv('f-audience'), timezone: 'Europe/Berlin', language: 'de',
-    },
-    dj: {
-      name: fv('f-dj-name'),
-      personality: fv('f-dj-personality'), tone: fv('f-dj-tone'),
-      max_moderation_chars: parseInt(fv('f-dj-maxmod')) || 800,
-      bio: {
-        real_name: fv('f-dj-real'), age: fv('f-dj-age') ? parseInt(fv('f-dj-age')) : undefined,
-        origin: fv('f-dj-origin'), family: fv('f-dj-family'), hobbies: fv('f-dj-hobbies'),
-        since_year: fv('f-dj-since') ? parseInt(fv('f-dj-since')) : undefined,
-        vita: fv('f-dj-vita'), avatar_prompt: fv('f-dj-avatar'),
-      },
-      quirks: quirks.length ? quirks : ['-'],
-      forbidden_topics: ['politics', 'religion'],
-    },
-    program_grid: { impulse_slot_minute: 30 },
-    rules: { no_repeat_hours: 4, max_same_genre_in_a_row: 2 },
-  };
-}
-
-function buildYamlFromForm() {
-  return 'station:\n  id: ' + fv('f-id') + '\n  name: auto\n  claim: "' + fv('f-claim') + '"\n  description: >\n    ' + fv('f-desc').replace(/\n/g, '\n    ') + '\n  genre: ' + fv('f-genre') + '\n  subgenres: [' + fv('f-subgenres') + ']\n  target_audience: "' + fv('f-audience') + '"\n  timezone: Europe/Berlin\n  language: de\n\ndj:\n  name: "' + fv('f-dj-name') + '"\n  personality: "' + fv('f-dj-personality') + '"\n  tone: "' + fv('f-dj-tone') + '"\n  max_moderation_chars: ' + fv('f-dj-maxmod') + '\n  bio:\n    real_name: "' + fv('f-dj-real') + '"\n    age: ' + (fv('f-dj-age') || '0') + '\n    origin: "' + fv('f-dj-origin') + '"\n    family: "' + fv('f-dj-family') + '"\n    hobbies: "' + fv('f-dj-hobbies') + '"\n    since_year: ' + (fv('f-dj-since') || '0') + '\n    vita: >\n      ' + fv('f-dj-vita').replace(/\n/g, '\n      ') + '\n    avatar_prompt: >\n      ' + fv('f-dj-avatar').replace(/\n/g, '\n      ') + '\n  quirks:';
-}
-
-function parseYamlToForm(yamlStr) {
-  try {
-    const lines = yamlStr.split('\n');
-    const s = {}, d = {}, b = {}, quirks = [];
-    let section = '';
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      if (/^\s{2}id:/.test(line)) s.id = line.split(':')[1].trim();
-      if (/^\s{2}claim:/.test(line)) s.claim = line.split(/:\s*/)[1].replace(/"/g, '');
-      if (/^\s{2}genre:/.test(line)) s.genre = line.split(':')[1].trim();
-      if (/^\s{2}subgenres:/.test(line)) {
-        const raw = line.split(':')[1].trim();
-        s.subgenres = raw.replace(/[\[\]]/g, '').split(',').map(x => x.trim()).filter(Boolean);
-      }
-      if (/^\s{2}target_audience:/.test(line)) s.target_audience = line.split(/:\s*/)[1].replace(/"/g, '');
-      if (/^\s{2}description:/.test(line)) { i++; let desc = ''; while (i < lines.length && /^\s{4}/.test(lines[i])) { desc += lines[i].trim() + ' '; i++; } i--; s.description = desc.trim(); }
-      if (/^\s{4}name:/.test(line)) d.name = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{4}personality:/.test(line)) d.personality = line.split(/:\s*/)[1].replace(/"/g, '');
-      if (/^\s{4}tone:/.test(line)) d.tone = line.split(/:\s*/)[1].replace(/"/g, '');
-      if (/^\s{4}max_moderation_chars:/.test(line)) d.max_moderation_chars = parseInt(line.split(':')[1]);
-      if (/^\s{6}real_name:/.test(line)) b.real_name = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}age:/.test(line)) b.age = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}origin:/.test(line)) b.origin = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}family:/.test(line)) b.family = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}hobbies:/.test(line)) b.hobbies = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}since_year:/.test(line)) b.since_year = line.split(':')[1].trim().replace(/"/g, '');
-      if (/^\s{6}vita:/.test(line)) { i++; let v = ''; while (i < lines.length && /^\s{8}/.test(lines[i])) { v += lines[i].trim() + ' '; i++; } i--; b.vita = v.trim(); }
-      if (/^\s{6}avatar_prompt:/.test(line)) { i++; let a = ''; while (i < lines.length && /^\s{8}/.test(lines[i])) { a += lines[i].trim() + ' '; i++; } i--; b.avatar_prompt = a.trim(); }
-      if (/^\s{4}-/.test(line)) { const q = line.split(/-\s*/)[1].replace(/"/g, ''); if (q) quirks.push(q); }
-    }
-    return { station: s, dj: { ...d, bio: b, quirks } };
-  } catch (e) { return null; }
+function updateStartButton() {
+  document.getElementById('btn-start').disabled = !(_parsedStation && _parsedDj);
 }
 
 async function newRandom() {
@@ -565,70 +488,101 @@ function closePrefs() {
 async function startRandom() {
   closePrefs();
   const genre = document.getElementById('pref-genre')?.value?.trim() || '';
+  const djHint = document.getElementById('pref-dj')?.value?.trim() || '';
   const lang = document.getElementById('pref-lang')?.value || 'de';
+  _lastGenreHint = genre;
+  _lastDjHint = djHint;
 
-  openModal('Neue Station (Random)');
-  document.getElementById('modal-preview').innerHTML = '<div style="color:#888;"><span class="spinner"></span> LLM generiert...</div>';
-  document.getElementById('btn-start').disabled = true;
+  openModal('New Station');
+  document.getElementById('preview-station').innerHTML = '<div style="color:#888;"><span class="spinner"></span> Generating...</div>';
+  document.getElementById('preview-dj').innerHTML = '<div style="color:#888;"><span class="spinner"></span> Generating...</div>';
   setBusy(true);
 
   try {
-    const body = {};
+    const body = { language: lang };
     if (genre) body.genre_hint = genre;
-    body.language = lang;
+    if (djHint) body.dj_hint = djHint;
     const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok || data.error) {
-      document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Fehler') + '</div>';
+      document.getElementById('preview-station').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Error') + '</div>';
+      document.getElementById('preview-dj').innerHTML = '';
       setBusy(false);
       return;
     }
     _currentTracks = data.tracks_json;
     const p = data.parsed || {};
-    renderPreview(p);
-    document.getElementById('modal-status').innerHTML = '✓ Persona + ' + (data.tracks_json ? '40 Tracks' : 'Tracks') + ' generiert.';
+    renderStationPreview({ parsed: p });
+    renderDjPreview({ parsed: p });
+    document.getElementById('modal-status').innerHTML = '✓ Persona + ' + (data.tracks_json ? '40 Tracks' : 'Tracks') + ' generated.';
   } catch (e) {
-    document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
+    document.getElementById('preview-station').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
+    document.getElementById('preview-dj').innerHTML = '';
   }
   setBusy(false);
 }
 
-async function regenerate() {
+async function regenerateStation() {
   if (_busy) return;
   setBusy(true);
-  document.getElementById('modal-preview').innerHTML = '<div style="color:#888;"><span class="spinner"></span> LLM generiert...</div>';
-  document.getElementById('btn-start').disabled = true;
-  _currentTracks = null;
+  document.getElementById('preview-station').innerHTML = '<div style="color:#888;"><span class="spinner"></span> Regenerating...</div>';
+  document.getElementById('modal-status').innerHTML = '';
 
   try {
-    const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}' });
+    const body = { language: 'de' };
+    if (_lastGenreHint) body.genre_hint = _lastGenreHint;
+    const res = await fetch('/generate-persona/station', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok || data.error) {
-      document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Fehler') + '</div>';
+      document.getElementById('preview-station').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Error') + '</div>';
       setBusy(false);
       return;
     }
-    _currentTracks = data.tracks_json;
-    renderPreview(data.parsed || {});
-    document.getElementById('modal-status').innerHTML = '✓ Neue Persona generiert.';
+    renderStationPreview(data);
+    document.getElementById('modal-status').innerHTML = '✓ Station regenerated.';
   } catch (e) {
-    document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
+    document.getElementById('preview-station').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
+  }
+  setBusy(false);
+}
+
+async function regenerateDj() {
+  if (_busy) return;
+  setBusy(true);
+  document.getElementById('preview-dj').innerHTML = '<div style="color:#888;"><span class="spinner"></span> Regenerating...</div>';
+  document.getElementById('modal-status').innerHTML = '';
+
+  try {
+    const st = _parsedStation || {};
+    const body = {};
+    if (_lastDjHint) body.traits_hint = _lastDjHint;
+    if (st.genre) body.station_context = 'genre: ' + st.genre + ', audience: ' + (st.target_audience || 'allgemein');
+    const res = await fetch('/generate-persona/dj', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      document.getElementById('preview-dj').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Error') + '</div>';
+      setBusy(false);
+      return;
+    }
+    renderDjPreview(data);
+    document.getElementById('modal-status').innerHTML = '✓ DJ regenerated.';
+  } catch (e) {
+    document.getElementById('preview-dj').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
   }
   setBusy(false);
 }
 
 async function startStation() {
-  if (_busy || !_parsedPersona) return;
+  if (_busy || !_parsedStation || !_parsedDj) return;
   setBusy(true);
-  document.getElementById('modal-status').innerHTML = '<span class="spinner"></span> Station wird gestartet...';
+  document.getElementById('modal-status').innerHTML = '<span class="spinner"></span> Starting station...';
 
-  const p = _parsedPersona;
-  const s = p.station || {};
-  const d = p.dj || {};
+  const s = _parsedStation;
+  const d = _parsedDj;
   const b = d.bio || {};
   const quirks = d.quirks || [];
 
-  const yaml = 'station:\n  id: ' + (s.id || 'unknown') + '\n  name: auto\n  claim: "' + (s.claim || '') + '"\n  description: >\n    ' + (s.description || '').replace(/\n/g, '\n    ') + '\n  genre: ' + (s.genre || 'unknown') + '\n  subgenres: [' + (s.subgenres || []).join(', ') + ']\n  target_audience: "' + (s.target_audience || '') + '"\n  timezone: Europe/Berlin\n  language: de\n\ndj:\n  name: "' + (d.name || 'DJ') + '"\n  personality: "' + (d.personality || '') + '"\n  tone: "' + (d.tone || '') + '"\n  max_moderation_chars: ' + (d.max_moderation_chars || 800) + '\n  bio:\n    real_name: "' + (b.real_name || '') + '"\n    age: ' + (b.age || 0) + '\n    origin: "' + (b.origin || '') + '"\n    family: "' + (b.family || '') + '"\n    hobbies: "' + (b.hobbies || '') + '"\n    since_year: ' + (b.since_year || 0) + '\n    vita: >\n      ' + (b.vita || '').replace(/\n/g, '\n      ') + '\n    avatar_prompt: >\n      ' + (b.avatar_prompt || '').replace(/\n/g, '\n      ') + '\n  quirks:\n' + quirks.map(q => '    - "' + q + '"').join('\n') + '\n  forbidden_topics: ["politics", "religion"]\n\nprogram_grid:\n  impulse_slot_minute: 30\n\nrules:\n  no_repeat_hours: 4\n  max_same_genre_in_a_row: 2';
+  const yaml = 'station:\n  id: ' + (s.id || 'unknown') + '\n  name: auto\n  claim: "' + (s.claim || '') + '"\n  description: >\n    ' + (s.description || '').replace(/\n/g, '\n    ') + '\n  lang_definition: >\n    ' + (s.lang_definition || '').replace(/\n/g, '\n    ') + '\n  genre: ' + (s.genre || 'unknown') + '\n  subgenres: [' + (s.subgenres || []).join(', ') + ']\n  target_audience: "' + (s.target_audience || '') + '"\n  timezone: Europe/Berlin\n  language: de\n\ndj:\n  name: "' + (d.name || 'DJ') + '"\n  personality: "' + (d.personality || '') + '"\n  tone: "' + (d.tone || '') + '"\n  max_moderation_chars: ' + (d.max_moderation_chars || 800) + '\n  bio:\n    real_name: "' + (b.real_name || '') + '"\n    age: ' + (b.age || 0) + '\n    origin: "' + (b.origin || '') + '"\n    family: "' + (b.family || '') + '"\n    hobbies: "' + (b.hobbies || '') + '"\n    since_year: ' + (b.since_year || 0) + '\n    vita: >\n      ' + (b.vita || '').replace(/\n/g, '\n      ') + '\n    avatar_prompt: >\n      ' + (b.avatar_prompt || '').replace(/\n/g, '\n      ') + '\n  quirks:\n' + quirks.map(q => '    - "' + q + '"').join('\n') + '\n  forbidden_topics: ["politics", "religion"]\n\ntracks_file: tracks_' + (s.id || 'unknown') + '.json\n\nprogram_grid:\n  impulse_slot_minute: 30\n\nrules:\n  no_repeat_hours: 4\n  max_same_genre_in_a_row: 2';
 
   try {
     const body = { persona_yaml: yaml };
@@ -657,7 +611,6 @@ async function startStation() {
 
 function openModal(title) {
   document.getElementById('modal-title').textContent = title;
-  document.getElementById('btn-regen').style.display = '';
   document.getElementById('modal-overlay').classList.add('open');
 }
 
@@ -686,19 +639,14 @@ document.getElementById('mode-info-overlay').addEventListener('click', e => {
 
 function closeModal() {
   if (_busy) {
-    if (!confirm('Generierung laeuft — wirklich abbrechen?')) return;
+    if (!confirm('Generation in progress — really cancel?')) return;
   }
   document.getElementById('modal-overlay').classList.remove('open');
   _currentTracks = null;
-  _parsedPersona = null;
+  _parsedStation = null;
+  _parsedDj = null;
   _busy = false;
 }
-
-['f-id','f-genre','f-dj-name'].forEach(id => {
-  document.getElementById(id)?.addEventListener('input', () => {
-    if (!_busy) el('btn-start').disabled = !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
-  });
-});
 
 document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeModal();
