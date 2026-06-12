@@ -6,6 +6,7 @@ import logging
 import os
 import random
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from typing import Optional
 
 import httpx
@@ -45,6 +46,7 @@ async def lifespan(app: FastAPI):
     docker_mgr.set_db(_db)
 
     cleanup_task = asyncio.create_task(docker_mgr.auto_cleanup_loop())
+    poll_task = asyncio.create_task(_poll_injection_status())
 
     print("\n" + "=" * 50, flush=True)
     print("  RAIDO HUB", flush=True)
@@ -58,12 +60,82 @@ async def lifespan(app: FastAPI):
 
     yield
 
+    poll_task.cancel()
     cleanup_task.cancel()
     if _db:
         await _db.close()
 
 
 app = FastAPI(title="RAIDO Hub", lifespan=lifespan)
+
+
+async def _poll_injection_status():
+    await asyncio.sleep(30)
+    while True:
+        try:
+            if not _db:
+                await asyncio.sleep(60)
+                continue
+            pending = await db.get_pending_injections(_db)
+            if not pending:
+                await asyncio.sleep(60)
+                continue
+
+            stations = await docker_mgr.discover_stations()
+
+            for inj in pending:
+                slug = inj.get("station_slug")
+                station = next((s for s in stations if s.get("slug") == slug), None)
+                if not station or not station.get("station_status"):
+                    continue
+
+                port = station.get("port")
+
+                async with httpx.AsyncClient(timeout=5.0) as http:
+                    try:
+                        resp = await http.get(f"http://host.docker.internal:{port}/stats/detail/stimuli")
+                        if resp.status_code != 200:
+                            continue
+                        stimuli = resp.json()
+                        if not isinstance(stimuli, list):
+                            continue
+                    except Exception:
+                        continue
+
+                sid = inj.get("stimulus_id")
+                content = (inj.get("content") or "")[:50].lower().strip()
+                matched = False
+
+                for stim in stimuli:
+                    # Match by stimulus_id OR by similar content
+                    if sid and stim.get("id") == sid:
+                        matched = True
+                    elif not sid and content and content in (stim.get("sanitized_text") or "").lower():
+                        matched = True
+
+                    if matched:
+                        was_flagged = stim.get("was_flagged", 0)
+                        if was_flagged:
+                            await db.update_injection_status(_db, inj["id"], "flagged",
+                                flagged=True, flag_reason=stim.get("flag_reason"))
+                        elif stim.get("used_at"):
+                            await db.update_injection_status(_db, inj["id"], "used",
+                                moderation_text=stim.get("sanitized_text"))
+                        else:
+                            # Still pending at the station level, keep checking
+                            pass
+                        break
+
+                if not matched:
+                    # Check if injection is older than 30 min → timeout
+                    injected = inj.get("injected_at", "")
+                    if injected:
+                        elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(injected)).total_seconds()
+                        if elapsed > 1800:
+                            await db.update_injection_status(_db, inj["id"], "timeout")
+        except Exception:
+            pass
+        await asyncio.sleep(60)
 app.mount("/static", StaticFiles(directory="web"), name="static")
 
 
@@ -140,9 +212,9 @@ async def delete_station(station_id: str):
 @app.post("/admin/drop-ad", dependencies=[Depends(require_admin)])
 async def drop_random_ad():
     stations = await docker_mgr.discover_stations()
-    live = [s for s in stations if s["status"] == "running" and s.get("subscribers", 0) > 0]
+    live = [s for s in stations if s["status"] == "running"]
     if not live:
-        raise HTTPException(400, "No live stations with listeners available")
+        raise HTTPException(400, "No running stations available")
 
     target = random.choice(live)
     status = target.get("station_status", {})
@@ -166,9 +238,9 @@ async def drop_random_ad():
 
 async def _drop_content(category: str) -> dict:
     stations = await docker_mgr.discover_stations()
-    live = [s for s in stations if s["status"] == "running" and s.get("subscribers", 0) > 0]
+    live = [s for s in stations if s["status"] == "running"]
     if not live:
-        raise HTTPException(400, "No live stations with listeners available")
+        raise HTTPException(400, "No running stations available")
 
     target = random.choice(live)
     status = target.get("station_status", {})
@@ -181,14 +253,20 @@ async def _drop_content(category: str) -> dict:
     if category == "listener_comment":
         payload["name"] = text.split("[")[1].split("]")[0] if "[" in text else "Hoerer"
 
+    stimulus_id = None
     async with httpx.AsyncClient(timeout=10.0) as http:
-        await http.post(f"http://host.docker.internal:{port}/inject", json=payload)
+        resp = await http.post(f"http://host.docker.internal:{port}/inject", json=payload)
+        try:
+            resp_data = resp.json()
+            stimulus_id = resp_data.get("id")
+        except Exception:
+            pass
 
     if _db:
-        await db.log_injection(_db, target["slug"], category, text)
+        await db.log_injection(_db, target["slug"], port, category, text, stimulus_id)
         await db.cleanup_old_entries(_db, "injection_log", category)
 
-    return {"station": target["slug"], "category": category, "text": text}
+    return {"station": target["slug"], "category": category, "text": text, "stimulus_id": stimulus_id}
 
 
 @app.post("/admin/drop-news", dependencies=[Depends(require_admin)])
@@ -340,7 +418,7 @@ async def list_ads():
 
 @app.get("/injections")
 async def list_injections():
-    return await db.get_injections(_db) if _db else []
+    return await db.get_visible_injections(_db) if _db else []
 
 
 @app.delete("/personas/{persona_id}", dependencies=[Depends(require_admin)])

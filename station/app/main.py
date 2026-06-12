@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import AsyncGenerator
@@ -21,6 +22,17 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname
 logger = logging.getLogger(__name__)
 
 MAX_INPUT_CHARS = int(os.getenv("MAX_INPUT_CHARS", "500"))
+
+DE_WORDS = {"der", "die", "das", "und", "nicht", "auch", "schon", "noch", "aber", "wenn", "weil", "oder", "ein", "eine", "mit", "auf", "fuer", "bei", "aus", "nach", "vor", "ueber", "unter", "ist", "sich", "des", "dem", "den", "als", "wie", "dass", "war", "hat", "wird", "einen", "einem", "kann", "man", "mal", "nur", "auch", "hier", "dort", "heute", "jetzt"}
+EN_WORDS = {"the", "and", "not", "also", "very", "when", "because", "or", "but", "for", "with", "this", "that", "have", "from", "are", "was", "will", "can", "just", "here", "there", "now", "today", "been", "more", "some", "would", "could", "should", "your", "our", "they", "them", "these", "those", "into", "than", "then", "over", "back", "after", "before", "first", "last"}
+
+def _detect_lang(text: str) -> str:
+    words = set(re.findall(r'[a-zäöüß]+', text.lower()))
+    de = len(words & DE_WORDS)
+    en = len(words & EN_WORDS)
+    if de == 0 and en == 0:
+        return "unknown"
+    return "de" if de >= en else "en"
 
 _db_conn = None
 _broadcast_queue: asyncio.Queue | None = None
@@ -206,7 +218,18 @@ async def inject(req: InjectRequest):
             content={"error": f"Invalid category. Must be one of: {', '.join(valid_categories)}"},
         )
 
-    input_len = len(req.text or "")
+    persona = get_persona()
+    station_lang = persona.get("station", {}).get("language", "de") if persona else "de"
+    input_text = req.text or ""
+    if len(input_text) > 20 and station_lang in ("de", "en"):
+        detected = _detect_lang(input_text)
+        if detected != "unknown" and detected != station_lang:
+            return JSONResponse(
+                status_code=400,
+                content={"error": f"Language mismatch: input is '{detected}', station language is '{station_lang}'"},
+            )
+
+    input_len = len(input_text)
     if input_len > MAX_INPUT_CHARS:
         return JSONResponse(
             status_code=413,
@@ -242,6 +265,8 @@ async def inject(req: InjectRequest):
             "type": "system",
             "text": f"Injection [{req.category}]: {status}"
             + (f" — {result['flag_reason']}" if result["was_flagged"] else ""),
+            "drop_status": "flagged" if result["was_flagged"] else "pending",
+            "drop_category": req.category,
         })
 
     return result
@@ -343,7 +368,7 @@ async def stats_detail(category: str):
 
     if category == "stimuli":
         cur = await _db_conn.execute(
-            "SELECT category, sanitized_text, sanitized_at, was_flagged, flag_reason FROM external_stimuli ORDER BY id DESC LIMIT 10"
+            "SELECT id, category, sanitized_text, sanitized_at, used_at, was_flagged, flag_reason FROM external_stimuli ORDER BY id DESC LIMIT 50"
         )
         return [dict(r) for r in await cur.fetchall()]
 

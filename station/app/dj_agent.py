@@ -300,7 +300,7 @@ async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
                     await db.mark_stimuli_used(db_conn, [ad_stim["id"]])
 
             stimuli = None
-            if phase == "impulse" and has_listeners:
+            if phase == "impulse":
                 stimuli = await db.get_pending_stimuli(db_conn, exclude_category="ad")
 
             decision = None
@@ -350,6 +350,16 @@ async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
             if stimuli:
                 used_ids = [s["id"] for s in stimuli]
                 await db.mark_stimuli_used(db_conn, used_ids)
+                for s in stimuli:
+                    preview = (s.get("sanitized_text") or "")[:60]
+                    await _emit({
+                        "station": station_id,
+                        "type": "system",
+                        "text": f"Drop verarbeitet [{s['category']}]: {preview}",
+                        "drop_status": "used",
+                        "drop_category": s["category"],
+                        "drop_text": preview,
+                    })
 
             if speak_wait > 0.1:
                 await asyncio.sleep(speak_wait)

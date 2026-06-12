@@ -852,6 +852,16 @@ function handleEvent(data) {
     case 'system':
       label.textContent = 'System';
       content.textContent = data.text;
+      if (data.drop_status === 'used') {
+        el.classList.add('moderation');
+        label.textContent = 'Drop verwendet · ' + data.drop_category;
+      } else if (data.drop_status === 'pending') {
+        label.textContent = 'Drop pending · ' + data.drop_category;
+        el.style.borderLeftColor = '#fbbf24';
+      } else if (data.drop_status === 'flagged') {
+        label.textContent = 'Drop flagged · ' + data.drop_category;
+        el.style.borderLeftColor = '#ef4444';
+      }
       break;
     default:
       label.textContent = data.type;

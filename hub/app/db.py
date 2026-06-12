@@ -141,11 +141,11 @@ async def get_ads(db: aiosqlite.Connection, limit: int = 50) -> list[dict]:
     return [dict(r) for r in await cursor.fetchall()]
 
 
-async def log_injection(db: aiosqlite.Connection, station_slug: str, category: str, content: str) -> int:
+async def log_injection(db: aiosqlite.Connection, station_slug: str, station_port: int = 0, category: str = "", content: str = "", stimulus_id: int = None) -> int:
     now = datetime.now(timezone.utc).isoformat()
     cursor = await db.execute(
-        "INSERT INTO injection_log (station_slug, category, content, injected_at) VALUES (?,?,?,?)",
-        (station_slug, category, content, now),
+        "INSERT INTO injection_log (station_slug, station_port, category, content, stimulus_id, status, injected_at) VALUES (?,?,?,?,?,?,?)",
+        (station_slug, station_port, category, content, stimulus_id, 'pending', now),
     )
     await db.commit()
     return cursor.lastrowid
@@ -159,6 +159,30 @@ async def get_injections(db: aiosqlite.Connection, category: str = None, limit: 
     else:
         cursor = await db.execute("SELECT * FROM injection_log ORDER BY id DESC LIMIT ?", (limit,))
     return [dict(r) for r in await cursor.fetchall()]
+
+
+async def get_pending_injections(db: aiosqlite.Connection) -> list[dict]:
+    cursor = await db.execute("SELECT * FROM injection_log WHERE status = 'pending' OR status = 'timeout'")
+    return [dict(r) for r in await cursor.fetchall()]
+
+
+async def get_visible_injections(db: aiosqlite.Connection, category: str = None, limit: int = 50) -> list[dict]:
+    if category:
+        cursor = await db.execute(
+            "SELECT * FROM injection_log WHERE category = ? AND status != 'timeout' ORDER BY id DESC LIMIT ?", (category, limit)
+        )
+    else:
+        cursor = await db.execute("SELECT * FROM injection_log WHERE status != 'timeout' ORDER BY id DESC LIMIT ?", (limit,))
+    return [dict(r) for r in await cursor.fetchall()]
+
+
+async def update_injection_status(db: aiosqlite.Connection, injection_id: int, status: str, moderation_text: str = None, flagged: bool = False, flag_reason: str = None) -> None:
+    now = datetime.now(timezone.utc).isoformat()
+    await db.execute(
+        "UPDATE injection_log SET status = ?, moderation_text = ?, flagged = ?, flag_reason = ?, used_at = ? WHERE id = ?",
+        (status, moderation_text or None, int(flagged), flag_reason or None, now, injection_id),
+    )
+    await db.commit()
 
 
 async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: str = None, max_entries: int = 200) -> int:

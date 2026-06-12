@@ -291,6 +291,7 @@ let _limits = { max_stations: 5, max_personas: 20 };
 let _currentTracks = null;
 let _parsedPersona = null;
 let _busy = false;
+let _stationNames = {};
 
 function setBusy(busy) {
   _busy = busy;
@@ -630,6 +631,7 @@ async function loadStations() {
     stations.forEach(s => {
       const status = s.station_status || {};
       const stName = (status.station || {}).name || s.slug;
+      _stationNames[s.slug] = stName;
       const genre = (status.station || {}).genre || '?';
       const djName = (status.dj || {}).name || '?';
       const listeners = s.subscribers || 0;
@@ -809,8 +811,19 @@ async function loadInjections() {
             ${title} <span id="admin-drop-${key}" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','kommentar').replace('music_request','musikwunsch')}</button></span>
           </div>
         <table class="ads-table">
-          <tr><th>Station</th><th>Inhalt</th><th>Zeit</th></tr>
-          ${items.length ? items.map(i => `<tr><td class="ad-station">${i.station_slug}</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${i.content||''}</td><td class="ad-time">${(i.injected_at||'').substring(11,19)}</td></tr>`).join('') : '<tr><td colspan="3" style="color:#444;">Keine Eintraege</td></tr>'}
+          <tr><th>Station</th><th>Inhalt</th><th>Status</th><th>Zeit</th></tr>
+          ${items.length ? items.map(i => {
+            let statusHtml = '';
+            if (i.status === 'used') statusHtml = '<span style="color:#4ade80;">✓ used</span>';
+            else if (i.status === 'flagged') statusHtml = '<span style="color:#ef4444;">✗ flagged</span>';
+            else statusHtml = '<span style="color:#888;">● pending</span>';
+            return `<tr class="inj-row" data-id="${i.id}" data-content="${encodeURIComponent(i.content||'')}" data-moderation="${encodeURIComponent(i.moderation_text||'')}" data-status="${i.status}" data-flagreason="${encodeURIComponent(i.flag_reason||'')}" data-station="${_stationNames[i.station_slug] || i.station_slug}" data-time="${(i.injected_at||'').substring(11,19)}" onclick="showInjDetail(this)">
+              <td class="ad-station">${_stationNames[i.station_slug] || i.station_slug}</td>
+              <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${i.content||''}</td>
+              <td>${statusHtml}</td>
+              <td class="ad-time">${(i.injected_at||'').substring(11,19)}</td>
+            </tr>`;
+          }).join('') : '<tr><td colspan="4" style="color:#444;">Keine Eintraege</td></tr>'}
         </table>
       `;
       container.appendChild(section);
@@ -833,7 +846,7 @@ async function loadAds() {
     _adsData.slice(0, 20).forEach((a, i) => {
       const tr = document.createElement('tr');
       tr.onclick = () => showAdDetail(i);
-      tr.innerHTML = `<td class="ad-sponsor">${a.sponsor}</td><td>${(a.product||'').substring(0,50)}</td><td class="ad-station">${a.station_slug}</td><td class="ad-time">${(a.injected_at||'').substring(11, 19)}</td>`;
+      tr.innerHTML = `<td class="ad-sponsor">${a.sponsor}</td><td>${(a.product||'').substring(0,50)}</td><td class="ad-station">${_stationNames[a.station_slug] || a.station_slug}</td><td class="ad-time">${(a.injected_at||'').substring(11, 19)}</td>`;
       list.appendChild(tr);
     });
   } catch (e) {}
@@ -841,6 +854,8 @@ async function loadAds() {
 
 function showAdDetail(index) {
   _adIndex = index;
+  document.getElementById('ad-prev').style.display = '';
+  document.getElementById('ad-next').style.display = '';
   const a = _adsData[index];
   if (!a) return;
   document.getElementById('ad-detail-sponsor').textContent = a.sponsor;
@@ -854,6 +869,43 @@ function showAdDetail(index) {
 function closeAdDetail() {
   document.getElementById('ad-detail-overlay').classList.remove('open');
   _adIndex = null;
+}
+
+function showInjDetail(row) {
+  const content = decodeURIComponent(row.dataset.content || '');
+  const moderation = decodeURIComponent(row.dataset.moderation || '');
+  const status = row.dataset.status;
+  const flagReason = decodeURIComponent(row.dataset.flagreason || '');
+  const station = row.dataset.station;
+  const time = row.dataset.time;
+
+  let statusHtml = '';
+  if (status === 'used') statusHtml = '<span style="color:#4ade80;">✓ Used by DJ</span>';
+  else if (status === 'flagged') statusHtml = '<span style="color:#ef4444;">✗ Flagged: ' + (flagReason || '-') + '</span>';
+  else statusHtml = '<span style="color:#888;">● Pending — waiting for DJ</span>';
+
+  document.getElementById('ad-prev').style.display = 'none';
+  document.getElementById('ad-next').style.display = 'none';
+  document.getElementById('ad-pos').textContent = '';
+  _adIndex = null;
+
+  document.getElementById('ad-detail-sponsor').textContent = station + ' · ' + time;
+  document.getElementById('ad-detail-product').innerHTML = statusHtml;
+  document.getElementById('ad-detail-key').textContent = content;
+
+  let timeline = '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #1a1a1a;">';
+  timeline += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:8px;">Verlauf</div>';
+  timeline += '<div style="font-size:12px;color:#888;">● Injected: ' + time + '</div>';
+  if (moderation) {
+    timeline += '<div style="font-size:12px;color:#4ade80;margin-top:4px;">● Used by DJ: <span style="color:#bbb;font-style:italic;">' + moderation.substring(0,120) + '</span></div>';
+  } else if (status === 'flagged') {
+    timeline += '<div style="font-size:12px;color:#ef4444;margin-top:4px;">● Flagged by sanitizer</div>';
+  } else {
+    timeline += '<div style="font-size:12px;color:#555;margin-top:4px;">○ Waiting for DJ</div>';
+  }
+  timeline += '</div>';
+  document.getElementById('ad-detail-station').innerHTML = timeline;
+  document.getElementById('ad-detail-overlay').classList.add('open');
 }
 
 function navAd(dir) {
