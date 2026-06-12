@@ -238,7 +238,7 @@ async def stream(request: Request):
                     events.append({
                         "station": station_id, "type": "ad",
                         "text": p.get("text", ""),
-                        "sponsor": p.get("sponsor", ""),
+                        "contributor": p.get("contributor", ""),
                         "sim_duration": 0, "_ts": row["created_at"],
                     })
                 except Exception:
@@ -271,7 +271,7 @@ class InjectRequest(BaseModel):
     category: str
     text: str
     name: str | None = None
-    sponsor: str | None = None
+    contributor: str | None = None
     product: str | None = None
     key_message: str | None = None
 
@@ -311,7 +311,7 @@ async def inject(req: InjectRequest):
     raw_json = None
     text = req.text
     if req.category == "ad":
-        ad_data = {"sponsor": req.sponsor, "product": req.product, "key_message": req.key_message}
+        ad_data = {"contributor": req.contributor, "product": req.product, "key_message": req.key_message}
         raw_json = json.dumps(ad_data, ensure_ascii=False)
         text = req.text or req.key_message or ""
 
@@ -422,7 +422,7 @@ async def stats_detail(category: str):
             "SELECT payload, created_at FROM broadcast_log WHERE event_type='ad' ORDER BY id DESC LIMIT 10"
         )
         rows = await cur.fetchall()
-        return [{"text": json.loads(r["payload"]).get("text", "")[:100], "sponsor": json.loads(r["payload"]).get("sponsor", ""), "time": r["created_at"]} for r in rows]
+        return [{"text": json.loads(r["payload"]).get("text", "")[:100], "contributor": json.loads(r["payload"]).get("contributor", ""), "time": r["created_at"]} for r in rows]
 
     if category == "guard":
         cur = await _db_conn.execute(
@@ -449,13 +449,13 @@ async def stats_detail(category: str):
     return []
 
 
-@app.get("/sponsors")
-async def list_sponsors():
+@app.get("/contributors")
+async def list_contributors():
     try:
         import yaml
-        with open("/app/sponsors.yml") as f:
+        with open("/app/contributors.yml") as f:
             data = yaml.safe_load(f)
-        return data.get("sponsors", [])
+        return data.get("contributors", [])
     except Exception:
         return []
 

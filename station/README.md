@@ -74,7 +74,7 @@ Liefert Server-Sent Events. Event-Typen:
 {"station": "jazz", "type": "now_playing", "artist": "Miles Davis", "title": "So What", "genre": "modal", "duration": 562}
 
 // Werbung (Host-Read-Ad)
-{"station": "jazz", "type": "ad", "text": "...", "sponsor": "Teufel Audio"}
+{"station": "jazz", "type": "ad", "text": "...", "contributor": "Teufel Audio"}
 
 // System (StreamGuard, Sanitizer, Status)
 {"station": "jazz", "type": "system", "text": "StreamGuard: Moderation verworfen (...)"}
@@ -182,7 +182,7 @@ curl -X POST http://localhost:8080/inject \
   -d '{
     "category": "ad",
     "text": "",
-    "sponsor": "Teufel Audio",
+    "contributor": "Teufel Audio",
     "product": "REAL BLUE NC",
     "key_message": "Noise-Cancelling-Kopfhoerer fuer Musikliebhaber"
   }'
@@ -197,12 +197,12 @@ Ads durchlaufen den gleichen Sicherheitspfad wie alle Eingaben, werden aber vom 
 ### Flow
 
 ```
-1. POST /inject  (category: "ad", sponsor/product/key_message)
+1. POST /inject  (category: "ad", contributor/product/key_message)
         |
 2. Sanitizer     prueft key_message auf Injection-Patterns
         |
 3. Quarantine-DB speichert ad als external_stimuli
-                  (category="ad", raw_json={sponsor, product, key_message})
+                  (category="ad", raw_json={contributor, product, key_message})
         |
 4. DJ-Agent      prueft bei JEDEM Moderations-Slot auf pending Ads
                   (nicht nur beim Impuls-Slot)
@@ -211,7 +211,7 @@ Ads durchlaufen den gleichen Sicherheitspfad wie alle Eingaben, werden aber vom 
                   "Lies den Werbespot so vor, wie DU es tun wuerdest --
                    natuerlich, beilaeufig, in deinem Ton."
         |
-6. SSE-Event     type: "ad" mit sponsor-Feld
+6. SSE-Event     type: "ad" mit contributor-Feld
                   (UI rendert mit goldener Markierung)
         |
 7. Danach        normaler Track + Moderation wie gewohnt
@@ -224,14 +224,14 @@ Ads durchlaufen den gleichen Sicherheitspfad wie alle Eingaben, werden aber vom 
 | Wann ausgespielt? | Nur im Impuls-Slot (:30) | Bei jedem Moderations-Slot |
 | LLM-Prompt | In den DJ-System-Prompt eingebaut | Eigener Ad-Prompt (build_ad_prompt) |
 | SSE Event-Typ | `moderation` | `ad` |
-| Datenstruktur | Freitext | JSON: `{sponsor, product, key_message}` |
+| Datenstruktur | Freitext | JSON: `{contributor, product, key_message}` |
 | UI-Darstellung | Blau (Moderation) | Gold (Ad-Markierung) |
 
 ### Was der DJ daraus macht
 
 Die Ad wird nicht abgelesen, sondern im Ton der DJ-Persona generiert. Beispiel mit DJ "Null" (Nachtsender):
 
-> Eingabe: `{sponsor: "Teufel Audio", product: "REAL BLUE NC", key_message: "Noise-Cancelling fuer Musikliebhaber"}`
+> Eingabe: `{contributor: "Teufel Audio", product: "REAL BLUE NC", key_message: "Noise-Cancelling fuer Musikliebhaber"}`
 >
 > Output: *"...drei Uhr. Die richtige Zeit fuer einen Kopfhoerer, der die Welt draussen laesst. REAL BLUE NC. Teufel."*
 
@@ -242,7 +242,7 @@ Gleiche Ad, DJ "Neon Nadler" (80er):
 ### Sicherheit
 
 - `key_message` wird vom Sanitizer geprueft (Injection-Patterns, Filter-LLM)
-- Sponsor/Product-Felder sind strukturierte Daten und gehen nicht durch den LLM-Filter
+- Contributor/Product-Felder sind strukturierte Daten und gehen nicht durch den LLM-Filter
 - Der Ad-Prompt ist isoliert vom DJ-System-Prompt (kein Prompt-Leaking)
 - StreamGuard prueft auch Ad-Texte nicht (Ads werden direkt emittiert) -- bewusste Designentscheidung: Ads sollen nicht durch Manifesto-Regex blockiert werden
 

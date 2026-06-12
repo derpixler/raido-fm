@@ -18,7 +18,7 @@ services:
     volumes:
       - ./hub/data:/app/data
       - ./personas:/app/personas
-      - ./sponsors.yml:/app/sponsors.yml
+      - ./contributors.yml:/app/contributors.yml
     env_file:
       - .env
     environment:
@@ -42,7 +42,7 @@ services:
     volumes:
       - ./station/data:/app/data
       - ./personas:/app/personas:ro
-      - ./sponsors.yml:/app/sponsors.yml:ro
+      - ./contributors.yml:/app/contributors.yml:ro
     env_file:
       - .env
     environment:

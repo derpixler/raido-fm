@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS station_registry (
 CREATE TABLE IF NOT EXISTS ad_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     station_slug TEXT NOT NULL,
-    sponsor TEXT,
+    contributor TEXT,
     product TEXT,
     key_message TEXT,
     injected_at TEXT NOT NULL
@@ -52,13 +52,13 @@ CREATE TABLE IF NOT EXISTS cleanup_log (
     deleted_at TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS sponsor_requests (
+CREATE TABLE IF NOT EXISTS contributor_requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     url TEXT,
     contact TEXT,
     tokens INTEGER DEFAULT 1000,
-    ad_sponsor TEXT,
+    ad_contributor TEXT,
     ad_product TEXT,
     ad_key_message TEXT,
     status TEXT DEFAULT 'pending',
@@ -139,11 +139,11 @@ async def set_idle_since(db: aiosqlite.Connection, station_id: str, idle_since: 
     await db.commit()
 
 
-async def log_ad(db: aiosqlite.Connection, station_slug: str, sponsor: str, product: str, key_message: str) -> int:
+async def log_ad(db: aiosqlite.Connection, station_slug: str, contributor: str, product: str, key_message: str) -> int:
     now = datetime.now(timezone.utc).isoformat()
     cursor = await db.execute(
-        "INSERT INTO ad_log (station_slug, sponsor, product, key_message, injected_at) VALUES (?,?,?,?,?)",
-        (station_slug, sponsor, product, key_message, now),
+        "INSERT INTO ad_log (station_slug, contributor, product, key_message, injected_at) VALUES (?,?,?,?,?)",
+        (station_slug, contributor, product, key_message, now),
     )
     await db.commit()
     return cursor.lastrowid
@@ -198,7 +198,7 @@ async def update_injection_status(db: aiosqlite.Connection, injection_id: int, s
     await db.commit()
 
 
-_VALID_TABLES = {"injection_log", "ad_log", "cleanup_log", "generated_personas", "station_registry", "sponsor_requests"}
+_VALID_TABLES = {"injection_log", "ad_log", "cleanup_log", "generated_personas", "station_registry", "contributor_requests"}
 
 async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: str = None, max_entries: int = 200) -> int:
     if table not in _VALID_TABLES:
@@ -237,29 +237,29 @@ async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: st
     return overflow
 
 
-async def add_sponsor_request(db: aiosqlite.Connection, name: str, url: str, contact: str, tokens: int, ad_sponsor: str, ad_product: str, ad_key_message: str) -> int:
+async def add_contributor_request(db: aiosqlite.Connection, name: str, url: str, contact: str, tokens: int, ad_contributor: str, ad_product: str, ad_key_message: str) -> int:
     now = datetime.now(timezone.utc).isoformat()
     cursor = await db.execute(
-        "INSERT INTO sponsor_requests (name, url, contact, tokens, ad_sponsor, ad_product, ad_key_message, status, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
-        (name, url, contact, tokens, ad_sponsor, ad_product, ad_key_message, 'pending', now),
+        "INSERT INTO contributor_requests (name, url, contact, tokens, ad_contributor, ad_product, ad_key_message, status, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+        (name, url, contact, tokens, ad_contributor, ad_product, ad_key_message, 'pending', now),
     )
     await db.commit()
     return cursor.lastrowid
 
 
-async def get_sponsor_requests(db: aiosqlite.Connection, status: str = None) -> list[dict]:
+async def get_contributor_requests(db: aiosqlite.Connection, status: str = None) -> list[dict]:
     if status:
-        cursor = await db.execute("SELECT * FROM sponsor_requests WHERE status = ? ORDER BY id DESC", (status,))
+        cursor = await db.execute("SELECT * FROM contributor_requests WHERE status = ? ORDER BY id DESC", (status,))
     else:
-        cursor = await db.execute("SELECT * FROM sponsor_requests ORDER BY id DESC")
+        cursor = await db.execute("SELECT * FROM contributor_requests ORDER BY id DESC")
     return [dict(r) for r in await cursor.fetchall()]
 
 
-async def update_sponsor_request(db: aiosqlite.Connection, request_id: int, status: str) -> None:
-    await db.execute("UPDATE sponsor_requests SET status = ? WHERE id = ?", (status, request_id))
+async def update_contributor_request(db: aiosqlite.Connection, request_id: int, status: str) -> None:
+    await db.execute("UPDATE contributor_requests SET status = ? WHERE id = ?", (status, request_id))
     await db.commit()
 
 
-async def delete_sponsor_request(db: aiosqlite.Connection, request_id: int) -> None:
-    await db.execute("DELETE FROM sponsor_requests WHERE id = ?", (request_id,))
+async def delete_contributor_request(db: aiosqlite.Connection, request_id: int) -> None:
+    await db.execute("DELETE FROM contributor_requests WHERE id = ?", (request_id,))
     await db.commit()

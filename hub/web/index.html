@@ -166,7 +166,7 @@ header .sub a { color: #6366f1; text-decoration: none; }
 .ads-table th { text-align:left; color:#555; font-weight:500; padding:4px 8px; border-bottom:1px solid #1a1a1a; font-size:10px; text-transform:uppercase; letter-spacing:0.5px; }
 .ads-table td { padding:4px 8px; border-bottom:1px solid #0d0d0d; color:#888; cursor:pointer; }
 .ads-table tr:hover td { background:#111; }
-.ads-table .ad-sponsor { color:#fbbf24; font-weight:500; }
+.ads-table .ad-contributor { color:#fbbf24; font-weight:500; }
 .ads-table .ad-station { color:#6366f1; }
 .ads-table .ad-time { color:#555; font-size:11px; }
 #ad-detail-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:1500; align-items:center; justify-content:center; padding:24px; }
@@ -216,9 +216,9 @@ header .sub a { color: #6366f1; text-decoration: none; }
     </div>
   </div>
 
-  <div class="section" id="sponsor-section">
-    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Token Sponsoren <button class="btn secondary" style="font-size:10px;padding:2px 8px;margin-left:auto;" onclick="openSponsorForm()">Become a Sponsor</button></div>
-    <div class="personas-list" id="sponsors-list" style="display:flex;gap:12px;flex-wrap:wrap;">
+  <div class="section" id="contributor-section">
+    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Token Contributoren <button class="btn secondary" style="font-size:10px;padding:2px 8px;margin-left:auto;" onclick="openContributorForm()">Become a Contributor</button></div>
+    <div class="personas-list" id="contributors-list" style="display:flex;gap:12px;flex-wrap:wrap;">
       <div class="loading">Lade...</div>
     </div>
   </div>
@@ -233,7 +233,7 @@ header .sub a { color: #6366f1; text-decoration: none; }
   <div class="section">
     <div class="section-title" style="display:flex;align-items:center;gap:8px;">Recente Ads <span id="admin-drop-ad" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropAd()">drop random ad</button></span></div>
     <table class="ads-table" id="ads-list">
-      <tr><th>Sponsor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>
+      <tr><th>Contributor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>
     </table>
   </div>
 
@@ -241,9 +241,9 @@ header .sub a { color: #6366f1; text-decoration: none; }
     <div class="loading">Lade...</div>
   </div>
 
-  <div class="section" id="sponsor-requests-section" style="display:none;">
-    <div class="section-title">Sponsor Requests (Admin)</div>
-    <table class="ads-table" id="sponsor-requests-list">
+  <div class="section" id="contributor-requests-section" style="display:none;">
+    <div class="section-title">Contributor Requests (Admin)</div>
+    <table class="ads-table" id="contributor-requests-list">
       <tr><th>Name</th><th>URL</th><th>Tokens</th><th>Status</th><th></th></tr>
     </table>
   </div>
@@ -306,10 +306,10 @@ header .sub a { color: #6366f1; text-decoration: none; }
   </div>
 </div>
 
-<div id="sponsor-form-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1600;align-items:center;justify-content:center;padding:24px;">
+<div id="contributor-form-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1600;align-items:center;justify-content:center;padding:24px;">
   <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:480px;width:100%;padding:28px;position:relative;max-height:85vh;overflow-y:auto;">
-    <button onclick="closeSponsorForm()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:18px;cursor:pointer;">&times;</button>
-    <h3 style="font-size:16px;color:#fff;margin-bottom:4px;">Become a Token Sponsor ✦</h3>
+    <button onclick="closeContributorForm()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:18px;cursor:pointer;">&times;</button>
+    <h3 style="font-size:16px;color:#fff;margin-bottom:4px;">Become a Token Contributor ✦</h3>
     <p style="font-size:11px;color:#888;line-height:1.5;margin-bottom:16px;">
       RAIDO bekommt <b style="color:#fbbf24">kein Geld</b>.
       Es lebt von <b style="color:#4ade80">API-Keys</b>, die du bereitstellst.
@@ -337,13 +337,13 @@ header .sub a { color: #6366f1; text-decoration: none; }
       <input id="sf-url" placeholder="URL (https://...)" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <input id="sf-contact" placeholder="Kontakt (E-Mail)" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <input id="sf-tokens" placeholder="Token-Budget (z.B. 500000)" type="number" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-      <input id="sf-ad-sponsor" placeholder="Ad Sponsor-Name" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+      <input id="sf-ad-contributor" placeholder="Ad Contributor-Name" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <input id="sf-ad-product" placeholder="Ad Produkt" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <textarea id="sf-ad-message" placeholder="Ad Kernbotschaft" rows="2" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;resize:vertical;"></textarea>
     </div>
     <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
-      <button class="btn secondary" onclick="closeSponsorForm()">Abbrechen</button>
-      <button class="btn" style="background:#fbbf24;color:#000;font-weight:600;" onclick="submitSponsor()">Absenden ✦</button>
+      <button class="btn secondary" onclick="closeContributorForm()">Abbrechen</button>
+      <button class="btn" style="background:#fbbf24;color:#000;font-weight:600;" onclick="submitContributor()">Absenden ✦</button>
     </div>
     <div id="sf-status" style="margin-top:8px;font-size:11px;color:#888;"></div>
   </div>
@@ -352,7 +352,7 @@ header .sub a { color: #6366f1; text-decoration: none; }
 <div id="ad-detail-overlay">
   <div id="ad-detail">
     <button onclick="closeAdDetail()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
-    <h3 id="ad-detail-sponsor"></h3>
+    <h3 id="ad-detail-contributor"></h3>
     <div class="ad-product" id="ad-detail-product"></div>
     <div class="ad-key" id="ad-detail-key"></div>
     <div class="ad-station-link" id="ad-detail-station"></div>
@@ -364,31 +364,31 @@ header .sub a { color: #6366f1; text-decoration: none; }
   </div>
 </div>
 
-<div id="sponsor-req-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1700;align-items:center;justify-content:center;padding:24px;">
+<div id="contributor-req-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1700;align-items:center;justify-content:center;padding:24px;">
   <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:480px;width:100%;padding:24px;position:relative;max-height:85vh;overflow-y:auto;">
-    <button onclick="closeSponsorReqModal()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:18px;cursor:pointer;">&times;</button>
-    <h3 style="font-size:14px;color:#fff;margin-bottom:12px;">Sponsor Request</h3>
+    <button onclick="closeContributorReqModal()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:18px;cursor:pointer;">&times;</button>
+    <h3 style="font-size:14px;color:#fff;margin-bottom:12px;">Contributor Request</h3>
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div><label style="font-size:10px;color:#555;">Name</label><input id="srm-name" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">URL</label><input id="srm-url" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Kontakt</label><input id="srm-contact" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Token-Budget</label><input id="srm-tokens" type="number" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
-      <div><label style="font-size:10px;color:#555;">Ad Sponsor</label><input id="srm-ad-sponsor" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
+      <div><label style="font-size:10px;color:#555;">Ad Contributor</label><input id="srm-ad-contributor" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Ad Produkt</label><input id="srm-ad-product" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Ad Message</label><textarea id="srm-ad-message" rows="2" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;resize:vertical;"></textarea></div>
       <div style="border-top:1px solid #1a1a1a;padding-top:8px;margin-top:4px;">
         <label style="font-size:10px;color:#555;">API Key <span style="color:#888;">(erforderlich fuer Approve)</span></label>
         <div style="display:flex;gap:4px;">
           <input id="srm-api-key" placeholder="sk-..." style="flex:1;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-          <button class="btn secondary" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="validateSponsorKey()">Key pruefen</button>
+          <button class="btn secondary" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="validateContributorKey()">Key pruefen</button>
         </div>
         <div id="srm-key-status" style="font-size:10px;color:#888;margin-top:4px;"></div>
       </div>
     </div>
     <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
-      <button class="btn danger" style="font-size:10px;padding:4px 8px;" onclick="deleteSponsorReqModal()">Delete</button>
-      <button class="btn danger" style="font-size:10px;padding:4px 12px;" onclick="handleSponsorReqFromModal('reject')">Reject</button>
-      <button class="btn" id="srm-approve-btn" style="font-size:10px;padding:4px 12px;" onclick="handleSponsorReqFromModal('approve')" disabled>Approve</button>
+      <button class="btn danger" style="font-size:10px;padding:4px 8px;" onclick="deleteContributorReqModal()">Delete</button>
+      <button class="btn danger" style="font-size:10px;padding:4px 12px;" onclick="handleContributorReqFromModal('reject')">Reject</button>
+      <button class="btn" id="srm-approve-btn" style="font-size:10px;padding:4px 12px;" onclick="handleContributorReqFromModal('approve')" disabled>Approve</button>
     </div>
   </div>
 </div>
@@ -824,7 +824,7 @@ function showPersonaDetail(p) {
   document.getElementById('ad-next').style.display = 'none';
   document.getElementById('ad-pos').textContent = '';
 
-  document.getElementById('ad-detail-sponsor').textContent = name;
+  document.getElementById('ad-detail-contributor').textContent = name;
   document.getElementById('ad-detail-product').textContent = genre + ' — DJ ' + dj;
   document.getElementById('ad-detail-key').textContent = claim || personality || '';
   document.getElementById('ad-detail-station').innerHTML =
@@ -837,15 +837,15 @@ function showPersonaDetail(p) {
   document.getElementById('ad-detail-overlay').classList.add('open');
 }
 
-async function loadSponsors() {
+async function loadContributors() {
   try {
-    const res = await fetch('/sponsors');
-    const sponsors = await res.json() || [];
-    const list = document.getElementById('sponsors-list');
-    if (!sponsors.length) { list.innerHTML = '<div style="color:#444;font-size:12px;">Noch keine Sponsoren.</div>'; return; }
-    list.innerHTML = sponsors.map(s => {
+    const res = await fetch('/contributors');
+    const contributors = await res.json() || [];
+    const list = document.getElementById('contributors-list');
+    if (!contributors.length) { list.innerHTML = '<div style="color:#444;font-size:12px;">Noch keine Contributoren.</div>'; return; }
+    list.innerHTML = contributors.map(s => {
       const pct = s.token_budget > 0 ? Math.round((s.token_used || 0) / s.token_budget * 100) : 0;
-      return '<div style="background:#111;border:1px solid #222;border-radius:8px;padding:10px 14px;cursor:pointer;margin-bottom:6px;" onclick="showSponsorDetail(\'' + encodeURIComponent(JSON.stringify(s)) + '\')">' +
+      return '<div style="background:#111;border:1px solid #222;border-radius:8px;padding:10px 14px;cursor:pointer;margin-bottom:6px;" onclick="showContributorDetail(\'' + encodeURIComponent(JSON.stringify(s)) + '\')">' +
         '<div style="font-size:12px;color:#fbbf24;font-weight:500;">' + s.name + '</div>' +
         '<div style="font-size:10px;color:#888;">' + (s.token_used || 0) + ' / ' + (s.token_budget || '\u221e') + ' tokens</div>' +
         (s.token_budget > 0 ? '<div style="width:100%;height:2px;background:#1a1a1a;border-radius:1px;margin-top:4px;"><div style="height:100%;background:' + (pct > 80 ? '#ef4444' : '#4ade80') + ';width:' + pct + '%;border-radius:1px;"></div></div>' : '') +
@@ -854,9 +854,9 @@ async function loadSponsors() {
   } catch (e) {}
 }
 
-function showSponsorDetail(encoded) {
+function showContributorDetail(encoded) {
   const s = JSON.parse(decodeURIComponent(encoded));
-  document.getElementById('ad-detail-sponsor').textContent = s.name;
+  document.getElementById('ad-detail-contributor').textContent = s.name;
   document.getElementById('ad-detail-product').textContent = s.ad_product || '';
   document.getElementById('ad-detail-key').textContent = s.ad_key_message || '';
   document.getElementById('ad-detail-station').innerHTML =
@@ -870,18 +870,18 @@ function showSponsorDetail(encoded) {
   document.getElementById('ad-pos').textContent = '';
 }
 
-async function loadSponsorRequests() {
+async function loadContributorRequests() {
   if (!_adminToken) return;
   try {
-    const res = await fetch('/sponsors/requests', { headers: { 'Authorization': 'Bearer ' + _adminToken } });
+    const res = await fetch('/contributors/requests', { headers: { 'Authorization': 'Bearer ' + _adminToken } });
     const data = await res.json();
-    const list = document.getElementById('sponsor-requests-list');
+    const list = document.getElementById('contributor-requests-list');
     list.innerHTML = '<tr><th>Name</th><th>URL</th><th>Tokens</th><th>Status</th><th></th></tr>';
     if (!data || !data.length) { list.innerHTML += '<tr><td colspan="5" style="color:#444;">Keine Anfragen</td></tr>'; return; }
     data.forEach(r => {
       const tr = document.createElement('tr');
       tr.style.cursor = 'pointer';
-      tr.onclick = () => openSponsorReqModal(r);
+      tr.onclick = () => openContributorReqModal(r);
       tr.innerHTML = `<td>${r.name}</td><td>${r.url||''}</td><td>${r.tokens||0}</td><td>${r.status}</td><td></td>`;
       list.appendChild(tr);
     });
@@ -891,33 +891,33 @@ async function loadSponsorRequests() {
 let _currentReqId = null;
 let _keyValidated = false;
 
-function openSponsorReqModal(req) {
+function openContributorReqModal(req) {
   _currentReqId = req.id;
   _keyValidated = false;
   document.getElementById('srm-name').value = req.name || '';
   document.getElementById('srm-url').value = req.url || '';
   document.getElementById('srm-contact').value = req.contact || '';
   document.getElementById('srm-tokens').value = req.tokens || 1000;
-  document.getElementById('srm-ad-sponsor').value = req.ad_sponsor || '';
+  document.getElementById('srm-ad-contributor').value = req.ad_contributor || '';
   document.getElementById('srm-ad-product').value = req.ad_product || '';
   document.getElementById('srm-ad-message').value = req.ad_key_message || '';
   document.getElementById('srm-api-key').value = '';
   document.getElementById('srm-key-status').textContent = '';
   document.getElementById('srm-approve-btn').disabled = req.status !== 'pending';
-  document.getElementById('sponsor-req-modal').style.display = 'flex';
+  document.getElementById('contributor-req-modal').style.display = 'flex';
 }
 
-function closeSponsorReqModal() {
-  document.getElementById('sponsor-req-modal').style.display = 'none';
+function closeContributorReqModal() {
+  document.getElementById('contributor-req-modal').style.display = 'none';
   _currentReqId = null;
 }
 
-async function validateSponsorKey() {
+async function validateContributorKey() {
   const key = document.getElementById('srm-api-key').value.trim();
   if (!key) { document.getElementById('srm-key-status').textContent = '✗ Key eingeben'; return; }
   document.getElementById('srm-key-status').innerHTML = '<span class="spinner"></span> Pruefe...';
   try {
-    const res = await fetch('/sponsors/validate-key', {
+    const res = await fetch('/contributors/validate-key', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _adminToken },
       body: JSON.stringify({ api_key: key }),
@@ -937,27 +937,27 @@ async function validateSponsorKey() {
   }
 }
 
-async function deleteSponsorReqModal() {
+async function deleteContributorReqModal() {
   if (!_currentReqId || !_adminToken) return;
   if (!confirm('Anfrage wirklich löschen?')) return;
   try {
-    await fetch('/sponsors/requests/' + _currentReqId, {
+    await fetch('/contributors/requests/' + _currentReqId, {
       method: 'DELETE',
       headers: { 'Authorization': 'Bearer ' + _adminToken },
     });
-    closeSponsorReqModal();
-    loadSponsorRequests();
+    closeContributorReqModal();
+    loadContributorRequests();
   } catch (e) {}
 }
 
-async function handleSponsorReqFromModal(action) {
+async function handleContributorReqFromModal(action) {
   if (!_currentReqId || !_adminToken) return;
   const body = {
     name: document.getElementById('srm-name').value.trim(),
     url: document.getElementById('srm-url').value.trim(),
     contact: document.getElementById('srm-contact').value.trim(),
     tokens: parseInt(document.getElementById('srm-tokens').value) || 1000,
-    ad_sponsor: document.getElementById('srm-ad-sponsor').value.trim(),
+    ad_contributor: document.getElementById('srm-ad-contributor').value.trim(),
     ad_product: document.getElementById('srm-ad-product').value.trim(),
     ad_key_message: document.getElementById('srm-ad-message').value.trim(),
     api_key: document.getElementById('srm-api-key').value.trim(),
@@ -967,15 +967,15 @@ async function handleSponsorReqFromModal(action) {
     return;
   }
   try {
-    const res = await fetch('/sponsors/requests/' + _currentReqId + '/' + action + '-update', {
+    const res = await fetch('/contributors/requests/' + _currentReqId + '/' + action + '-update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _adminToken },
       body: JSON.stringify(body),
     });
     if (res.ok) {
-      closeSponsorReqModal();
-      loadSponsorRequests();
-      loadSponsors();
+      closeContributorReqModal();
+      loadContributorRequests();
+      loadContributors();
     } else {
       const data = await res.json().catch(() => ({}));
       alert(data.detail || data.error || 'Fehler');
@@ -983,21 +983,21 @@ async function handleSponsorReqFromModal(action) {
   } catch (e) { alert(e.message); }
 }
 
-document.getElementById('sponsor-req-modal').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeSponsorReqModal();
+document.getElementById('contributor-req-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeContributorReqModal();
 });
 
-function openSponsorForm() {
-  document.getElementById('sponsor-form-overlay').style.display = 'flex';
+function openContributorForm() {
+  document.getElementById('contributor-form-overlay').style.display = 'flex';
   document.getElementById('sf-name').focus();
 }
-function closeSponsorForm() {
-  document.getElementById('sponsor-form-overlay').style.display = 'none';
+function closeContributorForm() {
+  document.getElementById('contributor-form-overlay').style.display = 'none';
 }
-async function submitSponsor() {
+async function submitContributor() {
   const name = document.getElementById('sf-name').value.trim();
   if (!name) { document.getElementById('sf-status').textContent = 'Name ist erforderlich.'; return; }
-  const btn = document.querySelector('#sponsor-form-overlay .btn:not(.secondary)');
+  const btn = document.querySelector('#contributor-form-overlay .btn:not(.secondary)');
   if (btn) { btn.disabled = true; btn.textContent = '...'; }
   document.getElementById('sf-status').textContent = 'Wird gesendet...';
   try {
@@ -1005,14 +1005,14 @@ async function submitSponsor() {
       name, url: document.getElementById('sf-url').value.trim(),
       contact: document.getElementById('sf-contact').value.trim(),
       tokens: parseInt(document.getElementById('sf-tokens').value) || 1000,
-      ad_sponsor: document.getElementById('sf-ad-sponsor').value.trim(),
+      ad_contributor: document.getElementById('sf-ad-contributor').value.trim(),
       ad_product: document.getElementById('sf-ad-product').value.trim(),
       ad_key_message: document.getElementById('sf-ad-message').value.trim(),
     };
-    const res = await fetch('/sponsors/request', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const res = await fetch('/contributors/request', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (res.ok) {
       document.getElementById('sf-status').textContent = '✓ Anfrage gesendet. Der Admin wird sie pruefen.';
-      setTimeout(closeSponsorForm, 2000);
+      setTimeout(closeContributorForm, 2000);
     } else {
       const data = await res.json().catch(() => ({}));
       document.getElementById('sf-status').textContent = '✗ ' + (data.error || 'Fehler');
@@ -1022,8 +1022,8 @@ async function submitSponsor() {
   }
   if (btn) { btn.disabled = false; btn.textContent = 'Absenden'; }
 }
-document.getElementById('sponsor-form-overlay').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeSponsorForm();
+document.getElementById('contributor-form-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeContributorForm();
 });
 
 async function toggleStationMode(slug, currentMode, el) {
@@ -1109,8 +1109,8 @@ function setAdmin(token) {
   localStorage.setItem('raido_admin', token);
   document.getElementById('admin-status').textContent = token ? '✓' : '';
   document.querySelectorAll('[id^="admin-drop-"]').forEach(el => el.classList.toggle('hidden', !token));
-  document.getElementById('sponsor-requests-section').style.display = token ? 'block' : 'none';
-  if (token) loadSponsorRequests();
+  document.getElementById('contributor-requests-section').style.display = token ? 'block' : 'none';
+  if (token) loadContributorRequests();
   loadStations();
 }
 
@@ -1182,12 +1182,12 @@ async function loadAds() {
     const res = await fetch('/ads');
     _adsData = await res.json();
     const list = document.getElementById('ads-list');
-    list.innerHTML = '<tr><th>Sponsor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>';
+    list.innerHTML = '<tr><th>Contributor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>';
     if (!_adsData || !_adsData.length) { list.innerHTML += '<tr><td colspan="4" style="color:#444;">Keine Ads</td></tr>'; return; }
     _adsData.slice(0, 20).forEach((a, i) => {
       const tr = document.createElement('tr');
       tr.onclick = () => showAdDetail(i);
-      tr.innerHTML = `<td class="ad-sponsor">${a.sponsor}</td><td>${(a.product||'').substring(0,50)}</td><td class="ad-station">${_stationNames[a.station_slug] || a.station_slug}</td><td class="ad-time">${(a.injected_at||'').substring(11, 19)}</td>`;
+      tr.innerHTML = `<td class="ad-contributor">${a.contributor}</td><td>${(a.product||'').substring(0,50)}</td><td class="ad-station">${_stationNames[a.station_slug] || a.station_slug}</td><td class="ad-time">${(a.injected_at||'').substring(11, 19)}</td>`;
       list.appendChild(tr);
     });
   } catch (e) {}
@@ -1199,7 +1199,7 @@ function showAdDetail(index) {
   document.getElementById('ad-next').style.display = '';
   const a = _adsData[index];
   if (!a) return;
-  document.getElementById('ad-detail-sponsor').textContent = a.sponsor;
+  document.getElementById('ad-detail-contributor').textContent = a.contributor;
   document.getElementById('ad-detail-product').textContent = a.product;
   document.getElementById('ad-detail-key').textContent = '„' + a.key_message + '“';
   document.getElementById('ad-detail-station').innerHTML = 'Station: <span style="color:#6366f1;">' + a.station_slug + '</span>';
@@ -1230,7 +1230,7 @@ function showInjDetail(row) {
   document.getElementById('ad-pos').textContent = '';
   _adIndex = null;
 
-  document.getElementById('ad-detail-sponsor').textContent = station + ' · ' + time;
+  document.getElementById('ad-detail-contributor').textContent = station + ' · ' + time;
   document.getElementById('ad-detail-product').innerHTML = statusHtml;
   document.getElementById('ad-detail-key').textContent = content;
 
@@ -1280,13 +1280,13 @@ loadOverview();
 loadPersonas();
 loadAds();
 loadInjections();
-loadSponsors();
-setInterval(() => { loadStations(); loadOverview(); loadAds(); loadInjections(); loadSponsors(); }, 30000);
+loadContributors();
+setInterval(() => { loadStations(); loadOverview(); loadAds(); loadInjections(); loadContributors(); }, 30000);
 
-if (window.location.hash === '#sponsor') { setTimeout(openSponsorForm, 500); }
+if (window.location.hash === '#contributor') { setTimeout(openContributorForm, 500); }
 
-document.getElementById('sponsor-req-modal').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeSponsorReqModal();
+document.getElementById('contributor-req-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeContributorReqModal();
 });
 </script>
 

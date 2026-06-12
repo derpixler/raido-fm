@@ -17,7 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from pydantic import BaseModel
 
-from . import db, docker_mgr, persona_generator, ad_generator, content_generator, sponsor_keys
+from . import db, docker_mgr, persona_generator, ad_generator, content_generator, contributor_keys
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -231,11 +231,11 @@ async def drop_random_ad():
     async with httpx.AsyncClient(timeout=10.0) as http:
         resp = await http.post(
             f"http://host.docker.internal:{port}/inject",
-            json={"category": "ad", "text": "", "sponsor": ad["sponsor"], "product": ad["product"], "key_message": ad["key_message"]},
+            json={"category": "ad", "text": "", "contributor": ad["contributor"], "product": ad["product"], "key_message": ad["key_message"]},
         )
 
     if _db:
-        await db.log_ad(_db, target["slug"], ad["sponsor"], ad["product"], ad["key_message"])
+        await db.log_ad(_db, target["slug"], ad["contributor"], ad["product"], ad["key_message"])
 
     return {"station": target["slug"], "ad": ad, "status": resp.status_code}
 
@@ -423,67 +423,67 @@ async def list_ads():
     return await db.get_ads(_db) if _db else []
 
 
-SPONSORS_PATH = Path("/app/sponsors.yml")
+CONTRIBUTORS_PATH = Path("/app/contributors.yml")
 
-def _load_sponsors() -> list[dict]:
+def _load_contributors() -> list[dict]:
     try:
-        with open(SPONSORS_PATH) as f:
+        with open(CONTRIBUTORS_PATH) as f:
             data = yaml.safe_load(f)
-        return sorted(data.get("sponsors", []), key=lambda s: s.get("tokens", 0), reverse=True)
+        return sorted(data.get("contributors", []), key=lambda s: s.get("tokens", 0), reverse=True)
     except Exception:
         return []
 
-@app.get("/sponsors")
-async def list_sponsors():
-    sponsor_keys.load_sponsors()
-    return sponsor_keys.get_all_sponsors()
+@app.get("/contributors")
+async def list_contributors():
+    contributor_keys.load_contributors()
+    return contributor_keys.get_all_contributors()
 
-class SponsorRequest(BaseModel):
+class ContributorRequest(BaseModel):
     name: str
     url: str = ""
     contact: str = ""
     tokens: int = 1000
-    ad_sponsor: str = ""
+    ad_contributor: str = ""
     ad_product: str = ""
     ad_key_message: str = ""
 
-@app.post("/sponsors/request")
-async def request_sponsor(req: SponsorRequest):
+@app.post("/contributors/request")
+async def request_contributor(req: ContributorRequest):
     if not req.name:
         return JSONResponse({"error": "Name required"}, status_code=400)
-    sid = await db.add_sponsor_request(_db, req.name, req.url, req.contact, req.tokens, req.ad_sponsor, req.ad_product, req.ad_key_message)
+    sid = await db.add_contributor_request(_db, req.name, req.url, req.contact, req.tokens, req.ad_contributor, req.ad_product, req.ad_key_message)
     return {"id": sid, "status": "pending"}
 
-@app.get("/sponsors/requests", dependencies=[Depends(require_admin)])
-async def list_sponsor_requests():
-    return await db.get_sponsor_requests(_db) if _db else []
+@app.get("/contributors/requests", dependencies=[Depends(require_admin)])
+async def list_contributor_requests():
+    return await db.get_contributor_requests(_db) if _db else []
 
-@app.post("/sponsors/requests/{req_id}/approve", dependencies=[Depends(require_admin)])
-async def approve_sponsor(req_id: int):
-    req_data = await db.get_sponsor_requests(_db)
+@app.post("/contributors/requests/{req_id}/approve", dependencies=[Depends(require_admin)])
+async def approve_contributor(req_id: int):
+    req_data = await db.get_contributor_requests(_db)
     req = next((r for r in req_data if r["id"] == req_id), None)
     if not req:
         raise HTTPException(404, "Request not found")
 
-    max_priority = max((s.get("priority", 0) for s in sponsor_keys.get_all_sponsors()), default=0)
-    sponsor_keys.save_sponsor(req["name"], {
+    max_priority = max((s.get("priority", 0) for s in contributor_keys.get_all_contributors()), default=0)
+    contributor_keys.save_contributor(req["name"], {
         "name": req["name"], "url": req["url"], "contact": req["contact"],
         "api_key": "", "api_base_url": "", "api_model": "deepseek-chat",
         "token_budget": req["tokens"], "token_used": 0,
-        "ad_sponsor": req["ad_sponsor"], "ad_product": req["ad_product"],
+        "ad_contributor": req["ad_contributor"], "ad_product": req["ad_product"],
         "ad_key_message": req["ad_key_message"],
         "since": datetime.now(timezone.utc).strftime("%Y-%m"),
         "priority": max_priority + 1,
     })
-    await db.update_sponsor_request(_db, req_id, "approved")
+    await db.update_contributor_request(_db, req_id, "approved")
     return {"status": "approved"}
 
 
 class ValidateKeyRequest(BaseModel):
     api_key: str
 
-@app.post("/sponsors/validate-key", dependencies=[Depends(require_admin)])
-async def validate_sponsor_key(req: ValidateKeyRequest):
+@app.post("/contributors/validate-key", dependencies=[Depends(require_admin)])
+async def validate_contributor_key(req: ValidateKeyRequest):
     try:
         client = httpx.AsyncClient(timeout=10.0)
         # Make minimal API call to Groq/OpenAI-compatible endpoint to test key
@@ -517,59 +517,59 @@ class ApproveUpdateRequest(BaseModel):
     url: str = ""
     contact: str = ""
     tokens: int = 1000
-    ad_sponsor: str = ""
+    ad_contributor: str = ""
     ad_product: str = ""
     ad_key_message: str = ""
     api_key: str = ""
 
-@app.post("/sponsors/requests/{req_id}/approve-update", dependencies=[Depends(require_admin)])
-async def approve_sponsor_update(req_id: int, req: ApproveUpdateRequest):
-    req_data = await db.get_sponsor_requests(_db)
+@app.post("/contributors/requests/{req_id}/approve-update", dependencies=[Depends(require_admin)])
+async def approve_contributor_update(req_id: int, req: ApproveUpdateRequest):
+    req_data = await db.get_contributor_requests(_db)
     original = next((r for r in req_data if r["id"] == req_id), None)
     if not original:
         raise HTTPException(404, "Request not found")
 
-    max_priority = max((s.get("priority", 0) for s in sponsor_keys.get_all_sponsors()), default=0)
-    sponsor_keys.save_sponsor(req.name, {
+    max_priority = max((s.get("priority", 0) for s in contributor_keys.get_all_contributors()), default=0)
+    contributor_keys.save_contributor(req.name, {
         "name": req.name, "url": req.url, "contact": req.contact,
         "api_key": req.api_key, "api_base_url": "https://api.deepseek.com", "api_model": "deepseek-chat",
         "token_budget": req.tokens, "token_used": 0,
-        "ad_sponsor": req.ad_sponsor, "ad_product": req.ad_product,
+        "ad_contributor": req.ad_contributor, "ad_product": req.ad_product,
         "ad_key_message": req.ad_key_message,
         "since": datetime.now(timezone.utc).strftime("%Y-%m"),
         "priority": max_priority + 1,
     })
-    await db.update_sponsor_request(_db, req_id, "approved")
+    await db.update_contributor_request(_db, req_id, "approved")
     return {"status": "approved"}
 
-@app.post("/sponsors/requests/{req_id}/reject-update", dependencies=[Depends(require_admin)])
-async def reject_sponsor_update(req_id: int):
-    req_data = await db.get_sponsor_requests(_db)
+@app.post("/contributors/requests/{req_id}/reject-update", dependencies=[Depends(require_admin)])
+async def reject_contributor_update(req_id: int):
+    req_data = await db.get_contributor_requests(_db)
     if not any(r["id"] == req_id for r in req_data):
         raise HTTPException(404, "Request not found")
-    await db.update_sponsor_request(_db, req_id, "rejected")
+    await db.update_contributor_request(_db, req_id, "rejected")
     return {"status": "rejected"}
 
-@app.delete("/sponsors/requests/{req_id}", dependencies=[Depends(require_admin)])
-async def delete_sponsor_request(req_id: int):
-    await db.delete_sponsor_request(_db, req_id)
+@app.delete("/contributors/requests/{req_id}", dependencies=[Depends(require_admin)])
+async def delete_contributor_request(req_id: int):
+    await db.delete_contributor_request(_db, req_id)
     return {"status": "deleted"}
 
-@app.post("/sponsors/requests/{req_id}/reject", dependencies=[Depends(require_admin)])
-async def reject_sponsor(req_id: int):
-    req_data = await db.get_sponsor_requests(_db)
+@app.post("/contributors/requests/{req_id}/reject", dependencies=[Depends(require_admin)])
+async def reject_contributor(req_id: int):
+    req_data = await db.get_contributor_requests(_db)
     if not any(r["id"] == req_id for r in req_data):
         raise HTTPException(404, "Request not found")
-    await db.update_sponsor_request(_db, req_id, "rejected")
+    await db.update_contributor_request(_db, req_id, "rejected")
     return {"status": "rejected"}
 
-@app.delete("/sponsors/{name}", dependencies=[Depends(require_admin)])
-async def remove_sponsor(name: str):
-    all_sponsors = sponsor_keys.get_all_sponsors()
-    all_sponsors = [s for s in all_sponsors if s["name"] != name]
-    with open(sponsor_keys.SPONSORS_PATH, "w") as f:
-        yaml.dump({"sponsors": all_sponsors}, f, allow_unicode=True)
-    sponsor_keys.load_sponsors()
+@app.delete("/contributors/{name}", dependencies=[Depends(require_admin)])
+async def remove_contributor(name: str):
+    all_contributors = contributor_keys.get_all_contributors()
+    all_contributors = [s for s in all_contributors if s["name"] != name]
+    with open(contributor_keys.CONTRIBUTORS_PATH, "w") as f:
+        yaml.dump({"contributors": all_contributors}, f, allow_unicode=True)
+    contributor_keys.load_contributors()
     return {"status": "removed"}
 
 

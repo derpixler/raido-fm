@@ -446,7 +446,7 @@
   <span class="stat" data-cat="flagged"><span class="lbl">Flagged</span> <span class="val" id="s-flagged">0</span></span>
   <span class="stat" data-cat="listeners"><span class="lbl">Listener</span> <span class="val" id="s-listeners">0</span></span>
   <span class="stat" data-cat="uptime"><span class="lbl">Uptime</span> <span class="val" id="s-uptime">-</span></span>
-  <span class="stat" data-cat="sponsors" style="margin-left:auto;border:1px solid #3e3e1a;border-radius:4px;padding:2px 8px;"><span class="lbl" style="color:#fbbf24;font-weight:600;">Token Sponsoren</span></span>
+  <span class="stat" data-cat="contributors" style="margin-left:auto;border:1px solid #3e3e1a;border-radius:4px;padding:2px 8px;"><span class="lbl" style="color:#fbbf24;font-weight:600;">Token Contributoren</span></span>
   <div id="stats-detail"></div>
 </div>
 
@@ -460,7 +460,7 @@
 </div>
 
 <div class="ad-fields" id="ad-fields">
-  <input type="text" id="ad-sponsor" placeholder="Sponsor">
+  <input type="text" id="ad-contributor" placeholder="Contributor">
   <input type="text" id="ad-product" placeholder="Produkt">
   <input type="text" id="ad-key-message" placeholder="Key Message">
 </div>
@@ -698,12 +698,12 @@ document.getElementById('stats-bar').addEventListener('click', async (e) => {
   statsDetail.classList.add('open');
 
   try {
-    if (cat === 'sponsors') {
-      statsDetail.innerHTML = '<div class="detail-title">Token Sponsoren</div><div id="sponsors-detail-content" style="color:#888;">Lade...</div>';
+    if (cat === 'contributors') {
+      statsDetail.innerHTML = '<div class="detail-title">Token Contributoren</div><div id="contributors-detail-content" style="color:#888;">Lade...</div>';
       statsDetail.classList.add('open');
-      const spRes = await fetch('/sponsors');
-      const sponsors = await spRes.json();
-      renderSponsorsDetail(sponsors);
+      const spRes = await fetch('/contributors');
+      const contributors = await spRes.json();
+      renderContributorsDetail(contributors);
     } else {
       const res = await fetch('/stats/detail/' + cat);
       const data = await res.json();
@@ -738,7 +738,7 @@ function showStationDetail(index) {
     body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.time) + '</div>' +
            '<div class="sd-text">' + (item.text || '') + '</div>';
   } else if (_detailCat === 'ads') {
-    title = item.sponsor || 'Ad';
+    title = item.contributor || 'Ad';
     body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.time) + '</div>' +
            '<div class="sd-text">' + (item.text || '') + '</div>';
   } else if (_detailCat === 'guard') {
@@ -825,8 +825,8 @@ function renderDetail(cat, data) {
   }
 
   if (cat === 'ads') {
-    let h = '<div class="detail-title">Gesendete Ads</div><table><tr><th>Zeit</th><th>Sponsor</th><th>Text</th></tr>';
-    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.sponsor + '</td><td>' + r.text.substring(0,80) + '</td></tr>'; });
+    let h = '<div class="detail-title">Gesendete Ads</div><table><tr><th>Zeit</th><th>Contributor</th><th>Text</th></tr>';
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.contributor + '</td><td>' + r.text.substring(0,80) + '</td></tr>'; });
     return h + '</table>';
   }
 
@@ -858,20 +858,20 @@ function renderDetail(cat, data) {
 
   if (cat === 'listeners') return '<div class="detail-title">Listener</div><div class="sd-row">Aktive Verbindungen: <b>' + document.getElementById('s-listeners').textContent + '</b></div><div class="sd-row">Uptime: ' + document.getElementById('s-uptime').textContent + '</div><div style="color:#444;font-size:10px;margin-top:6px;">Keine persoenlichen Daten. Kein Tracking.</div>';
   if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Sendestunden: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
-  if (cat === 'sponsors') return '<div class="detail-title">Token Sponsoren</div><div id="sponsors-detail-content" style="color:#888;"><span class="spinner"></span> Lade...</div>';
+  if (cat === 'contributors') return '<div class="detail-title">Token Contributoren</div><div id="contributors-detail-content" style="color:#888;"><span class="spinner"></span> Lade...</div>';
 
   return '<div class="detail-title">' + JSON.stringify(data).substring(0,200) + '</div>';
 }
 
-function renderSponsorsDetail(sponsors) {
-  const el = document.getElementById('sponsors-detail-content');
+function renderContributorsDetail(contributors) {
+  const el = document.getElementById('contributors-detail-content');
   if (!el) return;
-  if (!sponsors || !sponsors.length) {
-    el.innerHTML = '<div style="color:#555;">Keine Sponsoren.</div>' +
-      '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#sponsor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Sponsor werden (Hub)</a>';
+  if (!contributors || !contributors.length) {
+    el.innerHTML = '<div style="color:#555;">Keine Contributoren.</div>' +
+      '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Contributor werden (Hub)</a>';
     return;
   }
-  el.innerHTML = sponsors.map(s => {
+  el.innerHTML = contributors.map(s => {
     const pct = s.token_budget > 0 ? Math.round((s.token_used || 0) / s.token_budget * 100) : 0;
     return '<div style="padding:6px 0;border-bottom:1px solid #111;">' +
       '<div style="font-size:12px;color:#fbbf24;">' + s.name + '</div>' +
@@ -880,7 +880,7 @@ function renderSponsorsDetail(sponsors) {
       (s.token_budget > 0 ? '<div style="width:100%;height:2px;background:#1a1a1a;border-radius:1px;margin-top:4px;"><div style="height:100%;background:' + (pct>80?'#ef4444':'#4ade80') + ';width:' + pct + '%;border-radius:1px;"></div></div>' : '') +
     '</div>';
   }).join('') +
-  '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#sponsor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Sponsor werden (Hub)</a>';
+  '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Contributor werden (Hub)</a>';
 }
 
 function nowTime() {
@@ -937,7 +937,7 @@ function handleEvent(data) {
       startProgress(data.sim_duration || data.duration, data.duration);
       break;
     case 'ad':
-      label.textContent = '[AD]' + (data.sponsor ? ' · ' + data.sponsor : '');
+      label.textContent = '[AD]' + (data.contributor ? ' · ' + data.contributor : '');
       content.textContent = data.text;
       break;
     case 'system':
@@ -1036,7 +1036,7 @@ async function send() {
   const body = { category, text };
 
   if (category === 'ad') {
-    body.sponsor = document.getElementById('ad-sponsor').value;
+    body.contributor = document.getElementById('ad-contributor').value;
     body.product = document.getElementById('ad-product').value;
     body.key_message = document.getElementById('ad-key-message').value;
     if (!body.text) body.text = body.key_message;

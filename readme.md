@@ -430,7 +430,7 @@ ad_briefing:
    > and you'll get 20% off your first order. And now: Miles Davis."*
 
 3. **Dynamic Promo Code**: The AI spontaneously invents a code
-   (`RAIDO20`, `REGEN10`, `JAZZ5`) fitting the context. The sponsor gets
+   (`RAIDO20`, `REGEN10`, `JAZZ5`) fitting the context. The contributor gets
    attribution proof for every redeemed code.
 
 4. **No Hard Cut**: There's no separate "ad slot". The ad is a sentence,
@@ -473,15 +473,15 @@ CREATE TABLE ad_conversions (
 | **Impressions**              | Concurrent listeners at promo code mention               |
 | **Promo Code Generations**   | Which codes did the AI spontaneously invent?             |
 | **Conversion Rate**          | How often was a dynamic code actually redeemed?          |
-| **Attribution**              | Sponsor sees exactly: Code X was redeemed Y times        |
+| **Attribution**              | contributor sees exactly: Code X was redeemed Y times        |
 | **Revenue**                  | Billing per conversion (CPA) or flat rate per campaign   |
 
 ### Why This Works
 
 - **No Immersion Break**: The ad sounds like the host, not a foreign body
 - **Contextual Relevance**: Weather + product + mood create natural hook points
-- **Measurable**: Dynamic promo codes are the ultimate attribution proof for sponsors
-- **Sponsor-Friendly**: No audio production needed — a briefing in text form suffices
+- **Measurable**: Dynamic promo codes are the ultimate attribution proof for contributors
+- **contributor-Friendly**: No audio production needed — a briefing in text form suffices
 
 ### HLS: Per-Listener Personalized Advertising
 
@@ -552,7 +552,7 @@ Host-read ads solve the creative side (no immersion break). For the
 - Impressions at promo code mention
 - Generated promo codes: Which spontaneous codes did the AI invent?
 - Conversion rate: How often was a code redeemed?
-- Attribution mapping: Code → campaign → sponsor
+- Attribution mapping: Code → campaign → contributor
 - Revenue tracking (CPA or flat rate)
 - Campaign comparison: Which briefing texts perform best?
 

@@ -1,5 +1,5 @@
 .env
 *.db
 personas/*.env
-sponsors.yml
+contributors.yml
 web/.next/

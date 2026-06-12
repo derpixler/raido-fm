@@ -16,7 +16,7 @@ from .persona import get_persona, build_system_prompt, build_ad_prompt, build_na
 
 logger = logging.getLogger(__name__)
 
-SPONSORS_FILE = Path("/app/sponsors.yml")
+CONTRIBUTORS_FILE = Path("/app/contributors.yml")
 
 _DEMO_TIME_SCALE = float(os.getenv("TIME_SCALE", "60"))
 _mode = "realtime"
@@ -183,12 +183,12 @@ async def _generate_ad(stimulus: dict) -> dict | None:
     except (json.JSONDecodeError, TypeError):
         return None
 
-    sponsor = briefing.get("sponsor", "")
+    contributor = briefing.get("contributor", "")
     product = briefing.get("product", "")
     key_message = briefing.get("key_message", stimulus.get("sanitized_text", ""))
 
     system_prompt = build_ad_prompt()
-    user_msg = f"Sponsor: {sponsor}\nProdukt: {product}\nKernbotschaft: {key_message}"
+    user_msg = f"Contributor: {contributor}\nProdukt: {product}\nKernbotschaft: {key_message}"
 
     messages = [
         {"role": "system", "content": system_prompt},
@@ -199,7 +199,7 @@ async def _generate_ad(stimulus: dict) -> dict | None:
     if result:
         return {
             "text": result.strip(),
-            "sponsor": sponsor,
+            "contributor": contributor,
             "product": product,
         }
     return None
@@ -311,7 +311,7 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                             "station": station_id,
                             "type": "ad",
                             "text": ad_result["text"],
-                            "sponsor": ad_result["sponsor"],
+                            "contributor": ad_result["contributor"],
                         }
                         await _emit(ad_event)
                         await db.log_broadcast(db_conn, "ad", ad_event)
@@ -380,17 +380,17 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                         "drop_text": preview,
                     })
 
-            # Sponsor event every 4th impulse slot
+            # Contributor event every 4th impulse slot
             if phase == "impulse" and _hour_count % 2 == 0:
-                sponsors = _load_sponsors()
-                if sponsors:
-                    sp = sponsors[_hour_count // 2 % len(sponsors)]
+                contributors = _load_contributors()
+                if contributors:
+                    ct = contributors[_hour_count // 2 % len(contributors)]
                     await _emit({
                         "station": station_id,
                         "type": "ad",
-                        "text": sp.get("ad_key_message", ""),
-                        "sponsor": sp.get("ad_sponsor", sp.get("name", "")),
-                        "product": sp.get("ad_product", ""),
+                        "text": ct.get("ad_key_message", ""),
+                        "contributor": ct.get("ad_contributor", ct.get("name", "")),
+                        "product": ct.get("ad_product", ""),
                     })
 
             if speak_wait > 0.1:
@@ -418,12 +418,12 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
             await asyncio.sleep(track_wait)
 
 
-def _load_sponsors() -> list[dict]:
+def _load_contributors() -> list[dict]:
     try:
-        if SPONSORS_FILE.exists():
-            with open(SPONSORS_FILE) as f:
+        if CONTRIBUTORS_FILE.exists():
+            with open(CONTRIBUTORS_FILE) as f:
                 data = yaml.safe_load(f)
-            return data.get("sponsors", [])
+            return data.get("contributors", [])
     except Exception:
         pass
     return []

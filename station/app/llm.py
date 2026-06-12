@@ -100,20 +100,20 @@ async def chat(
     temperature: float = 0.8,
     max_tokens: int = 1024,
 ) -> str | None:
-    # Sponsor key override
+    # Contributor key override
     cfg = _get_role_config(role)
     client = _get_client(role)
     try:
         from pathlib import Path
         import yaml
-        sp_file = Path("/app/sponsors.yml")
-        if sp_file.exists():
-            sp_data = yaml.safe_load(sp_file.read_text())
-            sp_list = sp_data.get("sponsors", []) if sp_data else []
-            active = [s for s in sp_list if s.get("api_key") and s.get("priority", 0) > 0]
+        ct_file = Path("/app/contributors.yml")
+        if ct_file.exists():
+            ct_data = yaml.safe_load(ct_file.read_text())
+            ct_list = ct_data.get("contributors", []) if ct_data else []
+            active = [s for s in ct_list if s.get("api_key") and s.get("priority", 0) > 0]
             if active:
-                sp = active[0]
-                cfg = {"model": sp.get("api_model", cfg["model"]), "base_url": sp.get("api_base_url", cfg["base_url"]), "api_key": sp["api_key"]}
+                ct = active[0]
+                cfg = {"model": ct.get("api_model", cfg["model"]), "base_url": ct.get("api_base_url", cfg["base_url"]), "api_key": ct["api_key"]}
                 client = AsyncOpenAI(base_url=cfg["base_url"], api_key=cfg["api_key"])
     except Exception:
         pass
