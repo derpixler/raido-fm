@@ -14,7 +14,7 @@ services:
   hub:
     build: ./hub
     ports:
-      - "${HUB_PORT:-80}:${HUB_PORT:-80}"
+      - "127.0.0.1:${HUB_PORT:-80}:${HUB_PORT:-80}"
     volumes:
       - ./hub/data:/app/data
       - ./personas:/app/personas
