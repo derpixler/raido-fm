@@ -1,3 +1,4 @@
 .env
 *.db
 personas/*.env
+sponsors.yml
