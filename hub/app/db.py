@@ -253,3 +253,8 @@ async def get_sponsor_requests(db: aiosqlite.Connection, status: str = None) -> 
 async def update_sponsor_request(db: aiosqlite.Connection, request_id: int, status: str) -> None:
     await db.execute("UPDATE sponsor_requests SET status = ? WHERE id = ?", (status, request_id))
     await db.commit()
+
+
+async def delete_sponsor_request(db: aiosqlite.Connection, request_id: int) -> None:
+    await db.execute("DELETE FROM sponsor_requests WHERE id = ?", (request_id,))
+    await db.commit()

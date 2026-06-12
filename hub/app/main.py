@@ -164,7 +164,10 @@ class CreateStationRequest(BaseModel):
 
 
 @app.post("/stations")
-async def create_station(req: CreateStationRequest):
+async def create_station(req: CreateStationRequest, request: Request):
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    if token != ADMIN_TOKEN:
+        raise HTTPException(401, "Admin token required")
     stations = await docker_mgr.discover_stations()
     running = [s for s in stations if s["status"] == "running"]
     if len(running) >= MAX_STATIONS:
@@ -288,7 +291,10 @@ async def drop_request():
 
 
 @app.post("/stations/from-persona/{persona_id}")
-async def start_from_persona(persona_id: int):
+async def start_from_persona(persona_id: int, request: Request):
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    if token != ADMIN_TOKEN:
+        raise HTTPException(401, "Admin token required")
     stations = await docker_mgr.discover_stations()
     running = [s for s in stations if s["status"] == "running"]
     if len(running) >= MAX_STATIONS:
@@ -471,6 +477,83 @@ async def approve_sponsor(req_id: int):
     })
     await db.update_sponsor_request(_db, req_id, "approved")
     return {"status": "approved"}
+
+
+class ValidateKeyRequest(BaseModel):
+    api_key: str
+
+@app.post("/sponsors/validate-key", dependencies=[Depends(require_admin)])
+async def validate_sponsor_key(req: ValidateKeyRequest):
+    try:
+        client = httpx.AsyncClient(timeout=10.0)
+        # Make minimal API call to Groq/OpenAI-compatible endpoint to test key
+        resp = await client.get(
+            "https://api.openai.com/v1/models",
+            headers={"Authorization": f"Bearer {req.api_key}"},
+        )
+        if resp.status_code == 200:
+            return {"valid": True, "balance": "ok"}
+        # Try Groq
+        resp2 = await client.get(
+            "https://api.groq.com/openai/v1/models",
+            headers={"Authorization": f"Bearer {req.api_key}"},
+        )
+        if resp2.status_code == 200:
+            return {"valid": True, "balance": "ok"}
+        # Try Anthropic
+        resp3 = await client.get(
+            "https://api.anthropic.com/v1/models",
+            headers={"x-api-key": req.api_key, "anthropic-version": "2023-06-01"},
+        )
+        if resp3.status_code == 200:
+            return {"valid": True, "balance": "ok"}
+        return {"valid": False, "reason": f"Key rejected by all providers (HTTP {resp.status_code})"}
+    except Exception as e:
+        return {"valid": False, "reason": str(e)}
+
+
+class ApproveUpdateRequest(BaseModel):
+    name: str = ""
+    url: str = ""
+    contact: str = ""
+    tokens: int = 1000
+    ad_sponsor: str = ""
+    ad_product: str = ""
+    ad_key_message: str = ""
+    api_key: str = ""
+
+@app.post("/sponsors/requests/{req_id}/approve-update", dependencies=[Depends(require_admin)])
+async def approve_sponsor_update(req_id: int, req: ApproveUpdateRequest):
+    req_data = await db.get_sponsor_requests(_db)
+    original = next((r for r in req_data if r["id"] == req_id), None)
+    if not original:
+        raise HTTPException(404, "Request not found")
+
+    max_priority = max((s.get("priority", 0) for s in sponsor_keys.get_all_sponsors()), default=0)
+    sponsor_keys.save_sponsor(req.name, {
+        "name": req.name, "url": req.url, "contact": req.contact,
+        "api_key": req.api_key, "api_base_url": "https://api.deepseek.com", "api_model": "deepseek-chat",
+        "token_budget": req.tokens, "token_used": 0,
+        "ad_sponsor": req.ad_sponsor, "ad_product": req.ad_product,
+        "ad_key_message": req.ad_key_message,
+        "since": datetime.now(timezone.utc).strftime("%Y-%m"),
+        "priority": max_priority + 1,
+    })
+    await db.update_sponsor_request(_db, req_id, "approved")
+    return {"status": "approved"}
+
+@app.post("/sponsors/requests/{req_id}/reject-update", dependencies=[Depends(require_admin)])
+async def reject_sponsor_update(req_id: int):
+    req_data = await db.get_sponsor_requests(_db)
+    if not any(r["id"] == req_id for r in req_data):
+        raise HTTPException(404, "Request not found")
+    await db.update_sponsor_request(_db, req_id, "rejected")
+    return {"status": "rejected"}
+
+@app.delete("/sponsors/requests/{req_id}", dependencies=[Depends(require_admin)])
+async def delete_sponsor_request(req_id: int):
+    await db.delete_sponsor_request(_db, req_id)
+    return {"status": "deleted"}
 
 @app.post("/sponsors/requests/{req_id}/reject", dependencies=[Depends(require_admin)])
 async def reject_sponsor(req_id: int):
