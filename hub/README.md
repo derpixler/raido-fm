@@ -99,7 +99,7 @@ Nur mit Admin-Token moeglich:
 
 ```bash
 curl -X DELETE http://localhost/stations/{station_id} \
-  -H "Authorization: Bearer raido-admin"
+  -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
 **Regeln:**

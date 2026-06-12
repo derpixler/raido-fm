@@ -665,7 +665,7 @@ async def proxy_station_root(slug: str):
 
 async def _proxy_sse(target_url: str):
     async def stream():
-        async with httpx.AsyncClient(timeout=None) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(connect=10.0, read=None, write=None, pool=None)) as client:
             async with client.stream("GET", target_url) as resp:
                 async for line in resp.aiter_lines():
                     yield line + "\n"

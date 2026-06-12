@@ -154,7 +154,7 @@ async def mark_stimuli_used(db: aiosqlite.Connection, ids: list[int]) -> None:
     now = datetime.now(timezone.utc).isoformat()
     placeholders = ",".join("?" for _ in ids)
     await db.execute(
-        f"UPDATE external_stimuli SET used_at = ? WHERE id IN ({placeholders})",
+        f"UPDATE external_stimuli SET used_at = ? WHERE id IN ({placeholders})",  # nosec B608
         [now, *ids],
     )
     await db.commit()

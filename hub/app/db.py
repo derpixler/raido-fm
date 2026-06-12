@@ -198,13 +198,18 @@ async def update_injection_status(db: aiosqlite.Connection, injection_id: int, s
     await db.commit()
 
 
+_VALID_TABLES = {"injection_log", "ad_log", "cleanup_log", "generated_personas", "station_registry", "sponsor_requests"}
+
 async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: str = None, max_entries: int = 200) -> int:
+    if table not in _VALID_TABLES:
+        raise ValueError(f"Invalid table name: {table}")
+
     if table == "injection_log" and category:
         cursor = await db.execute(
             "SELECT COUNT(*) as c FROM injection_log WHERE category = ?", (category,)
         )
     else:
-        cursor = await db.execute(f"SELECT COUNT(*) as c FROM {table}")
+        cursor = await db.execute(f"SELECT COUNT(*) as c FROM {table}")  # nosec B608
     row = await cursor.fetchone()
     total = row["c"] if row else 0
     overflow = total - max_entries
@@ -218,7 +223,7 @@ async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: st
         )
     else:
         await db.execute(
-            f"DELETE FROM {table} WHERE id IN (SELECT id FROM {table} ORDER BY id ASC LIMIT ?)",
+            f"DELETE FROM {table} WHERE id IN (SELECT id FROM {table} ORDER BY id ASC LIMIT ?)",  # nosec B608
             (overflow,),
         )
     await db.commit()

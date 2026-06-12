@@ -2,3 +2,4 @@
 *.db
 personas/*.env
 sponsors.yml
+web/.next/
