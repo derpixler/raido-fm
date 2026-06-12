@@ -27,6 +27,7 @@ services:
       - STATION_IMAGE=raido-station:latest
       - MAX_INPUT_CHARS=${MAX_INPUT_CHARS:-500}
       - PERSONAS_HOST_PATH=${PWD}/personas
+      - STATIONS_DATA_HOST_PATH=${PWD}/stations-data
       - DOCKER_HOST=tcp://docker-proxy:2375
     depends_on:
       docker-proxy:

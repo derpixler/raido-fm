@@ -17,6 +17,10 @@ logger = logging.getLogger(__name__)
 STATION_IMAGE = os.getenv("STATION_IMAGE", "raido-station:latest")
 PERSONAS_DIR = Path("/app/personas")
 PERSONAS_HOST_PATH = os.getenv("PERSONAS_HOST_PATH", str(PERSONAS_DIR))
+STATIONS_DATA_HOST_PATH = os.getenv(
+    "STATIONS_DATA_HOST_PATH",
+    os.path.join(os.path.dirname(PERSONAS_HOST_PATH), "stations-data"),
+)
 PORT_RANGE_START = 8081
 PORT_RANGE_END = 8099
 IDLE_TIMEOUT_S = 2700
@@ -135,6 +139,7 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
         "LLM_FALLBACK_MODEL": global_env.get("LLM_FALLBACK_MODEL", ""),
         "LLM_FALLBACK_API_KEY": global_env.get("LLM_FALLBACK_API_KEY", ""),
         "MAX_INPUT_CHARS": global_env.get("MAX_INPUT_CHARS", "500"),
+        "DB_DIR": "/app/data",
     }
 
     container_name = f"raido-{station_id}"
@@ -145,6 +150,9 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
     except docker.errors.NotFound:
         pass
 
+    station_data_host = os.path.join(STATIONS_DATA_HOST_PATH, station_id)
+    Path(station_data_host).mkdir(parents=True, exist_ok=True)
+
     container = client.containers.run(
         image=STATION_IMAGE,
         name=container_name,
@@ -153,6 +161,7 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
         volumes={
             PERSONAS_HOST_PATH: {"bind": "/app/personas", "mode": "ro"},
             os.path.join(os.path.dirname(PERSONAS_HOST_PATH), "contributors.yml"): {"bind": "/app/contributors.yml", "mode": "ro"},
+            station_data_host: {"bind": "/app/data", "mode": "rw"},
         },
         environment=environment,
         labels={
