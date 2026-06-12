@@ -118,6 +118,8 @@ async def generate_persona(genre_hint: str | None = None, language: str = "de") 
     clean = result.strip()
     clean = re.sub(r"^```ya?ml\s*", "", clean)
     clean = re.sub(r"\s*```$", "", clean)
+    # Fix common LLM YAML mistakes: trailing commas in lists
+    clean = re.sub(r",\s*\]", "]", clean)
 
     try:
         parsed = yaml.safe_load(clean)

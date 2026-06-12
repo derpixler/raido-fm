@@ -31,18 +31,10 @@
     font-size: 12px;
     color: #666;
   }
-  header .status.live {
-    color: #4ade80;
-  }
-  header .status.live::before {
-    content: '●';
-    margin-right: 4px;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+  #station-info:hover { color: #6366f1; }
+  header .status.live { color: #4ade80; }
+  header .status.connecting { color: #fbbf24; }
+  header .status.error { color: #ef4444; }
   #stream {
     flex: 1;
     overflow-y: auto;
@@ -321,56 +313,36 @@
     color: #555;
     margin-bottom: 8px;
   }
-  .mode-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10px;
-    color: #555;
-    cursor: pointer;
-    user-select: none;
+  #stats-detail td { cursor: pointer; }
+  #stats-detail tr:hover td { background: #1a1a1a; }
+  #sdetail-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+    z-index: 1500; align-items: center; justify-content: center; padding: 24px;
   }
-  .mode-toggle .mode-label { color: #444; }
-  .mode-toggle .mode-label.active { color: #4ade80; font-weight: 600; }
-  .mode-toggle .mode-switch {
-    width: 32px;
-    height: 16px;
-    background: #222;
-    border-radius: 8px;
-    position: relative;
-    transition: background 0.2s;
+  #sdetail-overlay.open { display: flex; }
+  #sdetail-box {
+    background: #111; border: 1px solid #222; border-radius: 12px;
+    max-width: 500px; width: 100%; padding: 24px; position: relative;
   }
-  .mode-toggle .mode-switch::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #666;
-    transition: transform 0.2s, background 0.2s;
+  #sdetail-box h3 { color: #fff; font-size: 14px; margin-bottom: 8px; }
+  #sdetail-box .sd-row { margin: 4px 0; font-size: 12px; color: #888; }
+  #sdetail-box .sd-row .sd-label { color: #555; }
+  #sdetail-box .sd-text { color: #bbb; font-size: 13px; line-height: 1.5; margin: 8px 0; }
+  #sdetail-box .sd-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 16px; padding-top: 12px; border-top: 1px solid #1a1a1a;
   }
-  .mode-toggle.realtime .mode-switch { background: #1a2e1a; }
-  .mode-toggle.realtime .mode-switch::after { transform: translateX(16px); background: #4ade80; }
-  #info-btn {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 1px solid #444;
-    background: transparent;
-    color: #888;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    transition: border-color 0.2s, color 0.2s;
+  #sdetail-box .sd-nav button {
+    background: #222; color: #999; border: none; border-radius: 4px;
+    padding: 4px 12px; font-family: inherit; font-size: 11px; cursor: pointer;
   }
-  #info-btn:hover { border-color: #6366f1; color: #6366f1; }
+  #sdetail-box .sd-nav button:hover { background: #333; color: #fff; }
+  #sdetail-box .sd-nav button:disabled { opacity: 0.3; cursor: default; }
+  #sdetail-box .sd-nav .sd-pos { color: #444; font-size: 10px; }
+  #sdetail-box .sd-close {
+    position: absolute; top: 12px; right: 16px;
+    background: none; border: none; color: #555; font-size: 18px; cursor: pointer;
+  }
   #modal-overlay {
     display: none;
     position: fixed;
@@ -454,14 +426,9 @@
 <header>
   <h1>RAIDO FM</h1>
   <span id="connection-status" class="status">●</span>
-  <span id="station-info" class="status" style="cursor:pointer;" onclick="openDjModal()">Verbinde…</span>
-  <div class="mode-toggle" id="mode-toggle" onclick="toggleMode()">
-    <span class="mode-label active" id="ml-demo">DEMO</span>
-    <div class="mode-switch"></div>
-    <span class="mode-label" id="ml-realtime">REALTIME</span>
-  </div>
-  <button onclick="openManifest()" style="margin-left:auto;background:none;border:none;color:#444;font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:0.5px;">Open-Source · Autonomous AI Radio</button>
-  <button id="info-btn" onclick="openModal()">i</button>
+  <span id="station-info" class="status" style="cursor:default;">Verbinde…</span>
+  <span id="mode-display" style="font-size:10px;color:#888;border:1px solid #333;border-radius:3px;padding:1px 6px;"></span>
+  <button onclick="openManifest()" style="margin-left:auto;background:none;border:none;color:#6366f1;font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:0.5px;">Open-Source · Autonomous AI Radio</button>
 </header>
 
 <div id="stats-bar">
@@ -562,6 +529,19 @@
   </div>
 </div>
 
+<div id="sdetail-overlay">
+  <div id="sdetail-box">
+    <button class="sd-close" onclick="closeStationDetail()">&times;</button>
+    <h3 id="sd-title"></h3>
+    <div id="sd-body"></div>
+    <div class="sd-nav">
+      <button id="sd-prev" onclick="navStationDetail(-1)">← vorherige</button>
+      <span class="sd-pos" id="sd-pos"></span>
+      <button id="sd-next" onclick="navStationDetail(1)">naechste →</button>
+    </div>
+  </div>
+</div>
+
 <div id="manifest-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px;">
   <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:32px;position:relative;">
     <button onclick="closeManifest()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
@@ -643,9 +623,11 @@ categoryEl.addEventListener('change', () => {
 
 function connect() {
   const es = new EventSource('/stream');
+  connStatusEl.className = 'status connecting';
+  connStatusEl.textContent = 'Connecting…';
   es.onopen = () => {
     connStatusEl.className = 'status live';
-    connStatusEl.textContent = 'LIVE';
+    connStatusEl.textContent = '● LIVE';
   };
   es.onmessage = (e) => {
     try {
@@ -654,8 +636,8 @@ function connect() {
     } catch (err) {}
   };
   es.onerror = () => {
-    connStatusEl.className = 'status';
-    connStatusEl.textContent = 'Reconnecting…';
+    connStatusEl.className = 'status error';
+    connStatusEl.textContent = '⚠ Error · retrying';
     es.close();
     setTimeout(connect, 3000);
   };
@@ -696,6 +678,9 @@ function updateStats(d) {
 
 let _activeStatCat = null;
 const statsDetail = document.getElementById('stats-detail');
+let _detailData = [];
+let _detailCat = '';
+let _detailIndex = 0;
 
 document.getElementById('stats-bar').addEventListener('click', async (e) => {
   const stat = e.target.closest('.stat');
@@ -726,6 +711,80 @@ function closeDetail() {
   document.querySelectorAll('#stats-bar .stat').forEach(s => s.classList.remove('active'));
 }
 
+function showStationDetail(index) {
+  _detailIndex = index;
+  const item = _detailData[index];
+  if (!item) return;
+
+  let title = '', body = '';
+
+  if (_detailCat === 'tracks') {
+    title = item.artist + ' — ' + item.title;
+    body = '<div class="sd-row"><span class="sd-label">Genre:</span> ' + item.genre + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Duration:</span> ' + formatDuration(item.duration || 0) + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Phase:</span> ' + (item.phase || '-') + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Played:</span> ' + fmtTime(item.played_at) + '</div>';
+  } else if (_detailCat === 'moderations') {
+    title = item.phase || 'Moderation';
+    body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.time) + '</div>' +
+           '<div class="sd-text">' + (item.text || '') + '</div>';
+  } else if (_detailCat === 'ads') {
+    title = item.sponsor || 'Ad';
+    body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.time) + '</div>' +
+           '<div class="sd-text">' + (item.text || '') + '</div>';
+  } else if (_detailCat === 'guard') {
+    title = 'Guard Block';
+    body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.time) + '</div>' +
+           '<div class="sd-text">' + (item.reason || '') + '</div>';
+  } else if (_detailCat === 'llm') {
+    const [role, v] = item;
+    title = 'LLM: ' + role;
+    body = '<div class="sd-row"><span class="sd-label">Model:</span> ' + (v.model || '-') + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Calls:</span> ' + v.calls + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Tokens in:</span> ' + formatNum(v.prompt_tokens) + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Tokens out:</span> ' + formatNum(v.completion_tokens) + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Avg Latency:</span> ' + Math.round(v.avg_latency_ms||0) + 'ms</div>' +
+           '<div class="sd-row"><span class="sd-label">Errors:</span> ' + (v.errors || 0) + '</div>';
+  } else if (_detailCat === 'stimuli') {
+    title = item.category + ' Stimulus';
+    body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.sanitized_at) + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Flagged:</span> ' + (item.was_flagged ? 'Ja' : 'Nein') + '</div>' +
+           '<div class="sd-text">' + (item.sanitized_text || item.raw_text || '-') + '</div>';
+  } else if (_detailCat === 'flagged') {
+    title = 'Flagged: ' + (item.category || '?');
+    body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.sanitized_at) + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Reason:</span> ' + (item.flag_reason || '-') + '</div>' +
+           '<div class="sd-text">' + (item.raw_text || '-') + '</div>';
+  } else {
+    title = _detailCat;
+    body = '<div class="sd-text">' + JSON.stringify(item, null, 2).substring(0,500) + '</div>';
+  }
+
+  document.getElementById('sd-title').textContent = title;
+  document.getElementById('sd-body').innerHTML = body;
+  document.getElementById('sdetail-overlay').classList.add('open');
+  updateSdNav();
+}
+
+function closeStationDetail() {
+  document.getElementById('sdetail-overlay').classList.remove('open');
+}
+
+function navStationDetail(dir) {
+  const newIdx = _detailIndex + dir;
+  if (newIdx >= 0 && newIdx < _detailData.length) showStationDetail(newIdx);
+}
+
+function updateSdNav() {
+  document.getElementById('sd-prev').disabled = _detailIndex <= 0;
+  document.getElementById('sd-next').disabled = _detailIndex >= _detailData.length - 1;
+  document.getElementById('sd-pos').textContent = (_detailIndex + 1) + ' / ' + _detailData.length;
+}
+
+document.getElementById('sdetail-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeStationDetail();
+});
+
 document.addEventListener('click', (e) => {
   if (_activeStatCat && !e.target.closest('#stats-bar')) closeDetail();
 });
@@ -740,53 +799,55 @@ function fmtTime(iso) {
 }
 
 function renderDetail(cat, data) {
+  _detailData = Array.isArray(data) ? data : Object.entries(data);
+  _detailCat = cat;
   if (!data || (Array.isArray(data) && data.length === 0)) return '<div class="detail-title">Keine Daten</div>';
 
   if (cat === 'tracks') {
     let h = '<div class="detail-title">Zuletzt gespielt</div><table><tr><th>Zeit</th><th>Artist</th><th>Title</th><th>Genre</th><th>Phase</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.played_at) + '</td><td>' + r.artist + '</td><td>' + r.title + '</td><td>' + r.genre + '</td><td>' + (r.phase||'') + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.played_at) + '</td><td>' + r.artist + '</td><td>' + r.title + '</td><td>' + r.genre + '</td><td>' + (r.phase||'') + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'moderations') {
     let h = '<div class="detail-title">Letzte Moderationen</div><table><tr><th>Zeit</th><th>Phase</th><th>Text</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + (r.phase||'') + '</td><td>' + r.text + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + (r.phase||'') + '</td><td>' + r.text.substring(0,100) + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'ads') {
     let h = '<div class="detail-title">Gesendete Ads</div><table><tr><th>Zeit</th><th>Sponsor</th><th>Text</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + r.sponsor + '</td><td>' + r.text + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.sponsor + '</td><td>' + r.text.substring(0,80) + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'guard') {
     let h = '<div class="detail-title">StreamGuard Blocks</div><table><tr><th>Zeit</th><th>Grund</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.time) + '</td><td>' + r.reason + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.reason + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'llm') {
     let h = '<div class="detail-title">LLM Usage nach Rolle</div><table><tr><th>Rolle</th><th>Modell</th><th>Calls</th><th>Tokens in</th><th>Tokens out</th><th>Avg Latenz</th><th>Errors</th></tr>';
-    Object.entries(data).forEach(([role, v]) => {
-      h += '<tr><td>' + role + '</td><td>' + (v.model||'-') + '</td><td>' + v.calls + '</td><td>' + formatNum(v.prompt_tokens) + '</td><td>' + formatNum(v.completion_tokens) + '</td><td>' + Math.round(v.avg_latency_ms||0) + 'ms</td><td>' + (v.errors||0) + '</td></tr>';
+    Object.entries(data).forEach(([role, v], i) => {
+      h += '<tr onclick="showStationDetail(' + i + ')"><td>' + role + '</td><td>' + (v.model||'-') + '</td><td>' + v.calls + '</td><td>' + formatNum(v.prompt_tokens) + '</td><td>' + formatNum(v.completion_tokens) + '</td><td>' + Math.round(v.avg_latency_ms||0) + 'ms</td><td>' + (v.errors||0) + '</td></tr>';
     });
     return h + '</table>';
   }
 
   if (cat === 'stimuli') {
     let h = '<div class="detail-title">Letzte Stimuli</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Text</th><th>Flagged</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.sanitized_text||'-').substring(0,80) + '</td><td>' + (r.was_flagged ? 'Ja' : '-') + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.sanitized_text||'-').substring(0,80) + '</td><td>' + (r.was_flagged ? 'Ja' : '-') + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'flagged') {
     let h = '<div class="detail-title">Geflaggte Eingaben</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Eingabe</th><th>Grund</th></tr>';
-    data.forEach(r => { h += '<tr><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.raw_text||'').substring(0,60) + '</td><td>' + (r.flag_reason||'-') + '</td></tr>'; });
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.raw_text||'').substring(0,60) + '</td><td>' + (r.flag_reason||'-') + '</td></tr>'; });
     return h + '</table>';
   }
 
-  if (cat === 'listeners') return '<div class="detail-title">Aktive SSE-Verbindungen: ' + document.getElementById('s-listeners').textContent + '</div>';
+  if (cat === 'listeners') return '<div class="detail-title">Listener</div><div class="sd-row">Aktive Verbindungen: <b>' + document.getElementById('s-listeners').textContent + '</b></div><div class="sd-row">Uptime: ' + document.getElementById('s-uptime').textContent + '</div><div style="color:#444;font-size:10px;margin-top:6px;">Keine persoenlichen Daten. Kein Tracking.</div>';
   if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Sendestunden: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
 
   return '<div class="detail-title">' + JSON.stringify(data).substring(0,200) + '</div>';
@@ -985,8 +1046,17 @@ let _statusData = null;
 fetch('/status').then(r => r.json()).then(data => {
   _statusData = data;
   const sName = data.station.name && data.station.name !== 'auto' ? data.station.name : data.station.id;
-  stationInfoEl.textContent = sName + ' · DJ ' + data.dj.name;
+  stationInfoEl.innerHTML =
+    '<span onclick="openModal()" style="cursor:pointer;" onmouseover="this.style.color=\'#6366f1\'" onmouseout="this.style.color=\'\'">' + sName + '</span>' +
+    ' · <span onclick="openDjModal()" style="cursor:pointer;" onmouseover="this.style.color=\'#6366f1\'" onmouseout="this.style.color=\'\'">DJ ' + data.dj.name + '</span>';
+  updateModeDisplay(data.mode);
 }).catch(() => {});
+
+function updateModeDisplay(mode) {
+  const el = document.getElementById('mode-display');
+  if (mode === 'realtime') { el.textContent = 'RT'; el.style.color = '#4ade80'; el.style.borderColor = '#1a2e1a'; }
+  else { el.textContent = 'SIM'; el.style.color = '#fbbf24'; el.style.borderColor = '#2e2e1a'; }
+}
 
 function openModal() {
   if (!_statusData) return;
@@ -1033,27 +1103,6 @@ function openModal() {
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
 }
-
-let _currentMode = 'demo';
-
-async function toggleMode() {
-  const newMode = _currentMode === 'demo' ? 'realtime' : 'demo';
-  try {
-    const res = await fetch('/mode/' + newMode, { method: 'POST' });
-    const data = await res.json();
-    _currentMode = data.mode;
-    updateModeUI();
-  } catch (err) {}
-}
-
-function updateModeUI() {
-  const toggle = document.getElementById('mode-toggle');
-  toggle.classList.toggle('realtime', _currentMode === 'realtime');
-  document.getElementById('ml-demo').classList.toggle('active', _currentMode === 'demo');
-  document.getElementById('ml-realtime').classList.toggle('active', _currentMode === 'realtime');
-}
-
-fetch('/mode').then(r => r.json()).then(d => { _currentMode = d.mode; updateModeUI(); }).catch(() => {});
 
 function openManifest() {
   document.getElementById('manifest-overlay').style.display = 'flex';

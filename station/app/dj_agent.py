@@ -16,8 +16,8 @@ from .persona import get_persona, build_system_prompt, build_ad_prompt, build_na
 logger = logging.getLogger(__name__)
 
 _DEMO_TIME_SCALE = float(os.getenv("TIME_SCALE", "60"))
-_mode = "demo"
-TIME_SCALE = _DEMO_TIME_SCALE
+_mode = "realtime"
+TIME_SCALE = 1.0
 
 GRID = [
     (0, "opening", True),
@@ -247,11 +247,10 @@ async def _emit(event: dict) -> None:
         await _broadcast_queue.put(event)
 
 
-async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
+async def run(queue: asyncio.Queue, db_conn) -> None:
     global _broadcast_queue, _running, _hour_count
     _broadcast_queue = queue
     _running = True
-    _get_listeners = get_listeners or (lambda: 1)
 
     tracks = get_tracks()
     persona = get_persona()
@@ -269,6 +268,25 @@ async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
         "text": f"Station {display} gestartet. DJ: {persona['dj']['name']}. TIME_SCALE={TIME_SCALE}x",
     })
 
+    # Emit recent history so the stream isn't empty on connect
+    try:
+        cur = await db_conn.execute(
+            "SELECT artist, title, genre, duration, played_at, phase FROM play_history ORDER BY id DESC LIMIT 8"
+        )
+        rows = await cur.fetchall()
+        for row in reversed(rows):
+            await _emit({
+                "station": station_id,
+                "type": "now_playing",
+                "artist": row["artist"],
+                "title": row["title"],
+                "genre": row["genre"],
+                "duration": row["duration"],
+                "sim_duration": 0,
+            })
+    except Exception:
+        pass
+
     while _running:
         _hour_count += 1
         logger.info("=== Sendestunde %d ===", _hour_count)
@@ -277,13 +295,11 @@ async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
             if not _running:
                 break
 
-            has_listeners = _get_listeners() > 0
-
             recent_ids = await db.get_recent_track_ids(db_conn, no_repeat_hours)
             last_genres = await db.get_last_genres(db_conn, max_same_genre)
             available = _filter_tracks(tracks, recent_ids, last_genres, max_same_genre)
 
-            if has_moderation and has_listeners:
+            if has_moderation:
                 ad_stimuli = await db.get_pending_stimuli(db_conn, category="ad")
                 for ad_stim in ad_stimuli[:1]:
                     ad_result = await _generate_ad(ad_stim)
@@ -304,7 +320,7 @@ async def run(queue: asyncio.Queue, db_conn, get_listeners=None) -> None:
                 stimuli = await db.get_pending_stimuli(db_conn, exclude_category="ad")
 
             decision = None
-            if has_moderation and has_listeners:
+            if has_moderation:
                 decision = await _pick_track_llm(db_conn, available, phase, stimuli)
 
             track = None

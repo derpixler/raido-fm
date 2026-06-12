@@ -129,7 +129,7 @@ async def lifespan(app: FastAPI):
     station_name = await dj_agent._resolve_station_name(_db_conn)
     _print_startup_summary(station_name)
 
-    dj_task = asyncio.create_task(dj_agent.run(_broadcast_queue, _db_conn, lambda: len(_subscribers)))
+    dj_task = asyncio.create_task(dj_agent.run(_broadcast_queue, _db_conn))
     fan_task = asyncio.create_task(_fan_out())
     stats_task = asyncio.create_task(_emit_stats_loop())
 
@@ -182,6 +182,27 @@ async def index():
 async def stream(request: Request):
     q: asyncio.Queue = asyncio.Queue(maxsize=100)
     _subscribers.append(q)
+
+    # Emit recent history so the stream isn't empty on connect
+    if _db_conn:
+        try:
+            cur = await _db_conn.execute(
+                "SELECT artist, title, genre, duration, played_at, phase FROM play_history ORDER BY id DESC LIMIT 8"
+            )
+            rows = await cur.fetchall()
+            station_id = get_persona()["station"]["id"]
+            for row in reversed(rows):
+                q.put_nowait({
+                    "station": station_id,
+                    "type": "now_playing",
+                    "artist": row["artist"],
+                    "title": row["title"],
+                    "genre": row["genre"],
+                    "duration": row["duration"],
+                    "sim_duration": 0,
+                })
+        except Exception:
+            pass
 
     async def event_generator() -> AsyncGenerator[dict, None]:
         try:
@@ -323,6 +344,7 @@ async def status():
             },
         },
         "running": dj_agent._running,
+        "mode": dj_agent.get_mode(),
     }
 
 
