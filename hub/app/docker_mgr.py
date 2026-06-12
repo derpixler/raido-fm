@@ -151,7 +151,6 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
         pass
 
     station_data_host = os.path.join(STATIONS_DATA_HOST_PATH, station_id)
-    Path(station_data_host).mkdir(parents=True, exist_ok=True)
 
     container = client.containers.run(
         image=STATION_IMAGE,
