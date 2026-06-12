@@ -1,15 +1,15 @@
 /**
- * BasePath für statische Deployments in einem Unterverzeichnis (z. B. GitHub
- * Pages unter `/raido-fm`). Wird über die Umgebungsvariable gesteuert, sodass
- * lokale Entwicklung (`npm run dev`/`npm run build` ohne Variable) weiterhin
- * gegen den Site-Root läuft.
+ * BasePath for static deployments in a subdirectory (e.g. GitHub Pages under
+ * `/raido-fm`). Controlled via environment variable so local development
+ * (`npm run dev`/`npm run build` without the variable) still runs against
+ * the site root.
  */
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /**
- * Stellt einem absoluten Asset-Pfad (`/bild.webp`) den BasePath voran. Next.js
- * prefixt nur `_next`-, `next/image`- und `next/link`-Pfade automatisch — eigene
- * `<img src="/…">`, Audio-Quellen und Markdown-Bilder müssen wir selbst mappen.
+ * Prepends BasePath to an absolute asset path (`/image.webp`). Next.js only
+ * automatically prefixes `_next`, `next/image` and `next/link` paths — custom
+ * `<img src="/…">`, audio sources and Markdown images must be mapped manually.
  */
 export function asset(path: string): string {
   if (!path.startsWith("/")) return path;

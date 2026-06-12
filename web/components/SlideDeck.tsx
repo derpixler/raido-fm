@@ -11,7 +11,7 @@ import { asset } from "@/lib/asset";
 const REPO_URL = "https://github.com/derpixler/raido-fm";
 const SITE_URL = "https://derpixler.github.io/raido-fm/";
 
-/** Die vier Stationen der Kernschleife — für die Auto-Animate-Folien. */
+/** The four stages of the core loop — for the auto-animate slides. */
 const LOOP_STEPS = [
   { id: "decide", label: "Decide", sub: "LLM" },
   { id: "speak", label: "Speak", sub: "Piper TTS" },
@@ -44,7 +44,7 @@ export function SlideDeck() {
       try {
         deck.destroy();
       } catch {
-        /* Reveal wirft, wenn destroy vor initialize-Abschluss läuft — unkritisch. */
+        /* Reveal throws if destroy runs before initialize completes — harmless. */
       }
       deckRef.current = null;
     };
@@ -53,7 +53,7 @@ export function SlideDeck() {
   return (
     <div ref={containerRef} className="reveal" style={{ width: "100vw", height: "100vh" }}>
       <div className="slides">
-        {/* 1 — Titel */}
+        {/* 1 — Title */}
         <section
           data-background-image={asset("/we-are-not-your-bots-RAIDO-FM.webp")}
           data-background-opacity="0.3"
@@ -95,7 +95,7 @@ export function SlideDeck() {
           />
         </section>
 
-        {/* 3 — Das Versprechen: ~5 €/Monat */}
+        {/* 3 — The Promise: ~€5/month */}
         <section>
           <span className="kicker">The Promise</span>
           <h2>
@@ -149,7 +149,7 @@ export function SlideDeck() {
           </p>
         </section>
 
-        {/* 4a — Kernschleife (Auto-Animate, Schritt 1) */}
+        {/* 4a — Core Loop (Auto-Animate, step 1) */}
         <section data-auto-animate>
           <span className="kicker">Core Loop</span>
           <h2>One loop is the whole station</h2>
@@ -164,7 +164,7 @@ export function SlideDeck() {
           </p>
         </section>
 
-        {/* 4b — Kernschleife komplett (Auto-Animate, Schritt 2) */}
+        {/* 4b — Core Loop complete (Auto-Animate, step 2) */}
         <section data-auto-animate>
           <span className="kicker">Core Loop</span>
           <h2>One loop is the whole station</h2>
@@ -194,7 +194,7 @@ export function SlideDeck() {
           </p>
         </section>
 
-        {/* 5 — Architektur */}
+        {/* 5 — Architecture */}
         <section>
           <span className="kicker">Architecture</span>
           <h2>One container per station</h2>
@@ -211,7 +211,7 @@ export function SlideDeck() {
           />
         </section>
 
-        {/* 6 — Tech-Stack */}
+        {/* 6 — Tech Stack */}
         <section>
           <span className="kicker">Tech Stack</span>
           <h2>Boring tech, radical result</h2>
@@ -251,7 +251,7 @@ export function SlideDeck() {
           </div>
         </section>
 
-        {/* 7 — DJ-Agent */}
+        {/* 7 — DJ Agent */}
         <section>
           <span className="kicker">The DJ Agent</span>
           <h2>A personality, not a playlist</h2>
@@ -274,7 +274,7 @@ conspiracy narratives.`}</code>
           </pre>
         </section>
 
-        {/* 8 — Programm-Grid */}
+        {/* 8 — Program Grid */}
         <section>
           <span className="kicker">Program Grid</span>
           <h2>The 60-minute hour</h2>
@@ -298,7 +298,7 @@ conspiracy narratives.`}</code>
           </div>
         </section>
 
-        {/* 9 — Gefahr: AI-Degeneration */}
+        {/* 9 — The Danger: AI Degeneration */}
         <section>
           <span className="kicker">The Danger</span>
           <h2>LLMs drift into manifesto monologues</h2>
@@ -317,7 +317,7 @@ conspiracy narratives.`}</code>
           </p>
         </section>
 
-        {/* 10 — 5-Stufen-Schutz (vertikaler Stack) */}
+        {/* 10 — 5-Layer Defense (vertical stack) */}
         <section>
           <section>
             <span className="kicker">The Protection</span>
@@ -363,7 +363,7 @@ conspiracy narratives.`}</code>
           </section>
         </section>
 
-        {/* 11 — Quarantine-DB */}
+        {/* 11 — Quarantine DB */}
         <section>
           <span className="kicker">Prompt Injection</span>
           <h2>No raw data ever reaches the DJ</h2>
@@ -398,7 +398,7 @@ conspiracy narratives.`}</code>
           </ul>
         </section>
 
-        {/* 12 — Medienethik */}
+        {/* 12 — Media Ethics */}
         <section>
           <span className="kicker">Media Ethics</span>
           <h2>Who wins when broadcasting costs nothing?</h2>
@@ -437,7 +437,7 @@ conspiracy narratives.`}</code>
           </div>
         </section>
 
-        {/* 14 — Abschluss */}
+        {/* 14 — Closing */}
         <section
           data-background-image={asset("/we-are-not-your-bots-RAIDO-FM.webp")}
           data-background-opacity="0.2"

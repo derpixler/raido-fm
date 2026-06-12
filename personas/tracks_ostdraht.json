@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Renft",
+    "title": "Gänselieschen",
+    "genre": "Ostrock",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 2,
+    "artist": "Silly",
+    "title": "Bataillon d'Amour",
+    "genre": "Ostrock",
+    "duration": 280,
+    "energy": 0.7
+  },
+  {
+    "id": 3,
+    "artist": "Puhdys",
+    "title": "Geh zu ihr",
+    "genre": "Ostrock",
+    "duration": 210,
+    "energy": 0.5
+  },
+  {
+    "id": 4,
+    "artist": "Karat",
+    "title": "Über sieben Brücken mußt du gehn",
+    "genre": "Ostrock",
+    "duration": 300,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "Electra",
+    "title": "Grenzenlos",
+    "genre": "Ostrock",
+    "duration": 260,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Walfriede Schmitt & Band",
+    "title": "Der Blaue Planet",
+    "genre": "Ostrock",
+    "duration": 190,
+    "energy": 0.3
+  },
+  {
+    "id": 7,
+    "artist": "City",
+    "title": "Am Fenster",
+    "genre": "Ostrock",
+    "duration": 340,
+    "energy": 0.5
+  },
+  {
+    "id": 8,
+    "artist": "Stern Combo Meißen",
+    "title": "Weißes Gold",
+    "genre": "Ostrock",
+    "duration": 280,
+    "energy": 0.7
+  },
+  {
+    "id": 9,
+    "artist": "Klaus Renft Combo",
+    "title": "Der Gouverneur",
+    "genre": "Ostrock",
+    "duration": 220,
+    "energy": 0.8
+  },
+  {
+    "id": 10,
+    "artist": "Die Zöllner",
+    "title": "Schatten",
+    "genre": "Ostrock",
+    "duration": 250,
+    "energy": 0.6
+  },
+  {
+    "id": 11,
+    "artist": "Tangerine Dream",
+    "title": "Love on a Real Train",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 12,
+    "artist": "Klaus Schulze",
+    "title": "Wahnfried 1883",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 13,
+    "artist": "Pyrolator",
+    "title": "Schwarz",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 14,
+    "artist": "Conny Schnitzler",
+    "title": "Rot",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Einstürzende Neubauten",
+    "title": "Kollaps",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 290,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Die Tödliche Doris",
+    "title": "Du bist anders",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 17,
+    "artist": "Holger Hiller",
+    "title": "Der Dritte Stand",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 180,
+    "energy": 0.6
+  },
+  {
+    "id": 18,
+    "artist": "Der Plan",
+    "title": "Gummitwist",
+    "genre": "Elektronische DDR-Musik",
+    "duration": 240,
+    "energy": 0.8
+  },
+  {
+    "id": 19,
+    "artist": "Fehlfarben",
+    "title": "Paul ist tot",
+    "genre": "Neue Deutsche Welle",
+    "duration": 210,
+    "energy": 0.7
+  },
+  {
+    "id": 20,
+    "artist": "Extrabreit",
+    "title": "Polizisten",
+    "genre": "Neue Deutsche Welle",
+    "duration": 250,
+    "energy": 0.8
+  },
+  {
+    "id": 21,
+    "artist": "Nina Hagen",
+    "title": "Unbeschreiblich weiblich",
+    "genre": "Neue Deutsche Welle",
+    "duration": 280,
+    "energy": 0.9
+  },
+  {
+    "id": 22,
+    "artist": "Ideal",
+    "title": "Blaue Augen",
+    "genre": "Neue Deutsche Welle",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 23,
+    "artist": "Da Da Da",
+    "title": "Trio",
+    "genre": "Neue Deutsche Welle",
+    "duration": 180,
+    "energy": 0.5
+  },
+  {
+    "id": 24,
+    "artist": "Foyer des Arts",
+    "title": "Wüste",
+    "genre": "Neue Deutsche Welle",
+    "duration": 240,
+    "energy": 0.4
+  },
+  {
+    "id": 25,
+    "artist": "Spliff",
+    "title": "Carbonara",
+    "genre": "Neue Deutsche Welle",
+    "duration": 260,
+    "energy": 0.7
+  },
+  {
+    "id": 26,
+    "artist": "Gitte Hænning",
+    "title": "Ich will alles",
+    "genre": "Neue Deutsche Welle",
+    "duration": 220,
+    "energy": 0.6
+  },
+  {
+    "id": 27,
+    "artist": "Hubert Kah",
+    "title": "Rosemarie",
+    "genre": "Neue Deutsche Welle",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 28,
+    "artist": "Ernst Busch",
+    "title": "Die Moorsoldaten",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 29,
+    "artist": "Hannes Wader",
+    "title": "Der Arbeiter",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "Folk & Lied",
+    "title": "Brüder, zur Sonne, zur Freiheit",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 31,
+    "artist": "Kampfkunst",
+    "title": "Solidaritätslied (Remix)",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 320,
+    "energy": 0.8
+  },
+  {
+    "id": 32,
+    "artist": "Stahlhammer",
+    "title": "Einheitsfrontlied",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 260,
+    "energy": 0.7
+  },
+  {
+    "id": 33,
+    "artist": "Werkstatt",
+    "title": "Die Internationale",
+    "genre": "Arbeiterlieder-Remix",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 34,
+    "artist": "Schandmaul",
+    "title": "Der Barde",
+    "genre": "Industrial Folk",
+    "duration": 340,
+    "energy": 0.6
+  },
+  {
+    "id": 35,
+    "artist": "Faun",
+    "title": "Rosenrot",
+    "genre": "Industrial Folk",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 36,
+    "artist": "In Extremo",
+    "title": "Spielmann",
+    "genre": "Industrial Folk",
+    "duration": 280,
+    "energy": 0.8
+  },
+  {
+    "id": 37,
+    "artist": "Subway to Sally",
+    "title": "Sieben",
+    "genre": "Industrial Folk",
+    "duration": 300,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Corvus Corax",
+    "title": "Git",
+    "genre": "Industrial Folk",
+    "duration": 240,
+    "energy": 0.9
+  },
+  {
+    "id": 39,
+    "artist": "Welle: Erdball",
+    "title": "Die Hoffnung",
+    "genre": "Industrial Folk",
+    "duration": 260,
+    "energy": 0.5
+  },
+  {
+    "id": 40,
+    "artist": "Fiddler's Green",
+    "title": "The Road",
+    "genre": "Industrial Folk",
+    "duration": 220,
+    "energy": 0.6
+  }
+]

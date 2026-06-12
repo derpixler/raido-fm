@@ -1,25 +1,25 @@
 # RAIDO Hub
 
-Zentraler Hub fuer das RAIDO Station-Netzwerk. Verwaltet mehrere autonome KI-Radiostationen, ermoeglicht die Erstellung neuer Stationen per Knopfdruck und aggregiert technische Daten.
+Central hub for the RAIDO Station network. Manages multiple autonomous AI radio stations, enables one-click creation of new stations, and aggregates technical data.
 
 ## Quickstart
 
 ```bash
 cd /Users/renereimann/ki-raido
 
-# .env anlegen (LLM-Keys)
+# Create .env (LLM keys)
 cp station/.env.example .env
-# → LLM_DJ_API_KEY eintragen
+# → Enter LLM_DJ_API_KEY
 
-# Alles starten (Hub + Default-Station)
+# Start everything (Hub + Default Station)
 docker compose up --build
 
 # Hub:     http://localhost
-# Station: http://localhost:8080 (direkt)
-#          http://localhost/s/default/ (via Hub-Proxy)
+# Station: http://localhost:8080 (direct)
+#          http://localhost/s/default/ (via Hub proxy)
 ```
 
-## Architektur
+## Architecture
 
 ```
                     ┌─────────────┐
@@ -31,37 +31,37 @@ docker compose up --build
                     │  (FastAPI)  │
                     └──┬───┬───┬─┘
                        │   │   │
-          ┌────────────┘   │   └────────────┐
-          ▼                ▼                 ▼
-  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
-  │ Station       │ │ Station       │ │ Station       │
-  │ "default"     │ │ "synthwave"   │ │ "krautrock"   │
-  │ :8080         │ │ :8081         │ │ :8082         │
-  │ (protected)   │ │ (auto-stop)   │ │ (auto-stop)   │
-  └───────────────┘ └───────────────┘ └───────────────┘
+           ┌────────────┘   │   └────────────┐
+           ▼                ▼                 ▼
+   ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+   │ Station       │ │ Station       │ │ Station       │
+   │ "default"     │ │ "synthwave"   │ │ "krautrock"   │
+   │ :8080         │ │ :8081         │ │ :8082         │
+   │ (protected)   │ │ (auto-stop)   │ │ (auto-stop)   │
+   └───────────────┘ └───────────────┘ └───────────────┘
 ```
 
-- Hub erreichbar auf Port 80 — einziger externer Port
-- Stations laufen intern auf Ports 8080-8099
-- Zugriff via sprechende Pfade: `http://localhost/s/{slug}/`
-- Docker-Socket-Zugriff fuer Container-Management
+- Hub accessible on port 80 — only external port
+- Stations run internally on ports 8080-8099
+- Access via descriptive paths: `http://localhost/s/{slug}/`
+- Docker socket access for container management
 
 ## Routing
 
-| URL | Ziel |
+| URL | Target |
 |---|---|
 | `http://localhost/` | Hub Landing Page |
-| `http://localhost/s/{slug}/` | Station Stream-UI (proxied) |
-| `http://localhost/s/{slug}/stream` | Station SSE-Stream (proxied) |
-| `http://localhost/s/{slug}/inject` | Station Chat-Input (proxied) |
-| `http://localhost/s/{slug}/status` | Station Status-API (proxied) |
-| `http://localhost/stations` | Hub API: alle Stations |
-| `http://localhost/generate-persona` | Hub API: Persona generieren |
-| `http://localhost/overview` | Hub API: aggregierte Stats |
+| `http://localhost/s/{slug}/` | Station Stream UI (proxied) |
+| `http://localhost/s/{slug}/stream` | Station SSE Stream (proxied) |
+| `http://localhost/s/{slug}/inject` | Station Chat Input (proxied) |
+| `http://localhost/s/{slug}/status` | Station Status API (proxied) |
+| `http://localhost/stations` | Hub API: all stations |
+| `http://localhost/generate-persona` | Hub API: generate persona |
+| `http://localhost/overview` | Hub API: aggregated stats |
 
-## Station erstellen
+## Creating a Station
 
-### Random (LLM generiert alles)
+### Random (LLM generates everything)
 
 ```bash
 # Via API
@@ -69,137 +69,137 @@ curl -X POST http://localhost/generate-persona \
   -H "Content-Type: application/json" \
   -d '{"genre_hint": "krautrock"}'
 
-# → gibt persona_yaml + tracks_json zurueck
-# → dann:
+# → returns persona_yaml + tracks_json
+# → then:
 curl -X POST http://localhost/stations \
   -H "Content-Type: application/json" \
   -d '{"persona_yaml": "...", "tracks_json": "..."}'
 ```
 
-### Custom (eigene YAML)
+### Custom (own YAML)
 
 ```bash
 curl -X POST http://localhost/stations \
   -H "Content-Type: application/json" \
-  -d '{"persona_yaml": "station:\n  id: mein-sender\n  ...", "station_id": "mein-sender"}'
+  -d '{"persona_yaml": "station:\n  id: my-station\n  ...", "station_id": "my-station"}'
 ```
 
-Tracks werden automatisch per LLM generiert wenn `tracks_json` fehlt.
+Tracks are automatically generated via LLM when `tracks_json` is missing.
 
 ### Via UI
 
-1. Hub Landing Page oeffnen (`http://localhost`)
-2. "+ Neue Station" Card klicken
-3. "Random" → LLM generiert Persona + Tracks → Preview → "Starten"
-4. "Custom" → YAML eingeben/einfuegen → "Starten"
+1. Open Hub Landing Page (`http://localhost`)
+2. Click "+ New Station" card
+3. "Random" → LLM generates persona + tracks → Preview → "Start"
+4. "Custom" → Enter/paste YAML → "Start"
 
-## Station stoppen
+## Stopping a Station
 
-Nur mit Admin-Token moeglich:
+Only possible with admin token:
 
 ```bash
 curl -X DELETE http://localhost/stations/{station_id} \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
-**Regeln:**
-- Die letzte laufende Station kann nie gestoppt werden
-- Stations mit `raido.station.protected=true` Label sind geschuetzt
-- Auto-Stop: Stations ohne Hoerer werden nach 2h automatisch gestoppt
+**Rules:**
+- The last running station can never be stopped
+- Stations with `raido.station.protected=true` label are protected
+- Auto-Stop: Stations with no listeners are automatically stopped after 2h
 
 ## Auto-Stop
 
-Ein Background-Task prueft alle 5 Minuten:
-1. Hat die Station 0 Listener?
-2. Ist sie seit > 2 Stunden idle?
-3. Ist sie NICHT die letzte laufende Station?
-4. Ist sie NICHT als `protected` markiert?
+A background task checks every 5 minutes:
+1. Does the station have 0 listeners?
+2. Has it been idle for > 2 hours?
+3. Is it NOT the last running station?
+4. Is it NOT marked as `protected`?
 
-Wenn alle Bedingungen erfuellt → Container wird gestoppt und entfernt.
+If all conditions are met → container is stopped and removed.
 
 ## Token Explosion Preventer
 
-Schutz gegen ueberlange Eingaben (Prompt-Injection, Token-Verschwendung):
+Protection against overly long inputs (prompt injection, token waste):
 
-- **Limit:** 500 Zeichen pro Eingabe (konfigurierbar via `MAX_INPUT_CHARS`)
-- **Frontend:** Live-Zeichenzaehler, rote Markierung, Alert-Modal bei Ueberschreitung
-- **Backend:** HTTP 413 Response wenn Limit ueberschritten
-- Gilt fuer alle `/inject` Requests an jede Station
+- **Limit:** 500 characters per input (configurable via `MAX_INPUT_CHARS`)
+- **Frontend:** Live character counter, red marking, alert modal on exceedance
+- **Backend:** HTTP 413 response when limit is exceeded
+- Applies to all `/inject` requests to every station
 
-## Persona-Generator
+## Persona Generator
 
-Der LLM generiert auf Knopfdruck eine komplette Station:
+The LLM generates a complete station at the push of a button:
 
-1. **Persona-YAML** — Station-Config, DJ-Bio, Quirks, Regeln
-2. **Track-Library** — 40 echte Tracks passend zum Genre (JSON)
+1. **Persona YAML** — Station config, DJ bio, quirks, rules
+2. **Track Library** — 40 real tracks matching the genre (JSON)
 
-Optional: Genre-Hint mitgeben fuer gerichtete Generierung.
+Optional: Provide genre hint for directed generation.
 
-Alle generierten Personas werden in `hub/data/hub.db` archiviert.
+All generated personas are archived in `hub/data/hub.db`.
 
-## API-Referenz
+## API Reference
 
-| Endpoint | Methode | Auth | Beschreibung |
+| Endpoint | Method | Auth | Description |
 |---|---|---|---|
 | `/` | GET | - | Landing Page |
-| `/stations` | GET | - | Laufende Stations |
-| `/stations` | POST | - | Neue Station erstellen |
-| `/stations/{id}` | DELETE | Admin | Station stoppen |
-| `/generate-persona` | POST | - | LLM generiert Persona + Tracks |
-| `/personas` | GET | - | Archivierte Personas |
-| `/overview` | GET | - | Aggregierte Tech-Stats |
-| `/s/{slug}/{path}` | * | - | Proxy zu Station |
+| `/stations` | GET | - | Running stations |
+| `/stations` | POST | - | Create new station |
+| `/stations/{id}` | DELETE | Admin | Stop station |
+| `/generate-persona` | POST | - | LLM generates persona + tracks |
+| `/personas` | GET | - | Archived personas |
+| `/overview` | GET | - | Aggregated tech stats |
+| `/s/{slug}/{path}` | * | - | Proxy to station |
 
-## Umgebungsvariablen
+## Environment Variables
 
-| Variable | Default | Beschreibung |
+| Variable | Default | Description |
 |---|---|---|
-| `HUB_PORT` | `80` | Hub-Port |
-| `ADMIN_TOKEN` | `raido-admin` | Token fuer Admin-Aktionen |
-| `STATION_IMAGE` | `raido-station:latest` | Docker-Image fuer neue Stations |
-| `MAX_INPUT_CHARS` | `500` | Max. Zeichenlaenge pro Eingabe |
-| `LLM_DJ_*` | - | LLM-Config (wird an Stations weitergereicht) |
-| `LLM_FILTER_*` | - | Filter-LLM-Config |
-| `LLM_FALLBACK_*` | - | Fallback-LLM-Config |
-| `TIME_SCALE` | `60` | Default-Zeitskalierung fuer neue Stations |
+| `HUB_PORT` | `80` | Hub port |
+| `ADMIN_TOKEN` | `raido-admin` | Token for admin actions |
+| `STATION_IMAGE` | `raido-station:latest` | Docker image for new stations |
+| `MAX_INPUT_CHARS` | `500` | Max. character length per input |
+| `LLM_DJ_*` | - | LLM config (passed through to stations) |
+| `LLM_FILTER_*` | - | Filter LLM config |
+| `LLM_FALLBACK_*` | - | Fallback LLM config |
+| `TIME_SCALE` | `60` | Default time scale for new stations |
 
-## Dateien
+## Files
 
 ```
 hub/
   Dockerfile
   requirements.txt
   app/
-    main.py              FastAPI (Landing, Stations-API, Proxy, Persona-Gen)
+    main.py              FastAPI (landing, stations API, proxy, persona gen)
     docker_mgr.py        Docker SDK (discover, create, stop, auto-cleanup)
-    persona_generator.py LLM-Prompts fuer Persona + Track-Generierung
-    db.py                SQLite (Personas-Archiv, Station-Registry)
-    llm.py               Provider-agnostischer LLM-Client
+    persona_generator.py LLM prompts for persona + track generation
+    db.py                SQLite (persona archive, station registry)
+    llm.py               Provider-agnostic LLM client
   web/
     index.html           Landing Page (Dark Theme)
   data/
-    hub.db               SQLite-DB (auto-generiert)
+    hub.db               SQLite DB (auto-generated)
 
-docker-compose.yml       Root-Level: Hub + Default-Station
-personas/                Generierte Persona-YAMLs + Track-Libraries
+docker-compose.yml       Root level: Hub + Default Station
+personas/                Generated persona YAMLs + track libraries
 ```
 
-## Zusammenspiel mit Station
+## Interaction with Station
 
 ```
 docker-compose.yml (root)
 ├── hub (Port 80)
-│   ├── Docker-Socket → findet laufende Stations
-│   ├── /personas Volume → schreibt neue Persona-Dateien
-│   └── Proxy → routet /s/{slug}/ zu Station-Ports
+│   ├── Docker socket → discovers running stations
+│   ├── /personas volume → writes new persona files
+│   └── Proxy → routes /s/{slug}/ to station ports
 │
 ├── station-default (Port 8080, protected)
-│   ├── /personas Volume → liest Persona-YAML
-│   └── Eigene DB in station/data/
+│   ├── /personas volume → reads persona YAML
+│   └── Own DB in station/data/
 │
-└── raido-{id} (dynamisch erstellt vom Hub)
+└── raido-{id} (dynamically created by Hub)
     ├── Image: raido-station:latest
     ├── Port: 8081-8099 (auto-assigned)
-    ├── /personas Volume → liest generierte YAML + Tracks
-    └── Eigene DB als Docker Volume
+    ├── /personas volume → reads generated YAML + tracks
+    └── Own DB as Docker volume
 ```

@@ -144,10 +144,10 @@ async def _pick_track_llm(
         for t in available_tracks[:20]
     )
 
-    user_msg = f"""Aktuelle Programmphase: {phase}
-Aktuelle Uhrzeit: {_local_time_str()}
+    user_msg = f"""Current program phase: {phase}
+Current time: {_local_time_str()}
 
-Verfügbare Tracks:
+Available tracks:
 {tracks_summary}
 """
 
@@ -155,12 +155,12 @@ Verfügbare Tracks:
         stimuli_text = "\n".join(
             f"  [{s['category']}] {s['sanitized_text']}" for s in stimuli
         )
-        user_msg += f"\nExterne Impulse (für diese Moderation verfügbar):\n{stimuli_text}\n"
+        user_msg += f"\nExternal impulses (available for this moderation):\n{stimuli_text}\n"
 
     if phase == "impulse" and stimuli:
-        user_msg += "\nDu bist im Impuls-Slot — greife mindestens einen externen Impuls in deiner Moderation auf.\n"
+        user_msg += "\nYou are in the impulse slot — pick up at least one external impulse in your moderation.\n"
 
-    user_msg += "\nWähle einen Track und schreibe deine Moderation. Antworte im JSON-Format."
+    user_msg += "\nChoose a track and write your moderation. Reply in JSON format."
 
     messages = [
         {"role": "system", "content": system_prompt},
@@ -188,7 +188,7 @@ async def _generate_ad(stimulus: dict) -> dict | None:
     key_message = briefing.get("key_message", stimulus.get("sanitized_text", ""))
 
     system_prompt = build_ad_prompt()
-    user_msg = f"Contributor: {contributor}\nProdukt: {product}\nKernbotschaft: {key_message}"
+    user_msg = f"Contributor: {contributor}\nProduct: {product}\nKey message: {key_message}"
 
     messages = [
         {"role": "system", "content": system_prompt},
@@ -211,7 +211,7 @@ async def _generate_station_name(db_conn) -> str:
     station_id = p["station"]["id"]
     prompt = build_naming_prompt()
     messages = [
-        {"role": "system", "content": "Du bist ein Radio-Branding-Experte."},
+        {"role": "system", "content": "You are a radio branding expert."},
         {"role": "user", "content": prompt},
     ]
     result = await llm.chat("filter", messages, temperature=1.0, max_tokens=30)
@@ -268,7 +268,7 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
     await _emit({
         "station": station_id,
         "type": "system",
-        "text": f"Station {display} gestartet. DJ: {persona['dj']['name']}. TIME_SCALE={TIME_SCALE}x",
+        "text": f"Station {display} started. DJ: {persona['dj']['name']}. TIME_SCALE={TIME_SCALE}x",
     })
 
     # Emit recent history so the stream isn't empty on connect
@@ -292,7 +292,7 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
 
     while _running:
         _hour_count += 1
-        logger.info("=== Sendestunde %d ===", _hour_count)
+        logger.info("=== Broadcast hour %d ===", _hour_count)
 
         for grid_idx, (grid_minute, phase, has_moderation) in enumerate(GRID):
             if not _running:
@@ -361,7 +361,7 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                     sys_event = {
                         "station": station_id,
                         "type": "system",
-                        "text": f"StreamGuard: Moderation verworfen ({guard_result.blocked_reason})",
+                        "text": f"StreamGuard: Moderation discarded ({guard_result.blocked_reason})",
                     }
                     await _emit(sys_event)
                     await db.log_broadcast(db_conn, "guard_block", sys_event)
@@ -374,7 +374,7 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                     await _emit({
                         "station": station_id,
                         "type": "system",
-                        "text": f"Drop verarbeitet [{s['category']}]: {preview}",
+                        "text": f"Drop processed [{s['category']}]: {preview}",
                         "drop_status": "used",
                         "drop_category": s["category"],
                         "drop_text": preview,

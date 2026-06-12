@@ -21,8 +21,8 @@ function statusOf(id: string, activeId: string, readIds: Set<string>): Status {
 }
 
 /**
- * Navigation im Stil einer Radio-Signalstrecke:
- * ○ nicht erreicht · ● gelesen · ▶ aktiv — verbunden durch eine Signalleitung.
+ * Navigation styled like a radio signal path:
+ * ○ not reached · ● read · ▶ active — connected by a signal line.
  */
 export function SignalNavigation({
   sections,
@@ -102,17 +102,17 @@ function SignalMarker({ status }: { status: Status }) {
         />
       )}
       {status === "active" ? (
-        // ▶ aktiv
+        // ▶ active
         <span className="relative flex size-[1.05rem] items-center justify-center rounded-full bg-primary text-white shadow-[0_0_12px_rgba(139,92,246,0.8)]">
           <svg viewBox="0 0 8 8" className="size-2 fill-current">
             <path d="M1 0.5 L7 4 L1 7.5 Z" />
           </svg>
         </span>
       ) : status === "read" ? (
-        // ● gelesen
+        // ● read
         <span className="size-2.5 rounded-full bg-primary-glow shadow-[0_0_8px_rgba(167,139,250,0.6)]" />
       ) : (
-        // ○ nicht erreicht
+        // ○ not reached
         <span className="size-2.5 rounded-full border border-border bg-transparent" />
       )}
     </span>

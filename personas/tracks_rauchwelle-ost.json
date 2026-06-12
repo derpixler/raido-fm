@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Die Toten Hosen",
+    "title": "Hier kommt Alex",
+    "genre": "DDR Punk",
+    "duration": 256,
+    "energy": 0.9
+  },
+  {
+    "id": 2,
+    "artist": "Feeling B",
+    "title": "Artillerie",
+    "genre": "DDR Punk",
+    "duration": 210,
+    "energy": 0.85
+  },
+  {
+    "id": 3,
+    "artist": "Die Ärzte",
+    "title": "Zu spät",
+    "genre": "DDR Punk",
+    "duration": 183,
+    "energy": 0.8
+  },
+  {
+    "id": 4,
+    "artist": "WIZO",
+    "title": "Ugly",
+    "genre": "DDR Punk",
+    "duration": 145,
+    "energy": 0.95
+  },
+  {
+    "id": 5,
+    "artist": "EA80",
+    "title": "Mein Herz",
+    "genre": "DDR Punk",
+    "duration": 200,
+    "energy": 0.75
+  },
+  {
+    "id": 6,
+    "artist": "Fliehende Stürme",
+    "title": "Keine Macht für Niemand",
+    "genre": "DDR Punk",
+    "duration": 220,
+    "energy": 0.88
+  },
+  {
+    "id": 7,
+    "artist": "S.Y.P.H.",
+    "title": "Zurück zum Beton",
+    "genre": "DDR Punk",
+    "duration": 190,
+    "energy": 0.82
+  },
+  {
+    "id": 8,
+    "artist": "Plan B",
+    "title": "Graue Wolken",
+    "genre": "DDR Punk",
+    "duration": 240,
+    "energy": 0.7
+  },
+  {
+    "id": 9,
+    "artist": "Karat",
+    "title": "Über sieben Brücken",
+    "genre": "Ostsynthie Wave",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 10,
+    "artist": "Silly",
+    "title": "Bataillon d'Amour",
+    "genre": "Ostsynthie Wave",
+    "duration": 280,
+    "energy": 0.65
+  },
+  {
+    "id": 11,
+    "artist": "Puhdys",
+    "title": "Alt wie ein Baum",
+    "genre": "Ostsynthie Wave",
+    "duration": 320,
+    "energy": 0.4
+  },
+  {
+    "id": 12,
+    "artist": "City",
+    "title": "Am Fenster",
+    "genre": "Ostsynthie Wave",
+    "duration": 270,
+    "energy": 0.55
+  },
+  {
+    "id": 13,
+    "artist": "Electra",
+    "title": "Gestern war ein schöner Tag",
+    "genre": "Ostsynthie Wave",
+    "duration": 250,
+    "energy": 0.6
+  },
+  {
+    "id": 14,
+    "artist": "Stern-Combo Meißen",
+    "title": "Weißt du noch",
+    "genre": "Ostsynthie Wave",
+    "duration": 290,
+    "energy": 0.45
+  },
+  {
+    "id": 15,
+    "artist": "Die Zöllner",
+    "title": "Bis ans Ende der Welt",
+    "genre": "Ostsynthie Wave",
+    "duration": 260,
+    "energy": 0.7
+  },
+  {
+    "id": 16,
+    "artist": "JAM",
+    "title": "Eiszeit",
+    "genre": "Ostsynthie Wave",
+    "duration": 230,
+    "energy": 0.8
+  },
+  {
+    "id": 17,
+    "artist": "Tocotronic",
+    "title": "Ich möchte Teil einer Jugendbewegung sein",
+    "genre": "Nachwende Indie",
+    "duration": 210,
+    "energy": 0.75
+  },
+  {
+    "id": 18,
+    "artist": "Wir sind Helden",
+    "title": "Guten Tag",
+    "genre": "Nachwende Indie",
+    "duration": 195,
+    "energy": 0.7
+  },
+  {
+    "id": 19,
+    "artist": "Kraftklub",
+    "title": "Eure Mädchen",
+    "genre": "Nachwende Indie",
+    "duration": 220,
+    "energy": 0.85
+  },
+  {
+    "id": 20,
+    "artist": "Frittenbude",
+    "title": "Sorgenfresser",
+    "genre": "Nachwende Indie",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 21,
+    "artist": "Jennifer Rostock",
+    "title": "Kopf oder Zahl",
+    "genre": "Nachwende Indie",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 22,
+    "artist": "Grossstadtgeflüster",
+    "title": "Ich kündige",
+    "genre": "Nachwende Indie",
+    "duration": 215,
+    "energy": 0.78
+  },
+  {
+    "id": 23,
+    "artist": "Madsen",
+    "title": "Lass die Liebe rein",
+    "genre": "Nachwende Indie",
+    "duration": 230,
+    "energy": 0.65
+  },
+  {
+    "id": 24,
+    "artist": "Beatsteaks",
+    "title": "Hand in Hand",
+    "genre": "Nachwende Indie",
+    "duration": 190,
+    "energy": 0.9
+  },
+  {
+    "id": 25,
+    "artist": "Engerling",
+    "title": "Blues vom Tage",
+    "genre": "Ost-Blues",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 26,
+    "artist": "Hansi Kleber",
+    "title": "Eiserner Steg",
+    "genre": "Ost-Blues",
+    "duration": 280,
+    "energy": 0.35
+  },
+  {
+    "id": 27,
+    "artist": "Manfred Krug",
+    "title": "Was soll das",
+    "genre": "Ost-Blues",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 28,
+    "artist": "Uschi Brüning",
+    "title": "Einer von uns",
+    "genre": "Ost-Blues",
+    "duration": 270,
+    "energy": 0.45
+  },
+  {
+    "id": 29,
+    "artist": "Günther Fischer",
+    "title": "Blues für Michael",
+    "genre": "Ost-Blues",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 30,
+    "artist": "Johannes Künzel",
+    "title": "Nachtgedanken",
+    "genre": "Ost-Blues",
+    "duration": 340,
+    "energy": 0.25
+  },
+  {
+    "id": 31,
+    "artist": "Klaus Lenz",
+    "title": "Ostsee Blues",
+    "genre": "Ost-Blues",
+    "duration": 310,
+    "energy": 0.4
+  },
+  {
+    "id": 32,
+    "artist": "Regina Thoss",
+    "title": "Leben",
+    "genre": "Ost-Blues",
+    "duration": 290,
+    "energy": 0.55
+  },
+  {
+    "id": 33,
+    "artist": "Atari Teenage Riot",
+    "title": "Speed",
+    "genre": "Elektro-Ost Mix",
+    "duration": 180,
+    "energy": 0.95
+  },
+  {
+    "id": 34,
+    "artist": "Alec Empire",
+    "title": "Addicted to You",
+    "genre": "Elektro-Ost Mix",
+    "duration": 210,
+    "energy": 0.9
+  },
+  {
+    "id": 35,
+    "artist": "Welle: Erdball",
+    "title": "Techno Army",
+    "genre": "Elektro-Ost Mix",
+    "duration": 240,
+    "energy": 0.85
+  },
+  {
+    "id": 36,
+    "artist": "Scooter",
+    "title": "Hyper Hyper",
+    "genre": "Elektro-Ost Mix",
+    "duration": 300,
+    "energy": 0.8
+  },
+  {
+    "id": 37,
+    "artist": "Paul van Dyk",
+    "title": "For an Angel",
+    "genre": "Elektro-Ost Mix",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Kosmonova",
+    "title": "Danube",
+    "genre": "Elektro-Ost Mix",
+    "duration": 280,
+    "energy": 0.75
+  },
+  {
+    "id": 39,
+    "artist": "Shnitzl",
+    "title": "Elektro Ost",
+    "genre": "Elektro-Ost Mix",
+    "duration": 200,
+    "energy": 0.88
+  },
+  {
+    "id": 40,
+    "artist": "Dong",
+    "title": "Ostwind",
+    "genre": "Elektro-Ost Mix",
+    "duration": 220,
+    "energy": 0.82
+  }
+]

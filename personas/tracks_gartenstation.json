@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Ambient",
+    "duration": 432,
+    "energy": 0.2
+  },
+  {
+    "id": 2,
+    "artist": "Hiroshi Yoshimura",
+    "title": "Green",
+    "genre": "Nature Recordings",
+    "duration": 300,
+    "energy": 0.1
+  },
+  {
+    "id": 3,
+    "artist": "Boards of Canada",
+    "title": "Olson",
+    "genre": "Chillwave",
+    "duration": 198,
+    "energy": 0.3
+  },
+  {
+    "id": 4,
+    "artist": "William Basinski",
+    "title": "Melancholia II",
+    "genre": "Tape Hiss Electronica",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 5,
+    "artist": "Tycho",
+    "title": "Awake",
+    "genre": "Downtempo",
+    "duration": 254,
+    "energy": 0.5
+  },
+  {
+    "id": 6,
+    "artist": "Chris Watson",
+    "title": "Vatnajökull",
+    "genre": "Nature Recordings",
+    "duration": 480,
+    "energy": 0.0
+  },
+  {
+    "id": 7,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "An Intention",
+    "genre": "Foraged Sounds",
+    "duration": 390,
+    "energy": 0.4
+  },
+  {
+    "id": 8,
+    "artist": "Stars of the Lid",
+    "title": "Requiem for Dying Mothers, Part 1",
+    "genre": "Ambient",
+    "duration": 720,
+    "energy": 0.1
+  },
+  {
+    "id": 9,
+    "artist": "Aphex Twin",
+    "title": "Stone in Focus",
+    "genre": "Ambient",
+    "duration": 600,
+    "energy": 0.2
+  },
+  {
+    "id": 10,
+    "artist": "Loscil",
+    "title": "Staphylococcus",
+    "genre": "Tape Hiss Electronica",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 11,
+    "artist": "Jana Winderen",
+    "title": "The Noisiest Guys on the Planet",
+    "genre": "Nature Recordings",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 12,
+    "artist": "Moby",
+    "title": "Porcelain",
+    "genre": "Downtempo",
+    "duration": 245,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "Washed Out",
+    "title": "Feel It All Around",
+    "genre": "Chillwave",
+    "duration": 230,
+    "energy": 0.6
+  },
+  {
+    "id": 14,
+    "artist": "Sarah Davachi",
+    "title": "Reverie",
+    "genre": "Foraged Sounds",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 15,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "To Feel Your Best",
+    "genre": "Ambient",
+    "duration": 380,
+    "energy": 0.3
+  },
+  {
+    "id": 16,
+    "artist": "Biosphere",
+    "title": "Poa Alpina",
+    "genre": "Nature Recordings",
+    "duration": 420,
+    "energy": 0.0
+  },
+  {
+    "id": 17,
+    "artist": "The Field",
+    "title": "Over the Ice",
+    "genre": "Downtempo",
+    "duration": 600,
+    "energy": 0.4
+  },
+  {
+    "id": 18,
+    "artist": "Neon Indian",
+    "title": "Polish Girl",
+    "genre": "Chillwave",
+    "duration": 270,
+    "energy": 0.7
+  },
+  {
+    "id": 19,
+    "artist": "Grouper",
+    "title": "Heavy Water/I'd Rather Be Sleeping",
+    "genre": "Tape Hiss Electronica",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 20,
+    "artist": "Fennesz",
+    "title": "Szabo",
+    "genre": "Foraged Sounds",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 21,
+    "artist": "Brian Eno",
+    "title": "1/1",
+    "genre": "Ambient",
+    "duration": 420,
+    "energy": 0.1
+  },
+  {
+    "id": 22,
+    "artist": "Jacqui McShee",
+    "title": "Waters of March",
+    "genre": "Nature Recordings",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 23,
+    "artist": "Thievery Corporation",
+    "title": "Le Monde",
+    "genre": "Downtempo",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 24,
+    "artist": "Black Moth Super Rainbow",
+    "title": "Twin of Myself",
+    "genre": "Chillwave",
+    "duration": 310,
+    "energy": 0.6
+  },
+  {
+    "id": 25,
+    "artist": "Loren Connors",
+    "title": "The Departing of a Dream",
+    "genre": "Tape Hiss Electronica",
+    "duration": 480,
+    "energy": 0.1
+  },
+  {
+    "id": 26,
+    "artist": "Hauschka",
+    "title": "Ferns",
+    "genre": "Foraged Sounds",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 27,
+    "artist": "Harold Budd",
+    "title": "The White Arcades",
+    "genre": "Ambient",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 28,
+    "artist": "Jóhann Jóhannsson",
+    "title": "Flight from the City",
+    "genre": "Nature Recordings",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 29,
+    "artist": "Air",
+    "title": "La Femme d'Argent",
+    "genre": "Downtempo",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "Toro y Moi",
+    "title": "So Many Details",
+    "genre": "Chillwave",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 31,
+    "artist": "Tim Hecker",
+    "title": "In the Fog I",
+    "genre": "Tape Hiss Electronica",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 32,
+    "artist": "Eliane Radigue",
+    "title": "Kyema (Intermediate States)",
+    "genre": "Foraged Sounds",
+    "duration": 720,
+    "energy": 0.0
+  },
+  {
+    "id": 33,
+    "artist": "Max Richter",
+    "title": "On the Nature of Daylight",
+    "genre": "Ambient",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 34,
+    "artist": "Lusine",
+    "title": "Two Dots",
+    "genre": "Downtempo",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 35,
+    "artist": "Com Truise",
+    "title": "Broken Date",
+    "genre": "Chillwave",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 36,
+    "artist": "A Winged Victory for the Sullen",
+    "title": "Steep Hills of Vicodin Tears",
+    "genre": "Tape Hiss Electronica",
+    "duration": 600,
+    "energy": 0.2
+  },
+  {
+    "id": 37,
+    "artist": "Erik Satie",
+    "title": "Gymnopédie No.1",
+    "genre": "Foraged Sounds",
+    "duration": 180,
+    "energy": 0.1
+  },
+  {
+    "id": 38,
+    "artist": "Mountains",
+    "title": "Choral",
+    "genre": "Nature Recordings",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 39,
+    "artist": "Carbon Based Lifeforms",
+    "title": "Interloper",
+    "genre": "Ambient",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 40,
+    "artist": "Kodomo",
+    "title": "Concept 16",
+    "genre": "Downtempo",
+    "duration": 480,
+    "energy": 0.4
+  }
+]

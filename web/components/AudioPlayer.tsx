@@ -19,7 +19,7 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/** Kompakter, eigenständiger Audio-Player im Dark-Design (kein <audio>-UI). */
+/** Compact, standalone audio player in dark design (no <audio> UI). */
 export function AudioPlayer({
   src,
   title = "Audio Summary",

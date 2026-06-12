@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -194,51 +194,51 @@ header .sub a { color: #6366f1; text-decoration: none; }
 <div class="container">
   <div class="hero">
     <h2>AUTONOMOUS AI RADIO</h2>
-    <p>Mehrere Stationen. Jede mit eigener KI-Persoenlichkeit. Kein Script. Kein Mensch im Loop. 24/7.</p>
+    <p>Multiple stations. Each with its own AI personality. No script. No human in the loop. 24/7.</p>
   </div>
 
   <div class="section">
-    <div class="section-title">Laufende Stationen</div>
+    <div class="section-title">Running Stations</div>
     <div class="stations-grid" id="stations-grid">
-      <div class="loading">Lade Stationen...</div>
+      <div class="loading">Loading stations...</div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">Tech Overview</div>
     <div class="overview-grid" id="overview">
-      <div>Stationen: <span class="ov-val" id="ov-stations">-</span></div>
+      <div>Stations: <span class="ov-val" id="ov-stations">-</span></div>
       <div>Personas: <span class="ov-val" id="ov-personas">-</span></div>
-      <div>Hoerer: <span class="ov-val" id="ov-listeners">-</span></div>
-      <div>Tracks gespielt: <span class="ov-val" id="ov-tracks">-</span></div>
+      <div>Listeners: <span class="ov-val" id="ov-listeners">-</span></div>
+      <div>Tracks played: <span class="ov-val" id="ov-tracks">-</span></div>
       <div>LLM Calls: <span class="ov-val" id="ov-llm">-</span></div>
       <div>Tokens: <span class="ov-val" id="ov-tokens">-</span></div>
     </div>
   </div>
 
   <div class="section" id="contributor-section">
-    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Token Contributoren <button class="btn secondary" style="font-size:10px;padding:2px 8px;margin-left:auto;" onclick="openContributorForm()">Become a Contributor</button></div>
+    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Token Contributors <button class="btn secondary" style="font-size:10px;padding:2px 8px;margin-left:auto;" onclick="openContributorForm()">Become a Contributor</button></div>
     <div class="personas-list" id="contributors-list" style="display:flex;gap:12px;flex-wrap:wrap;">
-      <div class="loading">Lade...</div>
+      <div class="loading">Loading...</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Generierte Personas</div>
+    <div class="section-title">Generated Personas</div>
     <div class="personas-list" id="personas-list">
-      <div class="loading">Lade...</div>
+      <div class="loading">Loading...</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Recente Ads <span id="admin-drop-ad" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropAd()">drop random ad</button></span></div>
+    <div class="section-title" style="display:flex;align-items:center;gap:8px;">Recent Ads <span id="admin-drop-ad" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropAd()">drop random ad</button></span></div>
     <table class="ads-table" id="ads-list">
-      <tr><th>Contributor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>
+      <tr><th>Contributor</th><th>Product</th><th>Station</th><th>Time</th></tr>
     </table>
   </div>
 
   <div class="section" id="injection-sections">
-    <div class="loading">Lade...</div>
+    <div class="loading">Loading...</div>
   </div>
 
   <div class="section" id="contributor-requests-section" style="display:none;">
@@ -249,7 +249,7 @@ header .sub a { color: #6366f1; text-decoration: none; }
   </div>
 
   <div class="admin-bar">
-    Admin: <input type="password" id="admin-token" placeholder="Token eingeben" onchange="setAdmin(this.value)">
+    Admin: <input type="password" id="admin-token" placeholder="Enter token" onchange="setAdmin(this.value)">
     <span id="admin-status"></span>
   </div>
 </div>
@@ -260,16 +260,16 @@ header .sub a { color: #6366f1; text-decoration: none; }
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div>
         <label style="font-size:10px;color:#6366f1;text-transform:uppercase;letter-spacing:0.5px;">Station — Genre / Style</label>
-        <input id="pref-genre" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. krautrock, city pop, ambient dub">
+        <input id="pref-genre" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="e.g. krautrock, city pop, ambient dub">
       </div>
       <div>
         <label style="font-size:10px;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;">DJ — Personality / Traits</label>
-        <input id="pref-dj" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="z.B. verschrobener Jazz-Liebhaber, Tech-Nerd mit Herz">
+        <input id="pref-dj" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;" placeholder="e.g. quirky jazz lover, tech nerd with heart">
       </div>
       <div>
         <label style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;">Language</label>
         <select id="pref-lang" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-          <option value="de">Deutsch</option>
+          <option value="de">German</option>
           <option value="en">English</option>
         </select>
       </div>
@@ -284,10 +284,10 @@ header .sub a { color: #6366f1; text-decoration: none; }
 <div id="mode-info-overlay">
   <div id="mode-info-box">
     <button class="mode-close" onclick="closeModeInfo()">&times;</button>
-    <h3>Station Modi</h3>
-    <p><span style="color:#4ade80;">RT</span> <b>Realtime</b> — Echtzeit-Modus. 1 Track-Minute = 1 echte Minute. Songs laufen in voller Laenge, Moderationen in normaler Sprechzeit. Ideal fuer Live-Betrieb.</p>
-    <p><span style="color:#fbbf24;">SIM</span> <b>Simulation</b> — Beschleunigter Demo-Modus. TIME_SCALE=60x. 1 Track-Minute = 1 Sekunde. Min. 5s pro Track, 3s pro Moderation. Ideal zum Testen und Demonstrieren.</p>
-    <p style="color:#555;margin-top:8px;">Der Modus kann jederzeit gewechselt werden. Ein laufender Song/Moderation wird noch mit der alten Geschwindigkeit beendet.</p>
+    <h3>Station Modes</h3>
+    <p><span style="color:#4ade80;">RT</span> <b>Realtime</b> — Real-time mode. 1 track minute = 1 real minute. Songs play at full length, moderations at normal speaking speed. Ideal for live operation.</p>
+    <p><span style="color:#fbbf24;">SIM</span> <b>Simulation</b> — Accelerated demo mode. TIME_SCALE=60x. 1 track minute = 1 second. Min. 5s per track, 3s per moderation. Ideal for testing and demonstrating.</p>
+    <p style="color:#555;margin-top:8px;">The mode can be changed at any time. A running song/moderation will finish at the old speed.</p>
   </div>
 </div>
 
@@ -324,7 +324,7 @@ header .sub a { color: #6366f1; text-decoration: none; }
 <div id="help-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;padding:24px;">
   <div style="background:#111;border:1px solid #222;border-radius:12px;max-width:700px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;position:relative;">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #1a1a1a;">
-      <span style="font-size:14px;color:#fff;font-weight:500;">Station erstellen — Hilfe</span>
+      <span style="font-size:14px;color:#fff;font-weight:500;">Create Station — Help</span>
       <button onclick="closeHelp()" style="background:none;border:none;color:#555;font-size:20px;cursor:pointer;">&times;</button>
     </div>
     <iframe id="help-frame" src="" style="flex:1;border:none;background:#0a0a0a;min-height:500px;"></iframe>
@@ -336,39 +336,39 @@ header .sub a { color: #6366f1; text-decoration: none; }
     <button onclick="closeContributorForm()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:18px;cursor:pointer;">&times;</button>
     <h3 style="font-size:16px;color:#fff;margin-bottom:4px;">Become a Token Contributor ✦</h3>
     <p style="font-size:11px;color:#888;line-height:1.5;margin-bottom:16px;">
-      RAIDO bekommt <b style="color:#fbbf24">kein Geld</b>.
-      Es lebt von <b style="color:#4ade80">API-Keys</b>, die du bereitstellst.
-      Jeder Key treibt die KI-Moderationen im Live-Stream an.
+      RAIDO receives <b style="color:#fbbf24">no money</b>.
+      It lives from <b style="color:#4ade80">API keys</b> you provide.
+      Each key powers the AI moderations in the live stream.
     </p>
     <div style="display:flex;gap:12px;margin-bottom:16px;font-size:10px;color:#666;">
       <div style="flex:1;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:8px;text-align:center;">
         <div style="font-size:16px;margin-bottom:2px;">🎤</div>
-        <div style="color:#bbb;">Dein Name</div>
-        <div style="color:#555;">auf Hub & Station</div>
+        <div style="color:#bbb;">Your Name</div>
+        <div style="color:#555;">on Hub & Station</div>
       </div>
       <div style="flex:1;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:8px;text-align:center;">
         <div style="font-size:16px;margin-bottom:2px;">📢</div>
-        <div style="color:#bbb;">Deine Message</div>
-        <div style="color:#555;">im Live-Stream</div>
+        <div style="color:#bbb;">Your Message</div>
+        <div style="color:#555;">in the Live Stream</div>
       </div>
       <div style="flex:1;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:8px;text-align:center;">
         <div style="font-size:16px;margin-bottom:2px;">📊</div>
         <div style="color:#bbb;">Transparent</div>
-        <div style="color:#555;">Token-Tracking</div>
+        <div style="color:#555;">Token Tracking</div>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;">
-      <input id="sf-name" placeholder="Name / Firma *" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+      <input id="sf-name" placeholder="Name / Company *" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <input id="sf-url" placeholder="URL (https://...)" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-      <input id="sf-contact" placeholder="Kontakt (E-Mail)" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-      <input id="sf-tokens" placeholder="Token-Budget (z.B. 500000)" type="number" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+      <input id="sf-contact" placeholder="Contact (Email)" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+      <input id="sf-tokens" placeholder="Token Budget (e.g. 500000)" type="number" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
       <input id="sf-ad-contributor" placeholder="Ad Contributor-Name" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-      <input id="sf-ad-product" placeholder="Ad Produkt" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-      <textarea id="sf-ad-message" placeholder="Ad Kernbotschaft" rows="2" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;resize:vertical;"></textarea>
+      <input id="sf-ad-product" placeholder="Ad Product" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
+      <textarea id="sf-ad-message" placeholder="Ad Key Message" rows="2" style="background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;resize:vertical;"></textarea>
     </div>
     <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
-      <button class="btn secondary" onclick="closeContributorForm()">Abbrechen</button>
-      <button class="btn" style="background:#fbbf24;color:#000;font-weight:600;" onclick="submitContributor()">Absenden ✦</button>
+      <button class="btn secondary" onclick="closeContributorForm()">Cancel</button>
+      <button class="btn" style="background:#fbbf24;color:#000;font-weight:600;" onclick="submitContributor()">Submit ✦</button>
     </div>
     <div id="sf-status" style="margin-top:8px;font-size:11px;color:#888;"></div>
   </div>
@@ -382,9 +382,9 @@ header .sub a { color: #6366f1; text-decoration: none; }
     <div class="ad-key" id="ad-detail-key"></div>
     <div class="ad-station-link" id="ad-detail-station"></div>
     <div class="ad-nav">
-      <button id="ad-prev" onclick="navAd(-1)">← vorherige</button>
+      <button id="ad-prev" onclick="navAd(-1)">← previous</button>
       <span class="ad-pos" id="ad-pos"></span>
-      <button id="ad-next" onclick="navAd(1)">naechste →</button>
+      <button id="ad-next" onclick="navAd(1)">next →</button>
     </div>
   </div>
 </div>
@@ -396,16 +396,16 @@ header .sub a { color: #6366f1; text-decoration: none; }
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div><label style="font-size:10px;color:#555;">Name</label><input id="srm-name" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">URL</label><input id="srm-url" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
-      <div><label style="font-size:10px;color:#555;">Kontakt</label><input id="srm-contact" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
-      <div><label style="font-size:10px;color:#555;">Token-Budget</label><input id="srm-tokens" type="number" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
+      <div><label style="font-size:10px;color:#555;">Contact</label><input id="srm-contact" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
+      <div><label style="font-size:10px;color:#555;">Token Budget</label><input id="srm-tokens" type="number" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Ad Contributor</label><input id="srm-ad-contributor" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
-      <div><label style="font-size:10px;color:#555;">Ad Produkt</label><input id="srm-ad-product" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
+      <div><label style="font-size:10px;color:#555;">Ad Product</label><input id="srm-ad-product" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;"></div>
       <div><label style="font-size:10px;color:#555;">Ad Message</label><textarea id="srm-ad-message" rows="2" style="width:100%;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;resize:vertical;"></textarea></div>
       <div style="border-top:1px solid #1a1a1a;padding-top:8px;margin-top:4px;">
-        <label style="font-size:10px;color:#555;">API Key <span style="color:#888;">(erforderlich fuer Approve)</span></label>
+        <label style="font-size:10px;color:#555;">API Key <span style="color:#888;">(required for Approve)</span></label>
         <div style="display:flex;gap:4px;">
           <input id="srm-api-key" placeholder="sk-..." style="flex:1;background:#0a0a0a;color:#bbb;border:1px solid #222;border-radius:4px;padding:6px 8px;font-family:inherit;font-size:12px;">
-          <button class="btn secondary" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="validateContributorKey()">Key pruefen</button>
+          <button class="btn secondary" style="font-size:10px;padding:4px 8px;white-space:nowrap;" onclick="validateContributorKey()">Check Key</button>
         </div>
         <div id="srm-key-status" style="font-size:10px;color:#888;margin-top:4px;"></div>
       </div>
@@ -470,11 +470,11 @@ function updateStartButton() {
 
 async function newRandom() {
   if (_limits.stations_running >= _limits.max_stations) {
-    alert('Max. ' + _limits.max_stations + ' laufende Stationen erreicht. Bitte erst eine Station stoppen.');
+    alert('Max. ' + _limits.max_stations + ' running stations reached. Please stop a station first.');
     return;
   }
   if (_limits.personas_count >= _limits.max_personas) {
-    alert('Max. ' + _limits.max_personas + ' Personas gespeichert. Bitte erst eine Persona loeschen.');
+    alert('Max. ' + _limits.max_personas + ' personas stored. Please delete a persona first.');
     return;
   }
   document.getElementById('prefs-overlay').style.display = 'flex';
@@ -556,7 +556,7 @@ async function regenerateDj() {
     const st = _parsedStation || {};
     const body = {};
     if (_lastDjHint) body.traits_hint = _lastDjHint;
-    if (st.genre) body.station_context = 'genre: ' + st.genre + ', audience: ' + (st.target_audience || 'allgemein');
+    if (st.genre) body.station_context = 'genre: ' + st.genre + ', audience: ' + (st.target_audience || 'general');
     const res = await fetch('/generate-persona/dj', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok || data.error) {
@@ -600,7 +600,7 @@ async function startStation() {
       return;
     }
     const data = await res.json();
-    document.getElementById('modal-status').innerHTML = '✓ Station "' + data.slug + '" laeuft auf Port ' + data.port;
+    document.getElementById('modal-status').innerHTML = '✓ Station "' + data.slug + '" running on port ' + data.port;
     _busy = false;
     setTimeout(() => { closeModal(); loadStations(); loadOverview(); loadPersonas(); }, 2000);
   } catch (e) {
@@ -659,7 +659,7 @@ function fmtRemaining(idleSince) {
   const now = new Date();
   const elapsed = Math.max(0, (now - idle) / 1000);
   const remaining = Math.max(0, 2700 - elapsed);
-  if (remaining <= 0) return '<span style="color:#ef4444;">Auto-Stop: wird gestoppt</span>';
+  if (remaining <= 0) return '<span style="color:#ef4444;">Auto-Stop: stopping</span>';
   const h = Math.floor(remaining / 3600);
   const m = Math.floor((remaining % 3600) / 60);
   return '<span style="color:#888;">Auto-Stop in ' + (h > 0 ? h + 'h ' : '') + m + 'm</span>';
@@ -689,10 +689,10 @@ async function loadStations() {
         <div class="sc-name">${stName}</div>
         <div class="sc-genre">${genre}</div>
         <div class="sc-dj">DJ ${djName}</div>
-        <div class="sc-listeners">${listeners} Hoerer</div>
+        <div class="sc-listeners">${listeners} listeners</div>
         <div class="sc-status ${isLive ? 'live' : 'idle'}">${isLive ? '● LIVE' : '○ IDLE'} ${!isLive ? fmtRemaining(s.idle_since) : ''}</div>
         ${ '<div class="card-toggle ' + (mode==='realtime'?'realtime':'') + '" id="ct-' + s.slug + '" onclick="event.stopPropagation();' + (_adminToken ? 'toggleStationMode(\'' + s.slug + '\', \'' + mode + '\', this)' : '') + '"><span class="ct-label lbl-sim ' + (mode!=='realtime'?'ct-active':'') + '" style="' + (mode!=='realtime'?'color:#fbbf24;font-weight:600':'') + '">SIM</span><div class="ct-switch"></div><span class="ct-label lbl-rt ' + (mode==='realtime'?'ct-active':'') + '" style="' + (mode==='realtime'?'color:#4ade80;font-weight:600':'') + '">RT</span></div>' }
-        ${ '<span class="mode-info" onclick="event.stopPropagation();openModeInfo()" title="Modi-Info">?</span>' }
+        ${ '<span class="mode-info" onclick="event.stopPropagation();openModeInfo()" title="Mode Info">?</span>' }
         ${!s.protected && _adminToken ? '<button class="btn danger" style="margin-top:8px;font-size:10px;padding:4px 8px;" onclick="event.stopPropagation();stopStation(\'' + s.station_id + '\', this)">Stop</button>' : ''}
       `;
       grid.appendChild(card);
@@ -700,7 +700,7 @@ async function loadStations() {
 
     const stationFull = _limits.stations_running >= _limits.max_stations;
     const personaFull = _limits.personas_count >= _limits.max_personas;
-    const limitMsg = stationFull ? 'Max. Stationen erreicht' : personaFull ? 'Max. Personas erreicht' : '+ Neue Station';
+    const limitMsg = stationFull ? 'Max stations reached' : personaFull ? 'Max personas reached' : '+ New Station';
 
     const newCard = document.createElement('div');
     newCard.className = 'new-card';
@@ -710,7 +710,7 @@ async function loadStations() {
     `;
     grid.appendChild(newCard);
   } catch (e) {
-    document.getElementById('stations-grid').innerHTML = '<div class="loading">Fehler beim Laden</div>';
+    document.getElementById('stations-grid').innerHTML = '<div class="loading">Error loading</div>';
   }
 }
 
@@ -733,7 +733,7 @@ async function loadPersonas() {
     const res = await fetch('/personas');
     const personas = await res.json();
     const list = document.getElementById('personas-list');
-    if (!personas.length) { list.innerHTML = '<div style="color:#444;">Noch keine generiert</div>'; return; }
+    if (!personas.length) { list.innerHTML = '<div style="color:#444;">None generated yet</div>'; return; }
     list.innerHTML = '';
     personas.slice(0, 10).forEach(p => {
       const div = document.createElement('div');
@@ -790,7 +790,7 @@ async function loadContributors() {
     const res = await fetch('/contributors');
     const contributors = await res.json() || [];
     const list = document.getElementById('contributors-list');
-    if (!contributors.length) { list.innerHTML = '<div style="color:#444;font-size:12px;">Noch keine Contributoren.</div>'; return; }
+    if (!contributors.length) { list.innerHTML = '<div style="color:#444;font-size:12px;">No contributors yet.</div>'; return; }
     list.innerHTML = contributors.map(s => {
       const pct = s.token_budget > 0 ? Math.round((s.token_used || 0) / s.token_budget * 100) : 0;
       return '<div style="background:#111;border:1px solid #222;border-radius:8px;padding:10px 14px;cursor:pointer;margin-bottom:6px;" onclick="showContributorDetail(\'' + encodeURIComponent(JSON.stringify(s)) + '\')">' +
@@ -825,7 +825,7 @@ async function loadContributorRequests() {
     const data = await res.json();
     const list = document.getElementById('contributor-requests-list');
     list.innerHTML = '<tr><th>Name</th><th>URL</th><th>Tokens</th><th>Status</th><th></th></tr>';
-    if (!data || !data.length) { list.innerHTML += '<tr><td colspan="5" style="color:#444;">Keine Anfragen</td></tr>'; return; }
+    if (!data || !data.length) { list.innerHTML += '<tr><td colspan="5" style="color:#444;">No requests</td></tr>'; return; }
     data.forEach(r => {
       const tr = document.createElement('tr');
       tr.style.cursor = 'pointer';
@@ -862,8 +862,8 @@ function closeContributorReqModal() {
 
 async function validateContributorKey() {
   const key = document.getElementById('srm-api-key').value.trim();
-  if (!key) { document.getElementById('srm-key-status').textContent = '✗ Key eingeben'; return; }
-  document.getElementById('srm-key-status').innerHTML = '<span class="spinner"></span> Pruefe...';
+  if (!key) { document.getElementById('srm-key-status').textContent = '✗ Enter key'; return; }
+  document.getElementById('srm-key-status').innerHTML = '<span class="spinner"></span> Checking...';
   try {
     const res = await fetch('/contributors/validate-key', {
       method: 'POST',
@@ -873,21 +873,21 @@ async function validateContributorKey() {
     const data = await res.json();
     if (data.valid) {
       _keyValidated = true;
-      document.getElementById('srm-key-status').innerHTML = '✓ Key gueltig' + (data.balance ? ' · Guthaben vorhanden' : '');
+      document.getElementById('srm-key-status').innerHTML = '✓ Key valid' + (data.balance ? ' · Balance available' : '');
       document.getElementById('srm-approve-btn').disabled = false;
     } else {
       _keyValidated = false;
-      document.getElementById('srm-key-status').innerHTML = '✗ ' + (data.reason || 'Key ungueltig');
+      document.getElementById('srm-key-status').innerHTML = '✗ ' + (data.reason || 'Key invalid');
       document.getElementById('srm-approve-btn').disabled = true;
     }
   } catch (e) {
-    document.getElementById('srm-key-status').textContent = '✗ Fehler';
+    document.getElementById('srm-key-status').textContent = '✗ Error';
   }
 }
 
 async function deleteContributorReqModal() {
   if (!_currentReqId || !_adminToken) return;
-  if (!confirm('Anfrage wirklich löschen?')) return;
+  if (!confirm('Really delete request?')) return;
   try {
     await fetch('/contributors/requests/' + _currentReqId, {
       method: 'DELETE',
@@ -911,7 +911,7 @@ async function handleContributorReqFromModal(action) {
     api_key: document.getElementById('srm-api-key').value.trim(),
   };
   if (action === 'approve' && !_keyValidated) {
-    document.getElementById('srm-key-status').textContent = '✗ Erst Key validieren';
+    document.getElementById('srm-key-status').textContent = '✗ Validate key first';
     return;
   }
   try {
@@ -926,7 +926,7 @@ async function handleContributorReqFromModal(action) {
       loadContributors();
     } else {
       const data = await res.json().catch(() => ({}));
-      alert(data.detail || data.error || 'Fehler');
+      alert(data.detail || data.error || 'Error');
     }
   } catch (e) { alert(e.message); }
 }
@@ -944,10 +944,10 @@ function closeContributorForm() {
 }
 async function submitContributor() {
   const name = document.getElementById('sf-name').value.trim();
-  if (!name) { document.getElementById('sf-status').textContent = 'Name ist erforderlich.'; return; }
+  if (!name) { document.getElementById('sf-status').textContent = 'Name is required.'; return; }
   const btn = document.querySelector('#contributor-form-overlay .btn:not(.secondary)');
   if (btn) { btn.disabled = true; btn.textContent = '...'; }
-  document.getElementById('sf-status').textContent = 'Wird gesendet...';
+  document.getElementById('sf-status').textContent = 'Sending...';
   try {
     const body = {
       name, url: document.getElementById('sf-url').value.trim(),
@@ -959,16 +959,16 @@ async function submitContributor() {
     };
     const res = await fetch('/contributors/request', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (res.ok) {
-      document.getElementById('sf-status').textContent = '✓ Anfrage gesendet. Der Admin wird sie pruefen.';
+      document.getElementById('sf-status').textContent = '✓ Request sent. The admin will review it.';
       setTimeout(closeContributorForm, 2000);
     } else {
       const data = await res.json().catch(() => ({}));
-      document.getElementById('sf-status').textContent = '✗ ' + (data.error || 'Fehler');
+      document.getElementById('sf-status').textContent = '✗ ' + (data.error || 'Error');
     }
   } catch (e) {
     document.getElementById('sf-status').textContent = '✗ ' + e.message;
   }
-  if (btn) { btn.disabled = false; btn.textContent = 'Absenden'; }
+  if (btn) { btn.disabled = false; btn.textContent = 'Submit'; }
 }
 document.getElementById('contributor-form-overlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeContributorForm();
@@ -987,7 +987,7 @@ async function toggleStationMode(slug, currentMode, el) {
 }
 
 async function stopStation(stationId, btn) {
-  if (!confirm('Station "' + stationId + '" wirklich stoppen?')) return;
+  if (!confirm('Really stop station "' + stationId + '"?')) return;
   if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>'; }
   try {
     const res = await fetch('/stations/' + stationId, {
@@ -995,15 +995,15 @@ async function stopStation(stationId, btn) {
       headers: { 'Authorization': 'Bearer ' + _adminToken },
     });
     if (res.ok) {
-      if (btn) btn.innerHTML = '✓ gestoppt';
+      if (btn) btn.innerHTML = '✓ stopped';
       setTimeout(loadStations, 1000);
     } else {
       const data = await res.json().catch(() => ({}));
-      alert('Stop fehlgeschlagen: ' + (data.detail || data.error || 'Unbekannter Fehler'));
+      alert('Stop failed: ' + (data.detail || data.error || 'Unknown error'));
       if (btn) { btn.disabled = false; btn.textContent = 'Stop'; }
     }
   } catch (e) {
-    alert('Netzwerk-Fehler: ' + e.message);
+    alert('Network error: ' + e.message);
     if (btn) { btn.disabled = false; btn.textContent = 'Stop'; }
   }
 }
@@ -1018,7 +1018,7 @@ async function startFromPersona(personaId, btn) {
     if (!res.ok) {
       let msg = 'HTTP ' + res.status;
       try { const e = await res.json(); msg = e.error || e.detail || msg; } catch (_) {}
-      alert('Start fehlgeschlagen: ' + msg);
+      alert('Start failed: ' + msg);
       if (btn) { btn.disabled = false; btn.textContent = '▶'; }
       return;
     }
@@ -1026,13 +1026,13 @@ async function startFromPersona(personaId, btn) {
     if (btn) btn.innerHTML = '✓';
     setTimeout(() => { loadStations(); loadOverview(); }, 1000);
   } catch (e) {
-    alert('Fehler: ' + e.message);
+    alert('Error: ' + e.message);
     if (btn) { btn.disabled = false; btn.textContent = '▶'; }
   }
 }
 
 async function deletePersona(personaId, btn) {
-  if (!confirm('Persona #' + personaId + ' wirklich loeschen?')) return;
+  if (!confirm('Really delete persona #' + personaId + '?')) return;
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
   try {
     const res = await fetch('/personas/' + personaId, {
@@ -1043,11 +1043,11 @@ async function deletePersona(personaId, btn) {
       loadPersonas();
     } else {
       const data = await res.json().catch(() => ({}));
-      alert('Loeschen fehlgeschlagen: ' + (data.detail || data.error || 'Fehler'));
+      alert('Delete failed: ' + (data.detail || data.error || 'Error'));
       if (btn) { btn.disabled = false; btn.textContent = '×'; }
     }
   } catch (e) {
-    alert('Fehler: ' + e.message);
+    alert('Error: ' + e.message);
     if (btn) { btn.disabled = false; btn.textContent = '×'; }
   }
 }
@@ -1075,7 +1075,7 @@ async function dropContent(category, btn) {
       loadInjections();
     } else {
       const data = await res.json().catch(() => ({}));
-      alert(data.detail || data.error || 'Fehler');
+      alert(data.detail || data.error || 'Error');
     }
   } catch (e) { alert(e.message); }
   if (btn) { btn.disabled = false; btn.textContent = 'drop random ' + category.replace('_',' '); }
@@ -1087,7 +1087,7 @@ async function loadInjections() {
   try {
     const res = await fetch('/injections');
     const data = await res.json() || [];
-    const cats = { news: 'News', weather: 'Wetter', listener_comment: 'Kommentare', music_request: 'Musikwünsche' };
+    const cats = { news: 'News', weather: 'Weather', listener_comment: 'Comments', music_request: 'Music Requests' };
     const container = document.getElementById('injection-sections');
     container.innerHTML = '';
 
@@ -1097,10 +1097,10 @@ async function loadInjections() {
       section.className = 'section';
       section.innerHTML = `
           <div class="section-title" style="display:flex;align-items:center;gap:8px;">
-            ${title} <span id="admin-drop-${key}" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','kommentar').replace('music_request','musikwunsch')}</button></span>
+            ${title} <span id="admin-drop-${key}" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','comment').replace('music_request','music request')}</button></span>
           </div>
         <table class="ads-table">
-          <tr><th>Station</th><th>Inhalt</th><th>Status</th><th>Zeit</th></tr>
+          <tr><th>Station</th><th>Content</th><th>Status</th><th>Time</th></tr>
           ${items.length ? items.map(i => {
             let statusHtml = '';
             if (i.status === 'used') statusHtml = '<span style="color:#4ade80;">✓ used</span>';
@@ -1112,7 +1112,7 @@ async function loadInjections() {
               <td>${statusHtml}</td>
               <td class="ad-time">${(i.injected_at||'').substring(11,19)}</td>
             </tr>`;
-          }).join('') : '<tr><td colspan="4" style="color:#444;">Keine Eintraege</td></tr>'}
+          }).join('') : '<tr><td colspan="4" style="color:#444;">No entries</td></tr>'}
         </table>
       `;
       container.appendChild(section);
@@ -1130,8 +1130,8 @@ async function loadAds() {
     const res = await fetch('/ads');
     _adsData = await res.json();
     const list = document.getElementById('ads-list');
-    list.innerHTML = '<tr><th>Contributor</th><th>Produkt</th><th>Station</th><th>Zeit</th></tr>';
-    if (!_adsData || !_adsData.length) { list.innerHTML += '<tr><td colspan="4" style="color:#444;">Keine Ads</td></tr>'; return; }
+    list.innerHTML = '<tr><th>Contributor</th><th>Product</th><th>Station</th><th>Time</th></tr>';
+    if (!_adsData || !_adsData.length) { list.innerHTML += '<tr><td colspan="4" style="color:#444;">No ads</td></tr>'; return; }
     _adsData.slice(0, 20).forEach((a, i) => {
       const tr = document.createElement('tr');
       tr.onclick = () => showAdDetail(i);
@@ -1183,7 +1183,7 @@ function showInjDetail(row) {
   document.getElementById('ad-detail-key').textContent = content;
 
   let timeline = '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #1a1a1a;">';
-  timeline += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:8px;">Verlauf</div>';
+  timeline += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:8px;">Timeline</div>';
   timeline += '<div style="font-size:12px;color:#888;">● Injected: ' + time + '</div>';
   if (moderation) {
     timeline += '<div style="font-size:12px;color:#4ade80;margin-top:4px;">● Used by DJ: <span style="color:#bbb;font-style:italic;">' + moderation.substring(0,120) + '</span></div>';

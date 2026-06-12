@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Boards of Canada",
+    "title": "Olson",
+    "genre": "Lo-Fi Ambient",
+    "duration": 182,
+    "energy": 0.3
+  },
+  {
+    "id": 2,
+    "artist": "M83",
+    "title": "Lower Your Eyelids to Die with the Sun",
+    "genre": "Slow Electronica",
+    "duration": 624,
+    "energy": 0.4
+  },
+  {
+    "id": 3,
+    "artist": "John Carpenter",
+    "title": "Vortex",
+    "genre": "Vintage Library Music",
+    "duration": 265,
+    "energy": 0.5
+  },
+  {
+    "id": 4,
+    "artist": "Oneohtrix Point Never",
+    "title": "Zebra",
+    "genre": "Crackled Jazz",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 5,
+    "artist": "The Caretaker",
+    "title": "All You Are Going to Want to Do Is Get Back There",
+    "genre": "Field Recording Collage",
+    "duration": 450,
+    "energy": 0.2
+  },
+  {
+    "id": 6,
+    "artist": "Tycho",
+    "title": "A Walk",
+    "genre": "Lo-Fi Ambient",
+    "duration": 305,
+    "energy": 0.4
+  },
+  {
+    "id": 7,
+    "artist": "Aphex Twin",
+    "title": "Rhubarb",
+    "genre": "Slow Electronica",
+    "duration": 437,
+    "energy": 0.3
+  },
+  {
+    "id": 8,
+    "artist": "Brian Eno",
+    "title": "An Ending (Ascent)",
+    "genre": "Lo-Fi Ambient",
+    "duration": 400,
+    "energy": 0.2
+  },
+  {
+    "id": 9,
+    "artist": "Clams Casino",
+    "title": "I'm God",
+    "genre": "Slow Electronica",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 10,
+    "artist": "David Axelrod",
+    "title": "Holy Thursday",
+    "genre": "Vintage Library Music",
+    "duration": 335,
+    "energy": 0.7
+  },
+  {
+    "id": 11,
+    "artist": "Miles Davis",
+    "title": "In a Silent Way",
+    "genre": "Crackled Jazz",
+    "duration": 720,
+    "energy": 0.4
+  },
+  {
+    "id": 12,
+    "artist": "Chris Watson",
+    "title": "Vatnajökull",
+    "genre": "Field Recording Collage",
+    "duration": 540,
+    "energy": 0.1
+  },
+  {
+    "id": 13,
+    "artist": "Mount Kimbie",
+    "title": "Maybes",
+    "genre": "Slow Electronica",
+    "duration": 290,
+    "energy": 0.5
+  },
+  {
+    "id": 14,
+    "artist": "Harold Budd",
+    "title": "The Pearl",
+    "genre": "Lo-Fi Ambient",
+    "duration": 380,
+    "energy": 0.2
+  },
+  {
+    "id": 15,
+    "artist": "Pierre Henry",
+    "title": "Psyché Rock",
+    "genre": "Vintage Library Music",
+    "duration": 180,
+    "energy": 0.8
+  },
+  {
+    "id": 16,
+    "artist": "Nils Frahm",
+    "title": "Says",
+    "genre": "Lo-Fi Ambient",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 17,
+    "artist": "Sun Ra",
+    "title": "Space Is the Place",
+    "genre": "Crackled Jazz",
+    "duration": 600,
+    "energy": 0.7
+  },
+  {
+    "id": 18,
+    "artist": "Laurie Anderson",
+    "title": "O Superman",
+    "genre": "Field Recording Collage",
+    "duration": 520,
+    "energy": 0.5
+  },
+  {
+    "id": 19,
+    "artist": "Kasabian",
+    "title": "Club Foot (Instrumental Mix)",
+    "genre": "Slow Electronica",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 20,
+    "artist": "Dorothy Ashby",
+    "title": "Soul Vibrations",
+    "genre": "Vintage Library Music",
+    "duration": 270,
+    "energy": 0.6
+  },
+  {
+    "id": 21,
+    "artist": "Tim Hecker",
+    "title": "Virgins",
+    "genre": "Lo-Fi Ambient",
+    "duration": 520,
+    "energy": 0.3
+  },
+  {
+    "id": 22,
+    "artist": "Flying Lotus",
+    "title": "Tea Leaf Dancers",
+    "genre": "Slow Electronica",
+    "duration": 210,
+    "energy": 0.5
+  },
+  {
+    "id": 23,
+    "artist": "Alice Coltrane",
+    "title": "Journey in Satchidananda",
+    "genre": "Crackled Jazz",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 24,
+    "artist": "Jan Jelinek",
+    "title": "Do Dekor",
+    "genre": "Field Recording Collage",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 25,
+    "artist": "Mort Garson",
+    "title": "Plantasia",
+    "genre": "Vintage Library Music",
+    "duration": 180,
+    "energy": 0.4
+  },
+  {
+    "id": 26,
+    "artist": "Burial",
+    "title": "Archangel",
+    "genre": "Slow Electronica",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 27,
+    "artist": "Hiroshi Yoshimura",
+    "title": "Green",
+    "genre": "Lo-Fi Ambient",
+    "duration": 300,
+    "energy": 0.2
+  },
+  {
+    "id": 28,
+    "artist": "Daphne Oram",
+    "title": "Bird of Parallax",
+    "genre": "Field Recording Collage",
+    "duration": 210,
+    "energy": 0.4
+  },
+  {
+    "id": 29,
+    "artist": "Pharoah Sanders",
+    "title": "You've Got to Have Freedom",
+    "genre": "Crackled Jazz",
+    "duration": 600,
+    "energy": 0.8
+  },
+  {
+    "id": 30,
+    "artist": "Raymond Scott",
+    "title": "Powerhouse",
+    "genre": "Vintage Library Music",
+    "duration": 150,
+    "energy": 0.9
+  },
+  {
+    "id": 31,
+    "artist": "Grouper",
+    "title": "Poison Tree",
+    "genre": "Lo-Fi Ambient",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 32,
+    "artist": "Actress",
+    "title": "Our",
+    "genre": "Slow Electronica",
+    "duration": 345,
+    "energy": 0.5
+  },
+  {
+    "id": 33,
+    "artist": "Pauline Oliveros",
+    "title": "Deep Listening",
+    "genre": "Field Recording Collage",
+    "duration": 600,
+    "energy": 0.1
+  },
+  {
+    "id": 34,
+    "artist": "Esquivel",
+    "title": "Mucha Muchacha",
+    "genre": "Vintage Library Music",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "J Dilla",
+    "title": "Don't Cry",
+    "genre": "Crackled Jazz",
+    "duration": 210,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "Kaitlyn Aurelia Smith",
+    "title": "When I Try, I'm Full",
+    "genre": "Lo-Fi Ambient",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 37,
+    "artist": "Jana Winderen",
+    "title": "The Listening Room",
+    "genre": "Field Recording Collage",
+    "duration": 480,
+    "energy": 0.2
+  },
+  {
+    "id": 38,
+    "artist": "Autechre",
+    "title": "Basscadet",
+    "genre": "Slow Electronica",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 39,
+    "artist": "Mary Lattimore",
+    "title": "Never Saw Him Again",
+    "genre": "Lo-Fi Ambient",
+    "duration": 420,
+    "energy": 0.3
+  },
+  {
+    "id": 40,
+    "artist": "Gil Scot Heron",
+    "title": "The Revolution Will Not Be Televised",
+    "genre": "Crackled Jazz",
+    "duration": 190,
+    "energy": 0.8
+  }
+]

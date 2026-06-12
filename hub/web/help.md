@@ -1,131 +1,131 @@
-# Station erstellen
+# Create a Station
 
-Jede RAIDO-Station besteht aus zwei Teilen: der **Station** (Sender, Genre, Positionierung) und dem **DJ** (Persoenlichkeit, Bio, Quirks).
+Every RAIDO station consists of two parts: the **Station** (broadcaster, genre, positioning) and the **DJ** (personality, bio, quirks).
 
 ## Station-ID
 
-Eindeutige technische ID. Nur Kleinbuchstaben, keine Sonderzeichen, max. 15 Zeichen.
+Unique technical ID. Lowercase only, no special characters, max. 15 characters.
 
-Gut: `kosmischerwind`, `synthwave42`
-Schlecht: `Mein Sender!`, `BEST_STATION_EVER`
+Good: `kosmischerwind`, `synthwave42`
+Bad: `Mein Sender!`, `BEST_STATION_EVER`
 
 ## Claim
 
-Der Slogan des Senders. Max. **6 Worte**. Praegnant, markant, einpraegsam.
+The station's slogan. Max. **6 words**. Concise, distinctive, memorable.
 
 > "No algorithm. No control. Just frequency."
-> "Kein Signal. Nur Frequenz."
+> "No signal. Just frequency."
 > "Rewind the future."
 
 ## Genre + Subgenres
 
-Hauptgenre + 3–5 Subgenres, durch Komma getrennt. Die Subgenres definieren die musikalische Ausrichtung und bestimmen, welche Tracks die LLM generiert.
+Main genre + 3–5 subgenres, separated by commas. The subgenres define the musical direction and determine which tracks the LLM generates.
 
-Genre-Beispiele: `jazz`, `80s`, `techno`, `dark ambient`, `krautrock`, `italo disco`, `shoegaze`, `city pop`
+Genre examples: `jazz`, `80s`, `techno`, `dark ambient`, `krautrock`, `italo disco`, `shoegaze`, `city pop`
 
-## Zielgruppe
+## Target Audience
 
-Fuer wen ist der Sender? Knapp, praezise, hilft dem DJ den richtigen Ton zu treffen.
+Who is the station for? Concise, precise, helps the DJ find the right tone.
 
-> "Nachtmenschen, Kopfhoerer-Typen, Grenzgaenger"
-> "Nostalgiker, 35+, Feierabend-Hoerer"
+> "Night people, headphone types, boundary crossers"
+> "Nostalgics, 35+, after-work listeners"
 
-## Kurzbeschreibung
+## Short Description
 
-Die Positionierung des Senders in 2–3 Saetzen. Erklaert den Charakter des Senders — nicht des DJs.
+The station's positioning in 2–3 sentences. Explains the character of the station — not the DJ.
 
 ---
 
-## DJ — Die Persoenlichkeit
+## DJ — The Personality
 
-Der DJ ist der Kern jeder Station. Die LLM generiert automatisch passende Track-Libraries zur gewaehlten Genre-Kombination.
+The DJ is the core of every station. The LLM automatically generates matching track libraries for the selected genre combination.
 
-### DJ-Name
+### DJ Name
 
-Der Kuenstlername, unter dem der DJ sendet. Muss eine **100% fiktive Figur** sein — keine echten Personen, keine Imitationen.
+The stage name under which the DJ broadcasts. Must be a **100% fictional character** — no real people, no imitations.
 
-Gut: `Neon Nadler`, `Orion Wellenreiter`, `Synthia Void`
-Verboten: `Thomas Gottschalk`, `Elke Heidenreich`, `Howard Stern`
+Good: `Neon Nadler`, `Orion Wellenreiter`, `Synthia Void`
+Prohibited: `Thomas Gottschalk`, `Elke Heidenreich`, `Howard Stern`
 
 ### Real Name
 
-Der buergerliche Name hinter der DJ-Figur. Gehoert zur Bio — macht die Figur glaubwuerdig.
+The legal name behind the DJ character. Part of the bio — makes the character believable.
 
 `Neon Nadler (Klaus-Dieter Nadler)`
 
-### Alter, Herkunft, Familie, Hobbies
+### Age, Origin, Family, Hobbies
 
-Machen den DJ menschlich. Keine KI-Klischees ("Ich bin eine KI"), sondern echte, fiktive Biografien.
+Makes the DJ human. No AI clichés ("I am an AI"), but real, fictional biographies.
 
-> Alter: 52
-> Herkunft: Duesseldorf
-> Familie: geschieden, ein Sohn (17)
-> Hobbies: Vinyl-Flohmaerkte, Synth-Restaurierung
+> Age: 52
+> Origin: Düsseldorf
+> Family: divorced, one son (17)
+> Hobbies: vinyl flea markets, synth restoration
 
-### DJ seit
+### DJ since
 
-Das Jahr, in dem der DJ begonnen hat. Je nach Alter und Genre realistisch waehlen.
+The year the DJ started. Choose realistically depending on age and genre.
 
-> Miles Hertz: 1985 (Jazz-Kenner, jahrzehntelange Erfahrung)
-> Synthia Void: 2015 (Piratensender, juengere Generation)
+> Miles Hertz: 1985 (jazz aficionado, decades of experience)
+> Synthia Void: 2015 (pirate radio, younger generation)
 
 ### Max. Moderation
 
-Maximale Zeichenzahl pro Moderation. Standard: **800**. Nachtsender oder minimalistische DJs eher 300–400.
+Maximum character count per moderation. Default: **800**. Night stations or minimalist DJs tend toward 300–400.
 
-### Persoenlichkeit
+### Personality
 
-Der Charakter des DJs in 2–3 Saetzen. Dies ist der wichtigste Prompt-Teil — er bestimmt, WIE der DJ spricht.
+The DJ's character in 2–3 sentences. This is the most important part of the prompt — it determines HOW the DJ speaks.
 
-> *"relaxter Jazz-Kenner mit trockenem Humor, nie zynisch"*
-> *"fast unsichtbar, spricht nur wenn noetig, jedes Wort wiegt"*
+> *"relaxed jazz aficionado with dry humor, never cynical"*
+> *"almost invisible, speaks only when necessary, every word weighs"*
 
-### Ton / Tonalitaet
+### Tone / Tonality
 
-Ein Vergleich, der den Sprachstil beschreibt. Hilft dem LLM, den richtigen Ton zu treffen.
+A comparison that describes the speech style. Helps the LLM find the right tone.
 
-> *"klar, konversationell — wie NPR oder BBC Radio 6"*
-> *"gefluestert, minimal — wie ein Leuchtturm der morst"*
+> *"clear, conversational — like NPR or BBC Radio 6"*
+> *"whispered, minimal — like a lighthouse that morses"*
 
 ### Vita
 
-3–5 Saetze Lebenslauf. Die fiktive Karriere des DJs — macht die Figur lebendig.
+3–5 sentences of backstory. The DJ's fictional career — brings the character to life.
 
-> *"Ehemaliger Jazz-Kritiker, seit 1985 hinter dem Mikrofon. Hat in Hamburger Kellerclubs moderiert, bevor irgendwer Jazz cool fand."*
+> *"Former jazz critic, behind the microphone since 1985. Hosted in Hamburg basement clubs before anyone thought jazz was cool."*
 
 ### Avatar Prompt
 
-Englischsprachiger Prompt fuer eine KI-Bildgenerierung (DALL-E, Stable Diffusion). Sollte ein Portraet beschreiben.
+English-language prompt for AI image generation (DALL-E, Stable Diffusion). Should describe a portrait.
 
 > *"Portrait of a 52-year-old German radio DJ, warm smile, slightly wild greying hair, vintage Members Only jacket, neon pink headphones..."*
 
 ### Quirks
 
-3–4 wiederkehrende Eigenheiten des DJs. Das sind die "running gags", die den DJ wiedererkennbar machen.
+3–4 recurring peculiarities of the DJ. These are the "running gags" that make the DJ recognizable.
 
-> - "nennt Songs liebevoll 'Schaetzchen'"
-> - "zaehlt bei jedem Synth-Track die Oszillatoren"
-> - "verabschiedet sich freitags mit einem Wochenend-Motto"
-
----
-
-## Validierung
-
-Beim Starten wird jede Persona automatisch geprueft:
-
-- **LLM-Validator**: Prueft auf echte Sender, echte Personen, Imitationen
-- **Hard-Filter**: Blockiert strafrechtlich relevante Inhalte (Volksverhetzung etc.)
-- **Prompt-Injection-Check**: Verhindert Systemanweisungen in Persona-Texten
-
-Verstoss → Persona wird abgelehnt mit Begruendung.
+> - "lovingly calls songs 'little darlings'"
+> - "counts the oscillators in every synth track"
+> - "says goodbye on Fridays with a weekend motto"
 
 ---
 
-## Tipps fuer gute Personas
+## Validation
 
-1. **Weniger ist mehr** — ein starker DJ hat 1–2 markante Eigenschaften, nicht 10
-2. **Genre-Wissen zeigen** — der DJ sollte das Genre wirklich kennen (Vita, Hobbies)
-3. **Keine Superlative** — "Der beste DJ aller Zeiten" ist kein Charakter
-4. **Ecken und Kanten** — sympathische Fehler machen Figuren glaubwuerdig
-5. **Naming matters** — der DJ-Name ist das Erste, was Hoerer lesen
-6. **Claim ≠ Beschreibung** — der Claim ist ein Slogan, die Description ist Kontext
+Upon launch, every persona is automatically checked:
+
+- **LLM Validator**: Checks for real stations, real people, imitations
+- **Hard Filter**: Blocks criminal content (hate speech, etc.)
+- **Prompt Injection Check**: Prevents system instructions in persona texts
+
+Violation → Persona is rejected with explanation.
+
+---
+
+## Tips for Good Personas
+
+1. **Less is more** — a strong DJ has 1–2 distinctive traits, not 10
+2. **Show genre knowledge** — the DJ should really know the genre (bio, hobbies)
+3. **No superlatives** — "The best DJ of all time" is not a character
+4. **Rough edges** — likable flaws make characters believable
+5. **Naming matters** — the DJ name is the first thing listeners read
+6. **Claim ≠ Description** — the claim is a slogan, the description is context

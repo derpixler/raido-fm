@@ -11,7 +11,7 @@ type CodeBlockProps = {
   language?: string;
 };
 
-/** Code-Block mit dunklem Design, Sprach-Label und Copy-Button. */
+/** Code block with dark theme, language label and copy button. */
 export function CodeBlock({ children, rawCode, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
@@ -21,7 +21,7 @@ export function CodeBlock({ children, rawCode, language }: CodeBlockProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* Clipboard nicht verfügbar — still ignorieren. */
+      /* Clipboard not available — silently ignore. */
     }
   };
 

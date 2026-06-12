@@ -1,4 +1,4 @@
-/** Scrollt sanft zu einer Section und respektiert reduzierte Bewegung. */
+/** Smooth-scrolls to a section, respecting reduced motion preferences. */
 export function scrollToSection(id: string): void {
   const el = document.getElementById(id);
   if (!el) return;
@@ -12,7 +12,7 @@ export function scrollToSection(id: string): void {
     block: "start",
   });
 
-  // History aktualisieren, ohne einen harten Sprung auszulösen.
+  // Update history without triggering a hard jump.
   if (history.replaceState) {
     history.replaceState(null, "", `#${id}`);
   }

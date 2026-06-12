@@ -11,7 +11,7 @@ const GITHUB_URL = "https://github.com/derpixler";
 const LINKEDIN_URL = "https://www.linkedin.com/in/rene-reimann-18b50a127/";
 const REPO_URL = "https://github.com/derpixler/raido-fm";
 
-/** Highlight-Stationen aus dem Werdegang — kompakt als „Pills". */
+/** Career highlights — compact as "pills". */
 const HIGHLIGHTS = [
   "20+ years building for the web",
   "Worked for Immoware24 · CHECK24 · Inpsyde",
@@ -20,19 +20,19 @@ const HIGHLIGHTS = [
 ];
 
 /**
- * Eigenständige, gestaltete Autoren-Sektion (statt eines schlichten Markdown-
- * Blockquotes). Die Inhalte spiegeln das öffentliche Profil von René Reimann.
+ * Standalone, styled author section (instead of a plain Markdown blockquote).
+ * The content reflects René Reimann's public profile.
  */
 export function AuthorCard() {
   return (
-    // Semantischer Wrapper trägt die Microdata (inkl. itemID) — framer-motion
-    // reicht itemID nicht durch, daher animieren wir das innere <div>.
+    // Semantic wrapper carries the Microdata (incl. itemID) — framer-motion
+    // does not pass itemID through, so we animate the inner <div>.
     <section
       aria-labelledby="author-title"
       className="mt-24"
       itemScope
       itemType="https://schema.org/Person"
-      // Gleiche ID wie die JSON-LD-Person (page.tsx) → eine Entität für Suchmaschinen.
+      // Same ID as the JSON-LD Person (page.tsx) → one entity for search engines.
       itemID="https://raido.fm/#author"
     >
       <motion.div
@@ -42,7 +42,7 @@ export function AuthorCard() {
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-8 backdrop-blur sm:p-10"
       >
-        {/* Violetter Glow oben rechts als dezenter Akzent */}
+        {/* Purple glow top right as subtle accent */}
         <div className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-primary/20 blur-[100px]" />
 
         <span className="font-mono text-xs font-medium tracking-widest text-primary-glow">
@@ -50,7 +50,7 @@ export function AuthorCard() {
         </span>
 
       <div className="mt-6 flex flex-col gap-8 sm:flex-row sm:items-start">
-        {/* Monogramm-Avatar (kein Foto hinterlegt) */}
+        {/* Monogram avatar (no photo on file) */}
         <div
           aria-hidden="true"
           className="relative flex size-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-3xl font-semibold tracking-tight text-white shadow-[0_16px_40px_-12px_rgba(139,92,246,0.7)]"

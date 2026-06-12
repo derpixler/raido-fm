@@ -4,13 +4,13 @@ import { join } from "node:path";
 import { BASE_PATH } from "@/lib/asset";
 
 /**
- * Lädt die echte Projekt-readme.md (Quelle der Wahrheit) und bereitet sie für
- * die Landingpage auf — der Inhalt wird 1:1 übernommen.
+ * Loads the real project readme.md (source of truth) and prepares it for the
+ * landing page — content is adopted 1:1.
  *
- * - Der H1-Titel + Autoren-Intro vor der ersten `## `-Überschrift wird entfernt,
- *   da der Hero diesen Part visuell übernimmt.
- * - Bild-/Asset-Pfade (`assets/…`) werden auf `/…` umgeschrieben, weil die
- *   Bilder nach `web/public/` kopiert wurden.
+ * - The H1 title + author intro before the first `## ` heading is removed,
+ *   since the Hero handles that part visually.
+ * - Image/asset paths (`assets/…`) are rewritten to `/…`, because the
+ *   images were copied to `web/public/`.
  */
 export function loadReadmeMarkdown(): string {
   const candidates = [
@@ -24,39 +24,39 @@ export function loadReadmeMarkdown(): string {
       raw = readFileSync(path, "utf8");
       break;
     } catch {
-      /* nächsten Pfad versuchen */
+      /* try next path */
     }
   }
 
-  // Ab der ersten `## `-Überschrift (alles davor deckt der Hero ab).
+  // From the first `## ` heading onwards (everything before is covered by the Hero).
   const firstHeading = raw.search(/^##\s+/m);
   let body = firstHeading >= 0 ? raw.slice(firstHeading) : raw;
 
-  // "Audio Summary"-Sektion entfernen — sie steckt jetzt im Hero-Player.
+  // Remove "Audio Summary" section — it now lives in the Hero player.
   body = body.replace(/^##\s+Audio Summary[\s\S]*?(?=^##\s+)/m, "");
 
-  // "Table of Contents"-Sektion entfernen — die Seiten-Navigation ersetzt sie.
+  // Remove "Table of Contents" section — the page navigation replaces it.
   body = body.replace(/^##\s+Table of Contents[\s\S]*?(?=^##\s+)/m, "");
 
-  // "About the Author"-Sektion entfernen — die gestaltete <AuthorCard /> ersetzt
-  // sie auf der Website (in der readme.md bleibt sie für GitHub-Leser erhalten).
+  // Remove "About the Author" section — the styled <AuthorCard /> replaces it
+  // on the website (it stays in readme.md for GitHub readers).
   body = body.replace(/\n*##\s+About the Author[\s\S]*$/m, "");
 
-  // Graffiti-Bild aus der Vision entfernen — es ist jetzt der Hero-Hintergrund.
+  // Remove graffiti image from the Vision section — it's now the Hero background.
   body = body.replace(/^!\[[^\]]*\]\(assets\/we-are-not-your-bots-RAIDO-FM\.png\)\s*$/m, "");
 
-  // Relative Asset-Pfade auf das öffentliche Verzeichnis mappen und auf die
-  // leichtgewichtigen WebP-Varianten der Inhaltsbilder umstellen (die readme.md
-  // selbst referenziert weiterhin die PNGs in /assets für GitHub).
+  // Map relative asset paths to the public directory and switch to the
+  // lightweight WebP variants of content images (the readme.md itself
+  // still references the PNGs in /assets for GitHub).
   body = body
     .replace(/\]\(assets\//g, "](/")
     .replace(/\]\(\/architecture-overview\.png\)/g, "](/architecture-overview.webp)")
     .replace(/\]\(\/data-flow\.png\)/g, "](/data-flow.webp)")
     .replace(/\]\(index\.html\)/g, "](https://github.com/derpixler/raido-fm)");
 
-  // BasePath voranstellen, damit die Bilder auch in einem Unterverzeichnis
-  // (z. B. GitHub Pages /raido-fm) geladen werden. Interne Anker (`](#…`) und
-  // externe Links (`](http…`) bleiben unberührt, da sie nicht mit `/` beginnen.
+  // Prepend BasePath so images also load in a subdirectory (e.g. GitHub Pages
+  // /raido-fm). Internal anchors (`](#…`) and external links (`](http…`) are
+  // left untouched since they don't start with `/`.
   if (BASE_PATH) {
     body = body.replace(/\]\(\//g, `](${BASE_PATH}/`);
   }

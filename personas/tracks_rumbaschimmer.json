@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Thievery Corporation",
+    "title": "Lebanese Blonde",
+    "genre": "Downtempo",
+    "duration": 348,
+    "energy": 0.5
+  },
+  {
+    "id": 2,
+    "artist": "Boozoo Bajou",
+    "title": "Night Over Manaus",
+    "genre": "Dub",
+    "duration": 420,
+    "energy": 0.4
+  },
+  {
+    "id": 3,
+    "artist": "Tosca",
+    "title": "Suzuki",
+    "genre": "Downtempo",
+    "duration": 380,
+    "energy": 0.6
+  },
+  {
+    "id": 4,
+    "artist": "Kruder & Dorfmeister",
+    "title": "High Noon",
+    "genre": "Electronica",
+    "duration": 410,
+    "energy": 0.7
+  },
+  {
+    "id": 5,
+    "artist": "A Man Called Adam",
+    "title": "Easter Song",
+    "genre": "Calypso",
+    "duration": 320,
+    "energy": 0.5
+  },
+  {
+    "id": 6,
+    "artist": "Nightmares on Wax",
+    "title": "You Wish",
+    "genre": "Downtempo",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 7,
+    "artist": "Bonobo",
+    "title": "Kerala",
+    "genre": "Electronica",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 8,
+    "artist": "Massive Attack",
+    "title": "Teardrop",
+    "genre": "Downtempo",
+    "duration": 310,
+    "energy": 0.5
+  },
+  {
+    "id": 9,
+    "artist": "Moby",
+    "title": "Porcelain",
+    "genre": "Downtempo",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 10,
+    "artist": "Tricky",
+    "title": "Hell Is Round the Corner",
+    "genre": "Dub",
+    "duration": 260,
+    "energy": 0.4
+  },
+  {
+    "id": 11,
+    "artist": "Afterlife",
+    "title": "Dub in Ya Mind",
+    "genre": "Dub",
+    "duration": 400,
+    "energy": 0.5
+  },
+  {
+    "id": 12,
+    "artist": "Boards of Canada",
+    "title": "Olson",
+    "genre": "Electronica",
+    "duration": 210,
+    "energy": 0.2
+  },
+  {
+    "id": 13,
+    "artist": "Fila Brazillia",
+    "title": "A Zed and Two L's",
+    "genre": "Calypso",
+    "duration": 370,
+    "energy": 0.6
+  },
+  {
+    "id": 14,
+    "artist": "Sounds from the Ground",
+    "title": "Peaceful Journey",
+    "genre": "Downtempo",
+    "duration": 430,
+    "energy": 0.3
+  },
+  {
+    "id": 15,
+    "artist": "Zero 7",
+    "title": "In the Waiting Line",
+    "genre": "Downtempo",
+    "duration": 270,
+    "energy": 0.4
+  },
+  {
+    "id": 16,
+    "artist": "Deep Forest",
+    "title": "Sweet Lullaby",
+    "genre": "Electronica",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 17,
+    "artist": "Air",
+    "title": "Kelly Watch the Stars",
+    "genre": "Electronica",
+    "duration": 230,
+    "energy": 0.5
+  },
+  {
+    "id": 18,
+    "artist": "Gotan Project",
+    "title": "Santa Maria (del Buen Ayre)",
+    "genre": "Dub",
+    "duration": 290,
+    "energy": 0.5
+  },
+  {
+    "id": 19,
+    "artist": "Bitter:Sweet",
+    "title": "Dirty Laundry",
+    "genre": "Downtempo",
+    "duration": 250,
+    "energy": 0.6
+  },
+  {
+    "id": 20,
+    "artist": "Lusine",
+    "title": "Two Dots",
+    "genre": "Electronica",
+    "duration": 290,
+    "energy": 0.5
+  },
+  {
+    "id": 21,
+    "artist": "Röyksopp",
+    "title": "Poor Leno",
+    "genre": "Deep House",
+    "duration": 220,
+    "energy": 0.7
+  },
+  {
+    "id": 22,
+    "artist": "Poolside",
+    "title": "Do You Believe",
+    "genre": "Deep House",
+    "duration": 330,
+    "energy": 0.6
+  },
+  {
+    "id": 23,
+    "artist": "Atmospheric",
+    "title": "Coral",
+    "genre": "Calypso",
+    "duration": 400,
+    "energy": 0.4
+  },
+  {
+    "id": 24,
+    "artist": "Hird",
+    "title": "Keep You Kimi",
+    "genre": "Downtempo",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 25,
+    "artist": "Mylo",
+    "title": "Drop the Pressure",
+    "genre": "Deep House",
+    "duration": 280,
+    "energy": 0.8
+  },
+  {
+    "id": 26,
+    "artist": "Koop",
+    "title": "Waltz for Koop",
+    "genre": "Electronica",
+    "duration": 260,
+    "energy": 0.4
+  },
+  {
+    "id": 27,
+    "artist": "Bent",
+    "title": "Magic Love",
+    "genre": "Downtempo",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 28,
+    "artist": "GusGus",
+    "title": "David",
+    "genre": "Deep House",
+    "duration": 340,
+    "energy": 0.6
+  },
+  {
+    "id": 29,
+    "artist": "Amon Tobin",
+    "title": "Four Ton Mantis",
+    "genre": "Electronica",
+    "duration": 230,
+    "energy": 0.7
+  },
+  {
+    "id": 30,
+    "artist": "Mistabishi",
+    "title": "Printer Jam",
+    "genre": "Dub",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 31,
+    "artist": "Sofa Surfers",
+    "title": "Sofa Surfers",
+    "genre": "Downtempo",
+    "duration": 350,
+    "energy": 0.5
+  },
+  {
+    "id": 32,
+    "artist": "The Dining Rooms",
+    "title": "Existentialism",
+    "genre": "Dub",
+    "duration": 400,
+    "energy": 0.4
+  },
+  {
+    "id": 33,
+    "artist": "PINK MARTINI",
+    "title": "Sympathique",
+    "genre": "Calypso",
+    "duration": 270,
+    "energy": 0.4
+  },
+  {
+    "id": 34,
+    "artist": "Mountain Mocha Kilimanjaro",
+    "title": "Safari",
+    "genre": "Calypso",
+    "duration": 380,
+    "energy": 0.6
+  },
+  {
+    "id": 35,
+    "artist": "A Forest Mighty Black",
+    "title": "Mr. Brown",
+    "genre": "Deep House",
+    "duration": 320,
+    "energy": 0.5
+  },
+  {
+    "id": 36,
+    "artist": "Mo' Horizons",
+    "title": "Dance of the Voodoo Child",
+    "genre": "Calypso",
+    "duration": 300,
+    "energy": 0.7
+  },
+  {
+    "id": 37,
+    "artist": "The Egg",
+    "title": "Walking Away",
+    "genre": "Deep House",
+    "duration": 260,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Groove Armada",
+    "title": "At the River",
+    "genre": "Downtempo",
+    "duration": 350,
+    "energy": 0.4
+  },
+  {
+    "id": 39,
+    "artist": "Lemon Jelly",
+    "title": "Space Walk",
+    "genre": "Electronica",
+    "duration": 280,
+    "energy": 0.3
+  },
+  {
+    "id": 40,
+    "artist": "Satin Jackets",
+    "title": "Coco",
+    "genre": "Deep House",
+    "duration": 310,
+    "energy": 0.6
+  }
+]

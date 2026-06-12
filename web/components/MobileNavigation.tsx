@@ -17,8 +17,8 @@ type MobileNavigationProps = {
 };
 
 /**
- * Sticky Dropdown-Navigation für Mobile. Zeigt die automatisch erkannte aktive
- * Section und erlaubt den Sprung zu jeder anderen.
+ * Sticky dropdown navigation for mobile. Shows the automatically detected
+ * active section and allows jumping to any other.
  */
 export function MobileNavigation({
   sections,
@@ -90,7 +90,7 @@ export function MobileNavigation({
         </button>
       </div>
 
-      {/* Fortschrittsbalken */}
+      {/* Progress bar */}
       <div className="h-0.5 w-full bg-border/60">
         <motion.div
           className="h-full bg-gradient-to-r from-primary to-primary-glow"

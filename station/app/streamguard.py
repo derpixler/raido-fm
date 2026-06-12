@@ -65,26 +65,26 @@ def check(text: str, max_chars: int = 800) -> GuardResult:
 
     if len(text) > max_chars:
         text = text[:max_chars]
-        warnings.append(f"Moderation gekürzt ({len(original)} → {max_chars} Zeichen)")
+        warnings.append(f"Moderation truncated ({len(original)} -> {max_chars} characters)")
         logger.warning("StreamGuard: Length check triggered, truncated to %d chars", max_chars)
 
     lower = text.lower()
 
     for pattern in MANIFESTO_TRIGGERS:
         if re.search(pattern, lower):
-            blocked_reason = f"Manifesto-Trigger: {pattern}"
+            blocked_reason = f"Manifesto trigger: {pattern}"
             logger.warning("StreamGuard: Manifesto trigger matched: %s", pattern)
             return GuardResult(passed=False, text=text, warnings=warnings, blocked_reason=blocked_reason)
 
     for pattern in AI_SELF_REFERENCES:
         if re.search(pattern, lower):
-            blocked_reason = f"KI-Selbstreferenz: {pattern}"
+            blocked_reason = f"AI self-reference: {pattern}"
             logger.warning("StreamGuard: AI self-reference matched: %s", pattern)
             return GuardResult(passed=False, text=text, warnings=warnings, blocked_reason=blocked_reason)
 
     for pattern in PERSONALITY_TRIGGERS:
         if re.search(pattern, lower):
-            warnings.append(f"Persönlichkeitsrecht-Warnung: {pattern}")
+            warnings.append(f"Personality rights warning: {pattern}")
             logger.warning("StreamGuard: Personality trigger matched: %s", pattern)
 
     for word in BLOCKLIST:
@@ -97,14 +97,14 @@ def check(text: str, max_chars: int = 800) -> GuardResult:
     if len(words) > 20:
         unique_ratio = len(set(w.lower() for w in words)) / len(words)
         if unique_ratio < 0.3:
-            warnings.append(f"Niedrige Vokabeldiversität ({unique_ratio:.0%})")
+            warnings.append(f"Low vocabulary diversity ({unique_ratio:.0%})")
             logger.warning("StreamGuard: Low vocabulary diversity: %.0f%%", unique_ratio * 100)
 
     sentences = re.split(r"[.!?]\s+", text)
     if len(sentences) >= 3:
         starts = [s.split()[0].lower() if s.split() else "" for s in sentences[:3]]
         if len(set(starts)) == 1 and starts[0]:
-            warnings.append("Wiederholung: 3 Sätze mit gleichem Anfang")
+            warnings.append("Repetition: 3 sentences with the same start")
             logger.warning("StreamGuard: Repetition detected (3 sentences same start)")
 
     return GuardResult(passed=True, text=text, warnings=warnings)

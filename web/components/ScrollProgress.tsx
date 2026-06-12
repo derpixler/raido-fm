@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-/** Animierte Fortschrittsanzeige inkl. Prozentwert ("X% gelesen"). */
+/** Animated progress bar incl. percentage ("X% read"). */
 export function ScrollProgress({ progress }: { progress: number }) {
   const percent = Math.round(progress * 100);
 

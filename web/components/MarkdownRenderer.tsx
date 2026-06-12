@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 import { CodeBlock } from "@/components/CodeBlock";
 import { slugify } from "@/lib/utils";
 
-/** Hast-Knoten rekursiv zu reinem Text (für den Copy-Button) zusammenfügen. */
+/** Recursively flatten a hast node to plain text (for the copy button). */
 function nodeToText(node: unknown): string {
   if (!node || typeof node !== "object") return "";
   const n = node as { value?: string; children?: unknown[] };
@@ -25,8 +25,8 @@ function headingId(children: React.ReactNode): string {
 }
 
 const components: Components = {
-  // Keine id hier: der umschließende <section>-Wrapper liefert bereits den
-  // Scroll-Anker (sonst entstünden doppelte IDs).
+  // No id here: the enclosing <section> wrapper already provides the
+  // scroll anchor (otherwise duplicate IDs would be created).
   h2: ({ node: _node, children, ...props }) => (
     <h2
       className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
@@ -134,8 +134,8 @@ const components: Components = {
       .find((c) => c.startsWith("language-"))
       ?.replace("language-", "");
     const rawCode = nodeToText(codeNode).replace(/\n$/, "");
-    // ASCII-Diagramme (Box-Zeichen) sind Grafiken, kein Code: ohne Sprach-Label,
-    // Copy-Button und (fälschlich auto-erkanntes) Syntax-Highlighting rendern.
+    // ASCII diagrams (box-drawing chars) are graphics, not code: render without
+    // language label, copy button and (falsely auto-detected) syntax highlighting.
     if (/[┌┐└┘├┤┬┴│▲▼◀▶]/.test(rawCode)) {
       return (
         <figure className="my-6 overflow-x-auto rounded-xl border border-border bg-[#0A0A0A] p-4">
@@ -190,8 +190,8 @@ export function MarkdownRenderer({ content }: { content: string }) {
             {
               detect: true,
               ignoreMissing: true,
-              // Eingegrenzte Sprachmenge für die Auto-Erkennung sprachloser
-              // Blöcke — verhindert Fehlgriffe wie csharp/vbnet/scss.
+              // Curated language subset for auto-detection of untagged blocks —
+              // prevents false positives like csharp/vbnet/scss.
               subset: [
                 "python",
                 "yaml",

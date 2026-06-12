@@ -18,9 +18,9 @@ import { scrollToSection } from "@/lib/scroll";
 const GITHUB_URL = "https://github.com/derpixler/raido-fm";
 
 /**
- * Interaktives, semantisch strukturiertes Layout der Landingpage.
- * Der 1:1-Markdown-Inhalt (aus der readme.md) wird als Prop übergeben und in
- * <main> › <article> › <section> › <header> gegliedert.
+ * Interactive, semantically structured layout of the landing page.
+ * The 1:1 Markdown content (from readme.md) is passed as a prop and structured
+ * into <main> › <article> › <section> › <header>.
  */
 export function LandingClient({ markdown }: { markdown: string }) {
   const sections = useMemo(() => buildSections(markdown), [markdown]);
@@ -43,13 +43,13 @@ export function LandingClient({ markdown }: { markdown: string }) {
         onNavigate={scrollToSection}
       />
 
-      {/* Full-bleed Hero über die gesamte Header-Breite */}
+      {/* Full-bleed Hero across the full header width */}
       <section id="hero" aria-label="Introduction" className="scroll-mt-0">
         <Hero />
       </section>
 
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-5 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16 lg:px-8">
-        {/* Sticky Desktop-Navigation */}
+        {/* Sticky desktop navigation */}
         <aside
           className="hidden lg:block"
           aria-label="Page navigation and reading progress"
@@ -99,7 +99,7 @@ export function LandingClient({ markdown }: { markdown: string }) {
                     viewport={{ once: true, margin: "0px 0px -15% 0px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   >
-                    {/* Nicht sichtbare Metadaten der Section (Microdata) */}
+                    {/* Non-visible section metadata (Microdata) */}
                     <meta itemProp="position" content={String(position)} />
                     <meta itemProp="name" content={section.title} />
 

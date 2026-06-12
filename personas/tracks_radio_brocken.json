@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "ZZ Top",
+    "title": "La Grange",
+    "genre": "Southern Rock",
+    "duration": 229,
+    "energy": 0.9
+  },
+  {
+    "id": 2,
+    "artist": "Muddy Waters",
+    "title": "Mannish Boy",
+    "genre": "Delta Blues",
+    "duration": 260,
+    "energy": 0.8
+  },
+  {
+    "id": 3,
+    "artist": "Lynyrd Skynyrd",
+    "title": "Sweet Home Alabama",
+    "genre": "Southern Rock",
+    "duration": 283,
+    "energy": 0.85
+  },
+  {
+    "id": 4,
+    "artist": "Robert Johnson",
+    "title": "Cross Road Blues",
+    "genre": "Delta Blues",
+    "duration": 145,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "The Allman Brothers Band",
+    "title": "Ramblin' Man",
+    "genre": "Southern Rock",
+    "duration": 288,
+    "energy": 0.7
+  },
+  {
+    "id": 6,
+    "artist": "Canned Heat",
+    "title": "On the Road Again",
+    "genre": "Road-Songs",
+    "duration": 300,
+    "energy": 0.75
+  },
+  {
+    "id": 7,
+    "artist": "Willie Nelson",
+    "title": "On the Road Again",
+    "genre": "Road-Songs",
+    "duration": 154,
+    "energy": 0.6
+  },
+  {
+    "id": 8,
+    "artist": "Skip James",
+    "title": "Hard Time Killin' Floor Blues",
+    "genre": "Delta Blues",
+    "duration": 156,
+    "energy": 0.3
+  },
+  {
+    "id": 9,
+    "artist": "Molly Hatchet",
+    "title": "Flirtin' with Disaster",
+    "genre": "Southern Rock",
+    "duration": 278,
+    "energy": 0.9
+  },
+  {
+    "id": 10,
+    "artist": "John Lee Hooker",
+    "title": "Boom Boom",
+    "genre": "Delta Blues",
+    "duration": 173,
+    "energy": 0.7
+  },
+  {
+    "id": 11,
+    "artist": "Tommy Lee & The Road Kings",
+    "title": "Truckin' All Night",
+    "genre": "Road-Songs",
+    "duration": 240,
+    "energy": 0.8
+  },
+  {
+    "id": 12,
+    "artist": "Mickie Krause",
+    "title": "Jan Pillemann Otze",
+    "genre": "Ballermann-Humor",
+    "duration": 210,
+    "energy": 0.9
+  },
+  {
+    "id": 13,
+    "artist": "Jürgen Drews",
+    "title": "Ein Bett im Kornfeld",
+    "genre": "Ballermann-Humor",
+    "duration": 195,
+    "energy": 0.85
+  },
+  {
+    "id": 14,
+    "artist": "The Charlie Daniels Band",
+    "title": "The Devil Went Down to Georgia",
+    "genre": "Southern Rock",
+    "duration": 215,
+    "energy": 0.85
+  },
+  {
+    "id": 15,
+    "artist": "Son House",
+    "title": "Death Letter Blues",
+    "genre": "Delta Blues",
+    "duration": 245,
+    "energy": 0.5
+  },
+  {
+    "id": 16,
+    "artist": "Dave Dudley",
+    "title": "Six Days on the Road",
+    "genre": "Road-Songs",
+    "duration": 155,
+    "energy": 0.7
+  },
+  {
+    "id": 17,
+    "artist": "Red Sovine",
+    "title": "Teddy Bear",
+    "genre": "Road-Songs",
+    "duration": 305,
+    "energy": 0.3
+  },
+  {
+    "id": 18,
+    "artist": "The Black Keys",
+    "title": "Lonely Boy",
+    "genre": "Hinterhof-Folk",
+    "duration": 206,
+    "energy": 0.8
+  },
+  {
+    "id": 19,
+    "artist": "Truck Stop",
+    "title": "Die Frau mit dem Gurt",
+    "genre": "Road-Songs",
+    "duration": 220,
+    "energy": 0.7
+  },
+  {
+    "id": 20,
+    "artist": "Hannes Wader",
+    "title": "Heute hier, morgen dort",
+    "genre": "Hinterhof-Folk",
+    "duration": 240,
+    "energy": 0.4
+  },
+  {
+    "id": 21,
+    "artist": "The Georgia Satellites",
+    "title": "Keep Your Hands to Yourself",
+    "genre": "Southern Rock",
+    "duration": 204,
+    "energy": 0.85
+  },
+  {
+    "id": 22,
+    "artist": "Howlin' Wolf",
+    "title": "Smokestack Lightning",
+    "genre": "Delta Blues",
+    "duration": 198,
+    "energy": 0.6
+  },
+  {
+    "id": 23,
+    "artist": "Bob Dylan",
+    "title": "Highway 61 Revisited",
+    "genre": "Road-Songs",
+    "duration": 204,
+    "energy": 0.7
+  },
+  {
+    "id": 24,
+    "artist": "Bobby Bare",
+    "title": "Detroit City",
+    "genre": "Hinterhof-Folk",
+    "duration": 150,
+    "energy": 0.5
+  },
+  {
+    "id": 25,
+    "artist": "Johnny Cash",
+    "title": "I've Been Everywhere",
+    "genre": "Road-Songs",
+    "duration": 196,
+    "energy": 0.8
+  },
+  {
+    "id": 26,
+    "artist": "Die Toten Hosen",
+    "title": "Zehntausend Meilen",
+    "genre": "Road-Songs",
+    "duration": 240,
+    "energy": 0.75
+  },
+  {
+    "id": 27,
+    "artist": "Lynyrd Skynyrd",
+    "title": "Free Bird",
+    "genre": "Southern Rock",
+    "duration": 546,
+    "energy": 0.85
+  },
+  {
+    "id": 28,
+    "artist": "Robert Petway",
+    "title": "Catfish Blues",
+    "genre": "Delta Blues",
+    "duration": 168,
+    "energy": 0.5
+  },
+  {
+    "id": 29,
+    "artist": "Tom Petty",
+    "title": "Runnin' Down a Dream",
+    "genre": "Road-Songs",
+    "duration": 263,
+    "energy": 0.8
+  },
+  {
+    "id": 30,
+    "artist": "Bruce Springsteen",
+    "title": "Thunder Road",
+    "genre": "Road-Songs",
+    "duration": 283,
+    "energy": 0.7
+  },
+  {
+    "id": 31,
+    "artist": "Gunnar & the Grizzly",
+    "title": "Whiskey River",
+    "genre": "Hinterhof-Folk",
+    "duration": 195,
+    "energy": 0.6
+  },
+  {
+    "id": 32,
+    "artist": "Eric Church",
+    "title": "Smoke a Little Smoke",
+    "genre": "Southern Rock",
+    "duration": 210,
+    "energy": 0.75
+  },
+  {
+    "id": 33,
+    "artist": "Mickie Krause",
+    "title": "Geh mal Bier holen",
+    "genre": "Ballermann-Humor",
+    "duration": 215,
+    "energy": 0.9
+  },
+  {
+    "id": 34,
+    "artist": "Die Flippers",
+    "title": "Der rote Diamant",
+    "genre": "Ballermann-Humor",
+    "duration": 210,
+    "energy": 0.7
+  },
+  {
+    "id": 35,
+    "artist": "John Fahey",
+    "title": "Sunflower River Blues",
+    "genre": "Hinterhof-Folk",
+    "duration": 180,
+    "energy": 0.3
+  },
+  {
+    "id": 36,
+    "artist": "The Marshall Tucker Band",
+    "title": "Can't You See",
+    "genre": "Southern Rock",
+    "duration": 355,
+    "energy": 0.7
+  },
+  {
+    "id": 37,
+    "artist": "J.J. Cale",
+    "title": "Cocaine",
+    "genre": "Road-Songs",
+    "duration": 147,
+    "energy": 0.6
+  },
+  {
+    "id": 38,
+    "artist": "Willie Dixon",
+    "title": "I'm Your Hoochie Coochie Man",
+    "genre": "Delta Blues",
+    "duration": 219,
+    "energy": 0.7
+  },
+  {
+    "id": 39,
+    "artist": "The Byrds",
+    "title": "I'll Feel a Whole Lot Better",
+    "genre": "Hinterhof-Folk",
+    "duration": 147,
+    "energy": 0.65
+  },
+  {
+    "id": 40,
+    "artist": "Truck Stop",
+    "title": "Heut geht die Post ab",
+    "genre": "Ballermann-Humor",
+    "duration": 200,
+    "energy": 0.85
+  }
+]

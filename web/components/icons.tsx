@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-/** GitHub-Logo als Inline-SVG (lucide entfernt Brand-Icons in v1). */
+/** GitHub logo as inline SVG (lucide removed brand icons in v1). */
 export function GithubIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -18,7 +18,7 @@ export function GithubIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** LinkedIn-Logo als Inline-SVG (lucide entfernt Brand-Icons in v1). */
+/** LinkedIn logo as inline SVG (lucide removed brand icons in v1). */
 export function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>

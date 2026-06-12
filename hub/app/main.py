@@ -171,7 +171,7 @@ async def create_station(req: CreateStationRequest, request: Request):
     stations = await docker_mgr.discover_stations()
     running = [s for s in stations if s["status"] == "running"]
     if len(running) >= MAX_STATIONS:
-        return JSONResponse({"error": f"Max. {MAX_STATIONS} laufende Stationen erlaubt ({len(running)} aktiv)"}, status_code=429)
+        return JSONResponse({"error": f"Max {MAX_STATIONS} running stations allowed ({len(running)} active)"}, status_code=429)
 
     try:
         parsed = yaml.safe_load(req.persona_yaml)
@@ -298,7 +298,7 @@ async def start_from_persona(persona_id: int, request: Request):
     stations = await docker_mgr.discover_stations()
     running = [s for s in stations if s["status"] == "running"]
     if len(running) >= MAX_STATIONS:
-        return JSONResponse({"error": f"Max. {MAX_STATIONS} laufende Stationen erlaubt ({len(running)} aktiv)"}, status_code=429)
+        return JSONResponse({"error": f"Max {MAX_STATIONS} running stations allowed ({len(running)} active)"}, status_code=429)
 
     persona = await db.get_persona_by_id(_db, persona_id)
     if not persona:
@@ -306,7 +306,7 @@ async def start_from_persona(persona_id: int, request: Request):
 
     validation = await persona_generator.validate_persona(persona["persona_yaml"])
     if not validation["valid"]:
-        return JSONResponse({"error": "Persona enthaelt unzulaessige Inhalte", "issues": validation["issues"]}, status_code=422)
+        return JSONResponse({"error": "Persona contains prohibited content", "issues": validation["issues"]}, status_code=422)
 
     parsed = yaml.safe_load(persona["persona_yaml"])
     station_id = parsed["station"].get("id", "relaunch")
@@ -337,7 +337,7 @@ class GenerateRequest(BaseModel):
 async def generate_persona(req: GenerateRequest = None):
     persona_count = await db.count_personas(_db)
     if persona_count >= MAX_PERSONAS:
-        return JSONResponse({"error": f"Max. {MAX_PERSONAS} gespeicherte Personas erlaubt ({persona_count} vorhanden)"}, status_code=429)
+        return JSONResponse({"error": f"Max {MAX_PERSONAS} stored personas allowed ({persona_count} existing)"}, status_code=429)
 
     hint = req.genre_hint if req else None
     lang = req.language if req else "de"
@@ -347,7 +347,7 @@ async def generate_persona(req: GenerateRequest = None):
 
     validation = await persona_generator.validate_persona(result.get("persona_yaml", ""))
     if not validation["valid"]:
-        return JSONResponse({"error": "Generierte Persona enthaelt unzulaessige Inhalte. Bitte neu generieren.", "issues": validation["issues"]}, status_code=422)
+        return JSONResponse({"error": "Generated persona contains prohibited content. Please regenerate.", "issues": validation["issues"]}, status_code=422)
 
     genre = result.get("parsed", {}).get("station", {}).get("genre", "")
     subgenres = result.get("parsed", {}).get("station", {}).get("subgenres", [])
@@ -400,7 +400,7 @@ async def help_page():
     html = _md_to_html(content)
     return HTMLResponse(f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RAIDO — Hilfe</title>
+<title>RAIDO — Help</title>
 <style>
 body{{font-family:'SF Mono','Fira Code',monospace;background:#0a0a0a;color:#bbb;padding:24px 32px;max-width:640px;margin:0 auto;line-height:1.6;font-size:13px}}
 h1{{color:#fff;font-size:18px;margin-bottom:16px}}

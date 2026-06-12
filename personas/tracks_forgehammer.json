@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Queens of the Stone Age",
+    "title": "No One Knows",
+    "genre": "stoner rock",
+    "duration": 278,
+    "energy": 0.8
+  },
+  {
+    "id": 2,
+    "artist": "Black Sabbath",
+    "title": "War Pigs",
+    "genre": "doom metal",
+    "duration": 476,
+    "energy": 0.7
+  },
+  {
+    "id": 3,
+    "artist": "Pantera",
+    "title": "Walk",
+    "genre": "groove metal",
+    "duration": 315,
+    "energy": 0.9
+  },
+  {
+    "id": 4,
+    "artist": "Nine Inch Nails",
+    "title": "Head Like a Hole",
+    "genre": "industrial metal",
+    "duration": 298,
+    "energy": 0.9
+  },
+  {
+    "id": 5,
+    "artist": "Kyuss",
+    "title": "Green Machine",
+    "genre": "stoner rock",
+    "duration": 203,
+    "energy": 0.7
+  },
+  {
+    "id": 6,
+    "artist": "Electric Wizard",
+    "title": "Dopethrone",
+    "genre": "doom metal",
+    "duration": 540,
+    "energy": 0.6
+  },
+  {
+    "id": 7,
+    "artist": "Lamb of God",
+    "title": "Redneck",
+    "genre": "groove metal",
+    "duration": 229,
+    "energy": 0.9
+  },
+  {
+    "id": 8,
+    "artist": "Ministry",
+    "title": "Jesus Built My Hotrod",
+    "genre": "industrial metal",
+    "duration": 294,
+    "energy": 0.9
+  },
+  {
+    "id": 9,
+    "artist": "Clutch",
+    "title": "The Mob Goes Wild",
+    "genre": "stoner rock",
+    "duration": 250,
+    "energy": 0.8
+  },
+  {
+    "id": 10,
+    "artist": "Sleep",
+    "title": "Dragonaut",
+    "genre": "doom metal",
+    "duration": 350,
+    "energy": 0.5
+  },
+  {
+    "id": 11,
+    "artist": "Machine Head",
+    "title": "Davidian",
+    "genre": "groove metal",
+    "duration": 295,
+    "energy": 0.9
+  },
+  {
+    "id": 12,
+    "artist": "Fear Factory",
+    "title": "Replica",
+    "genre": "industrial metal",
+    "duration": 246,
+    "energy": 0.8
+  },
+  {
+    "id": 13,
+    "artist": "Fu Manchu",
+    "title": "King of the Road",
+    "genre": "stoner rock",
+    "duration": 210,
+    "energy": 0.7
+  },
+  {
+    "id": 14,
+    "artist": "Candlemass",
+    "title": "Solitude",
+    "genre": "doom metal",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 15,
+    "artist": "Exhorder",
+    "title": "The Law",
+    "genre": "groove metal",
+    "duration": 262,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Godflesh",
+    "title": "Streetcleaner",
+    "genre": "industrial metal",
+    "duration": 360,
+    "energy": 0.8
+  },
+  {
+    "id": 17,
+    "artist": "Monster Magnet",
+    "title": "Space Lord",
+    "genre": "stoner rock",
+    "duration": 323,
+    "energy": 0.8
+  },
+  {
+    "id": 18,
+    "artist": "Saint Vitus",
+    "title": "Born Too Late",
+    "genre": "doom metal",
+    "duration": 430,
+    "energy": 0.5
+  },
+  {
+    "id": 19,
+    "artist": "Sepultura",
+    "title": "Roots Bloody Roots",
+    "genre": "groove metal",
+    "duration": 213,
+    "energy": 0.9
+  },
+  {
+    "id": 20,
+    "artist": "KMFDM",
+    "title": "Juke Joint Jezebel",
+    "genre": "industrial metal",
+    "duration": 284,
+    "energy": 0.8
+  },
+  {
+    "id": 21,
+    "artist": "Red Fang",
+    "title": "Prehistoric Dog",
+    "genre": "stoner rock",
+    "duration": 250,
+    "energy": 0.7
+  },
+  {
+    "id": 22,
+    "artist": "Pentagram",
+    "title": "Forever My Queen",
+    "genre": "doom metal",
+    "duration": 270,
+    "energy": 0.5
+  },
+  {
+    "id": 23,
+    "artist": "Meshuggah",
+    "title": "Bleed",
+    "genre": "groove metal",
+    "duration": 412,
+    "energy": 0.9
+  },
+  {
+    "id": 24,
+    "artist": "Rammstein",
+    "title": "Du Hast",
+    "genre": "industrial metal",
+    "duration": 251,
+    "energy": 0.9
+  },
+  {
+    "id": 25,
+    "artist": "The Sword",
+    "title": "Freya",
+    "genre": "stoner rock",
+    "duration": 185,
+    "energy": 0.7
+  },
+  {
+    "id": 26,
+    "artist": "My Dying Bride",
+    "title": "The Cry of Mankind",
+    "genre": "doom metal",
+    "duration": 720,
+    "energy": 0.3
+  },
+  {
+    "id": 27,
+    "artist": "Gojira",
+    "title": "Stranded",
+    "genre": "groove metal",
+    "duration": 265,
+    "energy": 0.8
+  },
+  {
+    "id": 28,
+    "artist": "Static-X",
+    "title": "Push It",
+    "genre": "industrial metal",
+    "duration": 156,
+    "energy": 0.9
+  },
+  {
+    "id": 29,
+    "artist": "Elder",
+    "title": "Lore",
+    "genre": "stoner rock",
+    "duration": 540,
+    "energy": 0.6
+  },
+  {
+    "id": 30,
+    "artist": "Cathedral",
+    "title": "Ride",
+    "genre": "doom metal",
+    "duration": 360,
+    "energy": 0.5
+  },
+  {
+    "id": 31,
+    "artist": "Chimaira",
+    "title": "Pure Hatred",
+    "genre": "groove metal",
+    "duration": 265,
+    "energy": 0.9
+  },
+  {
+    "id": 32,
+    "artist": "Marilyn Manson",
+    "title": "The Beautiful People",
+    "genre": "industrial metal",
+    "duration": 222,
+    "energy": 0.8
+  },
+  {
+    "id": 33,
+    "artist": "Corrosion of Conformity",
+    "title": "Albatross",
+    "genre": "stoner rock",
+    "duration": 310,
+    "energy": 0.6
+  },
+  {
+    "id": 34,
+    "artist": "Trouble",
+    "title": "The Tempter",
+    "genre": "doom metal",
+    "duration": 320,
+    "energy": 0.5
+  },
+  {
+    "id": 35,
+    "artist": "DevilDriver",
+    "title": "Clouds Over California",
+    "genre": "groove metal",
+    "duration": 252,
+    "energy": 0.9
+  },
+  {
+    "id": 36,
+    "artist": "Die Krupps",
+    "title": "The Power",
+    "genre": "industrial metal",
+    "duration": 245,
+    "energy": 0.8
+  },
+  {
+    "id": 37,
+    "artist": "Orange Goblin",
+    "title": "Some You Win, Some You Lose",
+    "genre": "stoner rock",
+    "duration": 280,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Windhand",
+    "title": "Orchid",
+    "genre": "doom metal",
+    "duration": 380,
+    "energy": 0.4
+  },
+  {
+    "id": 39,
+    "artist": "Soulfly",
+    "title": "Eye for an Eye",
+    "genre": "groove metal",
+    "duration": 233,
+    "energy": 0.9
+  },
+  {
+    "id": 40,
+    "artist": "Prong",
+    "title": "Snap Your Fingers, Snap Your Neck",
+    "genre": "industrial metal",
+    "duration": 250,
+    "energy": 0.8
+  }
+]

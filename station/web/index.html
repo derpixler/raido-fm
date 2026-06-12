@@ -426,7 +426,7 @@
 <header>
   <h1>RAIDO FM</h1>
   <span id="connection-status" class="status">●</span>
-  <span id="station-info" class="status" style="cursor:default;">Verbinde…</span>
+  <span id="station-info" class="status" style="cursor:default;">Connecting…</span>
   <span id="mode-display" style="font-size:10px;color:#888;border:1px solid #333;border-radius:3px;padding:1px 6px;"></span>
   <button onclick="openManifest()" style="margin-left:auto;background:none;border:none;color:#6366f1;font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:0.5px;">Open-Source · Autonomous AI Radio</button>
 </header>
@@ -440,13 +440,13 @@
   <span class="stat" data-cat="llm"><span class="lbl">LLM</span> <span class="val" id="s-llm-calls">0</span></span>
   <span class="stat" data-cat="llm"><span class="lbl">Tok in</span> <span class="val" id="s-tok-in">0</span></span>
   <span class="stat" data-cat="llm"><span class="lbl">out</span> <span class="val" id="s-tok-out">0</span></span>
-  <span class="stat" data-cat="llm"><span class="lbl">Latenz</span> <span class="val" id="s-latency">-</span></span>
+  <span class="stat" data-cat="llm"><span class="lbl">Latency</span> <span class="val" id="s-latency">-</span></span>
   <span class="sep">|</span>
   <span class="stat" data-cat="stimuli"><span class="lbl">Stimuli</span> <span class="val" id="s-stimuli">0</span></span>
   <span class="stat" data-cat="flagged"><span class="lbl">Flagged</span> <span class="val" id="s-flagged">0</span></span>
   <span class="stat" data-cat="listeners"><span class="lbl">Listener</span> <span class="val" id="s-listeners">0</span></span>
   <span class="stat" data-cat="uptime"><span class="lbl">Uptime</span> <span class="val" id="s-uptime">-</span></span>
-  <span class="stat" data-cat="contributors" style="margin-left:auto;border:1px solid #3e3e1a;border-radius:4px;padding:2px 8px;"><span class="lbl" style="color:#fbbf24;font-weight:600;">Token Contributoren</span></span>
+  <span class="stat" data-cat="contributors" style="margin-left:auto;border:1px solid #3e3e1a;border-radius:4px;padding:2px 8px;"><span class="lbl" style="color:#fbbf24;font-weight:600;">Token Contributors</span></span>
   <div id="stats-detail"></div>
 </div>
 
@@ -461,28 +461,28 @@
 
 <div class="ad-fields" id="ad-fields">
   <input type="text" id="ad-contributor" placeholder="Contributor">
-  <input type="text" id="ad-product" placeholder="Produkt">
+  <input type="text" id="ad-product" placeholder="Product">
   <input type="text" id="ad-key-message" placeholder="Key Message">
 </div>
 
 <div id="input-area">
   <select id="category">
-    <option value="listener_comment">Kommentar</option>
-    <option value="music_request">Musikwunsch</option>
+    <option value="listener_comment">Comment</option>
+    <option value="music_request">Music Request</option>
     <option value="news">News</option>
-    <option value="weather">Wetter</option>
-    <option value="ad">Werbung (JSON)</option>
+    <option value="weather">Weather</option>
+    <option value="ad">Advertising (JSON)</option>
   </select>
-  <input type="text" id="message" placeholder="Nachricht eingeben…" autocomplete="off" oninput="updateCharCounter()">
-  <button id="send-btn" onclick="send()">Senden</button>
+  <input type="text" id="message" placeholder="Enter message…" autocomplete="off" oninput="updateCharCounter()">
+  <button id="send-btn" onclick="send()">Send</button>
 </div>
 <div id="char-counter">0/500</div>
 
 <div id="alert-overlay">
   <div id="alert-box">
     <div class="alert-icon">&#9888;</div>
-    <div class="alert-title">Eingabe zu lang</div>
-    <div class="alert-msg" id="alert-msg">Max. 500 Zeichen erlaubt.</div>
+    <div class="alert-title">Input too long</div>
+    <div class="alert-msg" id="alert-msg">Max. 500 characters allowed.</div>
     <button onclick="closeAlert()">OK</button>
   </div>
 </div>
@@ -499,25 +499,25 @@
     <div class="modal-section">
       <div class="modal-meta">
         <div>Genre: <span id="modal-genre"></span></div>
-        <div>Zielgruppe: <span id="modal-audience"></span></div>
+        <div>Target Audience: <span id="modal-audience"></span></div>
         <div><span id="modal-lang"></span></div>
       </div>
     </div>
     <div class="modal-section">
       <h3>DJ: <span id="modal-dj-name"></span></h3>
       <p id="modal-dj-personality"></p>
-      <p style="margin-top:6px;color:#666;font-size:12px;">Ton: <span id="modal-dj-tone" style="color:#999;"></span></p>
+      <p style="margin-top:6px;color:#666;font-size:12px;">Tone: <span id="modal-dj-tone" style="color:#999;"></span></p>
     </div>
     <div class="modal-section">
       <h3>Quirks</h3>
       <ul id="modal-dj-quirks"></ul>
     </div>
     <div class="modal-section" style="margin-top:20px;padding-top:16px;border-top:1px solid #222;">
-      <h3>Technik</h3>
+      <h3>Technical</h3>
       <div class="modal-meta" style="flex-direction:column;gap:6px;">
         <div>Persona: <span id="modal-cfg-persona"></span></div>
         <div>Tracks: <span id="modal-cfg-tracks"></span></div>
-        <div>Regeln: <span id="modal-cfg-rules"></span></div>
+        <div>Rules: <span id="modal-cfg-rules"></span></div>
         <div>Max. Moderation: <span id="modal-cfg-maxmod"></span></div>
         <div>TIME_SCALE: <span id="modal-cfg-timescale"></span></div>
         <div>DB: <span id="modal-cfg-db"></span></div>
@@ -536,9 +536,9 @@
     <h3 id="sd-title"></h3>
     <div id="sd-body"></div>
     <div class="sd-nav">
-      <button id="sd-prev" onclick="navStationDetail(-1)">← vorherige</button>
+      <button id="sd-prev" onclick="navStationDetail(-1)">← previous</button>
       <span class="sd-pos" id="sd-pos"></span>
-      <button id="sd-next" onclick="navStationDetail(1)">naechste →</button>
+      <button id="sd-next" onclick="navStationDetail(1)">next →</button>
     </div>
   </div>
 </div>
@@ -553,17 +553,17 @@
     </div>
     <div style="display:flex;gap:24px;margin-bottom:20px;font-size:12px;color:#888;">
       <div><span style="color:#4ade80;font-weight:600;">24/7</span> Live</div>
-      <div><span style="color:#4ade80;font-weight:600;">~5 EUR</span> /Monat</div>
-      <div><span style="color:#4ade80;font-weight:600;">Unbegrenzt</span> Stationen</div>
+      <div><span style="color:#4ade80;font-weight:600;">~5 EUR</span> /month</div>
+      <div><span style="color:#4ade80;font-weight:600;">Unlimited</span> Stations</div>
     </div>
     <div style="font-size:12px;color:#888;margin-bottom:16px;">
-      <div style="color:#555;text-transform:uppercase;letter-spacing:1px;font-size:10px;margin-bottom:8px;">Architektur</div>
+      <div style="color:#555;text-transform:uppercase;letter-spacing:1px;font-size:10px;margin-bottom:8px;">Architecture</div>
       <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:4px;">
-        <li style="color:#bbb;">DJ-Agent — autonome KI-Persoenlichkeit mit 60-Minuten-Programm-Grid</li>
-        <li style="color:#bbb;">StreamGuard — 5-stufiges Sicherheitssystem gegen KI-Degeneration</li>
-        <li style="color:#bbb;">Generative Host-Read Ads — keine MP3-Spots, KI-geschriebene Werbung</li>
-        <li style="color:#bbb;">Quarantine-DB — Schutz vor Prompt-Injection bei externen Daten</li>
-        <li style="color:#bbb;">Multi-Station — beliebig viele Sender parallel, je eigene Persoenlichkeit</li>
+        <li style="color:#bbb;">DJ Agent — autonomous AI personality with 60-minute program grid</li>
+        <li style="color:#bbb;">StreamGuard — 5-level safety system against AI degeneration</li>
+        <li style="color:#bbb;">Generative Host-Read Ads — no MP3 spots, AI-written advertising</li>
+        <li style="color:#bbb;">Quarantine DB — protection against prompt injection from external data</li>
+        <li style="color:#bbb;">Multi-Station — any number of stations in parallel, each with its own personality</li>
         <li style="color:#bbb;">Persistent Personality — Mood-State, Self-Notes, Recurring Quirks</li>
       </ul>
     </div>
@@ -572,7 +572,7 @@
       <span style="color:#666;">Groq/Llama 3 · Piper TTS · Icecast2 · ffmpeg · SQLite · FastAPI · Docker · Traefik</span>
     </div>
     <div style="border-top:1px solid #222;padding-top:16px;display:flex;gap:16px;align-items:center;">
-      <a href="https://derpixler.github.io/raido-fm/" target="_blank" style="color:#6366f1;font-size:13px;text-decoration:none;font-weight:500;">Manifest lesen</a>
+      <a href="https://derpixler.github.io/raido-fm/" target="_blank" style="color:#6366f1;font-size:13px;text-decoration:none;font-weight:500;">Read Manifest</a>
       <a href="https://github.com/derpixler/raido-fm" target="_blank" style="color:#666;font-size:12px;text-decoration:none;">GitHub</a>
       <span style="color:#333;font-size:11px;margin-left:auto;">by Rene Reimann</span>
     </div>
@@ -591,15 +591,15 @@
     </div>
     <div id="dj-modal-vita" style="font-size:13px;line-height:1.6;color:#bbb;margin-bottom:16px;"></div>
     <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;color:#888;margin-bottom:16px;">
-      <div>Alter: <span id="dj-modal-age" style="color:#bbb;"></span></div>
-      <div>Herkunft: <span id="dj-modal-origin" style="color:#bbb;"></span></div>
-      <div>Familie: <span id="dj-modal-family" style="color:#bbb;"></span></div>
+      <div>Age: <span id="dj-modal-age" style="color:#bbb;"></span></div>
+      <div>Origin: <span id="dj-modal-origin" style="color:#bbb;"></span></div>
+      <div>Family: <span id="dj-modal-family" style="color:#bbb;"></span></div>
       <div>Hobbies: <span id="dj-modal-hobbies" style="color:#bbb;"></span></div>
     </div>
     <div style="border-top:1px solid #222;padding-top:12px;margin-bottom:12px;">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:6px;">Persoenlichkeit</div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:6px;">Personality</div>
       <p id="dj-modal-personality" style="font-size:12px;color:#999;line-height:1.5;"></p>
-      <p style="margin-top:6px;font-size:11px;color:#666;">Ton: <span id="dj-modal-tone" style="color:#888;"></span></p>
+      <p style="margin-top:6px;font-size:11px;color:#666;">Tone: <span id="dj-modal-tone" style="color:#888;"></span></p>
     </div>
     <div style="border-top:1px solid #222;padding-top:12px;">
       <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:6px;">Quirks</div>
@@ -694,12 +694,12 @@ document.getElementById('stats-bar').addEventListener('click', async (e) => {
   document.querySelectorAll('#stats-bar .stat').forEach(s => s.classList.remove('active'));
   stat.classList.add('active');
   _activeStatCat = cat;
-  statsDetail.innerHTML = '<div class="detail-title">Lade...</div>';
+  statsDetail.innerHTML = '<div class="detail-title">Loading...</div>';
   statsDetail.classList.add('open');
 
   try {
     if (cat === 'contributors') {
-      statsDetail.innerHTML = '<div class="detail-title">Token Contributoren</div><div id="contributors-detail-content" style="color:#888;">Lade...</div>';
+      statsDetail.innerHTML = '<div class="detail-title">Token Contributors</div><div id="contributors-detail-content" style="color:#888;">Loading...</div>';
       statsDetail.classList.add('open');
       const spRes = await fetch('/contributors');
       const contributors = await spRes.json();
@@ -710,7 +710,7 @@ document.getElementById('stats-bar').addEventListener('click', async (e) => {
       statsDetail.innerHTML = renderDetail(cat, data);
     }
   } catch (err) {
-    statsDetail.innerHTML = '<div class="detail-title">Fehler</div>';
+    statsDetail.innerHTML = '<div class="detail-title">Error</div>';
   }
 });
 
@@ -757,7 +757,7 @@ function showStationDetail(index) {
   } else if (_detailCat === 'stimuli') {
     title = item.category + ' Stimulus';
     body = '<div class="sd-row"><span class="sd-label">Time:</span> ' + fmtTime(item.sanitized_at) + '</div>' +
-           '<div class="sd-row"><span class="sd-label">Flagged:</span> ' + (item.was_flagged ? 'Ja' : 'Nein') + '</div>' +
+           '<div class="sd-row"><span class="sd-label">Flagged:</span> ' + (item.was_flagged ? 'Yes' : 'No') + '</div>' +
            '<div class="sd-text">' + (item.sanitized_text || item.raw_text || '-') + '</div>';
   } else if (_detailCat === 'flagged') {
     title = 'Flagged: ' + (item.category || '?');
@@ -810,34 +810,34 @@ function fmtTime(iso) {
 function renderDetail(cat, data) {
   _detailData = Array.isArray(data) ? data : Object.entries(data);
   _detailCat = cat;
-  if (!data || (Array.isArray(data) && data.length === 0)) return '<div class="detail-title">Keine Daten</div>';
+  if (!data || (Array.isArray(data) && data.length === 0)) return '<div class="detail-title">No Data</div>';
 
   if (cat === 'tracks') {
-    let h = '<div class="detail-title">Zuletzt gespielt</div><table><tr><th>Zeit</th><th>Artist</th><th>Title</th><th>Genre</th><th>Phase</th></tr>';
+    let h = '<div class="detail-title">Recently Played</div><table><tr><th>Time</th><th>Artist</th><th>Title</th><th>Genre</th><th>Phase</th></tr>';
     data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.played_at) + '</td><td>' + r.artist + '</td><td>' + r.title + '</td><td>' + r.genre + '</td><td>' + (r.phase||'') + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'moderations') {
-    let h = '<div class="detail-title">Letzte Moderationen</div><table><tr><th>Zeit</th><th>Phase</th><th>Text</th></tr>';
+    let h = '<div class="detail-title">Last Moderations</div><table><tr><th>Time</th><th>Phase</th><th>Text</th></tr>';
     data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + (r.phase||'') + '</td><td>' + r.text.substring(0,100) + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'ads') {
-    let h = '<div class="detail-title">Gesendete Ads</div><table><tr><th>Zeit</th><th>Contributor</th><th>Text</th></tr>';
+    let h = '<div class="detail-title">Sent Ads</div><table><tr><th>Time</th><th>Contributor</th><th>Text</th></tr>';
     data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.contributor + '</td><td>' + r.text.substring(0,80) + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'guard') {
-    let h = '<div class="detail-title">StreamGuard Blocks</div><table><tr><th>Zeit</th><th>Grund</th></tr>';
+    let h = '<div class="detail-title">StreamGuard Blocks</div><table><tr><th>Time</th><th>Reason</th></tr>';
     data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.time) + '</td><td>' + r.reason + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'llm') {
-    let h = '<div class="detail-title">LLM Usage nach Rolle</div><table><tr><th>Rolle</th><th>Modell</th><th>Calls</th><th>Tokens in</th><th>Tokens out</th><th>Avg Latenz</th><th>Errors</th></tr>';
+    let h = '<div class="detail-title">LLM Usage by Role</div><table><tr><th>Role</th><th>Model</th><th>Calls</th><th>Tokens in</th><th>Tokens out</th><th>Avg Latency</th><th>Errors</th></tr>';
     Object.entries(data).forEach(([role, v], i) => {
       h += '<tr onclick="showStationDetail(' + i + ')"><td>' + role + '</td><td>' + (v.model||'-') + '</td><td>' + v.calls + '</td><td>' + formatNum(v.prompt_tokens) + '</td><td>' + formatNum(v.completion_tokens) + '</td><td>' + Math.round(v.avg_latency_ms||0) + 'ms</td><td>' + (v.errors||0) + '</td></tr>';
     });
@@ -845,20 +845,20 @@ function renderDetail(cat, data) {
   }
 
   if (cat === 'stimuli') {
-    let h = '<div class="detail-title">Letzte Stimuli</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Text</th><th>Flagged</th></tr>';
-    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.sanitized_text||'-').substring(0,80) + '</td><td>' + (r.was_flagged ? 'Ja' : '-') + '</td></tr>'; });
+    let h = '<div class="detail-title">Last Stimuli</div><table><tr><th>Time</th><th>Category</th><th>Text</th><th>Flagged</th></tr>';
+    data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.sanitized_text||'-').substring(0,80) + '</td><td>' + (r.was_flagged ? 'Yes' : '-') + '</td></tr>'; });
     return h + '</table>';
   }
 
   if (cat === 'flagged') {
-    let h = '<div class="detail-title">Geflaggte Eingaben</div><table><tr><th>Zeit</th><th>Kategorie</th><th>Eingabe</th><th>Grund</th></tr>';
+    let h = '<div class="detail-title">Flagged Inputs</div><table><tr><th>Time</th><th>Category</th><th>Input</th><th>Reason</th></tr>';
     data.forEach((r,i) => { h += '<tr onclick="showStationDetail(' + i + ')"><td>' + fmtTime(r.sanitized_at) + '</td><td>' + r.category + '</td><td>' + (r.raw_text||'').substring(0,60) + '</td><td>' + (r.flag_reason||'-') + '</td></tr>'; });
     return h + '</table>';
   }
 
-  if (cat === 'listeners') return '<div class="detail-title">Listener</div><div class="sd-row">Aktive Verbindungen: <b>' + document.getElementById('s-listeners').textContent + '</b></div><div class="sd-row">Uptime: ' + document.getElementById('s-uptime').textContent + '</div><div style="color:#444;font-size:10px;margin-top:6px;">Keine persoenlichen Daten. Kein Tracking.</div>';
-  if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Sendestunden: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
-  if (cat === 'contributors') return '<div class="detail-title">Token Contributoren</div><div id="contributors-detail-content" style="color:#888;"><span class="spinner"></span> Lade...</div>';
+  if (cat === 'listeners') return '<div class="detail-title">Listeners</div><div class="sd-row">Active Connections: <b>' + document.getElementById('s-listeners').textContent + '</b></div><div class="sd-row">Uptime: ' + document.getElementById('s-uptime').textContent + '</div><div style="color:#444;font-size:10px;margin-top:6px;">No personal data. No tracking.</div>';
+  if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Broadcast Hours: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
+  if (cat === 'contributors') return '<div class="detail-title">Token Contributors</div><div id="contributors-detail-content" style="color:#888;"><span class="spinner"></span> Loading...</div>';
 
   return '<div class="detail-title">' + JSON.stringify(data).substring(0,200) + '</div>';
 }
@@ -867,8 +867,8 @@ function renderContributorsDetail(contributors) {
   const el = document.getElementById('contributors-detail-content');
   if (!el) return;
   if (!contributors || !contributors.length) {
-    el.innerHTML = '<div style="color:#555;">Keine Contributoren.</div>' +
-      '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Contributor werden (Hub)</a>';
+    el.innerHTML = '<div style="color:#555;">No Contributors.</div>' +
+      '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Become a Contributor (Hub)</a>';
     return;
   }
   el.innerHTML = contributors.map(s => {
@@ -880,7 +880,7 @@ function renderContributorsDetail(contributors) {
       (s.token_budget > 0 ? '<div style="width:100%;height:2px;background:#1a1a1a;border-radius:1px;margin-top:4px;"><div style="height:100%;background:' + (pct>80?'#ef4444':'#4ade80') + ';width:' + pct + '%;border-radius:1px;"></div></div>' : '') +
     '</div>';
   }).join('') +
-  '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Contributor werden (Hub)</a>';
+  '<a href="http://localhost:' + (window.location.port || 8080).replace('8080','3099') + '#contributor" target="_blank" style="color:#6366f1;font-size:11px;display:block;margin-top:8px;">→ Become a Contributor (Hub)</a>';
 }
 
 function nowTime() {
@@ -923,7 +923,7 @@ function handleEvent(data) {
       content.textContent = data.text;
       document.querySelector('.now-playing-bar').classList.add('is-moderation');
       document.querySelector('.np-label').textContent = 'Moderation';
-      nowPlayingEl.textContent = data.phase || 'DJ spricht...';
+      nowPlayingEl.textContent = data.phase || 'DJ speaking...';
       if (data.sim_duration) {
         startProgress(data.sim_duration, data.duration || data.sim_duration);
       }
@@ -945,7 +945,7 @@ function handleEvent(data) {
       content.textContent = data.text;
       if (data.drop_status === 'used') {
         el.classList.add('moderation');
-        label.textContent = 'Drop verwendet · ' + data.drop_category;
+        label.textContent = 'Drop used · ' + data.drop_category;
       } else if (data.drop_status === 'pending') {
         label.textContent = 'Drop pending · ' + data.drop_category;
         el.style.borderLeftColor = '#fbbf24';
@@ -1013,7 +1013,7 @@ function updateCharCounter() {
 
 function showAlert(actual) {
   document.getElementById('alert-msg').textContent =
-    'Max. ' + MAX_CHARS + ' Zeichen erlaubt. Deine Eingabe: ' + actual + ' Zeichen. Bitte kuerze den Text.';
+    'Max. ' + MAX_CHARS + ' characters allowed. Your input: ' + actual + ' characters. Please shorten the text.';
   document.getElementById('alert-overlay').classList.add('open');
 }
 
@@ -1052,11 +1052,11 @@ async function send() {
     if (result.was_flagged) {
       handleEvent({
         type: 'system',
-        text: '⚠ Eingabe geflaggt: ' + (result.flag_reason || 'Unbekannt'),
+        text: '⚠ Input flagged: ' + (result.flag_reason || 'Unknown'),
       });
     }
   } catch (err) {
-    handleEvent({ type: 'system', text: 'Fehler beim Senden: ' + err.message });
+    handleEvent({ type: 'system', text: 'Error sending: ' + err.message });
   }
 
   messageEl.value = '';
@@ -1118,13 +1118,13 @@ function openModal() {
   document.getElementById('modal-cfg-persona').textContent = cfg.persona_path || '-';
   document.getElementById('modal-cfg-tracks').textContent = (cfg.tracks_file || '-') + ' (' + (cfg.tracks_count || '?') + ' Tracks)';
   document.getElementById('modal-cfg-rules').textContent = 'No-Repeat ' + (rules.no_repeat_hours || 4) + 'h, max ' + (rules.max_same_genre_in_a_row || 2) + 'x Genre';
-  document.getElementById('modal-cfg-maxmod').textContent = (dj.max_moderation_chars || 800) + ' Zeichen';
+  document.getElementById('modal-cfg-maxmod').textContent = (dj.max_moderation_chars || 800) + ' chars';
   document.getElementById('modal-cfg-timescale').textContent = (cfg.time_scale || '60') + 'x';
   document.getElementById('modal-cfg-db').textContent = cfg.db_path || '-';
   document.getElementById('modal-cfg-llm-dj').textContent = (cfg.llm_dj || {}).model + ' @ ' + (cfg.llm_dj || {}).base_url;
   document.getElementById('modal-cfg-llm-filter').textContent = (cfg.llm_filter || {}).model + ' @ ' + (cfg.llm_filter || {}).base_url;
   const fb = cfg.llm_fallback || {};
-  document.getElementById('modal-cfg-llm-fallback').textContent = fb.model && fb.base_url ? fb.model + ' @ ' + fb.base_url : '(keiner)';
+  document.getElementById('modal-cfg-llm-fallback').textContent = fb.model && fb.base_url ? fb.model + ' @ ' + fb.base_url : '(none)';
   document.getElementById('modal-cfg-port').textContent = cfg.port || '-';
 
   document.getElementById('modal-overlay').classList.add('open');
@@ -1151,8 +1151,8 @@ function openDjModal() {
 
   const initials = (dj.name || '?').split(' ').map(w => w[0]).join('').substring(0, 2);
   document.getElementById('dj-avatar').textContent = initials;
-  document.getElementById('dj-modal-name').textContent = dj.name + (bio.real_name && bio.real_name !== 'unbekannt' ? '  (' + bio.real_name + ')' : '');
-  document.getElementById('dj-modal-since').textContent = bio.since_year ? 'DJ seit ' + bio.since_year : '';
+  document.getElementById('dj-modal-name').textContent = dj.name + (bio.real_name && bio.real_name !== 'unknown' ? '  (' + bio.real_name + ')' : '');
+  document.getElementById('dj-modal-since').textContent = bio.since_year ? 'DJ since ' + bio.since_year : '';
   document.getElementById('dj-modal-vita').textContent = bio.vita || dj.personality || '';
   document.getElementById('dj-modal-age').textContent = bio.age || '-';
   document.getElementById('dj-modal-origin').textContent = bio.origin || '-';

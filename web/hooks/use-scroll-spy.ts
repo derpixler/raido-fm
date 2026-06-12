@@ -3,22 +3,23 @@
 import { useEffect, useState } from "react";
 
 type ScrollSpyResult = {
-  /** ID der aktuell aktiven Section. */
+  /** ID of the currently active section. */
   activeId: string;
-  /** IDs aller bereits gelesenen (überschrittenen) Sections. */
+  /** IDs of all already-read (scrolled past) sections. */
   readIds: Set<string>;
 };
 
-/** Erkennungslinie bei 30 % der Viewport-Höhe. */
+/** Detection line at 30 % of the viewport height. */
 const ACTIVE_LINE_RATIO = 0.3;
 
 /**
- * Scroll-Spy auf Basis des nativen IntersectionObserver — ohne externe Library.
+ * Scroll spy based on the native IntersectionObserver — no external library.
  *
- * Der Observer triggert die Neuberechnung nur bei Sichtbarkeitswechseln (günstig).
- * Aktiv ist die *letzte* Section, deren Oberkante über der Erkennungslinie liegt.
- * Am Seitenende wird explizit die letzte Section aktiv — sonst könnten kurze
- * Sektionen ganz unten nie weit genug nach oben scrollen, um aktiv zu werden.
+ * The observer only triggers recalculation on visibility changes (cheap).
+ * Active is the *last* section whose top edge is above the detection line.
+ * At the bottom of the page the last section is explicitly set active —
+ * otherwise short sections at the very bottom might never scroll up far
+ * enough to become active.
  */
 export function useScrollSpy(ids: string[]): ScrollSpyResult {
   const [activeId, setActiveId] = useState<string>(ids[0] ?? "");
@@ -41,7 +42,7 @@ export function useScrollSpy(ids: string[]): ScrollSpyResult {
 
       let active = ids[0];
       if (atBottom) {
-        // Seitenende erreicht → letzte Section gilt als aktiv.
+        // Bottom reached → last section is considered active.
         active = ids[ids.length - 1];
       } else {
         for (const el of elements) {
@@ -63,7 +64,7 @@ export function useScrollSpy(ids: string[]): ScrollSpyResult {
       frame = requestAnimationFrame(compute);
     };
 
-    // IntersectionObserver als günstiger Trigger für Neuberechnungen.
+    // IntersectionObserver as a cheap trigger for recalculations.
     const observer = new IntersectionObserver(schedule, {
       threshold: [0, 0.25, 0.5, 0.75, 1],
     });

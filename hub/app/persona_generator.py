@@ -11,35 +11,35 @@ from . import llm
 logger = logging.getLogger(__name__)
 
 PERSONA_SCHEMA = """station:
-  id: <kurze-id>
+  id: <short-id>
   name: auto
-  claim: "<max 6 worte>"
+  claim: "<max 6 words>"
   description: >
-    <2-3 saetze positionierung>
+    <2-3 sentences positioning>
   lang_definition: >
-    <5-8 saetze ausfuehrliche beschreibung>
-  genre: <hauptgenre>
+    <5-8 sentences detailed description>
+  genre: <main-genre>
   subgenres: [<3-5 subgenres>]
-  target_audience: "<zielgruppe>"
+  target_audience: "<target audience>"
   timezone: Europe/Berlin
-  language: de
+  language: en
 
 dj:
-  name: "<dj-kuenstlername>"
-  personality: "<2-3 saetze charakter>"
-  tone: "<tonalitaet, vergleich>"
+  name: "<dj-artist-name>"
+  personality: "<2-3 sentences character>"
+  tone: "<tonality, comparison>"
   max_moderation_chars: 800
   bio:
-    real_name: "<buergerlicher name>"
-    age: <zahl>
-    origin: "<stadt/region>"
-    family: "<familienstand, details>"
+    real_name: "<legal name>"
+    age: <number>
+    origin: "<city/region>"
+    family: "<family status, details>"
     hobbies: "<3-4 hobbies>"
-    since_year: <jahr>
+    since_year: <year>
     vita: >
-      <3-5 saetze lebenslauf>
+      <3-5 sentences resume>
     avatar_prompt: >
-      <englischer prompt fuer portrait-generierung>
+      <english prompt for portrait generation>
   quirks:
     - "<quirk 1>"
     - "<quirk 2>"
@@ -56,60 +56,60 @@ rules:
   max_same_genre_in_a_row: 2"""
 
 
-PERSONA_PROMPT = f"""Du bist ein kreativer Radio-Stations-Architekt. Generiere eine vollstaendige
-Persona-YAML fuer eine einzigartige, ueberraschende Radiostation.
+PERSONA_PROMPT = f"""You are a creative radio station architect. Generate a complete
+persona YAML for a unique, surprising radio station.
 
-REGELN:
-- Ungewoehnliches Genre oder unerwartete Genre-Kombination
-- Origineller DJ-Charakter mit Tiefe (keine Klischees)
-- Deutscher Sender, deutsche Sendesprache
-- Der DJ muss sich wie eine echte Person anfuehlen (Bio, Hobbies, Familie)
-- Claim: max 6 Worte, praegnant
-- 3-5 Subgenres die zusammenpassen
-- 3-4 kreative Quirks (wiederkehrende Eigenheiten)
-- avatar_prompt auf Englisch (fuer Bildgenerierung)
-- station.id: nur lowercase, keine sonderzeichen, max 15 zeichen
+RULES:
+- Unusual genre or unexpected genre combination
+- Original DJ character with depth (no clichés)
+- Original station, English broadcast language
+- The DJ must feel like a real person (bio, hobbies, family)
+- Claim: max 6 words, memorable
+- 3-5 subgenres that go together
+- 3-4 creative quirks (recurring idiosyncrasies)
+- avatar_prompt in English (for image generation)
+- station.id: lowercase only, no special characters, max 15 characters
 
-STRENG VERBOTEN (sofortige Ablehnung):
-- KEINE echten Radiosender referenzieren (BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS, …)
-- KEINE echten Personen als DJ-Vorbild (Thomas Gottschalk, Stefan Raab, …)
-- KEINE Catchphrases oder Persoenlichkeitsmerkmale echter Moderatoren
-- DJ muss eine 100% fiktive, eigenstaendig erfundene Figur sein
+STRICTLY FORBIDDEN (immediate rejection):
+- NO real radio stations referenced (BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS, ...)
+- NO real people as DJ role models (Thomas Gottschalk, Stefan Raab, ...)
+- NO catchphrases or personality traits of real moderators
+- DJ must be a 100% fictional, independently invented character
 
-Antworte NUR mit gueltigem YAML. Keine Erklaerung, kein Markdown.
-Folge EXAKT diesem Schema:
+Answer ONLY with valid YAML. No explanation, no markdown.
+Follow EXACTLY this schema:
 
 {PERSONA_SCHEMA}"""
 
 
-TRACKS_PROMPT = """Generiere eine JSON Track-Library mit genau 40 Tracks fuer eine Radiostation.
+TRACKS_PROMPT = """Generate a JSON track library with exactly 40 tracks for a radio station.
 
 Genre: {genre}
 Subgenres: {subgenres}
 
-REGELN:
-- NUR echte Kuenstler und echte Songs die zum Genre passen
-- Mischung aus bekannten und weniger bekannten Tracks
-- Realistische Dauer (120-720 Sekunden)
-- Energy-Wert zwischen 0.0 (ruhig) und 1.0 (energetisch)
-- Gute Mischung der Subgenres
-- Format pro Track: {{"id": N, "artist": "...", "title": "...", "genre": "<subgenre>", "duration": <sekunden>, "energy": <0.0-1.0>}}
+RULES:
+- ONLY real artists and real songs that fit the genre
+- Mix of well-known and lesser-known tracks
+- Realistic duration (120-720 seconds)
+- Energy value between 0.0 (calm) and 1.0 (energetic)
+- Good mix of subgenres
+- Format per track: {{"id": N, "artist": "...", "title": "...", "genre": "<subgenre>", "duration": <seconds>, "energy": <0.0-1.0>}}
 
-Antworte NUR mit dem JSON-Array. Kein Markdown, keine Erklaerung."""
+Answer ONLY with the JSON array. No markdown, no explanation."""
 
 
 async def generate_persona(genre_hint: str | None = None, language: str = "de", dj_hint: str | None = None) -> dict:
     prompt = PERSONA_PROMPT
     if genre_hint:
-        prompt += f'\n\nGenre-Hinweis vom User: "{genre_hint}" — nutze das als Inspiration, aber sei kreativ.'
+        prompt += f'\n\nGenre hint from user: "{genre_hint}" — use it as inspiration, but be creative.'
     if dj_hint:
-        prompt += f'\n\nDJ-Hinweis vom User: "{dj_hint}" — nutze das als Inspiration fuer den DJ-Charakter, aber sei kreativ.'
+        prompt += f'\n\nDJ hint from user: "{dj_hint}" — use it as inspiration for the DJ character, but be creative.'
     if language != "de":
-        prompt += f'\n\nSPRACHE: Die gesamte Persona muss in Sprache "{language}" sein — Station, DJ-Name, Bio, Quirks, alles.'
-    prompt += '\n\nWICHTIG: Die Station-Sprache (language) muss "' + language + '" sein.'
+        prompt += f'\n\nLANGUAGE: The entire persona must be in language "{language}" — station, DJ name, bio, quirks, everything.'
+    prompt += '\n\nIMPORTANT: The station language must be "' + language + '".'
 
     messages = [
-        {"role": "system", "content": "Du bist ein kreativer Radio-Stations-Architekt."},
+        {"role": "system", "content": "You are a creative radio station architect."},
         {"role": "user", "content": prompt},
     ]
 
@@ -138,7 +138,7 @@ async def generate_tracks(genre: str, subgenres: list[str]) -> str | None:
     prompt = TRACKS_PROMPT.format(genre=genre, subgenres=", ".join(subgenres))
 
     messages = [
-        {"role": "system", "content": "Du bist ein Musik-Kurator und Track-Library-Experte."},
+        {"role": "system", "content": "You are a music curator and track library expert."},
         {"role": "user", "content": prompt},
     ]
 
@@ -162,81 +162,81 @@ async def generate_tracks(genre: str, subgenres: list[str]) -> str | None:
     return clean
 
 
-STATION_SECTION_PROMPT = """Du bist ein kreativer Radio-Stations-Architekt. Generiere NUR den station:-Block einer Persona-YAML.
+STATION_SECTION_PROMPT = """You are a creative radio station architect. Generate ONLY the station: block of a persona YAML.
 
-REGELN:
-- Ungewoehnliches Genre oder unerwartete Genre-Kombination
-- Deutscher Sender, deutsche Sendesprache
-- Claim: max 6 Worte, praegnant
-- 3-5 Subgenres die zusammenpassen
-- station.id: nur lowercase, keine sonderzeichen, max 15 zeichen
+RULES:
+- Unusual genre or unexpected genre combination
+- Original station, English broadcast language
+- Claim: max 6 words, memorable
+- 3-5 subgenres that go together
+- station.id: lowercase only, no special characters, max 15 characters
 
 {station_hint}
 
-STRENG VERBOTEN:
-- KEINE echten Radiosender referenzieren
+STRICTLY FORBIDDEN:
+- NO real radio stations referenced
 
-Antworte NUR mit gueltigem YAML fuer den station:-Block. Keine Erklaerung, kein Markdown.
+Answer ONLY with valid YAML for the station: block. No explanation, no markdown.
 
-Folge diesem Schema:
+Follow this schema:
 {station_schema}"""
 
 
-DJ_SECTION_PROMPT = """Du bist ein kreativer Radio-Charakter-Designer. Generiere NUR den dj:-Block einer Persona-YAML.
+DJ_SECTION_PROMPT = """You are a creative radio character designer. Generate ONLY the dj: block of a persona YAML.
 
 {dj_hint}
 
-STATION-KONTEXT (bleibt unveraendert):
+STATION CONTEXT (remains unchanged):
 {station_context}
 
-REGELN:
-- Origineller DJ-Charakter mit Tiefe (keine Klischees)
-- Der DJ muss sich wie eine echte Person anfuehlen (Bio, Hobbies, Familie)
-- 3-4 kreative Quirks (wiederkehrende Eigenheiten)
-- avatar_prompt auf Englisch (fuer Bildgenerierung)
+RULES:
+- Original DJ character with depth (no clichés)
+- The DJ must feel like a real person (bio, hobbies, family)
+- 3-4 creative quirks (recurring idiosyncrasies)
+- avatar_prompt in English (for image generation)
 
-STRENG VERBOTEN:
-- KEINE echten Personen als DJ-Vorbild
-- KEINE Catchphrases oder Persoenlichkeitsmerkmale echter Moderatoren
-- DJ muss eine 100% fiktive, eigenstaendig erfundene Figur sein
+STRICTLY FORBIDDEN:
+- NO real people as DJ role models
+- NO catchphrases or personality traits of real moderators
+- DJ must be a 100% fictional, independently invented character
 
-Antworte NUR mit gueltigem YAML fuer den dj:-Block. Keine Erklaerung, kein Markdown.
+Answer ONLY with valid YAML for the dj: block. No explanation, no markdown.
 
-Folge diesem Schema:
+Follow this schema:
 {dj_schema}"""
 
 
 _STATION_SCHEMA_YAML = """station:
-  id: <kurze-id>
+  id: <short-id>
   name: auto
-  claim: "<max 6 worte>"
+  claim: "<max 6 words>"
   description: >
-    <2-3 saetze positionierung>
+    <2-3 sentences positioning>
   lang_definition: >
-    <5-8 saetze ausfuehrliche beschreibung>
-  genre: <hauptgenre>
+    <5-8 sentences detailed description>
+  genre: <main-genre>
   subgenres: [<3-5 subgenres>]
-  target_audience: "<zielgruppe>"
+  target_audience: "<target audience>"
   timezone: Europe/Berlin
-  language: de"""
+  language: en"""
 
 
 _DJ_SCHEMA_YAML = """dj:
-  name: "<dj-kuenstlername>"
-  personality: "<2-3 saetze charakter>"
-  tone: "<tonalitaet, vergleich>"
+  name: "<dj-artist-name>"
+  personality: "<2-3 sentences character>"
+  tone: "<tonality, comparison>"
   max_moderation_chars: 800
   bio:
-    real_name: "<buergerlicher name>"
-    age: <zahl>
-    origin: "<stadt/region>"
-    family: "<familienstand, details>"
+    real_name: "<legal name>"
+    age: <number>
+    origin: "<city/region>"
+    family: "<family status, details>"
     hobbies: "<3-4 hobbies>"
-    since_year: <jahr>
+    since_year: <year>
     vita: >
-      <3-5 saetze lebenslauf>
+      <3-5 sentences resume>
     avatar_prompt: >
-      <englischer prompt fuer portrait-generierung>
+      <english prompt for portrait generation>
   quirks:
     - "<quirk 1>"
     - "<quirk 2>"
@@ -247,15 +247,15 @@ _DJ_SCHEMA_YAML = """dj:
 async def generate_station_section(genre_hint: str | None = None, language: str = "de") -> dict:
     hint = ""
     if genre_hint:
-        hint = f'Genre-Hinweis vom User: "{genre_hint}" — nutze das als Inspiration, aber sei kreativ.'
+        hint = f'Genre hint from user: "{genre_hint}" — use it as inspiration, but be creative.'
     if language != "de":
-        hint += f'\n\nSPRACHE: Die Station muss in Sprache "{language}" sein.'
-    hint += '\n\nWICHTIG: Die Station-Sprache (language) muss "' + language + '" sein.'
+        hint += f'\n\nLANGUAGE: The station must be in language "{language}".'
+    hint += '\n\nIMPORTANT: The station language must be "' + language + '".'
 
     prompt = STATION_SECTION_PROMPT.format(station_hint=hint, station_schema=_STATION_SCHEMA_YAML)
 
     messages = [
-        {"role": "system", "content": "Du bist ein kreativer Radio-Stations-Architekt."},
+        {"role": "system", "content": "You are a creative radio station architect."},
         {"role": "user", "content": prompt},
     ]
 
@@ -281,14 +281,14 @@ async def generate_station_section(genre_hint: str | None = None, language: str 
 async def generate_dj_section(traits_hint: str | None = None, station_context: str | None = None) -> dict:
     hint = ""
     if traits_hint:
-        hint = f'DJ-Eigenschaften vom User: "{traits_hint}" — nutze das als Inspiration, aber sei kreativ.'
+        hint = f'DJ traits from user: "{traits_hint}" — use it as inspiration, but be creative.'
 
-    ctx = station_context or "kein station-kontext verfuegbar"
+    ctx = station_context or "no station context available"
 
     prompt = DJ_SECTION_PROMPT.format(dj_hint=hint, station_context=ctx, dj_schema=_DJ_SCHEMA_YAML)
 
     messages = [
-        {"role": "system", "content": "Du bist ein kreativer Radio-Charakter-Designer."},
+        {"role": "system", "content": "You are a creative radio character designer."},
         {"role": "user", "content": prompt},
     ]
 
@@ -327,18 +327,18 @@ def _slugify(name: str) -> str:
 
 HARD_CONTENT_FILTER = [
     r"nazi", r"nsdap", r"hitler", r"holocaust", r"sieg\s*heil",
-    r"white\s*power", r"rassenlehre", r"voelkermord",
-    r"kinderporn", r"paedophil",
-    r"anschlag\s*plan", r"bombe\s*bauen", r"auftragsmord",
+    r"white\s*power", r"racial\s*doctrine", r"genocide",
+    r"child\s*porn", r"pedophil",
+    r"attack\s*plan", r"bomb\s*making", r"contract\s*killing",
     r"isis", r"al.qaeda",
 ]
 
 PROMPT_INJECTION_PATTERNS = [
-    r"du bist \w+ \w+",
-    r"du sollst.*sein",
-    r"ab jetzt bist du",
+    r"you are \w+ \w+",
+    r"you should.*be",
+    r"from now on you are",
     r"ignore.*all.*previous",
-    r"vergiss.*bisherige",
+    r"forget.*previous",
 ]
 
 
@@ -348,37 +348,37 @@ def _validate_hard_fallback(persona_yaml: str) -> dict:
 
     for pattern in HARD_CONTENT_FILTER:
         if re.search(pattern, lower):
-            issues.append(f"Harter Content-Filter: unzulaessiger Inhalt erkannt")
+            issues.append(f"Hard content filter: impermissible content detected")
 
     for pattern in PROMPT_INJECTION_PATTERNS:
         if re.search(pattern, lower):
-            issues.append(f"Prompt-Injection erkannt")
+            issues.append(f"Prompt injection detected")
 
     if issues:
         return {"valid": False, "issues": issues}
     return {"valid": True, "issues": []}
 
 
-CONTENT_SAFETY_PROMPT = """Du bist ein Content-Safety-Pruefer fuer eine Radio-Plattform. Pruefe diese Persona-YAML.
+CONTENT_SAFETY_PROMPT = """You are a content safety reviewer for a radio platform. Review this persona YAML.
 
-NICHT ERLAUBT (sofort ablehnen):
-- Referenzen auf echte, existierende Radiosender (z.B. BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS)
-- Referenzen auf echte Personen (Moderatoren, Prominente, Politiker, Kuenstler)
-- Imitation bekannter Personen ("sprich wie Thomas Gottschalk", "im Stil von...")
-- Wiedererkennbare Catchphrases echter Moderatoren
-- Rassistische, diskriminierende oder volksverhetzende Inhalte
-- Aufrufe zu Gewalt oder Straftaten
-- Die DJ-Persoenlichkeit darf keine reale Person als Vorbild oder Blaupause haben
+NOT ALLOWED (reject immediately):
+- References to real, existing radio stations (e.g. BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS)
+- References to real people (moderators, celebrities, politicians, artists)
+- Imitation of known people ("speak like Thomas Gottschalk", "in the style of...")
+- Recognizable catchphrases of real moderators
+- Racist, discriminatory or hate speech content
+- Calls for violence or criminal acts
+- The DJ personality must not have a real person as role model or blueprint
 
-ERLAUBT:
-- Fiktive, eigenstaendig erfundene DJ-Charaktere
-- Eigene, originelle Sendernamen (keine Abwandlungen echter Namen)
-- Kreative, ueberraschende Genre-Kombinationen
+ALLOWED:
+- Fictional, independently invented DJ characters
+- Own, original station names (no variations of real names)
+- Creative, surprising genre combinations
 
 YAML:
 {yaml}
 
-Antworte NUR mit JSON: {{"valid": true/false, "reason": "..."}}"""
+Answer ONLY with JSON: {{"valid": true/false, "reason": "..."}}"""
 
 
 async def validate_persona(persona_yaml: str) -> dict:
@@ -389,7 +389,7 @@ async def validate_persona(persona_yaml: str) -> dict:
     prompt = CONTENT_SAFETY_PROMPT.format(yaml=persona_yaml[:3000])
 
     messages = [
-        {"role": "system", "content": "Du bist ein Content-Safety-Pruefer fuer eine Radio-Plattform."},
+        {"role": "system", "content": "You are a content safety reviewer for a radio platform."},
         {"role": "user", "content": prompt},
     ]
 
@@ -403,7 +403,7 @@ async def validate_persona(persona_yaml: str) -> dict:
         clean = re.sub(r"\s*```$", "", clean)
         parsed = json.loads(clean)
         if not parsed.get("valid", True):
-            return {"valid": False, "issues": [parsed.get("reason", "Inhalt von LLM abgelehnt")]}
+            return {"valid": False, "issues": [parsed.get("reason", "Content rejected by LLM")]}
     except (json.JSONDecodeError, TypeError):
         pass
 

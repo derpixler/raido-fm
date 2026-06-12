@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Melvins",
+    "title": "Honey Bucket",
+    "genre": "Sludge Metal",
+    "duration": 181,
+    "energy": 0.95
+  },
+  {
+    "id": 2,
+    "artist": "Electric Wizard",
+    "title": "Dopethrone",
+    "genre": "Doom Metal",
+    "duration": 504,
+    "energy": 0.75
+  },
+  {
+    "id": 3,
+    "artist": "Queens of the Stone Age",
+    "title": "No One Knows",
+    "genre": "Stoner Rock",
+    "duration": 278,
+    "energy": 0.85
+  },
+  {
+    "id": 4,
+    "artist": "The Dillinger Escape Plan",
+    "title": "43% Burnt",
+    "genre": "Industrial Punk",
+    "duration": 154,
+    "energy": 0.98
+  },
+  {
+    "id": 5,
+    "artist": "The White Stripes",
+    "title": "Seven Nation Army",
+    "genre": "Garage Rock",
+    "duration": 233,
+    "energy": 0.8
+  },
+  {
+    "id": 6,
+    "artist": "Eyehategod",
+    "title": "Take as Needed for Pain",
+    "genre": "Sludge Metal",
+    "duration": 345,
+    "energy": 0.9
+  },
+  {
+    "id": 7,
+    "artist": "Sleep",
+    "title": "Dragonaut",
+    "genre": "Stoner Rock",
+    "duration": 415,
+    "energy": 0.7
+  },
+  {
+    "id": 8,
+    "artist": "Godflesh",
+    "title": "Streetcleaner",
+    "genre": "Industrial Punk",
+    "duration": 367,
+    "energy": 0.9
+  },
+  {
+    "id": 9,
+    "artist": "Candlemass",
+    "title": "Solitude",
+    "genre": "Doom Metal",
+    "duration": 313,
+    "energy": 0.3
+  },
+  {
+    "id": 10,
+    "artist": "The Stooges",
+    "title": "I Wanna Be Your Dog",
+    "genre": "Garage Rock",
+    "duration": 205,
+    "energy": 0.88
+  },
+  {
+    "id": 11,
+    "artist": "Crowbar",
+    "title": "Existence Is Punishment",
+    "genre": "Sludge Metal",
+    "duration": 274,
+    "energy": 0.85
+  },
+  {
+    "id": 12,
+    "artist": "Kyuss",
+    "title": "Green Machine",
+    "genre": "Stoner Rock",
+    "duration": 218,
+    "energy": 0.82
+  },
+  {
+    "id": 13,
+    "artist": "Ministry",
+    "title": "Jesus Built My Hotrod",
+    "genre": "Industrial Punk",
+    "duration": 295,
+    "energy": 0.92
+  },
+  {
+    "id": 14,
+    "artist": "Cathedral",
+    "title": "Ride",
+    "genre": "Doom Metal",
+    "duration": 396,
+    "energy": 0.65
+  },
+  {
+    "id": 15,
+    "artist": "The Hives",
+    "title": "Hate to Say I Told You So",
+    "genre": "Garage Rock",
+    "duration": 202,
+    "energy": 0.9
+  },
+  {
+    "id": 16,
+    "artist": "Acid Bath",
+    "title": "Jezebel",
+    "genre": "Sludge Metal",
+    "duration": 288,
+    "energy": 0.88
+  },
+  {
+    "id": 17,
+    "artist": "Fu Manchu",
+    "title": "King of the Road",
+    "genre": "Stoner Rock",
+    "duration": 217,
+    "energy": 0.78
+  },
+  {
+    "id": 18,
+    "artist": "KMFDM",
+    "title": "Juke Joint Jezebel",
+    "genre": "Industrial Punk",
+    "duration": 345,
+    "energy": 0.85
+  },
+  {
+    "id": 19,
+    "artist": "My Dying Bride",
+    "title": "The Cry of Mankind",
+    "genre": "Doom Metal",
+    "duration": 720,
+    "energy": 0.2
+  },
+  {
+    "id": 20,
+    "artist": "The Sonics",
+    "title": "Psycho",
+    "genre": "Garage Rock",
+    "duration": 155,
+    "energy": 0.93
+  },
+  {
+    "id": 21,
+    "artist": "High on Fire",
+    "title": "Fury Whip",
+    "genre": "Sludge Metal",
+    "duration": 258,
+    "energy": 0.96
+  },
+  {
+    "id": 22,
+    "artist": "Clutch",
+    "title": "The Mob Goes Wild",
+    "genre": "Stoner Rock",
+    "duration": 245,
+    "energy": 0.8
+  },
+  {
+    "id": 23,
+    "artist": "Nine Inch Nails",
+    "title": "Wish",
+    "genre": "Industrial Punk",
+    "duration": 227,
+    "energy": 0.95
+  },
+  {
+    "id": 24,
+    "artist": "Black Sabbath",
+    "title": "War Pigs",
+    "genre": "Doom Metal",
+    "duration": 476,
+    "energy": 0.7
+  },
+  {
+    "id": 25,
+    "artist": "The Kills",
+    "title": "Future Starts Slow",
+    "genre": "Garage Rock",
+    "duration": 264,
+    "energy": 0.75
+  },
+  {
+    "id": 26,
+    "artist": "Baroness",
+    "title": "Take My Bones Away",
+    "genre": "Sludge Metal",
+    "duration": 267,
+    "energy": 0.87
+  },
+  {
+    "id": 27,
+    "artist": "Red Fang",
+    "title": "Prehistoric Dog",
+    "genre": "Stoner Rock",
+    "duration": 264,
+    "energy": 0.83
+  },
+  {
+    "id": 28,
+    "artist": "Skinny Puppy",
+    "title": "Worlock",
+    "genre": "Industrial Punk",
+    "duration": 382,
+    "energy": 0.88
+  },
+  {
+    "id": 29,
+    "artist": "Saint Vitus",
+    "title": "Born Too Late",
+    "genre": "Doom Metal",
+    "duration": 426,
+    "energy": 0.4
+  },
+  {
+    "id": 30,
+    "artist": "The Cramps",
+    "title": "Human Fly",
+    "genre": "Garage Rock",
+    "duration": 126,
+    "energy": 0.9
+  },
+  {
+    "id": 31,
+    "artist": "Neurosis",
+    "title": "Locust Star",
+    "genre": "Sludge Metal",
+    "duration": 357,
+    "energy": 0.8
+  },
+  {
+    "id": 32,
+    "artist": "Monster Magnet",
+    "title": "Space Lord",
+    "genre": "Stoner Rock",
+    "duration": 324,
+    "energy": 0.78
+  },
+  {
+    "id": 33,
+    "artist": "Pigface",
+    "title": "Suck",
+    "genre": "Industrial Punk",
+    "duration": 287,
+    "energy": 0.86
+  },
+  {
+    "id": 34,
+    "artist": "Pallbearer",
+    "title": "Sorrow and Extinction",
+    "genre": "Doom Metal",
+    "duration": 462,
+    "energy": 0.35
+  },
+  {
+    "id": 35,
+    "artist": "The Black Keys",
+    "title": "Lonely Boy",
+    "genre": "Garage Rock",
+    "duration": 193,
+    "energy": 0.85
+  },
+  {
+    "id": 36,
+    "artist": "Mastodon",
+    "title": "Blood and Thunder",
+    "genre": "Sludge Metal",
+    "duration": 270,
+    "energy": 0.94
+  },
+  {
+    "id": 37,
+    "artist": "Orange Goblin",
+    "title": "Some You Win, Some You Lose",
+    "genre": "Stoner Rock",
+    "duration": 253,
+    "energy": 0.82
+  },
+  {
+    "id": 38,
+    "artist": "Atari Teenage Riot",
+    "title": "Speed",
+    "genre": "Industrial Punk",
+    "duration": 154,
+    "energy": 0.99
+  },
+  {
+    "id": 39,
+    "artist": "Warning",
+    "title": "Footprints",
+    "genre": "Doom Metal",
+    "duration": 700,
+    "energy": 0.25
+  },
+  {
+    "id": 40,
+    "artist": "The Dirtbombs",
+    "title": "Chains of Love",
+    "genre": "Garage Rock",
+    "duration": 210,
+    "energy": 0.79
+  }
+]

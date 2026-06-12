@@ -5,13 +5,13 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Rechte, die das offizielle Pages-Deployment benötigt.
+# Permissions required by the official Pages deployment.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Immer nur ein Deployment gleichzeitig; laufende abbrechen.
+# Only one deployment at a time; cancel in-progress ones.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -37,11 +37,11 @@ jobs:
       - name: Build static site
         working-directory: web
         env:
-          # Projekt-Pages liegen unter https://derpixler.github.io/raido-fm/
+          # Project pages are hosted at https://derpixler.github.io/raido-fm/
           NEXT_PUBLIC_BASE_PATH: /raido-fm
         run: npm run build
 
-      # Verhindert, dass GitHub Pages den `_next`-Ordner per Jekyll ausfiltert.
+      # Prevents GitHub Pages from filtering out the `_next` folder via Jekyll.
       - name: Disable Jekyll
         run: touch web/out/.nojekyll
 

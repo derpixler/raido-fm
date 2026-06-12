@@ -1,17 +1,17 @@
 import type { NextConfig } from "next";
 
-// Für Deployments in einem Unterverzeichnis (z. B. GitHub Pages unter
-// `/raido-fm`). Lokal leer → die Seite läuft gegen den Site-Root.
+// For deployments in a subdirectory (e.g. GitHub Pages under
+// `/raido-fm`). Empty locally → the site runs against the site root.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Statischer Export: `next build` erzeugt fertiges, statisches HTML in `out/`.
+  // Static export: `next build` produces ready-to-serve static HTML in `out/`.
   output: "export",
-  // Für den Static Export nötig (keine Server-Bildoptimierung); die Seite nutzt
-  // ohnehin nur einfache <img>-Tags.
+  // Required for static export (no server image optimization); the site only uses
+  // simple <img> tags anyway.
   images: { unoptimized: true },
-  // Prefixt automatisch `_next`-Assets sowie next/link- und next/image-Pfade.
+  // Automatically prefixes `_next` assets as well as next/link and next/image paths.
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),
 };
 

@@ -30,7 +30,7 @@ export function Hero() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative flex min-h-[34rem] flex-col justify-end overflow-hidden border-b border-border lg:min-h-[44rem]"
     >
-      {/* Graffiti-Studio als Hero-Hintergrund */}
+      {/* Graffiti studio as Hero background */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={asset("/we-are-not-your-bots-RAIDO-FM.webp")}
@@ -40,17 +40,17 @@ export function Hero() {
         decoding="async"
       />
 
-      {/* Verlaufs-Overlays für Lesbarkeit + violette Atmosphäre */}
+      {/* Gradient overlays for readability + purple atmosphere */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 via-35% to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-transparent" />
       <div className="pointer-events-none absolute -bottom-1/3 left-0 h-2/3 w-2/3 rounded-full bg-primary/20 blur-[120px]" />
 
-      {/* Animierte Audio-Wellen als dezenter Akzent unten rechts */}
+      {/* Animated audio waves as subtle accent bottom right */}
       <AudioWave className="pointer-events-none absolute -right-6 bottom-0 hidden h-64 w-[28rem] opacity-50 md:block" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-12 pt-10 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-14">
-          {/* Linke Spalte: Text & Inhalt */}
+          {/* Left column: text & content */}
           <div className="max-w-2xl">
             <motion.span
               custom={0}
@@ -165,7 +165,7 @@ export function Hero() {
             </motion.dl>
           </div>
 
-          {/* Rechte Spalte: Quadratisches Cover + Audio-Player */}
+          {/* Right column: square cover + audio player */}
           <motion.div
             custom={2}
             initial="hidden"

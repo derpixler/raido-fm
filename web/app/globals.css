@@ -38,7 +38,7 @@
     color: #fff;
   }
 
-  /* Dezenter, ruhiger Scrollbar-Stil */
+  /* Subtle, quiet scrollbar style */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -62,7 +62,7 @@
   }
 }
 
-/* Hintergrund-Atmosphäre: dezenter violetter Glow + feines Raster */
+/* Background atmosphere: subtle purple glow + fine grid */
 .bg-atmosphere::before {
   content: "";
   position: fixed;
@@ -100,7 +100,7 @@
   opacity: 0.35;
 }
 
-/* ---- Syntax Highlighting (highlight.js Tokens, violetter Akzent) ---- */
+/* ---- Syntax Highlighting (highlight.js tokens, purple accent) ---- */
 .hljs {
   background: transparent;
   color: #e4e4e7;

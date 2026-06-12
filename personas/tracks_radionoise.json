@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "Merzbow",
+    "title": "Woodpecker No. 1",
+    "genre": "lo-fi noise",
+    "duration": 360,
+    "energy": 0.9
+  },
+  {
+    "id": 2,
+    "artist": "William Basinski",
+    "title": "Disintegration Loop 1.1",
+    "genre": "drone static",
+    "duration": 600,
+    "energy": 0.3
+  },
+  {
+    "id": 3,
+    "artist": "John Cage",
+    "title": "Williams Mix",
+    "genre": "found sound collage",
+    "duration": 240,
+    "energy": 0.5
+  },
+  {
+    "id": 4,
+    "artist": "Fennesz",
+    "title": "Black Sea",
+    "genre": "drone static",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 5,
+    "artist": "Kevin Drumm",
+    "title": "Snow",
+    "genre": "industrial ambience",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Yasunao Tone",
+    "title": "Wired for Sound",
+    "genre": "tape glitch",
+    "duration": 180,
+    "energy": 0.7
+  },
+  {
+    "id": 7,
+    "artist": "Mika Vainio",
+    "title": "Kierto",
+    "genre": "industrial ambience",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 8,
+    "artist": "Philip Jeck",
+    "title": "Stoke",
+    "genre": "found sound collage",
+    "duration": 360,
+    "energy": 0.4
+  },
+  {
+    "id": 9,
+    "artist": "Hijokaidan",
+    "title": "Vomito Negro",
+    "genre": "lo-fi noise",
+    "duration": 540,
+    "energy": 0.9
+  },
+  {
+    "id": 10,
+    "artist": "Aube",
+    "title": "Eternal Return",
+    "genre": "tape glitch",
+    "duration": 300,
+    "energy": 0.8
+  },
+  {
+    "id": 11,
+    "artist": "Eliane Radigue",
+    "title": "Trilogie de la Mort (Excerpt)",
+    "genre": "drone static",
+    "duration": 720,
+    "energy": 0.2
+  },
+  {
+    "id": 12,
+    "artist": "Throbbing Gristle",
+    "title": "Hamburger Lady",
+    "genre": "industrial ambience",
+    "duration": 240,
+    "energy": 0.8
+  },
+  {
+    "id": 13,
+    "artist": "Nurse with Wound",
+    "title": "Two Shaves and a Shine",
+    "genre": "found sound collage",
+    "duration": 420,
+    "energy": 0.6
+  },
+  {
+    "id": 14,
+    "artist": "prurient",
+    "title": "Cocaine Death",
+    "genre": "lo-fi noise",
+    "duration": 360,
+    "energy": 0.9
+  },
+  {
+    "id": 15,
+    "artist": "Rashad Becker",
+    "title": "Traditional Music of Notional Species Vol. I (Track 4)",
+    "genre": "tape glitch",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 16,
+    "artist": "Sunn O)))",
+    "title": "Báthory Erzsébet",
+    "genre": "drone static",
+    "duration": 600,
+    "energy": 0.5
+  },
+  {
+    "id": 17,
+    "artist": "The Rita",
+    "title": "Thousand Yard Stare",
+    "genre": "industrial ambience",
+    "duration": 300,
+    "energy": 0.8
+  },
+  {
+    "id": 18,
+    "artist": "Yuko Araki",
+    "title": "Folded",
+    "genre": "tape glitch",
+    "duration": 240,
+    "energy": 0.6
+  },
+  {
+    "id": 19,
+    "artist": "Macronympha",
+    "title": "Fist Fuck",
+    "genre": "lo-fi noise",
+    "duration": 120,
+    "energy": 0.9
+  },
+  {
+    "id": 20,
+    "artist": "Ryoji Ikeda",
+    "title": "Data.Matrix",
+    "genre": "industrial ambience",
+    "duration": 480,
+    "energy": 0.5
+  },
+  {
+    "id": 21,
+    "artist": "Asmus Tietchens",
+    "title": "Nachtstück",
+    "genre": "found sound collage",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 22,
+    "artist": "Vomir",
+    "title": "Untitled (from Hérésie)",
+    "genre": "drone static",
+    "duration": 600,
+    "energy": 0.4
+  },
+  {
+    "id": 23,
+    "artist": "Xiu Xiu",
+    "title": "Apistat Commander",
+    "genre": "industrial ambience",
+    "duration": 180,
+    "energy": 0.7
+  },
+  {
+    "id": 24,
+    "artist": "Bernhard Günter",
+    "title": "Un peu de neige salie",
+    "genre": "found sound collage",
+    "duration": 540,
+    "energy": 0.2
+  },
+  {
+    "id": 25,
+    "artist": "Incapacitants",
+    "title": "As Loud as Possible",
+    "genre": "lo-fi noise",
+    "duration": 420,
+    "energy": 0.9
+  },
+  {
+    "id": 26,
+    "artist": "Aki Onda",
+    "title": "Cassette Memories Vol. 3 (Excerpt)",
+    "genre": "tape glitch",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 27,
+    "artist": "Zoviet France",
+    "title": "Mohnomishe",
+    "genre": "industrial ambience",
+    "duration": 480,
+    "energy": 0.4
+  },
+  {
+    "id": 28,
+    "artist": "Mamoru Fujieda",
+    "title": "Patterns of Plants (Excerpt)",
+    "genre": "drone static",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 29,
+    "artist": "Bastard Noise",
+    "title": "Skin Graft",
+    "genre": "lo-fi noise",
+    "duration": 200,
+    "energy": 0.9
+  },
+  {
+    "id": 30,
+    "artist": "Jana Winderen",
+    "title": "The Listening Room",
+    "genre": "found sound collage",
+    "duration": 600,
+    "energy": 0.4
+  },
+  {
+    "id": 31,
+    "artist": "Francisco López",
+    "title": "Untitled #100",
+    "genre": "drone static",
+    "duration": 720,
+    "energy": 0.2
+  },
+  {
+    "id": 32,
+    "artist": "Masonna",
+    "title": "Spectrum Ripper",
+    "genre": "lo-fi noise",
+    "duration": 240,
+    "energy": 0.9
+  },
+  {
+    "id": 33,
+    "artist": "Keith Fullerton Whitman",
+    "title": "Schöner Geist",
+    "genre": "tape glitch",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 34,
+    "artist": "Coil",
+    "title": "The Anal Staircase",
+    "genre": "industrial ambience",
+    "duration": 240,
+    "energy": 0.8
+  },
+  {
+    "id": 35,
+    "artist": "Pauline Oliveros",
+    "title": "Deep Listening (Excerpt)",
+    "genre": "found sound collage",
+    "duration": 480,
+    "energy": 0.3
+  },
+  {
+    "id": 36,
+    "artist": "C.C.C.C.",
+    "title": "Love",
+    "genre": "tape glitch",
+    "duration": 360,
+    "energy": 0.7
+  },
+  {
+    "id": 37,
+    "artist": "Organum",
+    "title": "Vacant Lights",
+    "genre": "drone static",
+    "duration": 540,
+    "energy": 0.4
+  },
+  {
+    "id": 38,
+    "artist": "Pedestrian Deposit",
+    "title": "Mouth",
+    "genre": "lo-fi noise",
+    "duration": 300,
+    "energy": 0.8
+  },
+  {
+    "id": 39,
+    "artist": "Luigi Archetti",
+    "title": "Piano Works (Excerpt)",
+    "genre": "industrial ambience",
+    "duration": 420,
+    "energy": 0.5
+  },
+  {
+    "id": 40,
+    "artist": "Lionel Marchetti",
+    "title": "Mémoires de la boue",
+    "genre": "found sound collage",
+    "duration": 600,
+    "energy": 0.4
+  }
+]

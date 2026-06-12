@@ -9,9 +9,9 @@ type AudioWaveProps = {
 };
 
 /**
- * Animierte Audio-Visualisierung als reines SVG (keine Bilder).
- * Kombiniert eine pulsierende Equalizer-Leiste, konzentrische Signalringe
- * und dezente schwebende Partikel — alles in violetten Akzenten.
+ * Animated audio visualization as pure SVG (no images).
+ * Combines a pulsing equalizer bar, concentric signal rings
+ * and subtle floating particles — all in purple accents.
  */
 export function AudioWave({ bars = 28, className }: AudioWaveProps) {
   const prefersReduced = useReducedMotion();
@@ -20,7 +20,7 @@ export function AudioWave({ bars = 28, className }: AudioWaveProps) {
     () =>
       Array.from({ length: bars }, (_, i) => {
         const t = i / (bars - 1);
-        // Glockenkurve: in der Mitte höhere Amplitude.
+        // Bell curve: higher amplitude in the middle.
         const bell = Math.sin(t * Math.PI);
         return {
           base: 8 + bell * 46,
@@ -63,10 +63,10 @@ export function AudioWave({ bars = 28, className }: AudioWaveProps) {
           </radialGradient>
         </defs>
 
-        {/* Diffuser Hintergrund-Glow */}
+        {/* Soft background glow */}
         <circle cx="200" cy="180" r="170" fill="url(#wave-glow)" />
 
-        {/* Konzentrische Signalringe */}
+        {/* Concentric signal rings */}
         {[0, 1, 2].map((ring) => (
           <motion.circle
             key={ring}
@@ -123,7 +123,7 @@ export function AudioWave({ bars = 28, className }: AudioWaveProps) {
           })}
         </g>
 
-        {/* Dezente schwebende Partikel */}
+        {/* Subtle floating particles */}
         {particles.map((p, i) => (
           <motion.circle
             key={i}

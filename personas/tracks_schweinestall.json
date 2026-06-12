@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "The Clash",
+    "title": "London Calling",
+    "genre": "Ska-Punk",
+    "duration": 223,
+    "energy": 0.85
+  },
+  {
+    "id": 2,
+    "artist": "Rancid",
+    "title": "Time Bomb",
+    "genre": "Ska-Punk",
+    "duration": 197,
+    "energy": 0.9
+  },
+  {
+    "id": 3,
+    "artist": "The Interrupters",
+    "title": "She's Kerosene",
+    "genre": "Ska-Punk",
+    "duration": 215,
+    "energy": 0.88
+  },
+  {
+    "id": 4,
+    "artist": "Operation Ivy",
+    "title": "Knowledge",
+    "genre": "Ska-Punk",
+    "duration": 106,
+    "energy": 0.95
+  },
+  {
+    "id": 5,
+    "artist": "Streetlight Manifesto",
+    "title": "Everything Went Numb",
+    "genre": "Ska-Punk",
+    "duration": 320,
+    "energy": 0.85
+  },
+  {
+    "id": 6,
+    "artist": "The Mighty Mighty Bosstones",
+    "title": "The Impression That I Get",
+    "genre": "Ska-Punk",
+    "duration": 210,
+    "energy": 0.82
+  },
+  {
+    "id": 7,
+    "artist": "Madness",
+    "title": "One Step Beyond",
+    "genre": "Ska-Punk",
+    "duration": 152,
+    "energy": 0.78
+  },
+  {
+    "id": 8,
+    "artist": "Sublime",
+    "title": "Wrong Way",
+    "genre": "Ska-Punk",
+    "duration": 197,
+    "energy": 0.75
+  },
+  {
+    "id": 9,
+    "artist": "The Skatalites",
+    "title": "Guns of Navarone",
+    "genre": "Ska-Punk",
+    "duration": 301,
+    "energy": 0.6
+  },
+  {
+    "id": 10,
+    "artist": "Less Than Jake",
+    "title": "All My Best Friends Are Metalheads",
+    "genre": "Ska-Punk",
+    "duration": 192,
+    "energy": 0.83
+  },
+  {
+    "id": 11,
+    "artist": "Cock Sparrer",
+    "title": "England Belongs to Me",
+    "genre": "Oi!",
+    "duration": 206,
+    "energy": 0.88
+  },
+  {
+    "id": 12,
+    "artist": "Sham 69",
+    "title": "If the Kids Are United",
+    "genre": "Oi!",
+    "duration": 198,
+    "energy": 0.9
+  },
+  {
+    "id": 13,
+    "artist": "The Business",
+    "title": "Harry May",
+    "genre": "Oi!",
+    "duration": 168,
+    "energy": 0.92
+  },
+  {
+    "id": 14,
+    "artist": "Blitz",
+    "title": "Nation on Fire",
+    "genre": "Oi!",
+    "duration": 148,
+    "energy": 0.85
+  },
+  {
+    "id": 15,
+    "artist": "Cockney Rejects",
+    "title": "Oi! Oi! Oi!",
+    "genre": "Oi!",
+    "duration": 190,
+    "energy": 0.93
+  },
+  {
+    "id": 16,
+    "artist": "4 Skins",
+    "title": "One Law for Them",
+    "genre": "Oi!",
+    "duration": 175,
+    "energy": 0.87
+  },
+  {
+    "id": 17,
+    "artist": "The Last Resort",
+    "title": "King of the Jungle",
+    "genre": "Oi!",
+    "duration": 210,
+    "energy": 0.89
+  },
+  {
+    "id": 18,
+    "artist": "Slade",
+    "title": "Cum On Feel the Noize",
+    "genre": "Oi!",
+    "duration": 284,
+    "energy": 0.8
+  },
+  {
+    "id": 19,
+    "artist": "Angelic Upstarts",
+    "title": "I'm an Upstart",
+    "genre": "Oi!",
+    "duration": 152,
+    "energy": 0.91
+  },
+  {
+    "id": 20,
+    "artist": "The Partisans",
+    "title": "Police Story",
+    "genre": "Oi!",
+    "duration": 133,
+    "energy": 0.86
+  },
+  {
+    "id": 21,
+    "artist": "Die Toten Hosen",
+    "title": "Alles wird gut",
+    "genre": "Deutschpunk",
+    "duration": 210,
+    "energy": 0.85
+  },
+  {
+    "id": 22,
+    "artist": "Die Ärzte",
+    "title": "Die Bestie in Menschengestalt",
+    "genre": "Deutschpunk",
+    "duration": 263,
+    "energy": 0.82
+  },
+  {
+    "id": 23,
+    "artist": "Slime",
+    "title": "Deutschland muss sterben",
+    "genre": "Deutschpunk",
+    "duration": 205,
+    "energy": 0.95
+  },
+  {
+    "id": 24,
+    "artist": "Wizo",
+    "title": "Hey Du",
+    "genre": "Deutschpunk",
+    "duration": 178,
+    "energy": 0.88
+  },
+  {
+    "id": 25,
+    "artist": "Broilers",
+    "title": "Harz",
+    "genre": "Deutschpunk",
+    "duration": 240,
+    "energy": 0.8
+  },
+  {
+    "id": 26,
+    "artist": "Terrorgruppe",
+    "title": "Nichts ist perfekt",
+    "genre": "Deutschpunk",
+    "duration": 195,
+    "energy": 0.86
+  },
+  {
+    "id": 27,
+    "artist": "Feine Sahne Fischfilet",
+    "title": "Zurück in der Zukunft",
+    "genre": "Deutschpunk",
+    "duration": 212,
+    "energy": 0.84
+  },
+  {
+    "id": 28,
+    "artist": "Daily Terror",
+    "title": "Keine Gnade",
+    "genre": "Deutschpunk",
+    "duration": 155,
+    "energy": 0.92
+  },
+  {
+    "id": 29,
+    "artist": "The Misfits",
+    "title": "American Nightmare",
+    "genre": "Folk-Punk",
+    "duration": 159,
+    "energy": 0.78
+  },
+  {
+    "id": 30,
+    "artist": "Against Me!",
+    "title": "Pints of Guinness Make You Strong",
+    "genre": "Folk-Punk",
+    "duration": 207,
+    "energy": 0.75
+  },
+  {
+    "id": 31,
+    "artist": "Dropkick Murphys",
+    "title": "The State of Massachusetts",
+    "genre": "Folk-Punk",
+    "duration": 210,
+    "energy": 0.85
+  },
+  {
+    "id": 32,
+    "artist": "Flogging Molly",
+    "title": "Drunken Lullabies",
+    "genre": "Folk-Punk",
+    "duration": 250,
+    "energy": 0.82
+  },
+  {
+    "id": 33,
+    "artist": "The Dreadnoughts",
+    "title": "Spitfire",
+    "genre": "Folk-Punk",
+    "duration": 192,
+    "energy": 0.88
+  },
+  {
+    "id": 34,
+    "artist": "Mischief Brew",
+    "title": "Give Em the Boot",
+    "genre": "Folk-Punk",
+    "duration": 180,
+    "energy": 0.76
+  },
+  {
+    "id": 35,
+    "artist": "Days N Daze",
+    "title": "Misanthropic Drunken Loner",
+    "genre": "Folk-Punk",
+    "duration": 234,
+    "energy": 0.7
+  },
+  {
+    "id": 36,
+    "artist": "The Pogues",
+    "title": "Dirty Old Town",
+    "genre": "Folk-Punk",
+    "duration": 183,
+    "energy": 0.6
+  },
+  {
+    "id": 37,
+    "artist": "Gogol Bordello",
+    "title": "Start Wearing Purple",
+    "genre": "Blasmusik",
+    "duration": 235,
+    "energy": 0.9
+  },
+  {
+    "id": 38,
+    "artist": "Me First and the Gimme Gimmes",
+    "title": "I Believe I Can Fly",
+    "genre": "Blasmusik",
+    "duration": 187,
+    "energy": 0.75
+  },
+  {
+    "id": 39,
+    "artist": "The Cat Empire",
+    "title": "Hello",
+    "genre": "Blasmusik",
+    "duration": 273,
+    "energy": 0.72
+  },
+  {
+    "id": 40,
+    "artist": "The Beat",
+    "title": "Mirror in the Bathroom",
+    "genre": "Ska-Punk",
+    "duration": 200,
+    "energy": 0.8
+  }
+]

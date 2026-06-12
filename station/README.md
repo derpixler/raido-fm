@@ -1,36 +1,36 @@
 # RAIDO Station POC
 
-Text-basierter Proof-of-Concept der RAIDO-Radiostation. Ein autonomer DJ-Agent (LLM) produziert einen Live-Text-Stream im 60-Minuten-Programm-Grid -- Moderationen, Now-Playing-Events und Host-Read-Ads. Eine Chat-UI erlaubt kategorisierte Eingaben (News, Musikwunsch, Werbung, ...), die durch eine Sanitization-Schicht + Quarantine-DB laufen, bevor der DJ sie aufgreift.
+Text-based proof of concept of the RAIDO radio station. An autonomous DJ agent (LLM) produces a live text stream in a 60-minute program grid -- moderations, now-playing events, and host-read ads. A chat UI allows categorized inputs (news, music requests, ads, ...) that pass through a sanitization layer + quarantine DB before the DJ picks them up.
 
-Kein Audio. Nur das Gehirn.
+No audio. Just the brain.
 
 ## Quickstart
 
 ```bash
 cp .env.example .env
-# LLM_DJ_API_KEY eintragen (z.B. Groq: https://console.groq.com)
+# Enter LLM_DJ_API_KEY (e.g. Groq: https://console.groq.com)
 
 docker compose up --build
 # http://localhost:8080
 ```
 
-## Stationen
+## Stations
 
-Persona wechseln per Env-Variable `PERSONA_PATH`:
+Switch persona via env variable `PERSONA_PATH`:
 
-| Persona-Datei | ID | DJ | Genre | Claim |
+| Persona File | ID | DJ | Genre | Claim |
 |---|---|---|---|---|
 | `persona.yml` | jazz | Miles Hertz | Jazz (Bebop, Cool, Hard Bop, Modal) | No algorithm. No control. Just frequency. |
 | `persona.80s.yml` | eighties | Neon Nadler | 80s (Synthpop, New Wave, Italo Disco) | Rewind the future. |
-| `persona.nachtsender-null.yml` | null | Null | Dark (Ambient, Post-Punk, Trip-Hop, Drone) | Kein Signal. Nur Frequenz. |
+| `persona.nachtsender-null.yml` | null | Null | Dark (Ambient, Post-Punk, Trip-Hop, Drone) | No signal. Just frequency. |
 | `persona.techno.example.yml` | techno | Synthia Void | Techno (Detroit, Minimal, Dub, Acid) | Feel the frequency. |
 
 ```bash
-# Beispiel: 80er-Station auf Port 9090
+# Example: 80s station on port 9090
 PORT=9090 PERSONA_PATH=persona.80s.yml docker compose up --build
 ```
 
-## Architektur
+## Architecture
 
 ```
 POST /inject ──→ Sanitizer (Filter-LLM + Keyword-Check)
@@ -39,32 +39,32 @@ POST /inject ──→ Sanitizer (Filter-LLM + Keyword-Check)
                external_stimuli (Quarantine-DB)
                       │
                       ▼
-  DJ-Agent (LLM) ◄── Programm-Grid (60-min Zyklus)
+  DJ-Agent (LLM) ◄── Program-Grid (60-min cycle)
        │
        ▼
-  StreamGuard (Laenge, Manifesto-Regex, Blocklist)
+  StreamGuard (length, manifesto regex, blocklist)
        │
        ▼
   SSE /stream ──→ Browser-UI
 ```
 
-| Komponente | Datei | Aufgabe |
+| Component | File | Role |
 |---|---|---|
-| DJ-Agent | `app/dj_agent.py` | LLM-Entscheidungszyklus: Track-Wahl, Moderation, Ad-Generierung |
-| StreamGuard | `app/streamguard.py` | Laengen-Check, Wiederholungs-Check, Manifesto-Regex, Blocklist |
-| Sanitizer | `app/sanitizer.py` | Filter-LLM fuer externe Eingaben + Injection-Erkennung |
-| Persona | `app/persona.py` | Laedt YAML-Config, baut System-Prompt + Ad-Prompt |
-| LLM-Client | `app/llm.py` | Provider-agnostisch (OpenAI-kompatibel), Rollen dj/filter, Fallback |
-| Datenbank | `app/db.py` | SQLite: play_history, external_stimuli, broadcast_log, station_meta |
-| Stats | `app/stats.py` | Zentraler Accumulator: Token-Usage, Latenz, DB-Metriken |
-| API | `app/main.py` | FastAPI: SSE-Stream, /inject, /status, /stats, /reset |
-| UI | `web/index.html` | Dark-Theme Chat-UI mit Kategorie-Auswahl + Stats-Bar |
+| DJ Agent | `app/dj_agent.py` | LLM decision cycle: track selection, moderation, ad generation |
+| StreamGuard | `app/streamguard.py` | Length check, repetition check, manifesto regex, blocklist |
+| Sanitizer | `app/sanitizer.py` | Filter LLM for external inputs + injection detection |
+| Persona | `app/persona.py` | Loads YAML config, builds system prompt + ad prompt |
+| LLM Client | `app/llm.py` | Provider-agnostic (OpenAI-compatible), roles dj/filter, fallback |
+| Database | `app/db.py` | SQLite: play_history, external_stimuli, broadcast_log, station_meta |
+| Stats | `app/stats.py` | Central accumulator: token usage, latency, DB metrics |
+| API | `app/main.py` | FastAPI: SSE stream, /inject, /status, /stats, /reset |
+| UI | `web/index.html` | Dark theme chat UI with category selection + stats bar |
 
 ## API
 
-### `GET /stream` -- SSE-Event-Stream
+### `GET /stream` -- SSE Event Stream
 
-Liefert Server-Sent Events. Event-Typen:
+Delivers Server-Sent Events. Event types:
 
 ```jsonc
 // Moderation
@@ -73,39 +73,39 @@ Liefert Server-Sent Events. Event-Typen:
 // Now Playing
 {"station": "jazz", "type": "now_playing", "artist": "Miles Davis", "title": "So What", "genre": "modal", "duration": 562}
 
-// Werbung (Host-Read-Ad)
+// Advertising (Host-Read-Ad)
 {"station": "jazz", "type": "ad", "text": "...", "contributor": "Teufel Audio"}
 
 // System (StreamGuard, Sanitizer, Status)
-{"station": "jazz", "type": "system", "text": "StreamGuard: Moderation verworfen (...)"}
+{"station": "jazz", "type": "system", "text": "StreamGuard: Moderation discarded (...)"}
 
-// Stats (alle 15s, aktualisiert Stats-Bar im UI)
+// Stats (every 15s, updates stats bar in UI)
 {"type": "stats", "uptime_s": 300, "tracks": {"library": 40, "played": 12}, "llm": {"calls": 15, "tokens_in": 3200, "tokens_out": 1100, "by_role": {...}}, ...}
 ```
 
-### `POST /inject` -- Kategorisierte Eingabe
+### `POST /inject` -- Categorized Input
 
 ```bash
 curl -X POST http://localhost:8080/inject \
   -H "Content-Type: application/json" \
-  -d '{"category": "news", "text": "SpaceX startet morgen zur ISS"}'
+  -d '{"category": "news", "text": "SpaceX launching to ISS tomorrow"}'
 ```
 
 Response:
 
 ```json
-{"id": 1, "category": "news", "sanitized_text": "SpaceX startet morgen zur ISS", "was_flagged": false, "flag_reason": null}
+{"id": 1, "category": "news", "sanitized_text": "SpaceX launching to ISS tomorrow", "was_flagged": false, "flag_reason": null}
 ```
 
-Eingaben laufen durch den Sanitizer (Filter-LLM + Keyword-Check). Geflaggtes wird dem DJ nie gezeigt.
+Inputs pass through the sanitizer (filter LLM + keyword check). Flagged content is never shown to the DJ.
 
-### `GET /status` -- Station-Info
+### `GET /status` -- Station Info
 
 ```json
 {"station": {"id": "jazz", "genre": "jazz", "claim": "..."}, "dj": {"name": "Miles Hertz", "personality": "..."}, "running": true}
 ```
 
-### `GET /stats` -- Technische Statistiken
+### `GET /stats` -- Technical Statistics
 
 ```json
 {
@@ -126,55 +126,55 @@ Eingaben laufen durch den Sanitizer (Filter-LLM + Keyword-Check). Geflaggtes wir
 }
 ```
 
-Wird auch alle 15 Sekunden als `type: "stats"` SSE-Event gepusht und aktualisiert die Stats-Bar im UI.
+Also pushed every 15 seconds as a `type: "stats"` SSE event and updates the stats bar in the UI.
 
-### `POST /reset` -- Neustart
+### `POST /reset` -- Restart
 
-Leert die DB, laedt Persona + LLM-Config neu. Setzt auch die LLM-Usage-Counter zurueck.
+Clears the DB, reloads persona + LLM config. Also resets the LLM usage counters.
 
-## Injection-Kategorien
+## Injection Categories
 
-### `news` -- Nachrichten
-
-```bash
-curl -X POST http://localhost:8080/inject \
-  -H "Content-Type: application/json" \
-  -d '{"category": "news", "text": "Berliner Philharmoniker spielen heute Open Air"}'
-```
-
-DJ greift die Headline im naechsten Impuls-Slot (:30) auf.
-
-### `listener_comment` -- Hoerer-Kommentar
+### `news` -- News
 
 ```bash
 curl -X POST http://localhost:8080/inject \
   -H "Content-Type: application/json" \
-  -d '{"category": "listener_comment", "text": "Mega Sendung heute!", "name": "Lisa"}'
+  -d '{"category": "news", "text": "Berlin Philharmonic playing open air tonight"}'
 ```
 
-DJ reagiert mit Gruss/Kommentar in der Moderation.
+DJ picks up the headline in the next impulse slot (:30).
 
-### `music_request` -- Musikwunsch
+### `listener_comment` -- Listener Comment
 
 ```bash
 curl -X POST http://localhost:8080/inject \
   -H "Content-Type: application/json" \
-  -d '{"category": "music_request", "text": "Habt ihr was von Chet Baker?"}'
+  -d '{"category": "listener_comment", "text": "Great show today!", "name": "Lisa"}'
 ```
 
-Beeinflusst die naechste Track-Wahl und wird in der Moderation erwaehnt.
+DJ reacts with greeting/comment in the moderation.
 
-### `weather` -- Wetter
+### `music_request` -- Music Request
 
 ```bash
 curl -X POST http://localhost:8080/inject \
   -H "Content-Type: application/json" \
-  -d '{"category": "weather", "text": "Berlin 18 Grad, klarer Nachthimmel"}'
+  -d '{"category": "music_request", "text": "Got anything by Chet Baker?"}'
 ```
 
-Wetterbezug in der naechsten Moderation.
+Influences the next track selection and is mentioned in the moderation.
 
-### `ad` -- Werbung
+### `weather` -- Weather
+
+```bash
+curl -X POST http://localhost:8080/inject \
+  -H "Content-Type: application/json" \
+  -d '{"category": "weather", "text": "Berlin 18°C, clear night sky"}'
+```
+
+Weather reference in the next moderation.
+
+### `ad` -- Advertising
 
 ```bash
 curl -X POST http://localhost:8080/inject \
@@ -184,140 +184,140 @@ curl -X POST http://localhost:8080/inject \
     "text": "",
     "contributor": "Teufel Audio",
     "product": "REAL BLUE NC",
-    "key_message": "Noise-Cancelling-Kopfhoerer fuer Musikliebhaber"
+    "key_message": "Noise-cancelling headphones for music lovers"
   }'
 ```
 
-Detaillierter Ad-Flow: siehe naechster Abschnitt.
+Detailed ad flow: see next section.
 
-## Werbung (Ads)
+## Advertising (Ads)
 
-Ads durchlaufen den gleichen Sicherheitspfad wie alle Eingaben, werden aber vom DJ anders behandelt.
+Ads go through the same security path as all inputs, but are treated differently by the DJ.
 
 ### Flow
 
 ```
 1. POST /inject  (category: "ad", contributor/product/key_message)
         |
-2. Sanitizer     prueft key_message auf Injection-Patterns
+2. Sanitizer     checks key_message for injection patterns
         |
-3. Quarantine-DB speichert ad als external_stimuli
-                  (category="ad", raw_json={contributor, product, key_message})
+3. Quarantine DB stores ad as external_stimuli
+                 (category="ad", raw_json={contributor, product, key_message})
         |
-4. DJ-Agent      prueft bei JEDEM Moderations-Slot auf pending Ads
-                  (nicht nur beim Impuls-Slot)
+4. DJ Agent      checks for pending ads at EVERY moderation slot
+                 (not just the impulse slot)
         |
-5. Ad-Prompt     eigener LLM-Call mit build_ad_prompt():
-                  "Lies den Werbespot so vor, wie DU es tun wuerdest --
-                   natuerlich, beilaeufig, in deinem Ton."
+5. Ad Prompt     separate LLM call with build_ad_prompt():
+                 "Read the ad spot the way YOU would --
+                  natural, casual, in your tone."
         |
-6. SSE-Event     type: "ad" mit contributor-Feld
-                  (UI rendert mit goldener Markierung)
+6. SSE Event     type: "ad" with contributor field
+                 (UI renders with gold marking)
         |
-7. Danach        normaler Track + Moderation wie gewohnt
+7. Afterwards    normal track + moderation as usual
 ```
 
-### Unterschied zu anderen Kategorien
+### Differences from Other Categories
 
-| | News/Wetter/Kommentar | Werbung |
+| | News/Weather/Comment | Advertising |
 |---|---|---|
-| Wann ausgespielt? | Nur im Impuls-Slot (:30) | Bei jedem Moderations-Slot |
-| LLM-Prompt | In den DJ-System-Prompt eingebaut | Eigener Ad-Prompt (build_ad_prompt) |
-| SSE Event-Typ | `moderation` | `ad` |
-| Datenstruktur | Freitext | JSON: `{contributor, product, key_message}` |
-| UI-Darstellung | Blau (Moderation) | Gold (Ad-Markierung) |
+| When played? | Only in impulse slot (:30) | At every moderation slot |
+| LLM prompt | Built into DJ system prompt | Separate ad prompt (build_ad_prompt) |
+| SSE event type | `moderation` | `ad` |
+| Data structure | Free text | JSON: `{contributor, product, key_message}` |
+| UI display | Blue (moderation) | Gold (ad marking) |
 
-### Was der DJ daraus macht
+### What the DJ Does With It
 
-Die Ad wird nicht abgelesen, sondern im Ton der DJ-Persona generiert. Beispiel mit DJ "Null" (Nachtsender):
+The ad is not read verbatim, but generated in the tone of the DJ persona. Example with DJ "Null" (Night Station):
 
-> Eingabe: `{contributor: "Teufel Audio", product: "REAL BLUE NC", key_message: "Noise-Cancelling fuer Musikliebhaber"}`
+> Input: `{contributor: "Teufel Audio", product: "REAL BLUE NC", key_message: "Noise cancelling for music lovers"}`
 >
-> Output: *"...drei Uhr. Die richtige Zeit fuer einen Kopfhoerer, der die Welt draussen laesst. REAL BLUE NC. Teufel."*
+> Output: *"...three in the morning. The right time for headphones that leave the world outside. REAL BLUE NC. Teufel."*
 
-Gleiche Ad, DJ "Neon Nadler" (80er):
+Same ad, DJ "Neon Nadler" (80s):
 
-> Output: *"Hey -- wenn ihr nachts Depeche Mode hoert und die Nachbarn nicht mitsollen: REAL BLUE NC von Teufel. Schulterpolster-Alarm fuer die Ohren!"*
+> Output: *"Hey -- when you're listening to Depeche Mode at night and don't want the neighbors in on it: REAL BLUE NC by Teufel. Shoulder pad alert for your ears!"*
 
-### Sicherheit
+### Security
 
-- `key_message` wird vom Sanitizer geprueft (Injection-Patterns, Filter-LLM)
-- Contributor/Product-Felder sind strukturierte Daten und gehen nicht durch den LLM-Filter
-- Der Ad-Prompt ist isoliert vom DJ-System-Prompt (kein Prompt-Leaking)
-- StreamGuard prueft auch Ad-Texte nicht (Ads werden direkt emittiert) -- bewusste Designentscheidung: Ads sollen nicht durch Manifesto-Regex blockiert werden
+- `key_message` is checked by the sanitizer (injection patterns, filter LLM)
+- Contributor/Product fields are structured data and do not go through the LLM filter
+- The ad prompt is isolated from the DJ system prompt (no prompt leaking)
+- StreamGuard does not check ad texts either (ads are emitted directly) -- deliberate design decision: ads should not be blocked by manifesto regex
 
 ## StreamGuard
 
-Prueft jede DJ-Moderation vor dem Senden:
+Checks every DJ moderation before sending:
 
-| Check | Trigger | Aktion |
+| Check | Trigger | Action |
 |---|---|---|
-| Laengen-Check | > `max_moderation_chars` (Default: 800) | Harte Kuerzung |
-| Manifesto-Detektor | Regex: "die wahrheit ist", "das system", "wacht auf", ... | Blockiert |
-| KI-Selbstreferenz | "als ki", "ich bin ein sprachmodell", ... | Blockiert |
-| Blocklist | "ignore all previous", "system prompt", "jailbreak" | Blockiert |
-| Wiederholung | 3 Saetze mit gleichem Anfang | Warnung |
-| Vokabeldiversitaet | Unique-Word-Ratio < 30% | Warnung |
+| Length check | > `max_moderation_chars` (Default: 800) | Hard truncation |
+| Manifesto detector | Regex: "the truth is", "the system", "wake up", ... | Blocked |
+| AI self-reference | "as an ai", "i am a language model", ... | Blocked |
+| Blocklist | "ignore all previous", "system prompt", "jailbreak" | Blocked |
+| Repetition | 3 sentences with same beginning | Warning |
+| Vocabulary diversity | Unique-word-ratio < 30% | Warning |
 
-Blockierte Moderationen erscheinen als `type: "system"` Event im Stream. Der Track laeuft trotzdem.
+Blocked moderations appear as `type: "system"` events in the stream. The track still plays.
 
-## Persona-Konfiguration
+## Persona Configuration
 
-Jede Station wird ueber eine YAML-Datei definiert:
+Each station is defined via a YAML file:
 
 ```yaml
 station:
-  id: jazz                    # Technische ID (erscheint in jedem SSE-Event)
-  claim: "..."                # Sender-Claim
-  description: >              # Positionierung (fliesst in System-Prompt)
+  id: jazz                    # Technical ID (appears in every SSE event)
+  claim: "..."                # Station claim
+  description: >              # Positioning (flows into system prompt)
     Late-night jazz station...
-  genre: jazz                 # Hauptgenre
+  genre: jazz                 # Main genre
   subgenres: [bebop, cool]    # Subgenres
-  target_audience: "..."      # Zielgruppe
-  timezone: Europe/Berlin     # Fuer Tageszeit-Bezuege
-  language: de                # Sendesprache
+  target_audience: "..."      # Target audience
+  timezone: Europe/Berlin     # For time-of-day references
+  language: de                # Broadcast language
 
 dj:
-  name: "Miles Hertz"         # DJ-Name
-  personality: "..."          # Charakter (System-Prompt)
-  tone: "..."                 # Tonalitaet
-  max_moderation_chars: 800   # Max. Laenge pro Moderation
-  quirks:                     # Wiederkehrende Eigenheiten
-    - "nennt Songs 'Schaetzchen'"
-  forbidden_topics: [...]     # Verbotene Themen
+  name: "Miles Hertz"         # DJ name
+  personality: "..."          # Character (system prompt)
+  tone: "..."                 # Tonality
+  max_moderation_chars: 800   # Max. length per moderation
+  quirks:                     # Recurring mannerisms
+    - "calls songs 'darlings'"
+  forbidden_topics: [...]     # Forbidden topics
 
-tracks_file: tracks.json      # Track-Library (Default: tracks.json)
+tracks_file: tracks.json      # Track library (Default: tracks.json)
 
 program_grid:
-  impulse_slot_minute: 30     # Minute des Impuls-Slots
+  impulse_slot_minute: 30     # Minute of the impulse slot
 
 rules:
-  no_repeat_hours: 4          # Keine Track-Wiederholung innerhalb X Stunden
-  max_same_genre_in_a_row: 2  # Max. gleiche Genre hintereinander
+  no_repeat_hours: 4          # No track repeat within X hours
+  max_same_genre_in_a_row: 2  # Max. same genre in a row
 ```
 
-Eigene Persona erstellen: YAML nach Schema anlegen, Track-Library als JSON in `app/` ablegen, per `PERSONA_PATH` referenzieren.
+Create your own persona: Write YAML according to schema, place track library as JSON in `app/`, reference via `PERSONA_PATH`.
 
-## Umgebungsvariablen
+## Environment Variables
 
-| Variable | Default | Beschreibung |
+| Variable | Default | Description |
 |---|---|---|
-| `PORT` | `8080` | Server-Port |
-| `PERSONA_PATH` | `persona.yml` | Pfad zur Persona-YAML |
-| `TIME_SCALE` | `60` | Zeitskalierung (60 = 1 Track-Minute in 1 Sekunde) |
-| `LLM_DJ_BASE_URL` | `https://api.groq.com/openai/v1` | LLM-Endpoint fuer DJ |
-| `LLM_DJ_MODEL` | `llama-3.3-70b-versatile` | Modell fuer DJ |
-| `LLM_DJ_API_KEY` | -- | API-Key fuer DJ (erforderlich) |
-| `LLM_FILTER_BASE_URL` | = `LLM_DJ_BASE_URL` | LLM-Endpoint fuer Sanitizer |
-| `LLM_FILTER_MODEL` | `llama-3.1-8b-instant` | Modell fuer Sanitizer |
-| `LLM_FILTER_API_KEY` | = `LLM_DJ_API_KEY` | API-Key fuer Sanitizer |
-| `LLM_FALLBACK_BASE_URL` | -- | Fallback-Provider |
-| `LLM_FALLBACK_MODEL` | `deepseek-chat` | Fallback-Modell |
-| `LLM_FALLBACK_API_KEY` | -- | Fallback-API-Key |
+| `PORT` | `8080` | Server port |
+| `PERSONA_PATH` | `persona.yml` | Path to persona YAML |
+| `TIME_SCALE` | `60` | Time scale (60 = 1 track minute in 1 second) |
+| `LLM_DJ_BASE_URL` | `https://api.groq.com/openai/v1` | LLM endpoint for DJ |
+| `LLM_DJ_MODEL` | `llama-3.3-70b-versatile` | Model for DJ |
+| `LLM_DJ_API_KEY` | -- | API key for DJ (required) |
+| `LLM_FILTER_BASE_URL` | = `LLM_DJ_BASE_URL` | LLM endpoint for sanitizer |
+| `LLM_FILTER_MODEL` | `llama-3.1-8b-instant` | Model for sanitizer |
+| `LLM_FILTER_API_KEY` | = `LLM_DJ_API_KEY` | API key for sanitizer |
+| `LLM_FALLBACK_BASE_URL` | -- | Fallback provider |
+| `LLM_FALLBACK_MODEL` | `deepseek-chat` | Fallback model |
+| `LLM_FALLBACK_API_KEY` | -- | Fallback API key |
 
-Alle `LLM_*`-Variablen sind OpenAI-kompatibel. Funktioniert ohne Code-Aenderung mit: Groq, DeepSeek, OpenAI, Mistral, Ollama (`localhost:11434/v1`), OpenRouter.
+All `LLM_*` variables are OpenAI-compatible. Works without code changes with: Groq, DeepSeek, OpenAI, Mistral, Ollama (`localhost:11434/v1`), OpenRouter.
 
-## Dateien
+## Files
 
 ```
 station/
@@ -326,23 +326,23 @@ station/
   requirements.txt
   .env.example
   persona.yml                       Jazz (Default)
-  persona.80s.yml                   80er
-  persona.nachtsender-null.yml      Nachtsender Null
+  persona.80s.yml                   80s
+  persona.nachtsender-null.yml      Night Station Null
   persona.techno.example.yml        Techno
   app/
     main.py                         FastAPI (SSE, /inject, /status, /stats, /reset)
-    dj_agent.py                     DJ-Agent (Grid-Zyklus, Track-Wahl, Ads)
-    stats.py                        Statistik-Accumulator (Token, Latenz, DB)
-    streamguard.py                  Moderation-Sicherheit
-    sanitizer.py                    Eingabe-Filter (LLM + Regex)
-    persona.py                      Persona-Loader + Prompt-Builder
-    llm.py                          LLM-Client (multi-provider, fallback, Usage-Tracking)
-    db.py                           SQLite (4 Tabellen)
-    tracks.json                     40 Jazz-Tracks
-    tracks_80s.json                 40 80er-Tracks
-    tracks_nachtsender_null.json    40 Dark/Ambient-Tracks
+    dj_agent.py                     DJ Agent (grid cycle, track selection, ads)
+    stats.py                        Statistics accumulator (tokens, latency, DB)
+    streamguard.py                  Moderation security
+    sanitizer.py                    Input filter (LLM + regex)
+    persona.py                      Persona loader + prompt builder
+    llm.py                          LLM client (multi-provider, fallback, usage tracking)
+    db.py                           SQLite (4 tables)
+    tracks.json                     40 Jazz tracks
+    tracks_80s.json                 40 80s tracks
+    tracks_nachtsender_null.json    40 Dark/Ambient tracks
   web/
-    index.html                      Chat-UI (Dark Theme)
+    index.html                      Chat UI (Dark Theme)
   data/
-    radio.db                        SQLite-DB (auto-generiert)
+    radio.db                        SQLite DB (auto-generated)
 ```

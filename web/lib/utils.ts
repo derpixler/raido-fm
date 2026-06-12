@@ -6,9 +6,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Erzeugt aus einem Überschriftstext eine URL-sichere ID — kompatibel zur
- * GitHub-Slug-Logik (Mehrfach-Bindestriche bleiben erhalten), damit die
- * Anker-Links innerhalb der readme.md weiterhin funktionieren.
+ * Generates a URL-safe ID from heading text — compatible with GitHub slug logic
+ * (multiple dashes are preserved), so anchor links within readme.md continue
+ * to work.
  */
 export function slugify(text: string): string {
   return text

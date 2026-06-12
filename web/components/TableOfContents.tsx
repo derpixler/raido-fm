@@ -18,8 +18,8 @@ type TableOfContentsProps = {
 };
 
 /**
- * Sticky Desktop-Sidebar: Marke, Lesefortschritt und die Signal-Navigation.
- * Das Inhaltsverzeichnis entsteht dynamisch aus den Markdown-Überschriften.
+ * Sticky desktop sidebar: brand, reading progress and signal navigation.
+ * The table of contents is generated dynamically from Markdown headings.
  */
 export function TableOfContents({
   sections,
@@ -57,7 +57,7 @@ export function TableOfContents({
         onNavigate={onNavigate}
       />
 
-      {/* Autoren-Block */}
+      {/* Author block */}
       <div className="rounded-xl border border-border bg-surface/40 p-4">
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 /**
- * Liefert den Lesefortschritt als Wert zwischen 0 und 1, berechnet aus der
- * Scroll-Position relativ zur scrollbaren Gesamthöhe des Dokuments.
+ * Returns reading progress as a value between 0 and 1, calculated from the
+ * scroll position relative to the total scrollable height of the document.
  */
 export function useScrollProgress(): number {
   const [progress, setProgress] = useState(0);

@@ -1,4 +1,4 @@
-/* RAIDO-Theme für Reveal.js — Farben/Fonts analog zu globals.css */
+/* RAIDO theme for Reveal.js — colors/fonts mirror globals.css */
 
 .reveal-viewport {
   background: #050505;
@@ -112,7 +112,7 @@
   padding: 0.45em 0.9em;
 }
 
-/* Kicker-Zeile über Folien-Titeln */
+/* Kicker line above slide titles */
 .reveal .kicker {
   display: block;
   font-family: var(--font-mono, ui-monospace, monospace);
@@ -124,7 +124,7 @@
   margin-bottom: 1.2em;
 }
 
-/* Pills für die Kernschleife (Auto-Animate) */
+/* Pills for the core loop (Auto-Animate) */
 .reveal .loop-pill {
   display: inline-flex;
   align-items: center;
@@ -144,7 +144,7 @@
   font-size: 0.9em;
 }
 
-/* Reveal-Chrome: Controls, Progress, Folien-Nummer */
+/* Reveal Chrome: controls, progress, slide number */
 .reveal .controls {
   color: #8b5cf6;
 }
@@ -162,7 +162,7 @@
   color: #52525b;
 }
 
-/* Fragments: sanfteres Erscheinen */
+/* Fragments: softer appearance */
 .reveal .fragment {
   transition:
     opacity 0.3s ease,

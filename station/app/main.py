@@ -72,23 +72,23 @@ def _print_startup_summary(station_name: str | None = None) -> None:
         "",
         f"  Persona:        {persona_path}",
         f"  Station ID:     {s['id']}",
-        f"  Name:           {station_name or '(wird generiert)'}",
+        f"  Name:           {station_name or '(generated)'}",
         f"  Genre:          {s['genre']} ({subgenres})",
         f"  Claim:          {s.get('claim', '-')}",
-        f"  Zielgruppe:     {s.get('target_audience', '-')}",
-        f"  Sprache:        {s.get('language', 'de')}",
+        f"  Audience:       {s.get('target_audience', '-')}",
+        f"  Language:       {s.get('language', 'de')}",
         f"  Timezone:       {s.get('timezone', 'Europe/Berlin')}",
         "",
         f"  DJ:             {d['name']}",
-        f"  Persoenlichkeit: {d.get('personality', '-')[:60]}...",
-        f"  Ton:            {d.get('tone', '-')}",
-        f"  Max. Mod.:      {d.get('max_moderation_chars', 800)} Zeichen",
+        f"  Personality:    {d.get('personality', '-')[:60]}...",
+        f"  Tone:           {d.get('tone', '-')}",
+        f"  Max Mod:        {d.get('max_moderation_chars', 800)} chars",
         f"  Quirks:         {quirks_count}",
-        f"  Verboten:       {forbidden or '-'}",
+        f"  Forbidden:      {forbidden or '-'}",
         "",
         f"  Tracks:         {tracks_file} ({tracks_count} Tracks)",
         f"  No-Repeat:      {r.get('no_repeat_hours', 4)}h",
-        f"  Max. Genre:     {r.get('max_same_genre_in_a_row', 2)}x hintereinander",
+        f"  Max Genre:      {r.get('max_same_genre_in_a_row', 2)}x in a row",
         "",
         "  LLM (DJ):       " + dj_cfg["model"],
         f"                  {dj_cfg['base_url']}",
@@ -304,7 +304,7 @@ async def inject(req: InjectRequest):
                 "error": "input_too_long",
                 "max_chars": MAX_INPUT_CHARS,
                 "actual_chars": input_len,
-                "message": f"Max. {MAX_INPUT_CHARS} Zeichen erlaubt.",
+                "message": f"Max {MAX_INPUT_CHARS} characters allowed.",
             },
         )
 
@@ -316,7 +316,7 @@ async def inject(req: InjectRequest):
         text = req.text or req.key_message or ""
 
     if req.category == "listener_comment" and req.name:
-        text = f"[Hörer: {req.name}] {text}"
+        text = f"[Listener: {req.name}] {text}"
 
     result = await sanitizer.sanitize(
         category=req.category,
@@ -326,7 +326,7 @@ async def inject(req: InjectRequest):
     )
 
     if _broadcast_queue:
-        status = "geflaggt" if result["was_flagged"] else "angenommen"
+        status = "flagged" if result["was_flagged"] else "accepted"
         await _broadcast_queue.put({
             "station": get_persona()["station"]["id"],
             "type": "system",
