@@ -403,9 +403,15 @@ async def stats_detail(category: str):
     return []
 
 
-@app.get("/mode")
-async def get_mode():
-    return {"mode": dj_agent.get_mode(), "time_scale": dj_agent.TIME_SCALE}
+@app.get("/sponsors")
+async def list_sponsors():
+    try:
+        import yaml
+        with open("/app/sponsors.yml") as f:
+            data = yaml.safe_load(f)
+        return data.get("sponsors", [])
+    except Exception:
+        return []
 
 
 @app.post("/mode/{mode}")

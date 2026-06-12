@@ -7,6 +7,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./hub/data:/app/data
       - ./personas:/app/personas
+      - ./sponsors.yml:/app/sponsors.yml
     env_file:
       - .env
     environment:
@@ -26,6 +27,7 @@ services:
     volumes:
       - ./station/data:/app/data
       - ./personas:/app/personas:ro
+      - ./sponsors.yml:/app/sponsors.yml:ro
     env_file:
       - .env
     environment:

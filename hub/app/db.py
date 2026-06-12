@@ -51,6 +51,19 @@ CREATE TABLE IF NOT EXISTS cleanup_log (
     deleted_count INTEGER NOT NULL,
     deleted_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS sponsor_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    url TEXT,
+    contact TEXT,
+    tokens INTEGER DEFAULT 1000,
+    ad_sponsor TEXT,
+    ad_product TEXT,
+    ad_key_message TEXT,
+    status TEXT DEFAULT 'pending',
+    created_at TEXT NOT NULL
+);
 """
 
 
@@ -217,3 +230,26 @@ async def cleanup_old_entries(db: aiosqlite.Connection, table: str, category: st
     )
     await db.commit()
     return overflow
+
+
+async def add_sponsor_request(db: aiosqlite.Connection, name: str, url: str, contact: str, tokens: int, ad_sponsor: str, ad_product: str, ad_key_message: str) -> int:
+    now = datetime.now(timezone.utc).isoformat()
+    cursor = await db.execute(
+        "INSERT INTO sponsor_requests (name, url, contact, tokens, ad_sponsor, ad_product, ad_key_message, status, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+        (name, url, contact, tokens, ad_sponsor, ad_product, ad_key_message, 'pending', now),
+    )
+    await db.commit()
+    return cursor.lastrowid
+
+
+async def get_sponsor_requests(db: aiosqlite.Connection, status: str = None) -> list[dict]:
+    if status:
+        cursor = await db.execute("SELECT * FROM sponsor_requests WHERE status = ? ORDER BY id DESC", (status,))
+    else:
+        cursor = await db.execute("SELECT * FROM sponsor_requests ORDER BY id DESC")
+    return [dict(r) for r in await cursor.fetchall()]
+
+
+async def update_sponsor_request(db: aiosqlite.Connection, request_id: int, status: str) -> None:
+    await db.execute("UPDATE sponsor_requests SET status = ? WHERE id = ?", (status, request_id))
+    await db.commit()

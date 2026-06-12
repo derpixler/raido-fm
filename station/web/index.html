@@ -446,6 +446,7 @@
   <span class="stat" data-cat="flagged"><span class="lbl">Flagged</span> <span class="val" id="s-flagged">0</span></span>
   <span class="stat" data-cat="listeners"><span class="lbl">Listener</span> <span class="val" id="s-listeners">0</span></span>
   <span class="stat" data-cat="uptime"><span class="lbl">Uptime</span> <span class="val" id="s-uptime">-</span></span>
+  <span class="stat" data-cat="sponsors"><span class="lbl" style="color:#fbbf24;">Token Sponsoren</span> <span class="val" id="s-sponsors" style="color:#fbbf24;">0</span></span>
   <div id="stats-detail"></div>
 </div>
 
@@ -849,6 +850,7 @@ function renderDetail(cat, data) {
 
   if (cat === 'listeners') return '<div class="detail-title">Listener</div><div class="sd-row">Aktive Verbindungen: <b>' + document.getElementById('s-listeners').textContent + '</b></div><div class="sd-row">Uptime: ' + document.getElementById('s-uptime').textContent + '</div><div style="color:#444;font-size:10px;margin-top:6px;">Keine persoenlichen Daten. Kein Tracking.</div>';
   if (cat === 'uptime') return '<div class="detail-title">Uptime: ' + document.getElementById('s-uptime').textContent + ' / Sendestunden: ' + (document.getElementById('s-tracks').textContent.split('/')[0] ? '~' : '-') + '</div>';
+  if (cat === 'sponsors') return renderSponsors();
 
   return '<div class="detail-title">' + JSON.stringify(data).substring(0,200) + '</div>';
 }

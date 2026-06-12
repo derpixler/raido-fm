@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import random
+import yaml
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -14,6 +15,8 @@ from . import db, llm, streamguard
 from .persona import get_persona, build_system_prompt, build_ad_prompt, build_naming_prompt, set_resolved_name
 
 logger = logging.getLogger(__name__)
+
+SPONSORS_FILE = Path("/app/sponsors.yml")
 
 _DEMO_TIME_SCALE = float(os.getenv("TIME_SCALE", "60"))
 _mode = "realtime"
@@ -377,6 +380,19 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                         "drop_text": preview,
                     })
 
+            # Sponsor event every 4th impulse slot
+            if phase == "impulse" and _hour_count % 2 == 0:
+                sponsors = _load_sponsors()
+                if sponsors:
+                    sp = sponsors[_hour_count // 2 % len(sponsors)]
+                    await _emit({
+                        "station": station_id,
+                        "type": "ad",
+                        "text": sp.get("ad_key_message", ""),
+                        "sponsor": sp.get("ad_sponsor", sp.get("name", "")),
+                        "product": sp.get("ad_product", ""),
+                    })
+
             if speak_wait > 0.1:
                 await asyncio.sleep(speak_wait)
 
@@ -400,6 +416,17 @@ async def run(queue: asyncio.Queue, db_conn) -> None:
                 speak_wait, track_wait,
             )
             await asyncio.sleep(track_wait)
+
+
+def _load_sponsors() -> list[dict]:
+    try:
+        if SPONSORS_FILE.exists():
+            with open(SPONSORS_FILE) as f:
+                data = yaml.safe_load(f)
+            return data.get("sponsors", [])
+    except Exception:
+        pass
+    return []
 
 
 def stop() -> None:

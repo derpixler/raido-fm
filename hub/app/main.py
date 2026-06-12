@@ -14,9 +14,10 @@ import yaml
 from fastapi import FastAPI, Request, HTTPException, Depends
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from pydantic import BaseModel
 
-from . import db, docker_mgr, persona_generator, ad_generator, content_generator
+from . import db, docker_mgr, persona_generator, ad_generator, content_generator, sponsor_keys
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -414,6 +415,79 @@ async def list_personas():
 @app.get("/ads")
 async def list_ads():
     return await db.get_ads(_db) if _db else []
+
+
+SPONSORS_PATH = Path("/app/sponsors.yml")
+
+def _load_sponsors() -> list[dict]:
+    try:
+        with open(SPONSORS_PATH) as f:
+            data = yaml.safe_load(f)
+        return sorted(data.get("sponsors", []), key=lambda s: s.get("tokens", 0), reverse=True)
+    except Exception:
+        return []
+
+@app.get("/sponsors")
+async def list_sponsors():
+    sponsor_keys.load_sponsors()
+    return sponsor_keys.get_all_sponsors()
+
+class SponsorRequest(BaseModel):
+    name: str
+    url: str = ""
+    contact: str = ""
+    tokens: int = 1000
+    ad_sponsor: str = ""
+    ad_product: str = ""
+    ad_key_message: str = ""
+
+@app.post("/sponsors/request")
+async def request_sponsor(req: SponsorRequest):
+    if not req.name:
+        return JSONResponse({"error": "Name required"}, status_code=400)
+    sid = await db.add_sponsor_request(_db, req.name, req.url, req.contact, req.tokens, req.ad_sponsor, req.ad_product, req.ad_key_message)
+    return {"id": sid, "status": "pending"}
+
+@app.get("/sponsors/requests", dependencies=[Depends(require_admin)])
+async def list_sponsor_requests():
+    return await db.get_sponsor_requests(_db) if _db else []
+
+@app.post("/sponsors/requests/{req_id}/approve", dependencies=[Depends(require_admin)])
+async def approve_sponsor(req_id: int):
+    req_data = await db.get_sponsor_requests(_db)
+    req = next((r for r in req_data if r["id"] == req_id), None)
+    if not req:
+        raise HTTPException(404, "Request not found")
+
+    max_priority = max((s.get("priority", 0) for s in sponsor_keys.get_all_sponsors()), default=0)
+    sponsor_keys.save_sponsor(req["name"], {
+        "name": req["name"], "url": req["url"], "contact": req["contact"],
+        "api_key": "", "api_base_url": "", "api_model": "deepseek-chat",
+        "token_budget": req["tokens"], "token_used": 0,
+        "ad_sponsor": req["ad_sponsor"], "ad_product": req["ad_product"],
+        "ad_key_message": req["ad_key_message"],
+        "since": datetime.now(timezone.utc).strftime("%Y-%m"),
+        "priority": max_priority + 1,
+    })
+    await db.update_sponsor_request(_db, req_id, "approved")
+    return {"status": "approved"}
+
+@app.post("/sponsors/requests/{req_id}/reject", dependencies=[Depends(require_admin)])
+async def reject_sponsor(req_id: int):
+    req_data = await db.get_sponsor_requests(_db)
+    if not any(r["id"] == req_id for r in req_data):
+        raise HTTPException(404, "Request not found")
+    await db.update_sponsor_request(_db, req_id, "rejected")
+    return {"status": "rejected"}
+
+@app.delete("/sponsors/{name}", dependencies=[Depends(require_admin)])
+async def remove_sponsor(name: str):
+    all_sponsors = sponsor_keys.get_all_sponsors()
+    all_sponsors = [s for s in all_sponsors if s["name"] != name]
+    with open(sponsor_keys.SPONSORS_PATH, "w") as f:
+        yaml.dump({"sponsors": all_sponsors}, f, allow_unicode=True)
+    sponsor_keys.load_sponsors()
+    return {"status": "removed"}
 
 
 @app.get("/injections")

@@ -1,0 +1,13 @@
+sponsors:
+  - name: "RAIDO FM (Owner)"
+    url: "https://raido.fm"
+    api_key: ""
+    api_base_url: "https://api.deepseek.com"
+    api_model: "deepseek-chat"
+    token_budget: 0
+    token_used: 0
+    ad_sponsor: "RAIDO FM"
+    ad_product: "Autonomous AI Radio"
+    ad_key_message: "Open-Source. Autonomous. 24/7. No script, no human in the loop."
+    since: "2026-06"
+    priority: 0

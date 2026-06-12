@@ -100,8 +100,23 @@ async def chat(
     temperature: float = 0.8,
     max_tokens: int = 1024,
 ) -> str | None:
-    cfg = _get_role_config(role)
-    client = _get_client(role)
+    # Sponsor key override
+    try:
+        from . import sponsor_keys
+        sponsor = sponsor_keys.get_current_sponsor_config()
+        if sponsor and sponsor.get("api_key"):
+            cfg = {
+                "model": sponsor.get("api_model", "deepseek-chat"),
+                "base_url": sponsor.get("api_base_url", "https://api.deepseek.com"),
+                "api_key": sponsor["api_key"],
+            }
+            client = AsyncOpenAI(base_url=cfg["base_url"], api_key=cfg["api_key"])
+        else:
+            cfg = _get_role_config(role)
+            client = _get_client(role)
+    except ImportError:
+        cfg = _get_role_config(role)
+        client = _get_client(role)
 
     try:
         t0 = time.monotonic()
@@ -113,6 +128,13 @@ async def chat(
         )
         latency = (time.monotonic() - t0) * 1000
         _record_usage(role, response, latency)
+        # Track sponsor tokens
+        if response and hasattr(response, "usage") and response.usage:
+            try:
+                from . import sponsor_keys
+                sponsor_keys.record_token_usage(response.usage.total_tokens or 0)
+            except ImportError:
+                pass
         return response.choices[0].message.content
     except Exception as e:
         _record_error(role)
