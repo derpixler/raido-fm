@@ -152,6 +152,7 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
         ports={f"{port}/tcp": port},
         volumes={
             PERSONAS_HOST_PATH: {"bind": "/app/personas", "mode": "ro"},
+            os.path.join(os.path.dirname(PERSONAS_HOST_PATH), "sponsors.yml"): {"bind": "/app/sponsors.yml", "mode": "ro"},
         },
         environment=environment,
         labels={

@@ -186,23 +186,69 @@ async def stream(request: Request):
     # Emit recent history so the stream isn't empty on connect
     if _db_conn:
         try:
-            cur = await _db_conn.execute(
-                "SELECT artist, title, genre, duration, played_at, phase FROM play_history ORDER BY id DESC LIMIT 8"
-            )
-            rows = await cur.fetchall()
             station_id = get_persona()["station"]["id"]
-            for row in reversed(rows):
-                q.put_nowait({
-                    "station": station_id,
-                    "type": "now_playing",
-                    "artist": row["artist"],
-                    "title": row["title"],
-                    "genre": row["genre"],
-                    "duration": row["duration"],
-                    "sim_duration": 0,
+            events = []
+
+            # Recent tracks + moderations
+            t_cur = await _db_conn.execute(
+                "SELECT artist, title, genre, duration, played_at, phase FROM play_history WHERE played_at > datetime('now', '-30 minutes') ORDER BY id DESC LIMIT 15"
+            )
+            for row in await t_cur.fetchall():
+                events.append({
+                    "station": station_id, "type": "now_playing",
+                    "artist": row["artist"], "title": row["title"],
+                    "genre": row["genre"], "duration": row["duration"],
+                    "sim_duration": 0, "_ts": row["played_at"],
                 })
-        except Exception:
-            pass
+            m_cur = await _db_conn.execute(
+                "SELECT payload, created_at FROM broadcast_log WHERE event_type = 'moderation' ORDER BY id DESC LIMIT 20"
+            )
+            for row in await m_cur.fetchall():
+                try:
+                    p = json.loads(row["payload"])
+                    events.append({
+                        "station": station_id, "type": "moderation",
+                        "text": p.get("text", ""), "phase": p.get("phase", ""),
+                        "sim_duration": 0, "_ts": row["created_at"],
+                    })
+                except Exception as ex:
+                    logger.warning("Moderation parse error: %s", ex)
+
+            # Recent stimuli (drops)
+            s_cur = await _db_conn.execute(
+                "SELECT category, sanitized_text, sanitized_at, used_at, was_flagged, flag_reason FROM external_stimuli WHERE used_at IS NOT NULL ORDER BY id DESC LIMIT 20"
+            )
+            for row in await s_cur.fetchall():
+                cat = row["category"]
+                events.append({
+                    "station": station_id, "type": "system",
+                    "text": f"Drop [{cat}]: {(row['sanitized_text'] or '')[:60]}",
+                    "drop_status": "flagged" if row["was_flagged"] else "used",
+                    "drop_category": cat,
+                    "sim_duration": 0, "_ts": row["used_at"] or row["sanitized_at"],
+                })
+
+            # Recent ads
+            a_cur = await _db_conn.execute(
+                "SELECT payload, created_at FROM broadcast_log WHERE event_type = 'ad' ORDER BY id DESC LIMIT 15"
+            )
+            for row in await a_cur.fetchall():
+                try:
+                    p = json.loads(row["payload"])
+                    events.append({
+                        "station": station_id, "type": "ad",
+                        "text": p.get("text", ""),
+                        "sponsor": p.get("sponsor", ""),
+                        "sim_duration": 0, "_ts": row["created_at"],
+                    })
+                except Exception:
+                    pass
+
+            events.sort(key=lambda e: e.pop("_ts", ""))
+            for evt in events:
+                q.put_nowait(evt)
+        except Exception as e:
+            logger.warning("Stream history error: %s", e)
 
     async def event_generator() -> AsyncGenerator[dict, None]:
         try:

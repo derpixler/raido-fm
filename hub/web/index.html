@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RAIDO FM — Hub</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -281,45 +282,15 @@ header .sub a { color: #6366f1; text-decoration: none; }
   <div id="modal">
     <button id="modal-close" onclick="closeModal()">&times;</button>
     <h3 id="modal-title">Neue Station</h3>
-    <div class="form-grid">
-      <div><label>Station-ID</label><input id="f-id" placeholder="meine-station"></div>
-      <div><label>Claim</label><input id="f-claim" placeholder="Max. 6 Worte"></div>
-      <div><label>Genre</label><input id="f-genre" placeholder="z.B. space ambient"></div>
-      <div><label>Subgenres (Komma)</label><input id="f-subgenres" placeholder="drone, berlin school"></div>
-      <div><label>Zielgruppe</label><input id="f-audience" placeholder="Nachteulen, 30+"></div>
-    </div>
-    <div style="margin-top:12px;"><label>Kurzbeschreibung</label><textarea id="f-desc" rows="2" placeholder="2-3 Saetze Positionierung"></textarea></div>
-    <div style="border-top:1px solid #1a1a1a;margin:14px 0 10px;padding-top:12px;">
-      <label style="color:#6366f1;">DJ</label>
-    </div>
-    <div class="form-grid">
-      <div><label>DJ-Name</label><input id="f-dj-name" placeholder="Kuenstlername"></div>
-      <div><label>Real Name</label><input id="f-dj-real" placeholder="Buergerlicher Name"></div>
-      <div><label>Alter</label><input id="f-dj-age" placeholder="42" type="number"></div>
-      <div><label>Herkunft</label><input id="f-dj-origin" placeholder="Berlin"></div>
-      <div><label>Familie</label><input id="f-dj-family" placeholder="ledig, 2 Katzen"></div>
-      <div><label>Hobbies</label><input id="f-dj-hobbies" placeholder="Vinyl, Modellbau"></div>
-      <div><label>DJ seit</label><input id="f-dj-since" placeholder="2010" type="number"></div>
-      <div><label>Max. Moderation (Zeichen)</label><input id="f-dj-maxmod" value="800" type="number"></div>
-    </div>
-    <div style="margin-top:8px;"><label>Persoenlichkeit</label><input id="f-dj-personality" placeholder="2-3 Saetze Charakter"></div>
-    <div style="margin-top:8px;"><label>Ton / Tonalitaet</label><input id="f-dj-tone" placeholder="z.B. warm, energetisch"></div>
-    <div style="margin-top:8px;"><label>Vita</label><textarea id="f-dj-vita" rows="2" placeholder="3-5 Saetze Lebenslauf"></textarea></div>
-    <div style="margin-top:8px;"><label>Avatar Prompt (Englisch)</label><textarea id="f-dj-avatar" rows="2" placeholder="Portrait of a ..."></textarea></div>
-    <div style="margin-top:10px;">
-      <label>Quirks</label>
-      <div class="quirks-list" id="quirks-list">
-        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 1"></div>
-        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 2"></div>
-        <div class="quirk-row"><input class="f-quirk" placeholder="Quirk 3"></div>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
-      <a href="#" onclick="openHelp();return false;" style="color:#6366f1;font-size:11px;text-decoration:none;">Hilfe zur Station-Erstellung</a>
+    <div id="modal-preview" style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:10px;padding:20px;margin-bottom:12px;min-height:120px;">
+      <div style="color:#888;">Generiere...</div>
     </div>
     <div class="modal-actions">
       <button class="btn" id="btn-start" onclick="startStation()" disabled>go live</button>
-      <button class="btn secondary" id="btn-regen" onclick="regenerate()">Neu wuerfeln</button>
+      <button class="btn secondary" id="btn-regen" onclick="regenerate()">shuffle again</button>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+      <a href="#" onclick="openHelp();return false;" style="color:#6366f1;font-size:11px;text-decoration:none;">Hilfe zur Station-Erstellung</a>
     </div>
     <div id="modal-status" style="margin-top:8px;font-size:11px;color:#888;"></div>
   </div>
@@ -432,14 +403,27 @@ let _stationNames = {};
 
 function setBusy(busy) {
   _busy = busy;
-  document.getElementById('btn-start').disabled = busy || !fv('f-id') || !fv('f-genre') || !fv('f-dj-name');
+  document.getElementById('btn-start').disabled = busy || !_parsedPersona;
   document.getElementById('btn-regen').disabled = busy;
-  document.querySelectorAll('#modal input, #modal textarea, #modal select').forEach(el => { el.disabled = busy; });
-  document.getElementById('modal-close').style.display = busy ? 'none' : '';
 }
 
-function el(id) { return document.getElementById(id); }
-function fv(id) { return (el(id)?.value || '').trim(); }
+function renderPreview(p) {
+  const s = p.station || {};
+  const d = p.dj || {};
+  const b = d.bio || {};
+  const quirks = (d.quirks || []).slice(0, 3);
+  document.getElementById('modal-preview').innerHTML = `
+    <div style="font-size:18px;color:#fff;font-weight:600;">${s.id || '?'}</div>
+    <div style="font-size:12px;color:#6366f1;">${s.genre || '?'} — ${(s.subgenres||[]).slice(0,3).join(', ')}</div>
+    <div style="font-size:16px;color:#bbb;margin:8px 0;">DJ ${d.name || '?'}</div>
+    ${s.claim ? '<div style="font-size:12px;color:#888;font-style:italic;">' + s.claim + '</div>' : ''}
+    <div style="font-size:11px;color:#555;margin-top:4px;">${b.real_name || ''}${b.real_name && b.age ? ', ' + b.age : (b.age || '')}${b.origin ? ' · ' + b.origin : ''}</div>
+    <div style="font-size:10px;color:#555;margin-top:2px;">${(d.personality||'').substring(0,100)}</div>
+    ${quirks.length ? '<div style="font-size:10px;color:#666;margin-top:4px;">' + quirks.map(q => '"' + q + '"').join(' · ') + '</div>' : ''}
+  `;
+  _parsedPersona = p;
+  document.getElementById('btn-start').disabled = false;
+}
 
 function populateForm(p) {
   const s = p.station || {};
@@ -465,6 +449,8 @@ function populateForm(p) {
   el('f-dj-avatar').value = (b.avatar_prompt || '').trim();
   const quirks = d.quirks || [];
   document.querySelectorAll('.f-quirk').forEach((inp, i) => { inp.value = quirks[i] || ''; });
+  // Make all fields read-only (generated content, not editable)
+  document.querySelectorAll('#modal input, #modal textarea').forEach(el => { el.readOnly = true; });
   _parsedPersona = p;
   el('btn-start').disabled = false;
 }
@@ -578,12 +564,12 @@ function closePrefs() {
 
 async function startRandom() {
   closePrefs();
-  const genre = el('pref-genre')?.value?.trim() || '';
-  const lang = el('pref-lang')?.value || 'de';
+  const genre = document.getElementById('pref-genre')?.value?.trim() || '';
+  const lang = document.getElementById('pref-lang')?.value || 'de';
 
   openModal('Neue Station (Random)');
-  clearForm();
-  el('modal-status').innerHTML = '<span class="spinner"></span> LLM generiert Persona + Tracks...';
+  document.getElementById('modal-preview').innerHTML = '<div style="color:#888;"><span class="spinner"></span> LLM generiert...</div>';
+  document.getElementById('btn-start').disabled = true;
   setBusy(true);
 
   try {
@@ -593,53 +579,40 @@ async function startRandom() {
     const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok || data.error) {
-      el('modal-status').innerHTML = '✗ ' + (data.error || 'Fehler');
+      document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Fehler') + '</div>';
       setBusy(false);
       return;
     }
     _currentTracks = data.tracks_json;
-    const p = data.parsed || parseYamlToForm(data.persona_yaml) || {};
-    populateForm(p || {});
-    el('modal-status').innerHTML = '✓ Persona + ' + (data.tracks_json ? '40 Tracks' : 'Tracks') + ' generiert.';
+    const p = data.parsed || {};
+    renderPreview(p);
+    document.getElementById('modal-status').innerHTML = '✓ Persona + ' + (data.tracks_json ? '40 Tracks' : 'Tracks') + ' generiert.';
   } catch (e) {
-    el('modal-status').innerHTML = '✗ ' + e.message;
+    document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
   }
-  setBusy(false);
-}
-
-function newCustom() {
-  openModal('Neue Station (Custom)');
-  clearForm();
-  _currentTracks = null;
-  el('btn-regen').style.display = 'none';
-  el('modal-status').innerHTML = '';
   setBusy(false);
 }
 
 async function regenerate() {
   if (_busy) return;
-  if (_limits.personas_count >= _limits.max_personas) {
-    el('modal-status').innerHTML = '✗ Max. ' + _limits.max_personas + ' Personas erreicht';
-    return;
-  }
   setBusy(true);
-  el('modal-status').innerHTML = '<span class="spinner"></span> Neu generieren...';
+  document.getElementById('modal-preview').innerHTML = '<div style="color:#888;"><span class="spinner"></span> LLM generiert...</div>';
+  document.getElementById('btn-start').disabled = true;
   _currentTracks = null;
 
   try {
     const res = await fetch('/generate-persona', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}' });
     const data = await res.json();
     if (!res.ok || data.error) {
-      el('modal-status').innerHTML = '✗ ' + (data.error || 'Fehler');
+      document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + (data.error || 'Fehler') + '</div>';
       setBusy(false);
       return;
     }
     _currentTracks = data.tracks_json;
-    const p = data.parsed || parseYamlToForm(data.persona_yaml) || {};
-    populateForm(p || {});
-    el('modal-status').innerHTML = '✓ Neue Persona generiert.';
+    renderPreview(data.parsed || {});
+    document.getElementById('modal-status').innerHTML = '✓ Neue Persona generiert.';
   } catch (e) {
-    el('modal-status').innerHTML = '✗ ' + e.message;
+    document.getElementById('modal-preview').innerHTML = '<div style="color:#ef4444;">✗ ' + e.message + '</div>';
   }
   setBusy(false);
 }
@@ -647,43 +620,19 @@ async function regenerate() {
 async function startStation() {
   if (_busy || !_parsedPersona) return;
   setBusy(true);
-  el('modal-status').innerHTML = '<span class="spinner"></span> Station wird erstellt + gestartet...';
+  document.getElementById('modal-status').innerHTML = '<span class="spinner"></span> Station wird gestartet...';
+
+  const p = _parsedPersona;
+  const s = p.station || {};
+  const d = p.dj || {};
+  const b = d.bio || {};
+  const quirks = d.quirks || [];
+
+  const yaml = 'station:\n  id: ' + (s.id || 'unknown') + '\n  name: auto\n  claim: "' + (s.claim || '') + '"\n  description: >\n    ' + (s.description || '').replace(/\n/g, '\n    ') + '\n  genre: ' + (s.genre || 'unknown') + '\n  subgenres: [' + (s.subgenres || []).join(', ') + ']\n  target_audience: "' + (s.target_audience || '') + '"\n  timezone: Europe/Berlin\n  language: de\n\ndj:\n  name: "' + (d.name || 'DJ') + '"\n  personality: "' + (d.personality || '') + '"\n  tone: "' + (d.tone || '') + '"\n  max_moderation_chars: ' + (d.max_moderation_chars || 800) + '\n  bio:\n    real_name: "' + (b.real_name || '') + '"\n    age: ' + (b.age || 0) + '\n    origin: "' + (b.origin || '') + '"\n    family: "' + (b.family || '') + '"\n    hobbies: "' + (b.hobbies || '') + '"\n    since_year: ' + (b.since_year || 0) + '\n    vita: >\n      ' + (b.vita || '').replace(/\n/g, '\n      ') + '\n    avatar_prompt: >\n      ' + (b.avatar_prompt || '').replace(/\n/g, '\n      ') + '\n  quirks:\n' + quirks.map(q => '    - "' + q + '"').join('\n') + '\n  forbidden_topics: ["politics", "religion"]\n\nprogram_grid:\n  impulse_slot_minute: 30\n\nrules:\n  no_repeat_hours: 4\n  max_same_genre_in_a_row: 2';
 
   try {
-    const obj = buildObjectFromForm();
-    const yaml = 'station:\n' +
-      '  id: ' + (obj.station.id || 'unknown') + '\n' +
-      '  name: auto\n' +
-      '  claim: "' + (obj.station.claim || '') + '"\n' +
-      '  description: >\n    ' + (obj.station.description || 'Station').replace(/\n/g, '\n    ') + '\n' +
-      '  genre: ' + (obj.station.genre || 'unknown') + '\n' +
-      '  subgenres: [' + (obj.station.subgenres || []).join(', ') + ']\n' +
-      '  target_audience: "' + (obj.station.target_audience || '') + '"\n' +
-      '  timezone: Europe/Berlin\n' +
-      '  language: de\n\n' +
-      'dj:\n' +
-      '  name: "' + (obj.dj.name || 'DJ') + '"\n' +
-      '  personality: "' + (obj.dj.personality || '') + '"\n' +
-      '  tone: "' + (obj.dj.tone || '') + '"\n' +
-      '  max_moderation_chars: ' + (obj.dj.max_moderation_chars || 800) + '\n' +
-      '  bio:\n' +
-      '    real_name: "' + (obj.dj.bio.real_name || '') + '"\n' +
-      '    age: ' + (obj.dj.bio.age || 0) + '\n' +
-      '    origin: "' + (obj.dj.bio.origin || '') + '"\n' +
-      '    family: "' + (obj.dj.bio.family || '') + '"\n' +
-      '    hobbies: "' + (obj.dj.bio.hobbies || '') + '"\n' +
-      '    since_year: ' + (obj.dj.bio.since_year || 0) + '\n' +
-      '    vita: >\n      ' + (obj.dj.bio.vita || 'Station.').replace(/\n/g, '\n      ') + '\n' +
-      '    avatar_prompt: >\n      ' + (obj.dj.bio.avatar_prompt || 'Radio DJ portrait.').replace(/\n/g, '\n      ') + '\n' +
-      '  quirks:\n' +
-      (obj.dj.quirks || ['-']).map(q => '    - "' + q + '"').join('\n') + '\n' +
-      '  forbidden_topics: ["politics", "religion"]\n\n' +
-      'program_grid:\n  impulse_slot_minute: 30\n\n' +
-      'rules:\n  no_repeat_hours: 4\n  max_same_genre_in_a_row: 2';
-
     const body = { persona_yaml: yaml };
     if (_currentTracks) body.tracks_json = _currentTracks;
-
     const res = await fetch('/stations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _adminToken },
@@ -692,24 +641,24 @@ async function startStation() {
     if (!res.ok) {
       let msg = 'HTTP ' + res.status;
       try { const e = await res.json(); msg = e.error || e.detail || msg; } catch (_) {}
-      el('modal-status').innerHTML = '✗ ' + msg;
+      document.getElementById('modal-status').innerHTML = '✗ ' + msg;
       setBusy(false);
       return;
     }
     const data = await res.json();
-    el('modal-status').innerHTML = '✓ Station "' + data.slug + '" laeuft auf Port ' + data.port;
+    document.getElementById('modal-status').innerHTML = '✓ Station "' + data.slug + '" laeuft auf Port ' + data.port;
     _busy = false;
     setTimeout(() => { closeModal(); loadStations(); loadOverview(); loadPersonas(); }, 2000);
   } catch (e) {
-    el('modal-status').innerHTML = '✗ ' + e.message;
+    document.getElementById('modal-status').innerHTML = '✗ ' + e.message;
     setBusy(false);
   }
 }
 
 function openModal(title) {
-  el('modal-title').textContent = title;
-  el('btn-regen').style.display = '';
-  el('modal-overlay').classList.add('open');
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('btn-regen').style.display = '';
+  document.getElementById('modal-overlay').classList.add('open');
 }
 
 function closeHelp() {
@@ -739,7 +688,7 @@ function closeModal() {
   if (_busy) {
     if (!confirm('Generierung laeuft — wirklich abbrechen?')) return;
   }
-  el('modal-overlay').classList.remove('open');
+  document.getElementById('modal-overlay').classList.remove('open');
   _currentTracks = null;
   _parsedPersona = null;
   _busy = false;
@@ -810,7 +759,6 @@ async function loadStations() {
     newCard.innerHTML = `
       <div class="nc-title">${limitMsg}</div>
       <button class="btn" onclick="newRandom()" ${(stationFull || personaFull) ? 'disabled' : ''}>Random</button>
-      <button class="btn secondary" onclick="newCustom()" ${stationFull ? 'disabled' : ''}>Custom</button>
     `;
     grid.appendChild(newCard);
   } catch (e) {
@@ -842,14 +790,51 @@ async function loadPersonas() {
     personas.slice(0, 10).forEach(p => {
       const div = document.createElement('div');
       div.className = 'pl-item';
+      div.style.cursor = 'pointer';
       let buttons = `<button class="btn secondary" style="font-size:10px;padding:2px 10px;" onclick="event.stopPropagation();startFromPersona(${p.id}, this)">▶</button>`;
       if (_adminToken) {
         buttons += `<button class="btn danger" style="font-size:10px;padding:2px 8px;margin-left:4px;" onclick="event.stopPropagation();deletePersona(${p.id}, this)">×</button>`;
       }
       div.innerHTML = `<span class="pl-name">${p.slug}</span><span class="pl-genre">${p.station_id}</span><span class="pl-date">${p.created_at.substring(0, 10)}</span>${buttons}`;
+      div.onclick = () => showPersonaDetail(p);
       list.appendChild(div);
     });
   } catch (e) {}
+}
+
+function showPersonaDetail(p) {
+  let name = p.slug || p.station_id;
+  let genre = '-', dj = '-', claim = '', personality = '', quirks = '', vita = '';
+
+  try {
+    const y = p.persona_yaml || '';
+    const lines = y.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if (/^\s{2}claim:/.test(l)) claim = l.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{2}genre:/.test(l)) genre = l.split(':')[1].trim();
+      if (/^\s{4}name:/.test(l)) dj = l.split(':')[1].trim().replace(/"/g, '');
+      if (/^\s{4}personality:/.test(l)) personality = l.split(/:\s*/)[1].replace(/"/g, '');
+      if (/^\s{6}vita:/.test(l)) { i++; while (i < lines.length && /^\s{8}/.test(lines[i])) { vita += lines[i].trim() + ' '; i++; } i--; }
+      if (/^\s{4}-/.test(l)) { const q = l.split(/-\s*/)[1]?.replace(/"/g, ''); if (q) quirks += (quirks ? ' · ' : '') + q; }
+    }
+  } catch (e) {}
+
+  document.getElementById('ad-prev').style.display = 'none';
+  document.getElementById('ad-next').style.display = 'none';
+  document.getElementById('ad-pos').textContent = '';
+
+  document.getElementById('ad-detail-sponsor').textContent = name;
+  document.getElementById('ad-detail-product').textContent = genre + ' — DJ ' + dj;
+  document.getElementById('ad-detail-key').textContent = claim || personality || '';
+  document.getElementById('ad-detail-station').innerHTML =
+    (vita ? '<div style="font-size:11px;color:#888;margin-top:8px;line-height:1.5;">' + vita + '</div>' : '') +
+    (quirks ? '<div style="font-size:10px;color:#666;margin-top:6px;">Quirks: ' + quirks + '</div>' : '') +
+    '<div style="display:flex;gap:8px;margin-top:12px;padding-top:8px;border-top:1px solid #1a1a1a;">' +
+    '<button class="btn" style="font-size:10px;padding:4px 12px;" onclick="closeAdDetail();startFromPersona(' + p.id + ', null)">▶ Start</button>' +
+    '</div>';
+
+  document.getElementById('ad-detail-overlay').classList.add('open');
 }
 
 async function loadSponsors() {
