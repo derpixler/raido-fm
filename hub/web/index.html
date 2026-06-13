@@ -1063,19 +1063,22 @@ function setAdmin(token) {
 }
 
 async function dropContent(category, btn) {
-  if (!_adminToken) return;
-  const endpoints = {ad:'/admin/drop-ad',news:'/admin/drop-news',weather:'/admin/drop-weather',listener_comment:'/admin/drop-comment',music_request:'/admin/drop-request'};
-  const ep = endpoints[category];
+  const adminEndpoints = {ad:'/admin/drop-ad',news:'/admin/drop-news',weather:'/admin/drop-weather'};
+  const publicEndpoints = {listener_comment:'/drop-comment',music_request:'/drop-request'};
+  const isPublic = category in publicEndpoints;
+  if (!isPublic && !_adminToken) return;
+  const ep = isPublic ? publicEndpoints[category] : adminEndpoints[category];
   if (!ep) return;
   if (btn) { btn.disabled = true; btn.textContent = '...'; }
   try {
-    const res = await fetch(ep, { method: 'POST', headers: { 'Authorization': 'Bearer ' + _adminToken } });
+    const headers = isPublic ? {} : { 'Authorization': 'Bearer ' + _adminToken };
+    const res = await fetch(ep, { method: 'POST', headers });
     if (res.ok) {
       loadAds();
       loadInjections();
     } else {
       const data = await res.json().catch(() => ({}));
-      alert(data.detail || data.error || 'Error');
+      alert(data.detail || data.error || 'Too many requests — try again later.');
     }
   } catch (e) { alert(e.message); }
   if (btn) { btn.disabled = false; btn.textContent = 'drop random ' + category.replace('_',' '); }
@@ -1097,7 +1100,7 @@ async function loadInjections() {
       section.className = 'section';
       section.innerHTML = `
           <div class="section-title" style="display:flex;align-items:center;gap:8px;">
-            ${title} <span id="admin-drop-${key}" class="hidden" style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','comment').replace('music_request','music request')}</button></span>
+            ${title} <span id="${['listener_comment','music_request'].includes(key) ? 'drop' : 'admin-drop'}-${key}" ${['listener_comment','music_request'].includes(key) ? '' : 'class="hidden"'} style="margin-left:auto;"><button class="btn" style="font-size:10px;padding:2px 8px;" onclick="dropContent('${key}', this)">drop random ${key.replace('listener_comment','comment').replace('music_request','music request')}</button></span>
           </div>
         <table class="ads-table">
           <tr><th>Station</th><th>Content</th><th>Status</th><th>Time</th></tr>
