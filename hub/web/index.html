@@ -419,6 +419,10 @@ header .sub a { color: #6366f1; text-decoration: none; }
 </div>
 
 <script>
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 let _adminToken = localStorage.getItem('raido_admin') || '';
 let _limits = { max_stations: 5, max_personas: 20 };
 let _currentTracks = null;
@@ -439,11 +443,11 @@ function setBusy(busy) {
 function renderStationPreview(p) {
   const s = p.station || p.parsed?.station || {};
   document.getElementById('preview-station').innerHTML = `
-    <div style="font-size:16px;color:#fff;font-weight:600;">${s.id || '?'}</div>
-    <div style="font-size:11px;color:#6366f1;margin-top:2px;">${s.genre || '?'} — ${(s.subgenres||[]).slice(0,3).join(', ')}</div>
-    ${s.claim ? '<div style="font-size:11px;color:#888;font-style:italic;margin-top:4px;">' + s.claim + '</div>' : ''}
-    <div style="font-size:10px;color:#555;margin-top:4px;">${(s.target_audience||'').substring(0,80)}</div>
-    <div style="font-size:10px;color:#555;margin-top:2px;">${(s.description||'').substring(0,120)}</div>
+    <div style="font-size:16px;color:#fff;font-weight:600;">${esc(s.id) || '?'}</div>
+    <div style="font-size:11px;color:#6366f1;margin-top:2px;">${esc(s.genre) || '?'} — ${(s.subgenres||[]).slice(0,3).map(esc).join(', ')}</div>
+    ${s.claim ? '<div style="font-size:11px;color:#888;font-style:italic;margin-top:4px;">' + esc(s.claim) + '</div>' : ''}
+    <div style="font-size:10px;color:#555;margin-top:4px;">${esc((s.target_audience||'').substring(0,80))}</div>
+    <div style="font-size:10px;color:#555;margin-top:2px;">${esc((s.description||'').substring(0,120))}</div>
   `;
   _parsedStation = s;
   updateStartButton();
@@ -454,11 +458,11 @@ function renderDjPreview(p) {
   const b = d.bio || {};
   const quirks = (d.quirks || []).slice(0, 3);
   document.getElementById('preview-dj').innerHTML = `
-    <div style="font-size:16px;color:#fff;font-weight:600;">DJ ${d.name || '?'}</div>
-    <div style="font-size:11px;color:#bbb;margin-top:2px;">${d.tone || ''}</div>
-    <div style="font-size:10px;color:#555;margin-top:4px;">${b.real_name || ''}${b.age ? ', ' + b.age : ''}${b.origin ? ' · ' + b.origin : ''}</div>
-    <div style="font-size:10px;color:#555;margin-top:2px;">${(d.personality||'').substring(0,100)}</div>
-    ${quirks.length ? '<div style="font-size:10px;color:#666;margin-top:4px;">' + quirks.map(q => '"' + q + '"').join(' · ') + '</div>' : ''}
+    <div style="font-size:16px;color:#fff;font-weight:600;">DJ ${esc(d.name) || '?'}</div>
+    <div style="font-size:11px;color:#bbb;margin-top:2px;">${esc(d.tone)}</div>
+    <div style="font-size:10px;color:#555;margin-top:4px;">${esc(b.real_name)}${b.age ? ', ' + esc(b.age) : ''}${b.origin ? ' · ' + esc(b.origin) : ''}</div>
+    <div style="font-size:10px;color:#555;margin-top:2px;">${esc((d.personality||'').substring(0,100))}</div>
+    ${quirks.length ? '<div style="font-size:10px;color:#666;margin-top:4px;">' + quirks.map(q => '"' + esc(q) + '"').join(' · ') + '</div>' : ''}
   `;
   _parsedDj = d;
   updateStartButton();

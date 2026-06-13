@@ -395,7 +395,7 @@ async def validate_persona(persona_yaml: str) -> dict:
 
     result = await llm.chat("filter", messages, temperature=0.1, max_tokens=200)
     if not result:
-        return {"valid": True, "issues": []}
+        return {"valid": False, "issues": ["LLM safety check unavailable — rejecting to be safe"]}
 
     try:
         clean = result.strip()
