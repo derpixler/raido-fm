@@ -697,6 +697,32 @@ async def admin_metrics():
         name_safe = u["contributor_name"].replace('"', '\\"')
         lines.append(f'raido_llm_calls_total{{contributor="{name_safe}"}} {u["calls"]}')
 
+    cursor = await _db.execute(
+        "SELECT contributor_name, station_slug, SUM(total_tokens) as tokens, COUNT(*) as calls FROM token_usage_log GROUP BY contributor_name, station_slug ORDER BY tokens DESC"
+    )
+    station_rows = await cursor.fetchall()
+    lines += [
+        "# HELP raido_tokens_by_station Tokens per contributor per station",
+        "# TYPE raido_tokens_by_station gauge",
+    ]
+    for r in station_rows:
+        c = r["contributor_name"].replace('"', '\\"')
+        s = r["station_slug"].replace('"', '\\"')
+        lines.append(f'raido_tokens_by_station{{contributor="{c}",station="{s}"}} {r["tokens"]}')
+
+    cursor = await _db.execute(
+        "SELECT contributor_name, role, SUM(total_tokens) as tokens, COUNT(*) as calls FROM token_usage_log GROUP BY contributor_name, role ORDER BY tokens DESC"
+    )
+    role_rows = await cursor.fetchall()
+    lines += [
+        "# HELP raido_tokens_by_role Tokens per contributor per role",
+        "# TYPE raido_tokens_by_role gauge",
+    ]
+    for r in role_rows:
+        c = r["contributor_name"].replace('"', '\\"')
+        ro = r["role"].replace('"', '\\"')
+        lines.append(f'raido_tokens_by_role{{contributor="{c}",role="{ro}"}} {r["tokens"]}')
+
     from fastapi.responses import PlainTextResponse
     return PlainTextResponse("\n".join(lines) + "\n", media_type="text/plain")
 

@@ -59,3 +59,30 @@ services:
       - "raido.station.slug=default"
       - "raido.station.port=8080"
       - "raido.station.protected=true"
+
+  # ── Analytics Stack (uncomment to enable) ──────────────────────────────
+  #
+  # prometheus:
+  #   image: prom/prometheus
+  #   container_name: raido-prometheus
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   expose:
+  #     - "9090"
+  #
+  # grafana:
+  #   image: grafana/grafana-oss
+  #   container_name: raido-grafana
+  #   restart: unless-stopped
+  #   ports:
+  #     - "127.0.0.1:3000:3000"
+  #   volumes:
+  #     - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+  #     - ./grafana/provisioning:/etc/grafana/provisioning
+  #   environment:
+  #     - GF_AUTH_ANONYMOUS_ENABLED=false
+  #     - GF_SECURITY_ADMIN_USER=admin
+  #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-raido-grafana}
+  #     - GF_INSTALL_PLUGINS=""
+

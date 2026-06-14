@@ -248,6 +248,18 @@ header .sub a { color: #6366f1; text-decoration: none; }
     </table>
   </div>
 
+  <div class="section" id="analytics-section" style="display:none;">
+    <div class="section-title">Token Analytics (Admin)</div>
+    <div id="analytics-content" style="display:flex;flex-direction:column;gap:8px;">
+      <div id="analytics-list" style="color:#888;">Loading...</div>
+    </div>
+  </div>
+
+  <div class="section" id="analytics-detail-section" style="display:none;">
+    <div class="section-title"><a href="#" onclick="closeAnalyticsDetail();return false;" style="color:#6366f1;">← Back</a> · <span id="analytics-detail-name" style="color:#fff;"></span></div>
+    <div id="analytics-detail-content" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+
   <div class="admin-bar">
     Admin: <input type="password" id="admin-token" placeholder="Enter token" onchange="setAdmin(this.value)">
     <span id="admin-status"></span>
@@ -1058,9 +1070,108 @@ function setAdmin(token) {
   document.getElementById('admin-status').textContent = token ? '✓' : '';
   document.querySelectorAll('[id^="admin-drop-"]').forEach(el => el.classList.toggle('hidden', !token));
   document.getElementById('contributor-requests-section').style.display = token ? 'block' : 'none';
-  if (token) loadContributorRequests();
+  document.getElementById('analytics-section').style.display = token ? 'block' : 'none';
   loadStations();
+  if (token) {
+    loadContributorRequests();
+    loadAnalytics();
+  } else {
+    document.getElementById('analytics-detail-section').style.display = 'none';
+  }
 }
+
+async function loadAnalytics() {
+  if (!_adminToken) return;
+  try {
+    const res = await fetch('/admin/analytics/contributors', { headers: {'Authorization': 'Bearer ' + _adminToken} });
+    const data = await res.json();
+    const list = document.getElementById('analytics-list');
+    if (!Array.isArray(data) || !data.length) {
+      list.innerHTML = '<span style="color:#555;">No usage data yet</span>';
+      return;
+    }
+    list.innerHTML = data.map(u => {
+      const name = esc(u.contributor_name || '?');
+      const tokens = (u.total_tokens || 0).toLocaleString();
+      const calls = (u.calls || 0).toLocaleString();
+      return `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;cursor:pointer;" onclick="showAnalyticsDetail('${name}')">
+        <span style="font-size:12px;color:#fbbf24;">${name}</span>
+        <span style="font-size:11px;color:#888;">${tokens} tokens · ${calls} calls</span>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    document.getElementById('analytics-list').innerHTML = '<span style="color:#ef4444;">Error loading analytics</span>';
+  }
+}
+
+async function showAnalyticsDetail(name) {
+  if (!_adminToken) return;
+  document.getElementById('analytics-section').style.display = 'none';
+  document.getElementById('analytics-detail-section').style.display = 'block';
+  document.getElementById('analytics-detail-name').textContent = name;
+
+  const content = document.getElementById('analytics-detail-content');
+  content.innerHTML = '<span style="color:#888;"><span class="spinner"></span> Loading...</span>';
+
+  try {
+    const [statsRes, logRes] = await Promise.all([
+      fetch('/admin/analytics/contributors/' + encodeURIComponent(name), { headers: {'Authorization': 'Bearer ' + _adminToken} }),
+      fetch('/admin/analytics/contributors/' + encodeURIComponent(name) + '/log?limit=20', { headers: {'Authorization': 'Bearer ' + _adminToken} }),
+    ]);
+    const stats = await statsRes.json();
+    const log = await logRes.json();
+
+    let html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:10px;">
+        <div style="font-size:10px;color:#555;">Total Tokens</div><div style="font-size:16px;color:#fff;">${(stats.total_tokens||0).toLocaleString()}</div>
+      </div>
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:10px;">
+        <div style="font-size:10px;color:#555;">Total Calls</div><div style="font-size:16px;color:#fff;">${(stats.calls||0).toLocaleString()}</div>
+      </div>
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:10px;">
+        <div style="font-size:10px;color:#555;">Prompt Tokens</div><div style="font-size:14px;color:#bbb;">${(stats.prompt_tokens||0).toLocaleString()}</div>
+      </div>
+      <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:10px;">
+        <div style="font-size:10px;color:#555;">Completion Tokens</div><div style="font-size:14px;color:#bbb;">${(stats.completion_tokens||0).toLocaleString()}</div>
+      </div>
+    </div>`;
+
+    if (stats.avg_latency_ms) html += `<div style="font-size:10px;color:#555;margin-bottom:8px;">Avg Latency: <span style="color:#bbb;">${stats.avg_latency_ms} ms</span> · Last used: <span style="color:#bbb;">${stats.last_used_at ? stats.last_used_at.substring(0,16) : 'never'}</span></div>`;
+
+    if (stats.by_station && stats.by_station.length) {
+      html += '<div style="font-size:10px;color:#555;text-transform:uppercase;margin:8px 0 4px;">By Station</div>';
+      html += stats.by_station.map(s => `<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid #111;"><span style="color:#bbb;">${esc(s.station_slug)}</span><span style="color:#888;">${(s.tokens||0).toLocaleString()} tokens · ${(s.calls||0)} calls</span></div>`).join('');
+    }
+
+    if (stats.by_role && stats.by_role.length) {
+      html += '<div style="font-size:10px;color:#555;text-transform:uppercase;margin:12px 0 4px;">By Role</div>';
+      html += stats.by_role.map(r => `<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid #111;"><span style="color:#bbb;">${esc(r.role)}</span><span style="color:#888;">${(r.tokens||0).toLocaleString()} tokens · ${(r.calls||0)} calls</span></div>`).join('');
+    }
+
+    if (Array.isArray(log) && log.length) {
+      html += '<div style="font-size:10px;color:#555;text-transform:uppercase;margin:12px 0 4px;">Recent Calls</div>';
+      html += '<table style="width:100%;font-size:10px;color:#888;border-collapse:collapse;">';
+      html += '<tr style="color:#555;"><th style="text-align:left;padding:2px 4px;">Time</th><th style="text-align:left;padding:2px 4px;">Station</th><th style="text-align:left;padding:2px 4px;">Role</th><th style="text-align:left;padding:2px 4px;">Op</th><th style="text-align:right;padding:2px 4px;">Tokens</th></tr>';
+      html += log.map(l => {
+        const ts = (l.created_at||'').substring(11,19);
+        return `<tr><td style="padding:2px 4px;">${ts}</td><td style="padding:2px 4px;">${esc(l.station_slug||'?')}</td><td style="padding:2px 4px;">${esc(l.role||'?')}</td><td style="padding:2px 4px;">${esc(l.operation||'')}</td><td style="text-align:right;padding:2px 4px;color:#fbbf24;">${(l.total_tokens||0).toLocaleString()}</td></tr>`;
+      }).join('');
+      html += '</table>';
+    }
+
+    content.innerHTML = html;
+  } catch (e) {
+    content.innerHTML = '<span style="color:#ef4444;">Error loading details</span>';
+  }
+}
+
+function closeAnalyticsDetail() {
+  document.getElementById('analytics-detail-section').style.display = 'none';
+  document.getElementById('analytics-section').style.display = _adminToken ? 'block' : 'none';
+  if (_adminToken) loadAnalytics();
+}
+
+async function dropAd() { dropContent('ad', document.querySelector('#admin-drop-ad button')); }
 
 async function dropContent(category, btn) {
   if (!_adminToken) return;
@@ -1229,7 +1340,7 @@ loadPersonas();
 loadAds();
 loadInjections();
 loadContributors();
-setInterval(() => { loadStations(); loadOverview(); loadAds(); loadInjections(); loadContributors(); }, 30000);
+setInterval(() => { loadStations(); loadOverview(); loadAds(); loadInjections(); loadContributors(); loadAnalytics(); }, 30000);
 
 if (window.location.hash === '#contributor') { setTimeout(openContributorForm, 500); }
 
