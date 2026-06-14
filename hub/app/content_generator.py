@@ -5,11 +5,11 @@ import logging
 import re
 
 from . import llm
-from .prompt_loader import load_prompt
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-POPULATE_PROMPT = load_prompt("content/populate.prompt")
+POPULATE_PROMPT = load_prompt("content/populate.md")
 
 
 async def generate_content(category: str, genre: str = "radio") -> str:

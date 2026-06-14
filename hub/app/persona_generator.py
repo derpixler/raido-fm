@@ -7,18 +7,18 @@ import re
 import yaml
 
 from . import llm
-from .prompt_loader import load_prompt
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-PERSONA_SCHEMA = load_prompt("persona/persona_schema.prompt")
-PERSONA_PROMPT = load_prompt("persona/persona_system.prompt").format(schema=PERSONA_SCHEMA)
-TRACKS_PROMPT = load_prompt("persona/persona_tracks.prompt")
-STATION_SECTION_PROMPT = load_prompt("persona/station_section.prompt")
-DJ_SECTION_PROMPT = load_prompt("persona/dj_section.prompt")
-_STATION_SCHEMA_YAML = load_prompt("persona/station_schema.prompt")
-_DJ_SCHEMA_YAML = load_prompt("persona/dj_schema.prompt")
-CONTENT_SAFETY_PROMPT = load_prompt("persona/content_safety.prompt")
+PERSONA_SCHEMA = load_prompt("persona/persona_schema.md")
+PERSONA_PROMPT = load_prompt("persona/persona_system.md").format(schema=PERSONA_SCHEMA)
+TRACKS_PROMPT = load_prompt("persona/persona_tracks.md")
+STATION_SECTION_PROMPT = load_prompt("persona/station_section.md")
+DJ_SECTION_PROMPT = load_prompt("persona/dj_section.md")
+_STATION_SCHEMA_YAML = load_prompt("persona/station_schema.md")
+_DJ_SCHEMA_YAML = load_prompt("persona/dj_schema.md")
+CONTENT_SAFETY_PROMPT = load_prompt("persona/content_safety.md")
 
 
 async def generate_persona(genre_hint: str | None = None, language: str = "de", dj_hint: str | None = None) -> dict:

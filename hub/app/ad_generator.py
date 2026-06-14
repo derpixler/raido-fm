@@ -6,11 +6,11 @@ import random
 import re
 
 from . import llm
-from .prompt_loader import load_prompt
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-AD_PROMPT = load_prompt("ads/ad.prompt")
+AD_PROMPT = load_prompt("ads/ad.md")
 
 
 async def generate_random_ad(genre: str = "radio", audience: str = "alle") -> dict:
