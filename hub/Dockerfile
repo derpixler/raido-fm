@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 COPY web/ ./web/
+COPY prompts/ ./prompts/
 
 RUN useradd --create-home --uid 1000 raido && chown -R raido:raido /app
 USER raido
