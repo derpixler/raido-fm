@@ -5,7 +5,7 @@ import yaml
 from pathlib import Path
 from typing import Any
 
-from .prompt_loader import load_prompt
+from .md_loader import load_prompt
 
 PERSONA_PATH = Path(os.getenv("PERSONA_PATH", "persona.yml"))
 
@@ -53,7 +53,7 @@ def build_system_prompt() -> str:
     en_name_line = f' on the station "{station_name}"' if station_name else ""
 
     if lang == "en":
-        return load_prompt("dj/dj_system_en.prompt").format(
+        return load_prompt("dj/dj_system_en.md").format(
             name=dj["name"],
             name_line=en_name_line,
             claim=station.get("claim", ""),
@@ -72,7 +72,7 @@ def build_system_prompt() -> str:
             forbidden=forbidden,
         )
 
-    return load_prompt("dj/dj_system_de.prompt").format(
+    return load_prompt("dj/dj_system_de.md").format(
         name=dj["name"],
         name_line=name_line,
         claim=station.get("claim", ""),
@@ -106,7 +106,7 @@ def build_naming_prompt() -> str:
     subgenres = ", ".join(station.get("subgenres", []))
     lang = station.get("language", "de")
 
-    return load_prompt("dj/naming.prompt").format(
+    return load_prompt("dj/naming.md").format(
         genre=station["genre"],
         subgenres=subgenres,
         positioning=station.get("description", "").strip(),
@@ -122,13 +122,13 @@ def build_ad_prompt() -> str:
     lang = p["station"].get("language", "de")
 
     if lang == "en":
-        return load_prompt("dj/ad_reading_en.prompt").format(
+        return load_prompt("dj/ad_reading_en.md").format(
             name=dj["name"],
             personality=dj["personality"],
             tone=dj["tone"],
         )
 
-    return load_prompt("dj/ad_reading_de.prompt").format(
+    return load_prompt("dj/ad_reading_de.md").format(
         name=dj["name"],
         personality=dj["personality"],
         tone=dj["tone"],

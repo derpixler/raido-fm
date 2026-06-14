@@ -5,7 +5,7 @@ import logging
 import re
 
 from . import db, llm
-from .prompt_loader import load_prompt
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ INJECTION_PATTERNS = [
     r"neue anweisungen",
 ]
 
-FILTER_SYSTEM_PROMPT = load_prompt("sanitizer/filter.prompt")
+FILTER_SYSTEM_PROMPT = load_prompt("sanitizer/filter.md")
 
 
 async def sanitize(
