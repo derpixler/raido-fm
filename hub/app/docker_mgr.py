@@ -140,6 +140,8 @@ async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_j
         "LLM_FALLBACK_API_KEY": global_env.get("LLM_FALLBACK_API_KEY", ""),
         "MAX_INPUT_CHARS": global_env.get("MAX_INPUT_CHARS", "500"),
         "DB_DIR": "/app/data",
+        "HUB_URL": f"http://host.docker.internal:{os.getenv('HUB_PORT', '80')}",
+        "HUB_ADMIN_TOKEN": global_env.get("ADMIN_TOKEN", ""),
     }
 
     container_name = f"raido-{station_id}"

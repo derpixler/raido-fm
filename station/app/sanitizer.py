@@ -59,7 +59,7 @@ async def sanitize(
             {"role": "system", "content": FILTER_SYSTEM_PROMPT},
             {"role": "user", "content": f"Category: {category}\nInput: {text}"},
         ]
-        result = await llm.chat("filter", messages, temperature=0.1, max_tokens=512)
+        result = await llm.chat("filter", messages, temperature=0.1, max_tokens=512, operation="sanitize")
         if result and result.strip().upper() != "EMPTY":
             sanitized_text = result.strip()
         elif result and result.strip().upper() == "EMPTY":

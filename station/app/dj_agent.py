@@ -167,7 +167,7 @@ Available tracks:
         {"role": "user", "content": user_msg},
     ]
 
-    response = await llm.chat("dj", messages, temperature=0.9)
+    response = await llm.chat("dj", messages, temperature=0.9, operation="track_choice")
     if response:
         return llm.parse_json_response(response)
     return None
@@ -195,7 +195,7 @@ async def _generate_ad(stimulus: dict) -> dict | None:
         {"role": "user", "content": user_msg},
     ]
 
-    result = await llm.chat("dj", messages, temperature=0.8, max_tokens=300)
+    result = await llm.chat("dj", messages, temperature=0.8, max_tokens=300, operation="ad_read")
     if result:
         return {
             "text": result.strip(),
@@ -214,7 +214,7 @@ async def _generate_station_name(db_conn) -> str:
         {"role": "system", "content": "You are a radio branding expert."},
         {"role": "user", "content": prompt},
     ]
-    result = await llm.chat("filter", messages, temperature=1.0, max_tokens=30)
+    result = await llm.chat("filter", messages, temperature=1.0, max_tokens=30, operation="station_naming")
     if result:
         name = result.strip().strip('"').strip("'").strip(".")
         await db.set_station_name(db_conn, station_id, name)

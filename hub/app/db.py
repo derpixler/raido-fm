@@ -64,6 +64,20 @@ CREATE TABLE IF NOT EXISTS contributor_requests (
     status TEXT DEFAULT 'pending',
     created_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS token_usage_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    contributor_name TEXT NOT NULL,
+    station_slug TEXT NOT NULL,
+    role TEXT NOT NULL,
+    operation TEXT NOT NULL,
+    model TEXT NOT NULL DEFAULT '',
+    prompt_tokens INTEGER NOT NULL DEFAULT 0,
+    completion_tokens INTEGER NOT NULL DEFAULT 0,
+    total_tokens INTEGER NOT NULL DEFAULT 0,
+    latency_ms REAL NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL
+);
 """
 
 
@@ -263,3 +277,77 @@ async def update_contributor_request(db: aiosqlite.Connection, request_id: int, 
 async def delete_contributor_request(db: aiosqlite.Connection, request_id: int) -> None:
     await db.execute("DELETE FROM contributor_requests WHERE id = ?", (request_id,))
     await db.commit()
+
+
+async def log_token_call(
+    db: aiosqlite.Connection,
+    contributor_name: str,
+    station_slug: str,
+    role: str,
+    operation: str,
+    model: str,
+    prompt_tokens: int,
+    completion_tokens: int,
+    total_tokens: int,
+    latency_ms: float,
+) -> int:
+    now = datetime.now(timezone.utc).isoformat()
+    cursor = await db.execute(
+        "INSERT INTO token_usage_log (contributor_name, station_slug, role, operation, model, prompt_tokens, completion_tokens, total_tokens, latency_ms, created_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
+        (contributor_name, station_slug, role, operation, model, prompt_tokens, completion_tokens, total_tokens, latency_ms, now),
+    )
+    await db.commit()
+    return cursor.lastrowid
+
+
+async def get_contributor_usage(db: aiosqlite.Connection, name: str) -> dict:
+    cursor = await db.execute(
+        "SELECT COUNT(*) as calls, SUM(total_tokens) as total_tokens, SUM(prompt_tokens) as prompt_tokens, SUM(completion_tokens) as completion_tokens, AVG(latency_ms) as avg_latency_ms FROM token_usage_log WHERE contributor_name = ?",
+        (name,),
+    )
+    row = await cursor.fetchone()
+    calls = row["calls"] or 0
+
+    cursor = await db.execute(
+        "SELECT station_slug, SUM(total_tokens) as tokens, COUNT(*) as calls FROM token_usage_log WHERE contributor_name = ? GROUP BY station_slug ORDER BY tokens DESC",
+        (name,),
+    )
+    by_station = [dict(r) for r in await cursor.fetchall()]
+
+    cursor = await db.execute(
+        "SELECT role, SUM(total_tokens) as tokens, COUNT(*) as calls FROM token_usage_log WHERE contributor_name = ? GROUP BY role ORDER BY tokens DESC",
+        (name,),
+    )
+    by_role = [dict(r) for r in await cursor.fetchall()]
+
+    last_row = await (await db.execute(
+        "SELECT created_at FROM token_usage_log WHERE contributor_name = ? ORDER BY id DESC LIMIT 1",
+        (name,),
+    )).fetchone()
+
+    return {
+        "contributor_name": name,
+        "total_tokens": row["total_tokens"] or 0,
+        "prompt_tokens": row["prompt_tokens"] or 0,
+        "completion_tokens": row["completion_tokens"] or 0,
+        "calls": calls,
+        "avg_latency_ms": round(row["avg_latency_ms"] or 0, 1),
+        "by_station": by_station,
+        "by_role": by_role,
+        "last_used_at": last_row["created_at"] if last_row else None,
+    }
+
+
+async def get_contributor_usage_log(db: aiosqlite.Connection, name: str, limit: int = 50) -> list[dict]:
+    cursor = await db.execute(
+        "SELECT * FROM token_usage_log WHERE contributor_name = ? ORDER BY id DESC LIMIT ?",
+        (name, limit),
+    )
+    return [dict(r) for r in await cursor.fetchall()]
+
+
+async def get_all_contributors_usage(db: aiosqlite.Connection) -> list[dict]:
+    cursor = await db.execute(
+        "SELECT contributor_name, COUNT(*) as calls, SUM(total_tokens) as total_tokens, MAX(created_at) as last_used_at FROM token_usage_log GROUP BY contributor_name ORDER BY total_tokens DESC"
+    )
+    return [dict(r) for r in await cursor.fetchall()]
