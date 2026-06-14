@@ -83,6 +83,6 @@ services:
   #   environment:
   #     - GF_AUTH_ANONYMOUS_ENABLED=false
   #     - GF_SECURITY_ADMIN_USER=admin
-  #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-raido-grafana}
+  #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-change-me-to-a-strong-password}
   #     - GF_INSTALL_PLUGINS=""
 
