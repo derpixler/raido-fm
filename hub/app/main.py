@@ -22,7 +22,9 @@ from . import db, docker_mgr, persona_generator, ad_generator, content_generator
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "raido-admin")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN")
+if not ADMIN_TOKEN:
+    raise RuntimeError("ADMIN_TOKEN environment variable must be set")
 MAX_INPUT_CHARS = int(os.getenv("MAX_INPUT_CHARS", "500"))
 MAX_STATIONS = int(os.getenv("MAX_STATIONS", "5"))
 MAX_PERSONAS = int(os.getenv("MAX_PERSONAS", "20"))
