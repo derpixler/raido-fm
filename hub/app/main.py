@@ -16,6 +16,9 @@ from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from pydantic import BaseModel
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from . import db, docker_mgr, persona_generator, ad_generator, content_generator, contributor_keys
 
@@ -28,6 +31,10 @@ if not ADMIN_TOKEN:
 MAX_INPUT_CHARS = int(os.getenv("MAX_INPUT_CHARS", "500"))
 MAX_STATIONS = int(os.getenv("MAX_STATIONS", "5"))
 MAX_PERSONAS = int(os.getenv("MAX_PERSONAS", "20"))
+PERSONA_RATE_LIMIT = os.getenv("PERSONA_RATE_LIMIT", "3/hour")
+DROP_RATE_LIMIT = os.getenv("DROP_RATE_LIMIT", "5/hour")
+
+limiter = Limiter(key_func=get_remote_address)
 
 _db = None
 
@@ -70,6 +77,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="RAIDO Hub", lifespan=lifespan)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 async def _poll_injection_status():
@@ -283,12 +292,14 @@ async def drop_news():
 async def drop_weather():
     return await _drop_content("weather")
 
-@app.post("/admin/drop-comment", dependencies=[Depends(require_admin)])
-async def drop_comment():
+@app.post("/drop-comment")
+@limiter.limit(DROP_RATE_LIMIT)
+async def drop_comment(request: Request):
     return await _drop_content("listener_comment")
 
-@app.post("/admin/drop-request", dependencies=[Depends(require_admin)])
-async def drop_request():
+@app.post("/drop-request")
+@limiter.limit(DROP_RATE_LIMIT)
+async def drop_request(request: Request):
     return await _drop_content("music_request")
 
 
@@ -336,7 +347,8 @@ class GenerateRequest(BaseModel):
 
 
 @app.post("/generate-persona")
-async def generate_persona(req: GenerateRequest = None):
+@limiter.limit(PERSONA_RATE_LIMIT)
+async def generate_persona(request: Request, req: GenerateRequest = None):
     persona_count = await db.count_personas(_db)
     if persona_count >= MAX_PERSONAS:
         return JSONResponse({"error": f"Max {MAX_PERSONAS} stored personas allowed ({persona_count} existing)"}, status_code=429)
@@ -365,7 +377,8 @@ class StationSectionRequest(BaseModel):
 
 
 @app.post("/generate-persona/station")
-async def generate_station_section(req: StationSectionRequest = None):
+@limiter.limit(PERSONA_RATE_LIMIT)
+async def generate_station_section(request: Request, req: StationSectionRequest = None):
     hint = req.genre_hint if req else None
     lang = req.language if req else "de"
     result = await persona_generator.generate_station_section(hint, lang)
@@ -380,7 +393,8 @@ class DjSectionRequest(BaseModel):
 
 
 @app.post("/generate-persona/dj")
-async def generate_dj_section(req: DjSectionRequest = None):
+@limiter.limit(PERSONA_RATE_LIMIT)
+async def generate_dj_section(request: Request, req: DjSectionRequest = None):
     hint = req.traits_hint if req else None
     ctx = req.station_context if req else None
     result = await persona_generator.generate_dj_section(hint, ctx)
