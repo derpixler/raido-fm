@@ -113,6 +113,10 @@ def find_free_port() -> int:
 
 
 async def create_station(station_id: str, slug: str, persona_yaml: str, tracks_json: str, global_env: dict) -> dict:
+    import re as _re
+    if not _re.fullmatch(r"[a-z0-9][a-z0-9_\-]{0,62}", station_id):
+        raise ValueError(f"Invalid station_id '{station_id}': must match [a-z0-9][a-z0-9_-]{{0,62}}")
+
     client = get_docker()
     port = find_free_port()
 

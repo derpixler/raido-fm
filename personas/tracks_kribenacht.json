@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "artist": "El Búho",
+    "title": "Jaguar",
+    "genre": "ambient tropical",
+    "duration": 240,
+    "energy": 0.3
+  },
+  {
+    "id": 2,
+    "artist": "Chancha Via Circuito",
+    "title": "Cumbia del Olvido",
+    "genre": "downtempo latin",
+    "duration": 310,
+    "energy": 0.4
+  },
+  {
+    "id": 3,
+    "artist": "Helado Negro",
+    "title": "Young, Latin and Proud",
+    "genre": "chill-wave bachata",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 4,
+    "artist": "Nicolás Jaar",
+    "title": "Telahora",
+    "genre": "ambient tropical",
+    "duration": 360,
+    "energy": 0.2
+  },
+  {
+    "id": 5,
+    "artist": "Mala",
+    "title": "Cuba Electronica",
+    "genre": "lo-fi dancehall",
+    "duration": 300,
+    "energy": 0.6
+  },
+  {
+    "id": 6,
+    "artist": "Bomba Estéreo",
+    "title": "To My Love",
+    "genre": "downtempo latin",
+    "duration": 250,
+    "energy": 0.5
+  },
+  {
+    "id": 7,
+    "artist": "Tainy",
+    "title": "Lo Siento BB:/",
+    "genre": "moonlit reggaeton",
+    "duration": 210,
+    "energy": 0.7
+  },
+  {
+    "id": 8,
+    "artist": "Katie Got Bandz",
+    "title": "Dancehall Queen",
+    "genre": "lo-fi dancehall",
+    "duration": 195,
+    "energy": 0.6
+  },
+  {
+    "id": 9,
+    "artist": "Quantic",
+    "title": "Mi Swing es Tropical",
+    "genre": "downtempo latin",
+    "duration": 270,
+    "energy": 0.4
+  },
+  {
+    "id": 10,
+    "artist": "Rosalía",
+    "title": "Di Mi Nombre",
+    "genre": "moonlit reggaeton",
+    "duration": 285,
+    "energy": 0.8
+  },
+  {
+    "id": 11,
+    "artist": "Aterciopelados",
+    "title": "Cancion del Miedo",
+    "genre": "ambient tropical",
+    "duration": 340,
+    "energy": 0.3
+  },
+  {
+    "id": 12,
+    "artist": "Bajofondo",
+    "title": "Pa' Bailar",
+    "genre": "chill-wave bachata",
+    "duration": 320,
+    "energy": 0.5
+  },
+  {
+    "id": 13,
+    "artist": "Diplo",
+    "title": "Express Yourself",
+    "genre": "lo-fi dancehall",
+    "duration": 240,
+    "energy": 0.7
+  },
+  {
+    "id": 14,
+    "artist": "Federico Aubele",
+    "title": "La Esquina",
+    "genre": "downtempo latin",
+    "duration": 290,
+    "energy": 0.4
+  },
+  {
+    "id": 15,
+    "artist": "J Balvin",
+    "title": "Rojo",
+    "genre": "moonlit reggaeton",
+    "duration": 260,
+    "energy": 0.6
+  },
+  {
+    "id": 16,
+    "artist": "Novalima",
+    "title": "Machete",
+    "genre": "ambient tropical",
+    "duration": 350,
+    "energy": 0.3
+  },
+  {
+    "id": 17,
+    "artist": "Cuco",
+    "title": "Lo Que Siento",
+    "genre": "chill-wave bachata",
+    "duration": 300,
+    "energy": 0.5
+  },
+  {
+    "id": 18,
+    "artist": "Major Lazer",
+    "title": "Bubble Butt",
+    "genre": "lo-fi dancehall",
+    "duration": 220,
+    "energy": 0.8
+  },
+  {
+    "id": 19,
+    "artist": "Gotan Project",
+    "title": "Santa Maria (Del Buen Ayre)",
+    "genre": "downtempo latin",
+    "duration": 330,
+    "energy": 0.4
+  },
+  {
+    "id": 20,
+    "artist": "Bad Bunny",
+    "title": "La Noche de Anoche",
+    "genre": "moonlit reggaeton",
+    "duration": 240,
+    "energy": 0.7
+  },
+  {
+    "id": 21,
+    "artist": "Sidestepper",
+    "title": "Paleta",
+    "genre": "downtempo latin",
+    "duration": 280,
+    "energy": 0.5
+  },
+  {
+    "id": 22,
+    "artist": "Xenia Rubinos",
+    "title": "Mexican Chef",
+    "genre": "ambient tropical",
+    "duration": 310,
+    "energy": 0.2
+  },
+  {
+    "id": 23,
+    "artist": "Salt Cathedral",
+    "title": "Hot Mouth",
+    "genre": "chill-wave bachata",
+    "duration": 255,
+    "energy": 0.6
+  },
+  {
+    "id": 24,
+    "artist": "Bitter:Sweet",
+    "title": "Drama",
+    "genre": "lo-fi dancehall",
+    "duration": 290,
+    "energy": 0.5
+  },
+  {
+    "id": 25,
+    "artist": "Tropkillaz",
+    "title": "Bota o Bumbum",
+    "genre": "moonlit reggaeton",
+    "duration": 200,
+    "energy": 0.8
+  },
+  {
+    "id": 26,
+    "artist": "Thievery Corporation",
+    "title": "Lebanese Blonde",
+    "genre": "ambient tropical",
+    "duration": 360,
+    "energy": 0.3
+  },
+  {
+    "id": 27,
+    "artist": "Ozuna",
+    "title": "Te Extraño",
+    "genre": "moonlit reggaeton",
+    "duration": 230,
+    "energy": 0.6
+  },
+  {
+    "id": 28,
+    "artist": "Rita Indiana",
+    "title": "Da Pa' lo Do",
+    "genre": "lo-fi dancehall",
+    "duration": 270,
+    "energy": 0.7
+  },
+  {
+    "id": 29,
+    "artist": "Chico Buarque",
+    "title": "Construção",
+    "genre": "downtempo latin",
+    "duration": 420,
+    "energy": 0.2
+  },
+  {
+    "id": 30,
+    "artist": "Jungle",
+    "title": "Time",
+    "genre": "chill-wave bachata",
+    "duration": 310,
+    "energy": 0.5
+  },
+  {
+    "id": 31,
+    "artist": "Pional",
+    "title": "It's All Over",
+    "genre": "ambient tropical",
+    "duration": 280,
+    "energy": 0.4
+  },
+  {
+    "id": 32,
+    "artist": "Señor Coconut",
+    "title": "The Robots",
+    "genre": "downtempo latin",
+    "duration": 340,
+    "energy": 0.5
+  },
+  {
+    "id": 33,
+    "artist": "Rauw Alejandro",
+    "title": "Todo De Ti",
+    "genre": "moonlit reggaeton",
+    "duration": 210,
+    "energy": 0.8
+  },
+  {
+    "id": 34,
+    "artist": "Populous",
+    "title": "Sangre",
+    "genre": "lo-fi dancehall",
+    "duration": 260,
+    "energy": 0.6
+  },
+  {
+    "id": 35,
+    "artist": "Celso Fonseca",
+    "title": "O Mar",
+    "genre": "ambient tropical",
+    "duration": 300,
+    "energy": 0.3
+  },
+  {
+    "id": 36,
+    "artist": "Monsieur Periné",
+    "title": "Nuestra Canción",
+    "genre": "chill-wave bachata",
+    "duration": 290,
+    "energy": 0.5
+  },
+  {
+    "id": 37,
+    "artist": "M.I.A.",
+    "title": "XXXO",
+    "genre": "lo-fi dancehall",
+    "duration": 200,
+    "energy": 0.7
+  },
+  {
+    "id": 38,
+    "artist": "Bajofondo",
+    "title": "El Mareo",
+    "genre": "downtempo latin",
+    "duration": 350,
+    "energy": 0.4
+  },
+  {
+    "id": 39,
+    "artist": "Natalia Lafourcade",
+    "title": "Hasta la Raíz",
+    "genre": "chill-wave bachata",
+    "duration": 275,
+    "energy": 0.5
+  },
+  {
+    "id": 40,
+    "artist": "Daddy Yankee",
+    "title": "Rompe",
+    "genre": "moonlit reggaeton",
+    "duration": 180,
+    "energy": 0.9
+  }
+]

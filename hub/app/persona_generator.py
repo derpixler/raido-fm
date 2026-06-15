@@ -7,95 +7,18 @@ import re
 import yaml
 
 from . import llm
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-PERSONA_SCHEMA = """station:
-  id: <short-id>
-  name: auto
-  claim: "<max 6 words>"
-  description: >
-    <2-3 sentences positioning>
-  lang_definition: >
-    <5-8 sentences detailed description>
-  genre: <main-genre>
-  subgenres: [<3-5 subgenres>]
-  target_audience: "<target audience>"
-  timezone: Europe/Berlin
-  language: en
-
-dj:
-  name: "<dj-artist-name>"
-  personality: "<2-3 sentences character>"
-  tone: "<tonality, comparison>"
-  max_moderation_chars: 800
-  bio:
-    real_name: "<legal name>"
-    age: <number>
-    origin: "<city/region>"
-    family: "<family status, details>"
-    hobbies: "<3-4 hobbies>"
-    since_year: <year>
-    vita: >
-      <3-5 sentences resume>
-    avatar_prompt: >
-      <english prompt for portrait generation>
-  quirks:
-    - "<quirk 1>"
-    - "<quirk 2>"
-    - "<quirk 3>"
-  forbidden_topics: ["politics", "religion"]
-
-tracks_file: tracks_<station-id>.json
-
-program_grid:
-  impulse_slot_minute: 30
-
-rules:
-  no_repeat_hours: 4
-  max_same_genre_in_a_row: 2"""
-
-
-PERSONA_PROMPT = f"""You are a creative radio station architect. Generate a complete
-persona YAML for a unique, surprising radio station.
-
-RULES:
-- Unusual genre or unexpected genre combination
-- Original DJ character with depth (no clichés)
-- Original station, English broadcast language
-- The DJ must feel like a real person (bio, hobbies, family)
-- Claim: max 6 words, memorable
-- 3-5 subgenres that go together
-- 3-4 creative quirks (recurring idiosyncrasies)
-- avatar_prompt in English (for image generation)
-- station.id: lowercase only, no special characters, max 15 characters
-
-STRICTLY FORBIDDEN (immediate rejection):
-- NO real radio stations referenced (BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS, ...)
-- NO real people as DJ role models (Thomas Gottschalk, Stefan Raab, ...)
-- NO catchphrases or personality traits of real moderators
-- DJ must be a 100% fictional, independently invented character
-
-Answer ONLY with valid YAML. No explanation, no markdown.
-Follow EXACTLY this schema:
-
-{PERSONA_SCHEMA}"""
-
-
-TRACKS_PROMPT = """Generate a JSON track library with exactly 40 tracks for a radio station.
-
-Genre: {genre}
-Subgenres: {subgenres}
-
-RULES:
-- ONLY real artists and real songs that fit the genre
-- Mix of well-known and lesser-known tracks
-- Realistic duration (120-720 seconds)
-- Energy value between 0.0 (calm) and 1.0 (energetic)
-- Good mix of subgenres
-- Format per track: {{"id": N, "artist": "...", "title": "...", "genre": "<subgenre>", "duration": <seconds>, "energy": <0.0-1.0>}}
-
-Answer ONLY with the JSON array. No markdown, no explanation."""
+PERSONA_SCHEMA = load_prompt("persona/persona_schema.md")
+PERSONA_PROMPT = load_prompt("persona/persona_system.md").format(schema=PERSONA_SCHEMA)
+TRACKS_PROMPT = load_prompt("persona/persona_tracks.md")
+STATION_SECTION_PROMPT = load_prompt("persona/station_section.md")
+DJ_SECTION_PROMPT = load_prompt("persona/dj_section.md")
+_STATION_SCHEMA_YAML = load_prompt("persona/station_schema.md")
+_DJ_SCHEMA_YAML = load_prompt("persona/dj_schema.md")
+CONTENT_SAFETY_PROMPT = load_prompt("persona/content_safety.md")
 
 
 async def generate_persona(genre_hint: str | None = None, language: str = "de", dj_hint: str | None = None) -> dict:
@@ -120,7 +43,6 @@ async def generate_persona(genre_hint: str | None = None, language: str = "de", 
     clean = result.strip()
     clean = re.sub(r"^```ya?ml\s*", "", clean)
     clean = re.sub(r"\s*```$", "", clean)
-    # Fix common LLM YAML mistakes: trailing commas in lists
     clean = re.sub(r",\s*\]", "]", clean)
 
     try:
@@ -160,88 +82,6 @@ async def generate_tracks(genre: str, subgenres: list[str]) -> str | None:
         pass
 
     return clean
-
-
-STATION_SECTION_PROMPT = """You are a creative radio station architect. Generate ONLY the station: block of a persona YAML.
-
-RULES:
-- Unusual genre or unexpected genre combination
-- Original station, English broadcast language
-- Claim: max 6 words, memorable
-- 3-5 subgenres that go together
-- station.id: lowercase only, no special characters, max 15 characters
-
-{station_hint}
-
-STRICTLY FORBIDDEN:
-- NO real radio stations referenced
-
-Answer ONLY with valid YAML for the station: block. No explanation, no markdown.
-
-Follow this schema:
-{station_schema}"""
-
-
-DJ_SECTION_PROMPT = """You are a creative radio character designer. Generate ONLY the dj: block of a persona YAML.
-
-{dj_hint}
-
-STATION CONTEXT (remains unchanged):
-{station_context}
-
-RULES:
-- Original DJ character with depth (no clichés)
-- The DJ must feel like a real person (bio, hobbies, family)
-- 3-4 creative quirks (recurring idiosyncrasies)
-- avatar_prompt in English (for image generation)
-
-STRICTLY FORBIDDEN:
-- NO real people as DJ role models
-- NO catchphrases or personality traits of real moderators
-- DJ must be a 100% fictional, independently invented character
-
-Answer ONLY with valid YAML for the dj: block. No explanation, no markdown.
-
-Follow this schema:
-{dj_schema}"""
-
-
-_STATION_SCHEMA_YAML = """station:
-  id: <short-id>
-  name: auto
-  claim: "<max 6 words>"
-  description: >
-    <2-3 sentences positioning>
-  lang_definition: >
-    <5-8 sentences detailed description>
-  genre: <main-genre>
-  subgenres: [<3-5 subgenres>]
-  target_audience: "<target audience>"
-  timezone: Europe/Berlin
-  language: en"""
-
-
-_DJ_SCHEMA_YAML = """dj:
-  name: "<dj-artist-name>"
-  personality: "<2-3 sentences character>"
-  tone: "<tonality, comparison>"
-  max_moderation_chars: 800
-  bio:
-    real_name: "<legal name>"
-    age: <number>
-    origin: "<city/region>"
-    family: "<family status, details>"
-    hobbies: "<3-4 hobbies>"
-    since_year: <year>
-    vita: >
-      <3-5 sentences resume>
-    avatar_prompt: >
-      <english prompt for portrait generation>
-  quirks:
-    - "<quirk 1>"
-    - "<quirk 2>"
-    - "<quirk 3>"
-  forbidden_topics: ["politics", "religion"]"""
 
 
 async def generate_station_section(genre_hint: str | None = None, language: str = "de") -> dict:
@@ -359,28 +199,6 @@ def _validate_hard_fallback(persona_yaml: str) -> dict:
     return {"valid": True, "issues": []}
 
 
-CONTENT_SAFETY_PROMPT = """You are a content safety reviewer for a radio platform. Review this persona YAML.
-
-NOT ALLOWED (reject immediately):
-- References to real, existing radio stations (e.g. BBC, SWR3, 1LIVE, FluxFM, KEXP, NTS)
-- References to real people (moderators, celebrities, politicians, artists)
-- Imitation of known people ("speak like Thomas Gottschalk", "in the style of...")
-- Recognizable catchphrases of real moderators
-- Racist, discriminatory or hate speech content
-- Calls for violence or criminal acts
-- The DJ personality must not have a real person as role model or blueprint
-
-ALLOWED:
-- Fictional, independently invented DJ characters
-- Own, original station names (no variations of real names)
-- Creative, surprising genre combinations
-
-YAML:
-{yaml}
-
-Answer ONLY with JSON: {{"valid": true/false, "reason": "..."}}"""
-
-
 async def validate_persona(persona_yaml: str) -> dict:
     hard = _validate_hard_fallback(persona_yaml)
     if not hard["valid"]:
@@ -395,7 +213,7 @@ async def validate_persona(persona_yaml: str) -> dict:
 
     result = await llm.chat("filter", messages, temperature=0.1, max_tokens=200)
     if not result:
-        return {"valid": True, "issues": []}
+        return {"valid": False, "issues": ["LLM safety check unavailable — rejecting to be safe"]}
 
     try:
         clean = result.strip()
