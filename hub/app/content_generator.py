@@ -5,21 +5,11 @@ import logging
 import re
 
 from . import llm
+from .md_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
-POPULATE_PROMPT = """Generate a short, realistic radio {category} entry for a {genre} station.
-
-RULES:
-- Max 200 characters
-- Matching the genre "{genre}" and the station's mood
-- Realistic, not exaggerated
-- For "listener_comment": a fictional listener comment with a first name
-- For "music_request": a plausible music request matching the genre
-- For "news": a made-up, genre-appropriate news item
-- For "weather": a short weather report
-
-Respond with text only. No JSON, no Markdown."""
+POPULATE_PROMPT = load_prompt("content/populate.md")
 
 
 async def generate_content(category: str, genre: str = "radio") -> str:

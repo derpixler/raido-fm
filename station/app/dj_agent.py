@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 
 from . import db, llm, streamguard
 from .persona import get_persona, build_system_prompt, build_ad_prompt, build_naming_prompt, set_resolved_name
+from .prompt_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -144,23 +145,23 @@ async def _pick_track_llm(
         for t in available_tracks[:20]
     )
 
-    user_msg = f"""Current program phase: {phase}
-Current time: {_local_time_str()}
-
-Available tracks:
-{tracks_summary}
-"""
-
+    stimuli_block = ""
+    impulse_hint = ""
     if stimuli:
         stimuli_text = "\n".join(
             f"  [{s['category']}] {s['sanitized_text']}" for s in stimuli
         )
-        user_msg += f"\nExternal impulses (available for this moderation):\n{stimuli_text}\n"
-
+        stimuli_block = f"\nExternal impulses (available for this moderation):\n{stimuli_text}\n"
     if phase == "impulse" and stimuli:
-        user_msg += "\nYou are in the impulse slot — pick up at least one external impulse in your moderation.\n"
+        impulse_hint = "\nYou are in the impulse slot — pick up at least one external impulse in your moderation.\n"
 
-    user_msg += "\nChoose a track and write your moderation. Reply in JSON format."
+    user_msg = load_prompt("moderation/decision.md").format(
+        phase=phase,
+        time=_local_time_str(),
+        tracks=tracks_summary,
+        stimuli_block=stimuli_block,
+        impulse_hint=impulse_hint,
+    )
 
     messages = [
         {"role": "system", "content": system_prompt},
