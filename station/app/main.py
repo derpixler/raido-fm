@@ -191,7 +191,7 @@ async def stream(request: Request):
 
             # Recent tracks + moderations
             t_cur = await _db_conn.execute(
-                "SELECT artist, title, genre, duration, played_at, phase FROM play_history WHERE played_at > datetime('now', '-30 minutes') ORDER BY id DESC LIMIT 15"
+                "SELECT artist, title, genre, duration, played_at, phase FROM play_history ORDER BY id DESC LIMIT 15"
             )
             for row in await t_cur.fetchall():
                 events.append({
