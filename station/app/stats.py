@@ -81,4 +81,5 @@ async def get_stats(db_conn, subscriber_count: int = 0) -> dict:
             "tokens_out": total_tokens_out,
             "by_role": llm_usage,
         },
+        "contributor": llm.get_active_contributor_name(),
     }

@@ -20,7 +20,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from . import db, docker_mgr, persona_generator, ad_generator, content_generator, contributor_keys
+from . import db, docker_mgr, persona_generator, ad_generator, content_generator, contributor_keys, balance_checker
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -618,6 +618,103 @@ async def remove_contributor(name: str):
         yaml.dump({"contributors": all_contributors}, f, allow_unicode=True)
     contributor_keys.load_contributors()
     return {"status": "removed"}
+
+
+class TokenUsageReport(BaseModel):
+    contributor_name: str
+    station_id: str
+    role: str
+    operation: str
+    model: str = ""
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    latency_ms: float = 0
+
+
+@app.post("/contributors/report-usage", dependencies=[Depends(require_admin)])
+async def report_token_usage(req: TokenUsageReport):
+    if not _db:
+        return JSONResponse({"error": "DB not available"}, status_code=503)
+
+    slug = req.station_id or "unknown"
+    await db.log_token_call(
+        _db,
+        contributor_name=req.contributor_name,
+        station_slug=slug,
+        role=req.role,
+        operation=req.operation,
+        model=req.model,
+        prompt_tokens=req.prompt_tokens,
+        completion_tokens=req.completion_tokens,
+        total_tokens=req.total_tokens,
+        latency_ms=req.latency_ms,
+    )
+    return {"status": "logged", "id": slug}
+
+
+class BalanceCheckRequest(BaseModel):
+    api_key: str
+    base_url: str
+
+
+@app.post("/admin/balance-check", dependencies=[Depends(require_admin)])
+async def admin_balance_check(req: BalanceCheckRequest):
+    result = await balance_checker.check_balance(req.api_key, req.base_url)
+    return {
+        "provider": result.provider,
+        "balance": result.balance,
+        "currency": result.currency,
+        "is_estimate": result.is_estimate,
+        "error": result.error,
+    }
+
+
+@app.get("/admin/analytics/contributors", dependencies=[Depends(require_admin)])
+async def admin_analytics_contributors():
+    if not _db:
+        return JSONResponse({"error": "DB not available"}, status_code=503)
+    return await db.get_all_contributors_usage(_db)
+
+
+@app.get("/admin/analytics/contributors/{name}", dependencies=[Depends(require_admin)])
+async def admin_analytics_contributor_detail(name: str):
+    if not _db:
+        return JSONResponse({"error": "DB not available"}, status_code=503)
+    return await db.get_contributor_usage(_db, name)
+
+
+@app.get("/admin/analytics/contributors/{name}/log", dependencies=[Depends(require_admin)])
+async def admin_analytics_contributor_log(name: str, limit: int = 50):
+    if not _db:
+        return JSONResponse({"error": "DB not available"}, status_code=503)
+    return await db.get_contributor_usage_log(_db, name, limit)
+
+
+@app.get("/admin/metrics", dependencies=[Depends(require_admin)])
+async def admin_metrics():
+    if not _db:
+        return JSONResponse({"error": "DB not available"}, status_code=503)
+
+    usage = await db.get_all_contributors_usage(_db)
+    lines = [
+        "# HELP raido_tokens_total Total tokens consumed per contributor",
+        "# TYPE raido_tokens_total counter",
+    ]
+    for u in usage:
+        name_safe = u["contributor_name"].replace('"', '\\"')
+        lines.append(f'raido_tokens_total{{contributor="{name_safe}"}} {u["total_tokens"]}')
+
+    lines += [
+        "# HELP raido_llm_calls_total Total LLM API calls per contributor",
+        "# TYPE raido_llm_calls_total counter",
+    ]
+    for u in usage:
+        name_safe = u["contributor_name"].replace('"', '\\"')
+        lines.append(f'raido_llm_calls_total{{contributor="{name_safe}"}} {u["calls"]}')
+
+    from fastapi.responses import PlainTextResponse
+    return PlainTextResponse("\n".join(lines) + "\n", media_type="text/plain")
 
 
 @app.get("/injections")

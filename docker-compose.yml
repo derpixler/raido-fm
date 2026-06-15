@@ -51,6 +51,8 @@ services:
       - PERSONA_PATH=/app/personas/default.yml
       - TIME_SCALE=${TIME_SCALE:-60}
       - MAX_INPUT_CHARS=${MAX_INPUT_CHARS:-500}
+      - HUB_URL=http://hub:${HUB_PORT:-80}
+      - HUB_ADMIN_TOKEN=${ADMIN_TOKEN:-change-me-to-a-strong-random-token}
     labels:
       - "raido.role=station"
       - "raido.station.id=default"
