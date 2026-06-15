@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 60s
+
+scrape_configs:
+  - job_name: raido
+    authorization:
+      credentials: "${ADMIN_TOKEN}"
+    static_configs:
+      - targets: ["hub:${HUB_PORT:-80}"]
+    metrics_path: /admin/metrics
